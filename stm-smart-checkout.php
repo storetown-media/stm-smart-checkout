@@ -67,6 +67,11 @@ function stmc_boot() {
 	require_once STMC_DIR . 'includes/class-stmc-checkout-context.php';
 	require_once STMC_DIR . 'includes/class-stmc-assets.php';
 	require_once STMC_DIR . 'includes/modules/class-stmc-module.php';
+	require_once STMC_DIR . 'includes/modules/class-stmc-module-header.php';
+	require_once STMC_DIR . 'includes/modules/class-stmc-module-focus.php';
+	require_once STMC_DIR . 'includes/modules/class-stmc-module-layout.php';
+	require_once STMC_DIR . 'includes/modules/class-stmc-module-fields.php';
+	require_once STMC_DIR . 'includes/modules/class-stmc-module-trust.php';
 	require_once STMC_DIR . 'includes/class-stmc-plugin.php';
 	if ( is_admin() ) {
 		require_once STMC_DIR . 'includes/class-stmc-admin.php';

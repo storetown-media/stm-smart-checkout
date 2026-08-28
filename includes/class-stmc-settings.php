@@ -27,7 +27,34 @@ class STMC_Settings {
 			'general.enabled'                  => array( 'type' => 'bool', 'default' => false ),
 			'general.remove_data_on_uninstall' => array( 'type' => 'bool', 'default' => false ),
 
+			// Feature modules (Lite core; Pro adds its own via the stmc_modules filter).
+			'modules.header' => array( 'type' => 'bool', 'default' => true ),
+			'modules.focus'  => array( 'type' => 'bool', 'default' => true ),
+			'modules.layout' => array( 'type' => 'bool', 'default' => true ),
+			'modules.fields' => array( 'type' => 'bool', 'default' => true ),
+			'modules.trust'  => array( 'type' => 'bool', 'default' => true ),
+
+			// Header band + progress.
+			'header.sr_title'      => array( 'type' => 'bool', 'default' => true ),
+			'header.show_progress' => array( 'type' => 'bool', 'default' => true ),
+			'header.show_login'    => array( 'type' => 'bool', 'default' => true ),
+			'header.trust_1'       => array( 'type' => 'text', 'default' => '' ),
+			'header.trust_2'       => array( 'type' => 'text', 'default' => '' ),
+			'header.trust_3'       => array( 'type' => 'text', 'default' => '' ),
+
+			// Trust & layout extras.
+			'trust.under_button'        => array( 'type' => 'bool', 'default' => true ),
+			'layout.continue_shopping'  => array( 'type' => 'bool', 'default' => true ),
+
+			// Fields.
+			'fields.state_optional' => array( 'type' => 'bool', 'default' => true ),
+			'fields.autofill_attrs' => array( 'type' => 'bool', 'default' => true ),
+
+			// Focus.
+			'focus.extra_hide_selectors' => array( 'type' => 'textarea', 'default' => '' ),
+
 			// Design tokens (rendered as --stmc-* custom properties).
+			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => array( 'one-column', 'two-column' ) ),
 			'design.accent'       => array( 'type' => 'color', 'default' => '#ff6600' ),
 			'design.accent_hover' => array( 'type' => 'color', 'default' => '#e55a00' ),
 			'design.ink'          => array( 'type' => 'color', 'default' => '#16265c' ),
@@ -108,6 +135,8 @@ class STMC_Settings {
 				return in_array( (string) $value, $field['choices'], true ) ? (string) $value : $field['default'];
 			case 'url':
 				return esc_url_raw( is_string( $value ) ? $value : '' );
+			case 'textarea':
+				return sanitize_textarea_field( is_string( $value ) ? $value : '' );
 			default:
 				return sanitize_text_field( is_string( $value ) ? $value : '' );
 		}

@@ -1,0 +1,199 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: STM Smart Checkout 0.1.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "\"Continue shopping\" link on the cart"
+msgstr "„Weiter einkaufen“-Link im Warenkorb"
+
+msgid "Accent color"
+msgstr "Akzentfarbe"
+
+msgid "Accent hover color"
+msgstr "Akzentfarbe (Hover)"
+
+msgid "Already a customer? %s"
+msgstr "Bereits Kunde? %s"
+
+msgid "Border color"
+msgstr "Rahmenfarbe"
+
+msgid "Both pages usually have no H1 once the theme header is hidden."
+msgstr "Ohne Theme-Kopf haben beide Seiten sonst meist keine H1."
+
+msgid "Card background"
+msgstr "Kartenhintergrund"
+
+msgid "Card corner radius (px)"
+msgstr "Karten-Eckenradius (px)"
+
+msgid "Cart"
+msgstr "Warenkorb"
+
+msgid "Checkout"
+msgstr "Kasse"
+
+msgid "Checkout layout"
+msgstr "Kassen-Layout"
+
+msgid "Checkout logo URL"
+msgstr "Logo-URL für die Kasse"
+
+msgid "Configure the checkout, then use preview mode to review it on the live site before enabling it for customers."
+msgstr "Konfigurieren Sie die Kasse und prüfen Sie sie im Vorschau-Modus auf der Live-Site, bevor Sie sie für Kunden aktivieren."
+
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+msgid "Continue shopping"
+msgstr "Weiter einkaufen"
+
+msgid "Correct mobile keyboards & autofill attributes"
+msgstr "Korrekte Mobil-Tastaturen & Autofill-Attribute"
+
+msgid "Debug logging (browser console)"
+msgstr "Debug-Ausgaben (Browser-Konsole)"
+
+msgid "Design"
+msgstr "Design"
+
+msgid "Enable Smart Checkout"
+msgstr "Smart Checkout aktivieren"
+
+msgid "Example: Secure SSL connection. Leave all three empty for the SSL default."
+msgstr "Beispiel: Sichere SSL-Verbindung. Alle drei leer lassen = SSL-Standardtext."
+
+msgid "Extra CSS selectors to hide (advanced)"
+msgstr "Zusätzlich auszublendende CSS-Selektoren (fortgeschritten)"
+
+msgid "Fixes the duplicate \"Land\" label for IE/GB/HU in German shops."
+msgstr "Behebt die doppelte Beschriftung „Land“ bei IE/GB/HU in deutschen Shops."
+
+msgid "Font scale"
+msgstr "Schriftgröße"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Heading color"
+msgstr "Überschriftfarbe"
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Module: distraction-free mode"
+msgstr "Modul: Ablenkungsfreier Modus"
+
+msgid "Module: field improvements"
+msgstr "Modul: Feld-Verbesserungen"
+
+msgid "Module: header band & progress"
+msgstr "Modul: Kopfband & Fortschritt"
+
+msgid "Module: layout extras"
+msgstr "Modul: Layout-Extras"
+
+msgid "Module: trust elements"
+msgstr "Modul: Vertrauens-Elemente"
+
+msgid "Off = the standard checkout renders for customers. Preview mode works regardless of this switch."
+msgstr "Aus = Kunden sehen die Standard-Kasse. Der Vorschau-Modus funktioniert unabhängig von diesem Schalter."
+
+msgid "One column"
+msgstr "Eine Spalte"
+
+msgid "One selector per line. Hidden only on cart/checkout. Never hide your footer legal links."
+msgstr "Ein Selektor pro Zeile. Wirkt nur auf Warenkorb/Kasse. Blenden Sie nie Ihre Rechtslinks im Fußbereich aus."
+
+msgid "Only claims that are actually true for your shop."
+msgstr "Nur Zusagen, die für Ihren Shop wirklich gelten."
+
+msgid "Open checkout preview"
+msgstr "Kassen-Vorschau öffnen"
+
+msgid "Order completed"
+msgstr "Bestellung abgeschlossen"
+
+msgid "Order steps"
+msgstr "Bestellschritte"
+
+msgid "Page background"
+msgstr "Seitenhintergrund"
+
+msgid "Remove all settings when the plugin is deleted"
+msgstr "Alle Einstellungen beim Löschen des Plugins entfernen"
+
+msgid "Render a screen-reader page title"
+msgstr "Seitentitel für Screenreader ausgeben"
+
+msgid "Repeat trust items under the order button"
+msgstr "Vertrauens-Bausteine unter dem Bestellknopf wiederholen"
+
+msgid "STM Smart Checkout"
+msgstr "STM Smart Checkout"
+
+msgid "STM Smart Checkout requires PHP %1$s or newer. Your server runs PHP %2$s."
+msgstr "STM Smart Checkout benötigt PHP %1$s oder neuer. Ihr Server läuft mit PHP %2$s."
+
+msgid "STM Smart Checkout requires WooCommerce %s or newer. Please update WooCommerce."
+msgstr "STM Smart Checkout benötigt WooCommerce %s oder neuer. Bitte aktualisieren Sie WooCommerce."
+
+msgid "STM Smart Checkout requires WooCommerce to be installed and active."
+msgstr "STM Smart Checkout benötigt ein installiertes und aktives WooCommerce."
+
+msgid "Secondary text color"
+msgstr "Sekundäre Textfarbe"
+
+msgid "Secure SSL connection"
+msgstr "Sichere SSL-Verbindung"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Show \"Already a customer?\" login toggle"
+msgstr "„Bereits Kunde?“-Anmeldeknopf anzeigen"
+
+msgid "Show progress bar (cart → checkout → confirmation)"
+msgstr "Fortschrittsleiste anzeigen (Warenkorb → Kasse → Bestätigung)"
+
+msgid "Shown in the checkout header. Leave empty to use the site logo."
+msgstr "Erscheint im Kassen-Kopf. Leer lassen = Seitenname als Text."
+
+msgid "Smart Checkout"
+msgstr "Smart Checkout"
+
+msgid "State / Region"
+msgstr "Bundesland / Region"
+
+msgid "State/county field never required, labels untangled"
+msgstr "Bundesland-Feld nie Pflicht, Beschriftungen entwirrt"
+
+msgid "Text color"
+msgstr "Textfarbe"
+
+msgid "Trust item 1 (lock icon)"
+msgstr "Vertrauens-Baustein 1 (Schloss-Symbol)"
+
+msgid "Trust item 2 (shield icon)"
+msgstr "Vertrauens-Baustein 2 (Schild-Symbol)"
+
+msgid "Trust item 3 (card icon)"
+msgstr "Vertrauens-Baustein 3 (Karten-Symbol)"
+
+msgid "Two columns (order summary right)"
+msgstr "Zwei Spalten (Bestellübersicht rechts)"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgctxt "state field label"
+msgid "County"
+msgstr "Grafschaft"
+
+msgctxt "state field label"
+msgid "County (megye)"
+msgstr "Komitat"

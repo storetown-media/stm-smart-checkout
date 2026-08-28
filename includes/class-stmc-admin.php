@@ -55,8 +55,9 @@ class STMC_Admin {
 		}
 
 		$tabs = array(
-			'general' => __( 'General', 'stm-smart-checkout' ),
-			'design'  => __( 'Design', 'stm-smart-checkout' ),
+			'general'  => __( 'General', 'stm-smart-checkout' ),
+			'checkout' => __( 'Checkout', 'stm-smart-checkout' ),
+			'design'   => __( 'Design', 'stm-smart-checkout' ),
 		);
 		$current = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $tabs[ $current ] ) ) {
@@ -91,9 +92,27 @@ class STMC_Admin {
 				<table class="form-table" role="presentation">
 					<?php if ( 'general' === $current ) : ?>
 						<?php self::row_checkbox( 'general.enabled', __( 'Enable Smart Checkout', 'stm-smart-checkout' ), __( 'Off = the standard checkout renders for customers. Preview mode works regardless of this switch.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'modules.header', __( 'Module: header band & progress', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'modules.focus', __( 'Module: distraction-free mode', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'modules.layout', __( 'Module: layout extras', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'modules.fields', __( 'Module: field improvements', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'modules.trust', __( 'Module: trust elements', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'advanced.debug', __( 'Debug logging (browser console)', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'general.remove_data_on_uninstall', __( 'Remove all settings when the plugin is deleted', 'stm-smart-checkout' ) ); ?>
+					<?php elseif ( 'checkout' === $current ) : ?>
+						<?php self::row_checkbox( 'header.show_progress', __( 'Show progress bar (cart → checkout → confirmation)', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'header.show_login', __( 'Show "Already a customer?" login toggle', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'header.sr_title', __( 'Render a screen-reader page title', 'stm-smart-checkout' ), __( 'Both pages usually have no H1 once the theme header is hidden.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'header.trust_1', __( 'Trust item 1 (lock icon)', 'stm-smart-checkout' ), __( 'Example: Secure SSL connection. Leave all three empty for the SSL default.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'header.trust_2', __( 'Trust item 2 (shield icon)', 'stm-smart-checkout' ), __( 'Only claims that are actually true for your shop.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'header.trust_3', __( 'Trust item 3 (card icon)', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'trust.under_button', __( 'Repeat trust items under the order button', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'layout.continue_shopping', __( '"Continue shopping" link on the cart', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'fields.state_optional', __( 'State/county field never required, labels untangled', 'stm-smart-checkout' ), __( 'Fixes the duplicate "Land" label for IE/GB/HU in German shops.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'fields.autofill_attrs', __( 'Correct mobile keyboards & autofill attributes', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
 					<?php else : ?>
+						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), array( 'two-column' => __( 'Two columns (order summary right)', 'stm-smart-checkout' ), 'one-column' => __( 'One column', 'stm-smart-checkout' ) ) ); ?>
 						<?php self::row_color( 'design.accent', __( 'Accent color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.accent_hover', __( 'Accent hover color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.ink', __( 'Heading color', 'stm-smart-checkout' ) ); ?>
@@ -120,9 +139,18 @@ class STMC_Admin {
 	 */
 	private static function hidden_fields_for_other_tabs( $current_tab ) {
 		$visible = array(
-			'general' => array( 'general.enabled', 'advanced.debug', 'general.remove_data_on_uninstall' ),
-			'design'  => array(
-				'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
+			'general'  => array(
+				'general.enabled', 'modules.header', 'modules.focus', 'modules.layout', 'modules.fields',
+				'modules.trust', 'advanced.debug', 'general.remove_data_on_uninstall',
+			),
+			'checkout' => array(
+				'header.show_progress', 'header.show_login', 'header.sr_title',
+				'header.trust_1', 'header.trust_2', 'header.trust_3',
+				'trust.under_button', 'layout.continue_shopping',
+				'fields.state_optional', 'fields.autofill_attrs', 'focus.extra_hide_selectors',
+			),
+			'design'   => array(
+				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
 				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_scale', 'design.logo_url',
 			),
 		);
@@ -206,6 +234,28 @@ class STMC_Admin {
 		}
 		echo '</select>';
 		self::row_close();
+	}
+
+	private static function row_text( $key, $label, $desc = '' ) {
+		self::row_open( $key, $label );
+		printf(
+			'<input type="text" class="regular-text" id="%1$s" name="%2$s" value="%3$s">',
+			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
+			esc_attr( self::name( $key ) ),
+			esc_attr( STMC_Settings::get( $key ) )
+		);
+		self::row_close( $desc );
+	}
+
+	private static function row_textarea( $key, $label, $desc = '' ) {
+		self::row_open( $key, $label );
+		printf(
+			'<textarea class="large-text" rows="3" id="%1$s" name="%2$s">%3$s</textarea>',
+			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
+			esc_attr( self::name( $key ) ),
+			esc_textarea( STMC_Settings::get( $key ) )
+		);
+		self::row_close( $desc );
 	}
 
 	private static function row_url( $key, $label, $desc = '' ) {

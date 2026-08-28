@@ -35,14 +35,33 @@ final class STMC_Plugin {
 			STMC_Admin::init();
 		}
 
+		add_filter( 'stmc_modules', array( $this, 'register_core_modules' ), 5 );
+
 		// Boot feature modules once the main query is known (frontend context).
 		add_action( 'wp', array( $this, 'boot_modules' ) );
+	}
+
+	/** The Lite core modules. Pro (a separate plugin) appends via the same filter. */
+	public function register_core_modules( $modules ) {
+		$modules[] = new STMC_Module_Header();
+		$modules[] = new STMC_Module_Focus();
+		$modules[] = new STMC_Module_Layout();
+		$modules[] = new STMC_Module_Fields();
+		$modules[] = new STMC_Module_Trust();
+		return $modules;
 	}
 
 	public function boot_modules() {
 		if ( is_admin() || ! STMC_Checkout_Context::is_checkout_surface() || ! STMC_Checkout_Context::is_active() ) {
 			return;
 		}
+
+		// Core body classes: the visual system's namespace, independent of modules.
+		add_filter( 'body_class', function ( $classes ) {
+			$classes[] = 'stmc-checkout';
+			$classes[] = 'stmc-layout-' . sanitize_html_class( (string) STMC_Settings::get( 'design.layout' ) );
+			return $classes;
+		} );
 
 		/**
 		 * Register feature modules.

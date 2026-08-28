@@ -53,5 +53,38 @@
 		bridgeJQueryEvents();
 	}
 
+	/*
+	 * Login toggle in the header band. The login form is already in the DOM;
+	 * we toggle its INLINE display (WooCommerce ships it with style="display:none").
+	 * Deliberately not the "showlogin" class — WooCommerce's own handler would
+	 * double-toggle. Delegated on document so it survives DOM replacement.
+	 */
+	document.addEventListener( 'click', function ( e ) {
+		var btn = e.target.closest ? e.target.closest( '.stmc-login-toggle' ) : null;
+		if ( ! btn ) {
+			return;
+		}
+		e.preventDefault();
+		var form = document.querySelector( 'form.woocommerce-form-login, form.login' );
+		if ( ! form ) {
+			return;
+		}
+		if ( ! form.id ) {
+			form.id = 'stmc-loginform';
+		}
+		var open = form.offsetParent !== null;
+		form.style.display = open ? 'none' : '';
+		btn.setAttribute( 'aria-expanded', open ? 'false' : 'true' );
+		if ( ! open ) {
+			form.scrollIntoView( { behavior: 'smooth', block: 'center' } );
+			var field = form.querySelector( 'input[name="username"]' );
+			if ( field ) {
+				window.setTimeout( function () {
+					field.focus();
+				}, 350 );
+			}
+		}
+	}, false );
+
 	S.log( 'core ready', { blockCheckout: S.isBlockCheckout } );
 } )();

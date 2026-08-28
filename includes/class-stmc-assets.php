@@ -31,6 +31,13 @@ class STMC_Assets {
 		);
 		wp_add_inline_style( 'stmc-tokens', self::tokens_css() );
 
+		wp_enqueue_style(
+			'stmc-checkout',
+			STMC_URL . 'assets/css/checkout.css',
+			array( 'stmc-tokens' ),
+			STMC_VERSION
+		);
+
 		wp_enqueue_script(
 			'stmc-checkout',
 			STMC_URL . 'assets/js/stmc-checkout.js',

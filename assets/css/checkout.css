@@ -1,0 +1,592 @@
+/**
+ * STM Smart Checkout — checkout surface styles.
+ *
+ * Everything is scoped to body.stmc-checkout (set by the focus module) and
+ * reads only --stmc-* tokens. No !important anywhere: shop owners override
+ * from their child theme, theme conflicts get adapter stylesheets instead
+ * of inline force (the documented failure mode of the predecessor system).
+ */
+
+/* ---------- 1. Ground ---------- */
+
+body.stmc-checkout,
+body.stmc-checkout #page {
+	background: var(--stmc-bg);
+}
+
+/* ---------- 2. Header band ---------- */
+
+body.stmc-checkout .stmc-band {
+	background: var(--stmc-card);
+	border-bottom: 1px solid var(--stmc-line);
+}
+
+body.stmc-checkout .stmc-band__in {
+	position: relative;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 18px 24px 15px;
+	text-align: center;
+}
+
+body.stmc-checkout .stmc-band__logo {
+	display: block;
+	width: auto;
+	height: 38px;
+	margin: 0 auto;
+}
+
+body.stmc-checkout .stmc-band__sitename {
+	display: block;
+	font-size: 22px;
+	font-weight: 700;
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-band__trust {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 6px 24px;
+	margin: 11px 0 0;
+	font-size: var(--stmc-fs-s);
+	line-height: 1.4;
+	color: var(--stmc-muted);
+}
+
+body.stmc-checkout .stmc-band__trust span {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	white-space: nowrap;
+}
+
+body.stmc-checkout .stmc-band__trust svg {
+	flex: 0 0 auto;
+	width: 15px;
+	height: 15px;
+	color: var(--stmc-accent);
+	opacity: 0.9;
+}
+
+/* Login pill, right-aligned inside the band. */
+body.stmc-checkout .stmc-login-toggle {
+	position: absolute;
+	top: 50%;
+	right: 24px;
+	transform: translateY(-50%);
+	margin: 0;
+	padding: 8px 14px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: 999px;
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+	font-weight: 500;
+	line-height: 1.2;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+body.stmc-checkout .stmc-login-toggle strong {
+	font-weight: 700;
+	color: var(--stmc-accent);
+}
+
+body.stmc-checkout .stmc-login-toggle:hover,
+body.stmc-checkout .stmc-login-toggle:focus-visible {
+	border-color: var(--stmc-accent);
+	color: var(--stmc-accent);
+	background: var(--stmc-card);
+}
+
+body.stmc-checkout .stmc-login-toggle:focus-visible {
+	outline: none;
+	box-shadow: var(--stmc-focus-ring);
+}
+
+/* ---------- 3. Progress steps ---------- */
+
+body.stmc-checkout .stmc-steps {
+	max-width: 1180px;
+	margin: 20px auto 18px;
+	padding: 0 24px;
+}
+
+body.stmc-checkout .stmc-steps ol {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body.stmc-checkout .stmc-steps li {
+	position: relative;
+	flex: 0 1 210px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	line-height: 1.3;
+	color: var(--stmc-muted);
+	list-style: none;
+}
+
+body.stmc-checkout .stmc-steps li::before {
+	content: "";
+	position: absolute;
+	top: 13px;
+	left: -50%;
+	width: 100%;
+	height: 2px;
+	background: var(--stmc-line);
+}
+
+body.stmc-checkout .stmc-steps li:first-child::before {
+	display: none;
+}
+
+body.stmc-checkout .stmc-steps li.is-done::before,
+body.stmc-checkout .stmc-steps li.is-current::before {
+	background: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-steps__n {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	margin: 0 auto 7px;
+	background: var(--stmc-card);
+	border: 2px solid var(--stmc-line);
+	border-radius: 50%;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--stmc-muted);
+}
+
+body.stmc-checkout .stmc-steps li.is-done .stmc-steps__n {
+	background: var(--stmc-ink);
+	border-color: var(--stmc-ink);
+	color: #fff;
+}
+
+body.stmc-checkout .stmc-steps li.is-current .stmc-steps__n {
+	background: var(--stmc-accent);
+	border-color: var(--stmc-accent);
+	color: #fff;
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--stmc-accent) 16%, transparent);
+}
+
+body.stmc-checkout .stmc-steps li.is-done {
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-steps li.is-current {
+	color: var(--stmc-ink);
+}
+
+/* ---------- 4. Cards ---------- */
+
+body.stmc-checkout .woocommerce {
+	color: var(--stmc-text);
+}
+
+body.stmc-checkout .woocommerce-billing-fields,
+body.stmc-checkout .woocommerce-shipping-fields,
+body.stmc-checkout .woocommerce-additional-fields,
+body.stmc-checkout form.checkout #order_review,
+body.stmc-checkout form.checkout .wc-order-review,
+body.stmc-checkout form.woocommerce-form-login,
+body.stmc-checkout .woocommerce-cart-form,
+body.stmc-checkout .cart_totals {
+	margin: 0 0 24px;
+	padding: 22px 24px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius);
+	box-shadow: var(--stmc-shadow);
+}
+
+/* The7 wraps #order_review in .wc-order-review — avoid a card in a card. */
+body.stmc-checkout form.checkout .wc-order-review #order_review {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* ---------- 5. Numbered section headings ---------- */
+
+body.stmc-checkout form.checkout {
+	counter-reset: stmc-step;
+}
+
+body.stmc-checkout form.checkout .woocommerce-billing-fields > h3,
+body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3,
+body.stmc-checkout form.checkout .woocommerce-additional-fields > h3,
+body.stmc-checkout form.checkout #order_review_heading {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 16px;
+	padding: 0 0 14px;
+	border-bottom: 2px solid var(--stmc-accent);
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout form.checkout .woocommerce-billing-fields > h3::before,
+body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3::before,
+body.stmc-checkout form.checkout .woocommerce-additional-fields > h3::before,
+body.stmc-checkout form.checkout #order_review_heading::before {
+	counter-increment: stmc-step;
+	content: counter(stmc-step);
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: var(--stmc-accent);
+	color: #fff;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+/* The heading card boundary: heading sits inside the review card on The7,
+   as its own element in vanilla Woo — give the standalone one card chrome. */
+body.stmc-checkout form.checkout > #order_review_heading {
+	margin-bottom: 0;
+	padding: 22px 24px 14px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-bottom: 2px solid var(--stmc-accent);
+	border-radius: var(--stmc-radius) var(--stmc-radius) 0 0;
+	box-shadow: var(--stmc-shadow);
+}
+
+body.stmc-checkout form.checkout > #order_review_heading + #order_review {
+	border-top: 0;
+	border-radius: 0 0 var(--stmc-radius) var(--stmc-radius);
+}
+
+/* ---------- 6. Form fields ---------- */
+
+body.stmc-checkout .woocommerce form .form-row input.input-text,
+body.stmc-checkout .woocommerce form .form-row textarea,
+body.stmc-checkout .woocommerce form .form-row select,
+body.stmc-checkout .select2-container .select2-selection--single {
+	height: 46px;
+	padding: 0 14px;
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+	background: var(--stmc-card);
+	font-size: var(--stmc-fs-base);
+	color: var(--stmc-text);
+	transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+body.stmc-checkout .woocommerce form .form-row textarea {
+	height: auto;
+	padding: 12px 14px;
+	line-height: 1.6;
+}
+
+body.stmc-checkout .woocommerce form .form-row input.input-text:focus,
+body.stmc-checkout .woocommerce form .form-row textarea:focus,
+body.stmc-checkout .woocommerce form .form-row select:focus {
+	border-color: var(--stmc-ink);
+	box-shadow: var(--stmc-focus-ring);
+	outline: none;
+}
+
+body.stmc-checkout .woocommerce form .form-row label {
+	margin-bottom: 6px;
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	color: var(--stmc-muted);
+	letter-spacing: 0.01em;
+}
+
+body.stmc-checkout .woocommerce-input-wrapper,
+body.stmc-checkout .select2-container,
+body.stmc-checkout .woocommerce form .form-row input.input-text,
+body.stmc-checkout .woocommerce form .form-row textarea,
+body.stmc-checkout .woocommerce form .form-row select {
+	max-width: 100%;
+}
+
+/* ---------- 7. Two-column checkout grid ---------- */
+
+@media (min-width: 993px) {
+	body.stmc-checkout.stmc-layout-two-column form.checkout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
+		gap: 0 28px;
+		align-items: start;
+	}
+
+	body.stmc-checkout.stmc-layout-two-column form.checkout > #customer_details {
+		grid-column: 1;
+	}
+
+	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review_heading,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review {
+		grid-column: 2;
+	}
+
+	/* Everything else the form may print (notices, express areas, seals)
+	   spans the full width above the columns. */
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-NoticeGroup,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-error,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-message,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-info {
+		grid-column: 1 / -1;
+	}
+
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review {
+		position: sticky;
+		top: 20px;
+	}
+}
+
+/* Cart: two columns as well. */
+@media (min-width: 993px) {
+	body.stmc-checkout .woocommerce-cart-wrap,
+	body.stmc-checkout .woocommerce .cart-and-collaterals {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: 28px;
+	}
+
+	body.stmc-checkout .woocommerce-cart-form {
+		flex: 1 1 560px;
+		min-width: 0;
+	}
+
+	body.stmc-checkout .cart-collaterals {
+		flex: 0 1 372px;
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		background: transparent;
+	}
+}
+
+/* ---------- 8. Totals ---------- */
+
+body.stmc-checkout .cart_totals table th,
+body.stmc-checkout #order_review table th {
+	padding: 12px 0;
+	font-size: var(--stmc-fs-base);
+	font-weight: 500;
+	color: var(--stmc-muted);
+	white-space: normal;
+}
+
+body.stmc-checkout .cart_totals table td,
+body.stmc-checkout #order_review table td {
+	padding: 12px 0;
+	text-align: right;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+
+body.stmc-checkout .cart_totals .order-total th,
+body.stmc-checkout .cart_totals .order-total td,
+body.stmc-checkout #order_review .order-total th,
+body.stmc-checkout #order_review .order-total td {
+	padding-top: 16px;
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+	color: var(--stmc-ink);
+}
+
+/* ---------- 9. Payment methods ---------- */
+
+body.stmc-checkout #payment {
+	background: transparent;
+}
+
+body.stmc-checkout #payment ul.payment_methods {
+	margin: 0 0 14px;
+	padding: 0;
+	list-style: none;
+	border: 0;
+}
+
+body.stmc-checkout #payment ul.payment_methods li {
+	margin: 0 0 10px;
+	padding: 12px 14px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+	transition: border-color 0.18s ease;
+	list-style: none;
+}
+
+body.stmc-checkout #payment ul.payment_methods li:has(input:checked) {
+	border-color: var(--stmc-ink);
+	box-shadow: 0 0 0 1px var(--stmc-ink);
+}
+
+body.stmc-checkout #payment ul.payment_methods label {
+	font-weight: 600;
+	color: var(--stmc-ink);
+	cursor: pointer;
+}
+
+body.stmc-checkout #payment div.payment_box {
+	background: var(--stmc-bg);
+	border-radius: calc(var(--stmc-radius) - 4px);
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+}
+
+/* ---------- 10. Place order button ---------- */
+
+body.stmc-checkout #place_order,
+body.stmc-checkout .wc-proceed-to-checkout .checkout-button {
+	width: 100%;
+	min-height: 54px;
+	border: 0;
+	border-radius: var(--stmc-radius-s);
+	background: var(--stmc-accent);
+	color: #fff;
+	font-size: var(--stmc-fs-m);
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--stmc-accent) 80%, transparent);
+	transition: background-color 0.2s ease, box-shadow 0.2s ease;
+	cursor: pointer;
+}
+
+body.stmc-checkout #place_order:hover,
+body.stmc-checkout .wc-proceed-to-checkout .checkout-button:hover {
+	background: var(--stmc-accent-hover);
+	color: #fff;
+}
+
+body.stmc-checkout #place_order:focus-visible,
+body.stmc-checkout .wc-proceed-to-checkout .checkout-button:focus-visible {
+	outline: none;
+	box-shadow: var(--stmc-focus-ring);
+}
+
+/* ---------- 11. Trust row under the button ---------- */
+
+body.stmc-checkout .stmc-trust-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px 10px;
+	margin-top: 18px;
+	padding-top: 16px;
+	border-top: 1px solid var(--stmc-line);
+}
+
+body.stmc-checkout .stmc-trust-row__item {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: calc(var(--stmc-fs-s) - 1px);
+	line-height: 1.3;
+	color: var(--stmc-muted);
+	white-space: nowrap;
+}
+
+body.stmc-checkout .stmc-trust-row__item svg {
+	width: 14px;
+	height: 14px;
+	color: var(--stmc-accent);
+	opacity: 0.9;
+}
+
+/* ---------- 12. Continue shopping ---------- */
+
+body.stmc-checkout .stmc-continue {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	margin-top: 10px;
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	color: var(--stmc-muted);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+body.stmc-checkout .stmc-continue:hover {
+	color: var(--stmc-ink);
+}
+
+/* ---------- 13. Login form (revealed by the band toggle) ---------- */
+
+body.stmc-checkout form.woocommerce-form-login .form-row {
+	margin-bottom: 14px;
+}
+
+/* ---------- 14. Small screens ---------- */
+
+@media (max-width: 782px) {
+	body.stmc-checkout .stmc-band__in {
+		padding: 16px 16px 14px;
+	}
+
+	body.stmc-checkout .stmc-band__trust {
+		gap: 4px 14px;
+		font-size: calc(var(--stmc-fs-s) - 1px);
+	}
+
+	body.stmc-checkout .stmc-band__trust span {
+		white-space: normal;
+	}
+
+	body.stmc-checkout .stmc-login-toggle {
+		position: static;
+		transform: none;
+		display: inline-block;
+		margin-top: 12px;
+	}
+
+	body.stmc-checkout .stmc-steps {
+		margin: 18px auto 16px;
+		padding: 0 12px;
+	}
+
+	body.stmc-checkout .stmc-steps li {
+		flex: 1 1 0;
+		font-size: calc(var(--stmc-fs-s) - 1px);
+	}
+
+	body.stmc-checkout .woocommerce-billing-fields,
+	body.stmc-checkout .woocommerce-shipping-fields,
+	body.stmc-checkout .woocommerce-additional-fields,
+	body.stmc-checkout form.checkout #order_review,
+	body.stmc-checkout form.checkout .wc-order-review,
+	body.stmc-checkout .woocommerce-cart-form,
+	body.stmc-checkout .cart_totals {
+		padding: 16px;
+	}
+
+	body.stmc-checkout .stmc-trust-row {
+		justify-content: center;
+	}
+}

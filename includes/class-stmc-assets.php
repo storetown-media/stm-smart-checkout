@@ -27,7 +27,7 @@ class STMC_Assets {
 			'stmc-tokens',
 			STMC_URL . 'assets/css/tokens.css',
 			array(),
-			STMC_VERSION
+			self::asset_version( 'assets/css/tokens.css' )
 		);
 		wp_add_inline_style( 'stmc-tokens', self::tokens_css() );
 
@@ -35,14 +35,14 @@ class STMC_Assets {
 			'stmc-checkout',
 			STMC_URL . 'assets/css/checkout.css',
 			array( 'stmc-tokens' ),
-			STMC_VERSION
+			self::asset_version( 'assets/css/checkout.css' )
 		);
 
 		wp_enqueue_script(
 			'stmc-checkout',
 			STMC_URL . 'assets/js/stmc-checkout.js',
 			array(), // Vanilla core; bridges to WooCommerce's jQuery events at runtime if present.
-			STMC_VERSION,
+			self::asset_version( 'assets/js/stmc-checkout.js' ),
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',
@@ -56,6 +56,15 @@ class STMC_Assets {
 				'isBlock' => STMC_Checkout_Context::uses_block_checkout(),
 			)
 		);
+	}
+
+	/**
+	 * Cache-safe asset version: plugin version + file mtime. Every deployed
+	 * change busts browser and page caches without a manual version bump.
+	 */
+	private static function asset_version( $rel_path ) {
+		$mtime = @filemtime( STMC_DIR . $rel_path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		return $mtime ? STMC_VERSION . '.' . $mtime : STMC_VERSION;
 	}
 
 	/** Build the :root custom-property block from settings. */

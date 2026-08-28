@@ -271,6 +271,59 @@ body.stmc-checkout form.checkout #order_review .stmc-section-title::before {
 	font-weight: 700;
 }
 
+/* ---------- 5b. Field pairs & descriptions ---------- */
+
+/* Two-lane field raster: everything full width by default, name pair and
+   postcode/city side by side. Neutralizes theme percentage widths on rows. */
+body.stmc-checkout .woocommerce-billing-fields__field-wrapper,
+body.stmc-checkout .woocommerce-shipping-fields__field-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 14px;
+}
+
+body.stmc-checkout .woocommerce-billing-fields__field-wrapper > .form-row,
+body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > .form-row {
+	grid-column: 1 / -1;
+	width: auto;
+	max-width: none;
+	float: none;
+}
+
+body.stmc-checkout .woocommerce-billing-fields__field-wrapper > .form-row-first,
+body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > .form-row-first,
+body.stmc-checkout .woocommerce-billing-fields__field-wrapper > #billing_postcode_field,
+body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > #shipping_postcode_field {
+	grid-column: 1;
+}
+
+body.stmc-checkout .woocommerce-billing-fields__field-wrapper > .form-row-last,
+body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > .form-row-last,
+body.stmc-checkout .woocommerce-billing-fields__field-wrapper > #billing_city_field,
+body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > #shipping_city_field {
+	grid-column: 2;
+}
+
+/* Field descriptions (e.g. the VAT reverse-charge note) stay quiet. */
+body.stmc-checkout .woocommerce form .form-row .description,
+body.stmc-checkout .woocommerce form .form-row + p,
+body.stmc-checkout .woocommerce form .form-row small {
+	font-size: var(--stmc-fs-s);
+	line-height: 1.5;
+	color: var(--stmc-muted);
+}
+
+/* Empty section shells (e.g. shipping fields on digital-only carts) get no
+   card chrome — an empty white box reads as a bug. */
+body.stmc-checkout .woocommerce-shipping-fields:not(:has(.form-row, h3, .shipping_address)),
+body.stmc-checkout .woocommerce-additional-fields:not(:has(.form-row, h3)) {
+	padding: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	margin: 0;
+}
+
 /* ---------- 6. Form fields ---------- */
 
 body.stmc-checkout .woocommerce form .form-row input.input-text,
@@ -352,6 +405,21 @@ body.stmc-checkout .woocommerce form .form-row select {
 		position: sticky;
 		top: 20px;
 	}
+
+	/*
+	 * Theme trap (documented on The7): the theme assigns PERCENTAGE widths to
+	 * these containers for its own float layout — inside our grid those
+	 * percentages resolve against the track and shrink the columns (measured:
+	 * order review at 126px of a 420px track). Neutralize them.
+	 */
+	body.stmc-checkout.stmc-layout-two-column form.checkout > #customer_details,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review {
+		width: auto;
+		max-width: none;
+		min-width: 0;
+		float: none;
+	}
 }
 
 /* Cart: two columns as well. */
@@ -407,10 +475,73 @@ body.stmc-checkout #order_review .order-total td {
 	color: var(--stmc-ink);
 }
 
+/* ---------- 8b. Express payment areas — Lite tidy-up ----------
+   Gateways render three separate containers as direct form children (PPCP,
+   WooPayments wallets, generic pay buttons). Until the Pro express zone
+   groups them properly, stack them full-width above the columns in a fixed
+   order and hide the providers' own "OR" separators (the WooPayments one is
+   English-only); a neutral divider line closes the express area instead. */
+
+body.stmc-checkout form.checkout > .wc-ppcp-express-checkout,
+body.stmc-checkout form.checkout > .wcpay-express-checkout-wrapper,
+body.stmc-checkout form.checkout > .woocommerce-pay-buttons {
+	grid-column: 1 / -1;
+	justify-self: center;
+	width: 100%;
+	max-width: 720px;
+	margin: 0 auto 10px;
+	float: none;
+}
+
+body.stmc-checkout form.checkout > .wc-ppcp-express-checkout { order: -3; }
+body.stmc-checkout form.checkout > .wcpay-express-checkout-wrapper { order: -2; }
+body.stmc-checkout form.checkout > .woocommerce-pay-buttons { order: -1; }
+
+body.stmc-checkout form.checkout .wc-ppcp-express-checkout .express-divider,
+body.stmc-checkout form.checkout .wc-ppcp-express-checkout [class*="separator"],
+body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper [class*="separator"],
+body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper [class*="divider"] {
+	display: none;
+}
+
+body.stmc-checkout .wc-ppcp-express-checkout legend,
+body.stmc-checkout .wc-ppcp-express-checkout .express-title {
+	display: block;
+	width: 100%;
+	margin: 0 0 12px;
+	border: 0;
+	text-align: center;
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+	color: var(--stmc-ink);
+}
+
+/* Neutral, language-free divider between the express area and the form. */
+body.stmc-checkout form.checkout:has(> .wc-ppcp-express-checkout, > .wcpay-express-checkout-wrapper, > .woocommerce-pay-buttons)::before {
+	content: "";
+	grid-column: 1 / -1;
+	order: 0;
+	display: block;
+	border-top: 1px solid var(--stmc-line);
+	margin: 6px 0 18px;
+}
+
 /* ---------- 9. Payment methods ---------- */
 
 body.stmc-checkout #payment {
 	background: transparent;
+	width: auto;
+	max-width: none;
+	float: none;
+}
+
+/* Duplicate theme/plugin heading above the methods — our numbered card
+   title already labels this column. DOCUMENTED EXCEPTION to the no-!important
+   rule: Germanized's checkout JS re-shows this heading with an inline
+   display:block on every update; !important on a functional hide is the only
+   CSS-level counter (this is not design styling owners would override). */
+body.stmc-checkout #order_payment_heading {
+	display: none !important;
 }
 
 body.stmc-checkout #payment ul.payment_methods {
@@ -428,6 +559,24 @@ body.stmc-checkout #payment ul.payment_methods li {
 	border-radius: calc(var(--stmc-radius) - 2px);
 	transition: border-color 0.18s ease;
 	list-style: none;
+	width: auto;
+	max-width: none;
+	overflow: hidden;
+}
+
+/* Method row: radio + title left, brand icons right, description below. */
+body.stmc-checkout #payment ul.payment_methods li > label {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 8px;
+	max-width: 100%;
+}
+
+body.stmc-checkout #payment ul.payment_methods li img {
+	max-height: 24px;
+	width: auto;
+	vertical-align: middle;
 }
 
 body.stmc-checkout #payment ul.payment_methods li:has(input:checked) {

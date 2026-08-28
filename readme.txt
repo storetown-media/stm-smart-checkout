@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.2 =
+* Design round on live The7 + Germanized shop: express payment areas stack tidily above the columns, theme percentage-width traps neutralized in the grid, field pair raster (name, postcode/city), payment method rows with contained brand icons, empty section shells lose their card chrome.
 
 = 0.1.1 =
 * Core checkout modules: header band with progress and login toggle, distraction-free mode with theme adapters, numbered section titles, two-column layout, field improvements (state handling, mobile input attributes), trust elements. German (formal and informal) translations.

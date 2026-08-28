@@ -49,6 +49,9 @@ msgstr "Kassen-Layout"
 msgid "Checkout logo URL"
 msgstr "Logo-URL für die Kasse"
 
+msgid "Close"
+msgstr "Schließen"
+
 msgid "Configure the checkout, then use preview mode to review it on the live site before enabling it for customers."
 msgstr "Konfigurieren Sie die Kasse und prüfen Sie sie im Vorschau-Modus auf der Live-Site, bevor Sie sie für Kunden aktivieren."
 
@@ -60,6 +63,9 @@ msgstr "Weiter einkaufen"
 
 msgid "Correct mobile keyboards & autofill attributes"
 msgstr "Korrekte Mobil-Tastaturen & Autofill-Attribute"
+
+msgid "Customers read the linked pages without leaving the checkout; right-click still opens the page normally."
+msgstr "Kunden lesen die verlinkten Seiten, ohne die Kasse zu verlassen; Rechtsklick öffnet die Seite weiterhin normal."
 
 msgid "Debug logging (browser console)"
 msgstr "Debug-Ausgaben (Browser-Konsole)"
@@ -87,6 +93,9 @@ msgstr "Allgemein"
 
 msgid "Heading color"
 msgstr "Überschriftfarbe"
+
+msgid "Loading &hellip;"
+msgstr "Wird geladen &hellip;"
 
 msgid "Log in"
 msgstr "Anmelden"
@@ -120,6 +129,12 @@ msgstr "Nur Zusagen, die für Ihren Shop wirklich gelten."
 
 msgid "Open checkout preview"
 msgstr "Kassen-Vorschau öffnen"
+
+msgid "Open legal texts (terms, withdrawal) in an overlay"
+msgstr "Rechtstexte (AGB, Widerruf) im Overlay öffnen"
+
+msgid "Open the page instead"
+msgstr "Seite stattdessen öffnen"
 
 msgid "Order completed"
 msgstr "Bestellung abgeschlossen"
@@ -180,6 +195,9 @@ msgstr "Bundesland-Feld nie Pflicht, Beschriftungen entwirrt"
 
 msgid "Text color"
 msgstr "Textfarbe"
+
+msgid "The text could not be loaded here."
+msgstr "Der Text konnte hier nicht geladen werden."
 
 msgid "Trust item 1 (lock icon)"
 msgstr "Vertrauens-Baustein 1 (Schloss-Symbol)"

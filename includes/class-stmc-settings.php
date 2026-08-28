@@ -33,6 +33,10 @@ class STMC_Settings {
 			'modules.layout' => array( 'type' => 'bool', 'default' => true ),
 			'modules.fields' => array( 'type' => 'bool', 'default' => true ),
 			'modules.trust'  => array( 'type' => 'bool', 'default' => true ),
+			'modules.legal'  => array( 'type' => 'bool', 'default' => true ),
+
+			// Legal.
+			'legal.popup' => array( 'type' => 'bool', 'default' => true ),
 
 			// Header band + progress.
 			'header.sr_title'      => array( 'type' => 'bool', 'default' => true ),

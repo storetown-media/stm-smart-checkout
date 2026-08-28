@@ -3,7 +3,7 @@
  * Plugin Name:       STM Smart Checkout for WooCommerce
  * Plugin URI:        https://www.storetown-media.de/stm-smart-checkout/
  * Description:       Conversion-focused, legally compliant checkout for WooCommerce — distraction-free layouts, trust elements and DACH-ready legal features that work with your gateways and Germanized instead of replacing them.
- * Version:           0.1.2
+ * Version:           0.1.3
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      7.4
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'STMC_VERSION', '0.1.2' );
+define( 'STMC_VERSION', '0.1.3' );
 define( 'STMC_FILE', __FILE__ );
 define( 'STMC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'STMC_URL', plugin_dir_url( __FILE__ ) );
@@ -72,6 +72,7 @@ function stmc_boot() {
 	require_once STMC_DIR . 'includes/modules/class-stmc-module-layout.php';
 	require_once STMC_DIR . 'includes/modules/class-stmc-module-fields.php';
 	require_once STMC_DIR . 'includes/modules/class-stmc-module-trust.php';
+	require_once STMC_DIR . 'includes/modules/class-stmc-module-legal.php';
 	require_once STMC_DIR . 'includes/class-stmc-plugin.php';
 	if ( is_admin() ) {
 		require_once STMC_DIR . 'includes/class-stmc-admin.php';

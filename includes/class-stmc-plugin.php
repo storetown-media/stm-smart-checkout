@@ -49,6 +49,7 @@ final class STMC_Plugin {
 		$modules[] = new STMC_Module_Layout();
 		$modules[] = new STMC_Module_Fields();
 		$modules[] = new STMC_Module_Trust();
+		$modules[] = new STMC_Module_Legal();
 		return $modules;
 	}
 

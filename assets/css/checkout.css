@@ -681,6 +681,358 @@ body.stmc-checkout form.woocommerce-form-login .form-row {
 	margin-bottom: 14px;
 }
 
+/* ---------- 13b. Legal checkboxes (Germanized + Woo terms) ---------- */
+
+/* Only shells that actually hold a checkbox/text get card chrome — Germanized
+   prints empty placeholders for unused checkbox types. */
+body.stmc-checkout .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text),
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper .form-row:has(input) {
+	margin: 0 0 12px;
+	padding: 12px 14px;
+	background: var(--stmc-bg);
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+	font-size: var(--stmc-fs-s);
+	line-height: 1.55;
+	color: var(--stmc-muted);
+}
+
+body.stmc-checkout .wc-gzd-checkbox-placeholder:not(:has(input, .wc-gzd-legal-checkbox-text)) {
+	margin: 0;
+	padding: 0;
+}
+
+body.stmc-checkout .wc-gzd-checkbox-placeholder label,
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label {
+	display: flex;
+	align-items: flex-start;
+	gap: 9px;
+	margin: 0;
+	font-size: var(--stmc-fs-s);
+	font-weight: 400;
+	color: var(--stmc-muted);
+	cursor: pointer;
+}
+
+body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"],
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"] {
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	margin: 2px 0 0;
+	accent-color: var(--stmc-accent);
+}
+
+body.stmc-checkout .wc-gzd-checkbox-placeholder a,
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper a {
+	color: var(--stmc-ink);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+/* Place-order zone: button, PayPal's replacement container, trust row. */
+body.stmc-checkout .form-row.place-order {
+	margin: 16px 0 0;
+	padding: 0;
+}
+
+body.stmc-checkout .form-row.place-order .wc-ppcp-checkout-container {
+	margin-top: 10px;
+}
+
+/* ---------- 13c. Order table & totals ---------- */
+
+body.stmc-checkout #order_review table.shop_table {
+	width: 100%;
+	border: 0;
+}
+
+body.stmc-checkout #order_review table.shop_table .cart_item .product-name {
+	font-size: var(--stmc-fs-base);
+	color: var(--stmc-ink);
+	font-weight: 600;
+}
+
+body.stmc-checkout #order_review table.shop_table .cart_item .product-quantity {
+	color: var(--stmc-muted);
+	font-weight: 400;
+}
+
+body.stmc-checkout #order_review table.shop_table tfoot th,
+body.stmc-checkout #order_review table.shop_table tfoot td,
+body.stmc-checkout #order_review table.shop_table tr.cart-subtotal th,
+body.stmc-checkout #order_review table.shop_table tr.cart-subtotal td {
+	border-top: 1px solid var(--stmc-line);
+}
+
+/* Secondary money lines (tax breakdown, net amount) stay quiet. */
+body.stmc-checkout #order_review tr.order-tax th,
+body.stmc-checkout #order_review tr.order-tax td,
+body.stmc-checkout #order_review tr.stm-net-row th,
+body.stmc-checkout #order_review tr.stm-net-row td {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	font-size: var(--stmc-fs-s);
+	font-weight: 400;
+	color: var(--stmc-muted);
+}
+
+/* Germanized's small print inside the grand total. */
+body.stmc-checkout #order_review .order-total .includes_tax,
+body.stmc-checkout #order_review .wc-gzd-total-tax-hint {
+	display: block;
+	font-size: calc(var(--stmc-fs-s) - 1px);
+	font-weight: 400;
+	color: var(--stmc-muted);
+}
+
+/* Gateway promo messaging (e.g. PayPal pay-later) stays contained. */
+body.stmc-checkout #order_review .wc-ppcp-paylater-msg__container th,
+body.stmc-checkout #order_review .wc-ppcp-paylater-msg__container td {
+	border-top: 0;
+	padding-top: 8px;
+}
+
+/* ---------- 13d. Cart page ---------- */
+
+/* The7 prints the remove column's header as visible text; silence it. */
+body.stmc-checkout .shop_table.cart thead th {
+	padding: 0 0 14px;
+	font-size: calc(var(--stmc-fs-s) - 1px);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--stmc-muted);
+	border: 0;
+}
+
+body.stmc-checkout .shop_table.cart thead th.product-remove {
+	font-size: 0;
+}
+
+body.stmc-checkout .shop_table.cart {
+	table-layout: fixed;
+	width: 100%;
+	border: 0;
+}
+
+body.stmc-checkout .shop_table.cart th.product-remove { width: 44px; }
+body.stmc-checkout .shop_table.cart th.product-thumbnail { width: 84px; }
+body.stmc-checkout .shop_table.cart th.product-price { width: 110px; }
+body.stmc-checkout .shop_table.cart th.product-quantity { width: 92px; }
+body.stmc-checkout .shop_table.cart th.product-subtotal { width: 110px; }
+
+body.stmc-checkout .shop_table.cart .cart_item td {
+	padding: 18px 8px 18px 0;
+	vertical-align: middle;
+	border-top: 1px solid var(--stmc-line);
+}
+
+body.stmc-checkout .shop_table.cart td.product-thumbnail img {
+	width: 64px;
+	height: auto;
+	border-radius: calc(var(--stmc-radius) - 4px);
+	border: 1px solid var(--stmc-line);
+}
+
+body.stmc-checkout .shop_table.cart td.product-name a {
+	font-weight: 600;
+	color: var(--stmc-ink);
+	text-decoration: none;
+}
+
+body.stmc-checkout .shop_table.cart td.product-price,
+body.stmc-checkout .shop_table.cart td.product-subtotal {
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+body.stmc-checkout .shop_table.cart .product-remove a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border: 1px solid var(--stmc-line);
+	border-radius: 50%;
+	color: var(--stmc-muted);
+	font-size: 16px;
+	line-height: 1;
+	text-decoration: none;
+	transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+body.stmc-checkout .shop_table.cart .product-remove a:hover {
+	color: var(--stmc-danger);
+	border-color: var(--stmc-danger);
+}
+
+body.stmc-checkout .shop_table.cart .quantity .qty {
+	width: 72px;
+	height: 40px;
+	padding: 0 8px;
+	text-align: center;
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 4px);
+}
+
+/* Checkout button first, wallets after — one flex container, plain order. */
+body.stmc-checkout .cart-collaterals .wc-proceed-to-checkout {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 16px 0 0;
+}
+
+body.stmc-checkout .cart-collaterals .wc-proceed-to-checkout > * {
+	margin: 0;
+	width: 100%;
+	max-width: none;
+	float: none;
+}
+
+body.stmc-checkout .cart-collaterals .wc-proceed-to-checkout .checkout-button {
+	order: -1;
+}
+
+body.stmc-checkout .wc-ppcp-cart-or,
+body.stmc-checkout .wc-ppcp-cart-payment-method.or {
+	font-size: var(--stmc-fs-s);
+	color: var(--stmc-muted);
+	text-align: center;
+}
+
+/* Cart footer: continue-shopping link left, update button right. */
+body.stmc-checkout .woocommerce-cart-form .cart-footer,
+body.stmc-checkout .woocommerce-cart-form td.actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px 14px;
+	padding: 12px 0 0;
+	border: 0;
+}
+
+body.stmc-checkout .update-cart-button input[type="submit"],
+body.stmc-checkout button[name="update_cart"] {
+	height: 40px;
+	padding: 0 18px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: 999px;
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	cursor: pointer;
+	transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+body.stmc-checkout .update-cart-button input[type="submit"]:hover,
+body.stmc-checkout button[name="update_cart"]:hover {
+	border-color: var(--stmc-ink);
+	color: var(--stmc-ink);
+}
+
+/* ---------- 15. Legal text overlay ---------- */
+
+html.stmc-modal-open {
+	overflow: hidden;
+}
+
+body.stmc-checkout .stmc-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+body.stmc-checkout .stmc-modal[hidden] {
+	display: none;
+}
+
+body.stmc-checkout .stmc-modal__scrim {
+	position: absolute;
+	inset: 0;
+	background: color-mix(in srgb, var(--stmc-ink) 55%, transparent);
+}
+
+body.stmc-checkout .stmc-modal__card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 760px;
+	max-height: 84vh;
+	background: var(--stmc-card);
+	border-radius: var(--stmc-radius);
+	box-shadow: 0 24px 64px -16px rgba(10, 18, 45, 0.45);
+	overflow: hidden;
+}
+
+body.stmc-checkout .stmc-modal__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 16px 20px;
+	border-bottom: 1px solid var(--stmc-line);
+}
+
+body.stmc-checkout .stmc-modal__title {
+	margin: 0;
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-modal__x {
+	flex: 0 0 auto;
+	width: 34px;
+	height: 34px;
+	border: 1px solid var(--stmc-line);
+	border-radius: 50%;
+	background: var(--stmc-card);
+	color: var(--stmc-muted);
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+body.stmc-checkout .stmc-modal__x:hover {
+	color: var(--stmc-ink);
+	border-color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-modal__body {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	padding: 18px 22px;
+	font-size: var(--stmc-fs-base);
+	line-height: 1.65;
+	color: var(--stmc-text);
+}
+
+body.stmc-checkout .stmc-modal__body h2,
+body.stmc-checkout .stmc-modal__body h3 {
+	margin: 1.2em 0 0.4em;
+	font-size: var(--stmc-fs-m);
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-modal__body a {
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-modal__foot {
+	padding: 12px 20px;
+	border-top: 1px solid var(--stmc-line);
+	text-align: right;
+}
+
 /* ---------- 14. Small screens ---------- */
 
 @media (max-width: 782px) {

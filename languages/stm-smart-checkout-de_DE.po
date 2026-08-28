@@ -10,17 +10,38 @@ msgstr ""
 msgid "\"Continue shopping\" link on the cart"
 msgstr "„Weiter einkaufen“-Link im Warenkorb"
 
+msgid "A new withdrawal request has been submitted."
+msgstr "Ein neuer Widerruf wurde eingereicht."
+
 msgid "Accent color"
 msgstr "Akzentfarbe"
 
 msgid "Accent hover color"
 msgstr "Akzentfarbe (Hover)"
 
+msgid "Acknowledged"
+msgstr "Bestätigt"
+
+msgid "Add the withdrawal link to this menu"
+msgstr "Widerrufslink diesem Menü hinzufügen"
+
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Affected items"
+msgstr "Betroffene Artikel"
+
+msgid "Affected items (for partial withdrawal)"
+msgstr "Betroffene Artikel (bei Teil-Widerruf)"
+
 msgid "Already a customer? %s"
 msgstr "Bereits Kunde? %s"
+
+msgid "Back to the list"
+msgstr "Zurück zur Liste"
 
 msgid "Billing details"
 msgstr "Rechnungsdetails"
@@ -64,8 +85,17 @@ msgstr "Weiter einkaufen"
 msgid "Correct mobile keyboards & autofill attributes"
 msgstr "Korrekte Mobil-Tastaturen & Autofill-Attribute"
 
+msgid "Creates a public form page for guests and customers; submissions are never blocked and land under WooCommerce → Withdrawals."
+msgstr "Legt eine öffentliche Formularseite für Gäste und Kunden an; Einreichungen werden nie blockiert und landen unter WooCommerce → Widerrufe."
+
+msgid "Customer"
+msgstr "Kunde"
+
 msgid "Customers read the linked pages without leaving the checkout; right-click still opens the page normally."
 msgstr "Kunden lesen die verlinkten Seiten, ohne die Kasse zu verlassen; Rechtsklick öffnet die Seite weiterhin normal."
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Debug logging (browser console)"
 msgstr "Debug-Ausgaben (Browser-Konsole)"
@@ -73,8 +103,23 @@ msgstr "Debug-Ausgaben (Browser-Konsole)"
 msgid "Design"
 msgstr "Design"
 
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Email address used for the order"
+msgstr "E-Mail-Adresse der Bestellung"
+
+msgid "Email:"
+msgstr "E-Mail:"
+
+msgid "Empty = the site admin email."
+msgstr "Leer = Admin-E-Mail der Website."
+
 msgid "Enable Smart Checkout"
 msgstr "Smart Checkout aktivieren"
+
+msgid "Entire order"
+msgstr "Gesamte Bestellung"
 
 msgid "Example: Secure SSL connection. Leave all three empty for the SSL default."
 msgstr "Beispiel: Sichere SSL-Verbindung. Alle drei leer lassen = SSL-Standardtext."
@@ -82,17 +127,47 @@ msgstr "Beispiel: Sichere SSL-Verbindung. Alle drei leer lassen = SSL-Standardte
 msgid "Extra CSS selectors to hide (advanced)"
 msgstr "Zusätzlich auszublendende CSS-Selektoren (fortgeschritten)"
 
+msgid "First name"
+msgstr "Vorname"
+
 msgid "Fixes the duplicate \"Land\" label for IE/GB/HU in German shops."
 msgstr "Behebt die doppelte Beschriftung „Land“ bei IE/GB/HU in deutschen Shops."
 
 msgid "Font scale"
 msgstr "Schriftgröße"
 
+msgid "Form page"
+msgstr "Formularseite"
+
 msgid "General"
 msgstr "Allgemein"
 
+msgid "Goods received on"
+msgstr "Ware erhalten am"
+
 msgid "Heading color"
 msgstr "Überschriftfarbe"
+
+msgid "Hello %1$s,\n\nwe have received your withdrawal for order %2$s and will process it promptly. You will hear from us.\n\nThis confirmation was generated automatically."
+msgstr "Hallo %1$s,\n\nIhr Widerruf zur Bestellung %2$s ist bei uns eingegangen und wird umgehend bearbeitet. Sie hören von uns.\n\nDiese Bestätigung wurde automatisch erstellt."
+
+msgid "Hide the account button after the period ends"
+msgstr "Konto-Button nach Fristablauf ausblenden"
+
+msgid "I withdraw from"
+msgstr "Ich widerrufe"
+
+msgid "Internal notes"
+msgstr "Interne Notizen"
+
+msgid "Items:"
+msgstr "Artikel:"
+
+msgid "Last name"
+msgstr "Nachname"
+
+msgid "Legal"
+msgstr "Recht"
 
 msgid "Loading &hellip;"
 msgstr "Wird geladen &hellip;"
@@ -115,6 +190,21 @@ msgstr "Modul: Layout-Extras"
 msgid "Module: trust elements"
 msgstr "Modul: Vertrauens-Elemente"
 
+msgid "Name:"
+msgstr "Name:"
+
+msgid "New"
+msgstr "Neu"
+
+msgid "New withdrawal request"
+msgstr "Neuer Widerruf eingegangen"
+
+msgid "No withdrawal requests yet."
+msgstr "Noch keine Widerrufe eingegangen."
+
+msgid "Notify this email about new requests"
+msgstr "Diese E-Mail über neue Anträge benachrichtigen"
+
 msgid "Off = the standard checkout renders for customers. Preview mode works regardless of this switch."
 msgstr "Aus = Kunden sehen die Standard-Kasse. Der Vorschau-Modus funktioniert unabhängig von diesem Schalter."
 
@@ -123,6 +213,9 @@ msgstr "Eine Spalte"
 
 msgid "One selector per line. Hidden only on cart/checkout. Never hide your footer legal links."
 msgstr "Ein Selektor pro Zeile. Wirkt nur auf Warenkorb/Kasse. Blenden Sie nie Ihre Rechtslinks im Fußbereich aus."
+
+msgid "Online withdrawal form (EU withdrawal function)"
+msgstr "Online-Widerrufsformular (EU-Widerrufsfunktion)"
 
 msgid "Only claims that are actually true for your shop."
 msgstr "Nur Zusagen, die für Ihren Shop wirklich gelten."
@@ -136,14 +229,62 @@ msgstr "Rechtstexte (AGB, Widerruf) im Overlay öffnen"
 msgid "Open the page instead"
 msgstr "Seite stattdessen öffnen"
 
+msgid "Order"
+msgstr "Bestellung"
+
 msgid "Order completed"
 msgstr "Bestellung abgeschlossen"
+
+msgid "Order date"
+msgstr "Bestelldatum"
+
+msgid "Order number"
+msgstr "Bestellnummer"
+
+msgid "Order number:"
+msgstr "Bestellnummer:"
 
 msgid "Order steps"
 msgstr "Bestellschritte"
 
 msgid "Page background"
 msgstr "Seitenhintergrund"
+
+msgid "Part of the order"
+msgstr "Teil der Bestellung"
+
+msgid "Partial"
+msgstr "Teilweise"
+
+msgid "Please describe which items you are withdrawing."
+msgstr "Bitte beschreiben Sie, welche Artikel Sie widerrufen."
+
+msgid "Please enter a valid email address."
+msgstr "Bitte geben Sie eine gültige E-Mail-Adresse an."
+
+msgid "Please enter your first and last name."
+msgstr "Bitte geben Sie Vor- und Nachnamen an."
+
+msgid "Please enter your order number."
+msgstr "Bitte geben Sie Ihre Bestellnummer an."
+
+msgid "Processed"
+msgstr "Bearbeitet"
+
+msgid "Processing"
+msgstr "Bearbeitung"
+
+msgid "Reason (voluntary)"
+msgstr "Grund (freiwillig)"
+
+msgid "Reason (voluntary):"
+msgstr "Grund (freiwillig):"
+
+msgid "Received"
+msgstr "Eingegangen"
+
+msgid "Rejected"
+msgstr "Abgelehnt"
 
 msgid "Remove all settings when the plugin is deleted"
 msgstr "Alle Einstellungen beim Löschen des Plugins entfernen"
@@ -153,6 +294,9 @@ msgstr "Seitentitel für Screenreader ausgeben"
 
 msgid "Repeat trust items under the order button"
 msgstr "Vertrauens-Bausteine unter dem Bestellknopf wiederholen"
+
+msgid "Request not found."
+msgstr "Antrag nicht gefunden."
 
 msgid "STM Smart Checkout"
 msgstr "STM Smart Checkout"
@@ -166,17 +310,35 @@ msgstr "STM Smart Checkout benötigt WooCommerce %s oder neuer. Bitte aktualisie
 msgid "STM Smart Checkout requires WooCommerce to be installed and active."
 msgstr "STM Smart Checkout benötigt ein installiertes und aktives WooCommerce."
 
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Saved."
+msgstr "Gespeichert."
+
+msgid "Scope"
+msgstr "Umfang"
+
+msgid "Scope:"
+msgstr "Umfang:"
+
 msgid "Secondary text color"
 msgstr "Sekundäre Textfarbe"
 
 msgid "Secure SSL connection"
 msgstr "Sichere SSL-Verbindung"
 
+msgid "Send the customer a receipt confirmation"
+msgstr "Dem Kunden eine Eingangsbestätigung senden"
+
 msgid "Settings"
 msgstr "Einstellungen"
 
 msgid "Show \"Already a customer?\" login toggle"
 msgstr "„Bereits Kunde?“-Anmeldeknopf anzeigen"
+
+msgid "Show a withdrawal link on the order confirmation"
+msgstr "Widerrufslink auf der Bestellbestätigung anzeigen"
 
 msgid "Show progress bar (cart → checkout → confirmation)"
 msgstr "Fortschrittsleiste anzeigen (Warenkorb → Kasse → Bestätigung)"
@@ -193,8 +355,26 @@ msgstr "Bundesland / Region"
 msgid "State/county field never required, labels untangled"
 msgstr "Bundesland-Feld nie Pflicht, Beschriftungen entwirrt"
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Submit a withdrawal online"
+msgstr "Widerruf online einreichen"
+
+msgid "Submit withdrawal"
+msgstr "Widerruf absenden"
+
 msgid "Text color"
 msgstr "Textfarbe"
+
+msgid "Thank you. We will process your request promptly and confirm it by email."
+msgstr "Vielen Dank. Wir bearbeiten Ihren Widerruf umgehend und bestätigen ihn per E-Mail."
+
+msgid "The link is appended automatically — no manual menu editing needed."
+msgstr "Der Link wird automatisch angehängt — keine manuelle Menüpflege nötig."
+
+msgid "The public form stays available either way — a submission is never blocked."
+msgstr "Das öffentliche Formular bleibt in jedem Fall erreichbar — eine Einreichung wird nie blockiert."
 
 msgid "The text could not be loaded here."
 msgstr "Der Text konnte hier nicht geladen werden."
@@ -211,11 +391,66 @@ msgstr "Vertrauens-Baustein 3 (Karten-Symbol)"
 msgid "Two columns (order summary right)"
 msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
+msgid "Use this form to withdraw from your purchase within the statutory withdrawal period. You do not have to give a reason. We will confirm receipt by email."
+msgstr "Mit diesem Formular widerrufen Sie Ihren Kauf innerhalb der gesetzlichen Widerrufsfrist. Sie müssen keinen Grund angeben. Den Eingang bestätigen wir per E-Mail."
+
+msgid "We received your withdrawal"
+msgstr "Ihr Widerruf ist bei uns eingegangen"
+
+msgid "Withdraw this order"
+msgstr "Diese Bestellung widerrufen"
+
+msgid "Withdrawal"
+msgstr "Widerruf"
+
+msgid "Withdrawal period (days)"
+msgstr "Widerrufsfrist (Tage)"
+
+msgid "Withdrawal requests"
+msgstr "Widerrufs-Anträge"
+
+msgid "Withdrawals"
+msgstr "Widerrufe"
+
 msgid "Yes"
 msgstr "Ja"
 
+msgid "You can revoke your order online at any time within the withdrawal period:"
+msgstr "Sie können Ihre Bestellung innerhalb der Widerrufsfrist jederzeit online widerrufen:"
+
 msgid "Your order"
 msgstr "Ihre Bestellung"
+
+msgid "Your request could not be saved. Please try again or contact us directly."
+msgstr "Ihr Widerruf konnte nicht gespeichert werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
+
+msgid "Your session expired. Please try again."
+msgstr "Ihre Sitzung ist abgelaufen. Bitte versuchen Sie es erneut."
+
+msgid "Your withdrawal has been received"
+msgstr "Ihr Widerruf ist eingegangen"
+
+msgid "matched"
+msgstr "zugeordnet"
+
+msgid "no match"
+msgstr "keine Zuordnung"
+
+msgid "no match — verify manually"
+msgstr "keine Zuordnung — bitte manuell prüfen"
+
+msgid "part of the order"
+msgstr "einen Teil der Bestellung"
+
+msgid "the entire order"
+msgstr "die gesamte Bestellung"
+
+msgid "— Off —"
+msgstr "— Aus —"
+
+msgctxt "page slug"
+msgid "withdrawal"
+msgstr "widerruf"
 
 msgctxt "state field label"
 msgid "County"

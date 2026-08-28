@@ -38,6 +38,15 @@ class STMC_Settings {
 			// Legal.
 			'legal.popup' => array( 'type' => 'bool', 'default' => true ),
 
+			// Withdrawal (consumer rights; EU 2023/2673). [PRO-CANDIDATE]
+			'withdrawal.enabled'          => array( 'type' => 'bool', 'default' => true ),
+			'withdrawal.menu_id'          => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
+			'withdrawal.notify_email'     => array( 'type' => 'text', 'default' => '' ),
+			'withdrawal.confirm_customer' => array( 'type' => 'bool', 'default' => true ),
+			'withdrawal.period_days'      => array( 'type' => 'int', 'default' => 14, 'min' => 0, 'max' => 365 ),
+			'withdrawal.account_limit'    => array( 'type' => 'bool', 'default' => false ),
+			'withdrawal.success_link'     => array( 'type' => 'bool', 'default' => true ),
+
 			// Header band + progress.
 			'header.sr_title'      => array( 'type' => 'bool', 'default' => true ),
 			'header.show_progress' => array( 'type' => 'bool', 'default' => true ),

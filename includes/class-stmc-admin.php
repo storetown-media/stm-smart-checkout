@@ -57,6 +57,7 @@ class STMC_Admin {
 		$tabs = array(
 			'general'  => __( 'General', 'stm-smart-checkout' ),
 			'checkout' => __( 'Checkout', 'stm-smart-checkout' ),
+			'legal'    => __( 'Legal', 'stm-smart-checkout' ),
 			'design'   => __( 'Design', 'stm-smart-checkout' ),
 		);
 		$current = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -99,6 +100,20 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'modules.trust', __( 'Module: trust elements', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'advanced.debug', __( 'Debug logging (browser console)', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'general.remove_data_on_uninstall', __( 'Remove all settings when the plugin is deleted', 'stm-smart-checkout' ) ); ?>
+					<?php elseif ( 'legal' === $current ) : ?>
+						<?php self::row_checkbox( 'withdrawal.enabled', __( 'Online withdrawal form (EU withdrawal function)', 'stm-smart-checkout' ), __( 'Creates a public form page for guests and customers; submissions are never blocked and land under WooCommerce → Withdrawals.', 'stm-smart-checkout' ) ); ?>
+						<?php
+						$wd_page = (int) get_option( STMC_Withdrawal::PAGE_OPT );
+						if ( $wd_page ) {
+							echo '<tr><th scope="row">' . esc_html__( 'Form page', 'stm-smart-checkout' ) . '</th><td><a href="' . esc_url( get_permalink( $wd_page ) ) . '" target="_blank" rel="noopener">' . esc_html( get_the_title( $wd_page ) ) . '</a> &middot; <a href="' . esc_url( get_edit_post_link( $wd_page ) ) . '">' . esc_html__( 'Edit', 'stm-smart-checkout' ) . '</a></td></tr>';
+						}
+						?>
+						<?php self::row_menu( 'withdrawal.menu_id', __( 'Add the withdrawal link to this menu', 'stm-smart-checkout' ), __( 'The link is appended automatically — no manual menu editing needed.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'withdrawal.notify_email', __( 'Notify this email about new requests', 'stm-smart-checkout' ), __( 'Empty = the site admin email.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'withdrawal.confirm_customer', __( 'Send the customer a receipt confirmation', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_number( 'withdrawal.period_days', __( 'Withdrawal period (days)', 'stm-smart-checkout' ), 0, 365 ); ?>
+						<?php self::row_checkbox( 'withdrawal.account_limit', __( 'Hide the account button after the period ends', 'stm-smart-checkout' ), __( 'The public form stays available either way — a submission is never blocked.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'withdrawal.success_link', __( 'Show a withdrawal link on the order confirmation', 'stm-smart-checkout' ) ); ?>
 					<?php elseif ( 'checkout' === $current ) : ?>
 						<?php self::row_checkbox( 'header.show_progress', __( 'Show progress bar (cart → checkout → confirmation)', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'header.show_login', __( 'Show "Already a customer?" login toggle', 'stm-smart-checkout' ) ); ?>
@@ -149,6 +164,10 @@ class STMC_Admin {
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
 				'fields.state_optional', 'fields.autofill_attrs', 'legal.popup', 'focus.extra_hide_selectors',
+			),
+			'legal'    => array(
+				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',
+				'withdrawal.period_days', 'withdrawal.account_limit', 'withdrawal.success_link',
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
@@ -256,6 +275,22 @@ class STMC_Admin {
 			esc_attr( self::name( $key ) ),
 			esc_textarea( STMC_Settings::get( $key ) )
 		);
+		self::row_close( $desc );
+	}
+
+	private static function row_menu( $key, $label, $desc = '' ) {
+		self::row_open( $key, $label );
+		printf( '<select id="%1$s" name="%2$s">', esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ), esc_attr( self::name( $key ) ) );
+		printf( '<option value="0" %s>%s</option>', selected( 0, (int) STMC_Settings::get( $key ), false ), esc_html__( '— Off —', 'stm-smart-checkout' ) );
+		foreach ( wp_get_nav_menus() as $menu ) {
+			printf(
+				'<option value="%1$d" %2$s>%3$s</option>',
+				(int) $menu->term_id,
+				selected( (int) $menu->term_id, (int) STMC_Settings::get( $key ), false ),
+				esc_html( $menu->name )
+			);
+		}
+		echo '</select>';
 		self::row_close( $desc );
 	}
 

@@ -31,8 +31,10 @@ final class STMC_Plugin {
 
 	public function init() {
 		STMC_Assets::init();
+		STMC_Withdrawal::init(); // Site-wide (form page, account, menus) — not a checkout-surface module.
 		if ( is_admin() && class_exists( 'STMC_Admin' ) ) {
 			STMC_Admin::init();
+			STMC_Admin_Withdrawals::init();
 		}
 
 		add_filter( 'stmc_modules', array( $this, 'register_core_modules' ), 5 );

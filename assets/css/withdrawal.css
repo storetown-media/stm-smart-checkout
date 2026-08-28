@@ -1,0 +1,140 @@
+/**
+ * STM Smart Checkout — withdrawal form page.
+ * Token-driven, self-contained (loads only on the form page).
+ */
+
+.stmc-wd {
+	max-width: 720px;
+	margin: 0 auto;
+}
+
+.stmc-wd__intro {
+	font-size: var(--stmc-fs-m);
+	line-height: 1.6;
+	color: var(--stmc-muted);
+}
+
+.stmc-wd__error {
+	margin: 0 0 12px;
+	padding: 12px 14px;
+	background: color-mix(in srgb, var(--stmc-danger) 8%, var(--stmc-card));
+	border: 1px solid var(--stmc-danger);
+	border-radius: calc(var(--stmc-radius) - 2px);
+	color: var(--stmc-danger);
+	font-size: var(--stmc-fs-base);
+}
+
+.stmc-wd--ok,
+.stmc-wd__form {
+	margin-top: 10px;
+	padding: 24px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius);
+	box-shadow: var(--stmc-shadow);
+}
+
+.stmc-wd--ok h2 {
+	margin: 0 0 8px;
+	color: var(--stmc-good);
+}
+
+.stmc-wd__grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 16px;
+}
+
+@media (max-width: 640px) {
+	.stmc-wd__grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.stmc-wd__row {
+	margin: 0 0 14px;
+}
+
+.stmc-wd__row label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	color: var(--stmc-muted);
+}
+
+.stmc-wd__req {
+	color: var(--stmc-danger);
+}
+
+.stmc-wd__row input,
+.stmc-wd__row textarea {
+	width: 100%;
+	padding: 10px 14px;
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+	background: var(--stmc-card);
+	font-size: var(--stmc-fs-base);
+	color: var(--stmc-text);
+}
+
+.stmc-wd__row input:focus,
+.stmc-wd__row textarea:focus {
+	border-color: var(--stmc-ink);
+	box-shadow: var(--stmc-focus-ring);
+	outline: none;
+}
+
+.stmc-wd__hint {
+	display: block;
+	margin-top: 4px;
+	font-size: var(--stmc-fs-s);
+	font-weight: 400;
+	color: var(--stmc-muted);
+}
+
+.stmc-wd__scope {
+	margin: 0 0 14px;
+	padding: 12px 14px;
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+}
+
+.stmc-wd__scope legend {
+	padding: 0 6px;
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	color: var(--stmc-muted);
+}
+
+.stmc-wd__scope label {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	margin-right: 22px;
+	font-size: var(--stmc-fs-base);
+	cursor: pointer;
+}
+
+.stmc-wd__scope input[type="radio"] {
+	accent-color: var(--stmc-accent);
+	width: 17px;
+	height: 17px;
+}
+
+.stmc-wd__actions {
+	margin: 18px 0 0;
+}
+
+.stmc-wd__hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+.stmc-wd-success-note {
+	margin-top: 12px;
+	font-size: 13px;
+}

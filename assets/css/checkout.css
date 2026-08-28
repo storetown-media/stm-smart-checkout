@@ -14,6 +14,23 @@ body.stmc-checkout #page {
 	background: var(--stmc-bg);
 }
 
+/* Theme content-area spacing creates a dead band under the progress steps
+   (measured: The7's .wf-wrap carried 60px padding-top; remaining margins sat
+   on the container chain). The band + steps bring their own rhythm. */
+body.stmc-checkout #main,
+body.stmc-checkout #content,
+body.stmc-checkout .wf-wrap,
+body.stmc-checkout #main .wf-wrap, /* The7 sets this via an id-selector; match its specificity. */
+body.stmc-checkout .wf-container-main {
+	padding-top: 0;
+	margin-top: 0;
+}
+
+body.stmc-checkout #content .woocommerce {
+	margin-top: 0;
+	padding-top: 0;
+}
+
 /* ---------- 2. Header band ---------- */
 
 body.stmc-checkout .stmc-band {
@@ -371,8 +388,11 @@ body.stmc-checkout .woocommerce form .form-row select {
 }
 
 /* ---------- 7. Two-column checkout grid ---------- */
+/* Between 993px and 1199px the three-column layout falls back to this
+   two-column behavior — hence the paired selectors throughout the block. */
 
 @media (min-width: 993px) {
+	body.stmc-checkout.stmc-layout-three-column form.checkout,
 	body.stmc-checkout.stmc-layout-two-column form.checkout {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
@@ -380,10 +400,15 @@ body.stmc-checkout .woocommerce form .form-row select {
 		align-items: start;
 	}
 
+	body.stmc-checkout.stmc-layout-three-column form.checkout > #customer_details,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #customer_details {
 		grid-column: 1;
 	}
 
+	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review_heading,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .stmc-section-title--order,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review_heading,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > .stmc-section-title--order,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review,
@@ -393,6 +418,10 @@ body.stmc-checkout .woocommerce form .form-row select {
 
 	/* Everything else the form may print (notices, express areas, seals)
 	   spans the full width above the columns. */
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .woocommerce-NoticeGroup,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .woocommerce-error,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .woocommerce-message,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .woocommerce-info,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-NoticeGroup,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-error,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > .woocommerce-message,
@@ -412,6 +441,9 @@ body.stmc-checkout .woocommerce form .form-row select {
 	 * percentages resolve against the track and shrink the columns (measured:
 	 * order review at 126px of a 420px track). Neutralize them.
 	 */
+	body.stmc-checkout.stmc-layout-three-column form.checkout > #customer_details,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #customer_details,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review {
@@ -420,6 +452,85 @@ body.stmc-checkout .woocommerce form .form-row select {
 		min-width: 0;
 		float: none;
 	}
+}
+
+/* ---------- 7b. Three-column layout (≥1200px): billing | payment | order ----------
+   The predecessor's signature layout. The review wrapper spans tracks 2+3 and
+   turns into its own grid: payment column left (own card), order title +
+   totals table + checkboxes/submit right (two shells reading as one card). */
+
+@media (min-width: 1200px) {
+	body.stmc-checkout.stmc-layout-three-column form.checkout {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
+	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review {
+		grid-column: 2 / -1;
+		position: static;
+	}
+
+	/* The theme wrapper loses its card chrome — the inner columns carry it. */
+	body.stmc-checkout.stmc-layout-three-column form.checkout .wc-order-review {
+		margin: 0;
+		padding: 0;
+		background: transparent;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		column-gap: 24px;
+		row-gap: 0;
+		align-items: start;
+	}
+
+	body.stmc-checkout.stmc-layout-three-column .stmc-payment-col {
+		grid-column: 1;
+		grid-row: 1 / span 2;
+		padding: 22px 24px;
+		background: var(--stmc-card);
+		border: 1px solid var(--stmc-line);
+		border-radius: var(--stmc-radius);
+		box-shadow: var(--stmc-shadow);
+	}
+
+	body.stmc-checkout.stmc-layout-three-column .stmc-order-part--top {
+		grid-column: 2;
+		grid-row: 1;
+		padding: 22px 24px 8px;
+		background: var(--stmc-card);
+		border: 1px solid var(--stmc-line);
+		border-bottom: 0;
+		border-radius: var(--stmc-radius) var(--stmc-radius) 0 0;
+		box-shadow: var(--stmc-shadow);
+	}
+
+	body.stmc-checkout.stmc-layout-three-column .stmc-order-part--bottom {
+		grid-column: 2;
+		grid-row: 2;
+		padding: 8px 24px 22px;
+		background: var(--stmc-card);
+		border: 1px solid var(--stmc-line);
+		border-top: 0;
+		border-radius: 0 0 var(--stmc-radius) var(--stmc-radius);
+		box-shadow: var(--stmc-shadow);
+	}
+}
+
+/* Column title without a step number (the order part is the constant). */
+body.stmc-checkout .stmc-col-title {
+	display: flex;
+	align-items: center;
+	margin: 0 0 16px;
+	padding: 0 0 14px;
+	border-bottom: 2px solid var(--stmc-accent);
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+	color: var(--stmc-ink);
 }
 
 /* Cart: two columns as well. */
@@ -500,8 +611,14 @@ body.stmc-checkout form.checkout > .woocommerce-pay-buttons { order: -1; }
 body.stmc-checkout form.checkout .wc-ppcp-express-checkout .express-divider,
 body.stmc-checkout form.checkout .wc-ppcp-express-checkout [class*="separator"],
 body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper [class*="separator"],
-body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper [class*="divider"] {
-	display: none;
+body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper [class*="divider"],
+/* WooPayments' "— OR —" is a <p> with an EMPTY class attribute, and its JS
+   re-shows it with inline display:block (measured). Same documented
+   !important exception as the Germanized heading: a functional hide against
+   third-party inline JS, not design styling. */
+body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper > :not([class]),
+body.stmc-checkout form.checkout .wcpay-express-checkout-wrapper > p {
+	display: none !important;
 }
 
 body.stmc-checkout .wc-ppcp-express-checkout legend,
@@ -595,6 +712,16 @@ body.stmc-checkout #payment div.payment_box {
 	border-radius: calc(var(--stmc-radius) - 4px);
 	color: var(--stmc-muted);
 	font-size: var(--stmc-fs-s);
+}
+
+body.stmc-checkout #payment div.payment_box p {
+	margin: 0 0 6px;
+	font-size: var(--stmc-fs-s);
+	line-height: 1.5;
+}
+
+body.stmc-checkout #payment div.payment_box p:last-child {
+	margin-bottom: 0;
 }
 
 /* ---------- 10. Place order button ---------- */

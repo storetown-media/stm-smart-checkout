@@ -110,8 +110,8 @@ class STMC_Admin_Withdrawals {
 			echo '<p>';
 			for ( $i = 1; $i <= $pages; $i++ ) {
 				$link = add_query_arg( array( 'page' => self::PAGE, 'paged' => $i ), admin_url( 'admin.php' ) );
-				echo $i === $paged ? '<strong style="margin-right:8px">' . $i . '</strong>'
-					: '<a style="margin-right:8px" href="' . esc_url( $link ) . '">' . $i . '</a>';
+				echo $i === $paged ? '<strong style="margin-right:8px">' . esc_html( (string) $i ) . '</strong>'
+					: '<a style="margin-right:8px" href="' . esc_url( $link ) . '">' . esc_html( (string) $i ) . '</a>';
 			}
 			echo '</p>';
 		}

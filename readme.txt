@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.4
+Stable tag: 0.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.5 =
+* Three-column checkout layout (billing / payment / order) — the most compact arrangement, selectable under Design. Express area polish: WooPayments' English separator hidden, gateway description rhythm, theme content padding removed on checkout surfaces.
 
 = 0.1.4 =
 * Consumer rights: online withdrawal form (EU withdrawal function) — auto-created form page for guests and customers, automatic menu placement from the backend, "Withdraw this order" in My Account, soft order matching that never blocks a submission, merchant notification + customer receipt emails, and a management screen with status workflow under WooCommerce → Withdrawals.

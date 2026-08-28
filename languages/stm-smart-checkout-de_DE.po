@@ -256,6 +256,9 @@ msgstr "Teil der Bestellung"
 msgid "Partial"
 msgstr "Teilweise"
 
+msgid "Payment method"
+msgstr "Zahlungsart"
+
 msgid "Please describe which items you are withdrawing."
 msgstr "Bitte beschreiben Sie, welche Artikel Sie widerrufen."
 
@@ -378,6 +381,9 @@ msgstr "Das öffentliche Formular bleibt in jedem Fall erreichbar — eine Einre
 
 msgid "The text could not be loaded here."
 msgstr "Der Text konnte hier nicht geladen werden."
+
+msgid "Three columns (billing / payment / order — most compact)"
+msgstr "Drei Spalten (Rechnung / Zahlungsart / Bestellung — am kompaktesten)"
 
 msgid "Trust item 1 (lock icon)"
 msgstr "Vertrauens-Baustein 1 (Schloss-Symbol)"

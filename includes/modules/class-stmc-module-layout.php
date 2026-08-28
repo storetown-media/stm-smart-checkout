@@ -34,7 +34,56 @@ class STMC_Module_Layout extends STMC_Module {
 		 */
 		add_action( 'woocommerce_before_checkout_billing_form', array( $this, 'title_billing' ), 5 );
 		add_action( 'woocommerce_before_order_notes', array( $this, 'title_additional' ), 5 );
-		add_action( 'woocommerce_checkout_before_order_review', array( $this, 'title_order' ), 5 );
+
+		if ( 'three-column' === STMC_Settings::get( 'design.layout' ) ) {
+			/*
+			 * Three-column choreography (proven on the live shop's predecessor):
+			 * #order_review's siblings get wrapped into a right "order" part
+			 * (title + totals table, then checkboxes + submit) and a middle
+			 * "payment" column. Germanized prints its legal checkboxes at
+			 * woocommerce_review_order_after_payment prio 10 — closing the
+			 * payment column at prio 5 places them in the order column, right
+			 * next to the buy button. Wrappers render only in full page loads;
+			 * update_order_review replaces only the table and #payment INSIDE
+			 * them, so the grid survives every AJAX refresh.
+			 */
+			add_action( 'woocommerce_checkout_order_review', array( $this, 'order_part_open' ), 1 );
+			add_action( 'woocommerce_review_order_before_payment', array( $this, 'payment_col_open' ), 1 );
+			add_action( 'woocommerce_review_order_after_payment', array( $this, 'payment_col_close_order_open' ), 5 );
+			add_action( 'woocommerce_checkout_order_review', array( $this, 'order_part_close' ), 999 );
+		} else {
+			add_action( 'woocommerce_checkout_before_order_review', array( $this, 'title_order' ), 5 );
+		}
+	}
+
+	public function order_part_open() {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+		// Deliberately unnumbered (matches the predecessor): the counter runs
+		// billing → additional → payment; the order part is the constant companion.
+		echo '<div class="stmc-order-part stmc-order-part--top"><h3 class="stmc-col-title">' . esc_html__( 'Your order', 'stm-smart-checkout' ) . '</h3>';
+	}
+
+	public function payment_col_open() {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+		echo '</div><div class="stmc-payment-col"><h3 class="stmc-section-title">' . esc_html__( 'Payment method', 'stm-smart-checkout' ) . '</h3>';
+	}
+
+	public function payment_col_close_order_open() {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+		echo '</div><div class="stmc-order-part stmc-order-part--bottom">';
+	}
+
+	public function order_part_close() {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+		echo '</div>';
 	}
 
 	public function title_billing() {

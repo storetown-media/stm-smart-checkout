@@ -47,7 +47,7 @@ msgid "Back to the list"
 msgstr "Zurück zur Liste"
 
 msgid "Billing details"
-msgstr "Rechnungsdetails"
+msgstr "Adresse"
 
 msgid "Border color"
 msgstr "Rahmenfarbe"

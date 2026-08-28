@@ -246,11 +246,14 @@ body.stmc-checkout form.checkout .wc-order-review #order_review {
 /* ---------- 5. Numbered section headings (plugin-rendered) ---------- */
 
 /* Native theme headings step aside — our own .stmc-section-title keeps the
-   numbering consistent across themes (The7 ships none, vanilla Woo plain h3s). */
-body.stmc-checkout form.checkout .woocommerce-billing-fields > h3,
-body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3,
-body.stmc-checkout form.checkout .woocommerce-additional-fields > h3,
-body.stmc-checkout form.checkout #order_review_heading {
+   numbering consistent across themes (The7 ships none, vanilla Woo plain h3s).
+   The :not() matters: our own titles render as direct children of the same
+   wrappers, so a bare "> h3" would hide them too (it did — 28.08.2026).
+   #order_review_heading is handled in the payment section: Germanized's JS
+   moves it and re-shows it inline, which a plain rule cannot counter. */
+body.stmc-checkout form.checkout .woocommerce-billing-fields > h3:not(.stmc-section-title),
+body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3:not(.stmc-section-title),
+body.stmc-checkout form.checkout .woocommerce-additional-fields > h3:not(.stmc-section-title) {
 	display: none;
 }
 
@@ -286,6 +289,49 @@ body.stmc-checkout form.checkout #order_review .stmc-section-title::before {
 	color: #fff;
 	font-size: 13px;
 	font-weight: 700;
+}
+
+/* Three-column layout: FIXED numbers 1 | 2 | 3 per column. The CSS counter
+   follows DOM order, but WooCommerce renders the order column's markup before
+   the payment column while the visual order is billing | payment | order —
+   so the counter would tell the story backwards. (The #order_review selector
+   mirrors the specificity of the shared rule above.) */
+body.stmc-checkout.stmc-layout-three-column .woocommerce-billing-fields .stmc-section-title::before {
+	content: "1";
+	counter-increment: none;
+}
+
+body.stmc-checkout.stmc-layout-three-column form.checkout #order_review .stmc-payment-col .stmc-section-title::before {
+	content: "2";
+	counter-increment: none;
+}
+
+/* The order column's title joins the numbered story as step 3. */
+body.stmc-checkout .stmc-col-title::before {
+	content: "3";
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: var(--stmc-accent);
+	color: #fff;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+/* "Additional information" is a sub-block of the address column in the
+   three-column layout — a quiet heading, not a numbered step of its own. */
+body.stmc-checkout.stmc-layout-three-column .woocommerce-additional-fields .stmc-section-title {
+	font-size: var(--stmc-fs-m);
+	border-bottom: 1px solid var(--stmc-line);
+}
+
+body.stmc-checkout.stmc-layout-three-column .woocommerce-additional-fields .stmc-section-title::before {
+	content: none;
+	counter-increment: none;
 }
 
 /* ---------- 5b. Field pairs & descriptions ---------- */
@@ -622,6 +668,7 @@ body.stmc-checkout .woocommerce form .form-row select {
 body.stmc-checkout .stmc-col-title {
 	display: flex;
 	align-items: center;
+	gap: 10px;
 	margin: 0 0 16px;
 	padding: 0 0 14px;
 	border-bottom: 2px solid var(--stmc-accent);
@@ -749,12 +796,14 @@ body.stmc-checkout #payment {
 	float: none;
 }
 
-/* Duplicate theme/plugin heading above the methods — our numbered card
-   title already labels this column. DOCUMENTED EXCEPTION to the no-!important
-   rule: Germanized's checkout JS re-shows this heading with an inline
-   display:block on every update; !important on a functional hide is the only
-   CSS-level counter (this is not design styling owners would override). */
-body.stmc-checkout #order_payment_heading {
+/* Duplicate theme/plugin headings — our numbered column titles already label
+   these areas. DOCUMENTED EXCEPTION to the no-!important rule: Germanized's
+   checkout JS moves #order_review_heading next to the methods and re-shows
+   both headings with an inline display:block on every update; !important on
+   a functional hide is the only CSS-level counter (this is not design
+   styling owners would override). */
+body.stmc-checkout #order_payment_heading,
+body.stmc-checkout form.checkout #order_review_heading {
 	display: none !important;
 }
 
@@ -926,25 +975,70 @@ body.stmc-checkout .wc-gzd-checkbox-placeholder:not(:has(input, .wc-gzd-legal-ch
 	padding: 0;
 }
 
-body.stmc-checkout .wc-gzd-checkbox-placeholder label,
-body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label {
-	display: flex;
-	align-items: flex-start;
-	gap: 9px;
+/* Consecutive consent cards read as ONE quiet group: the upper card gives up
+   its bottom edge, the lower one keeps a single shared separator line.
+   ":not(:empty)" stands in for "has content": a :has() inside :has() is
+   invalid CSS and would void the whole rule (Germanized renders unused
+   checkbox types as literally empty placeholder divs). */
+body.stmc-checkout .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text):has(+ .wc-gzd-checkbox-placeholder:not(:empty)) {
+	margin-bottom: 0;
+	border-bottom: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+body.stmc-checkout .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text) + .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text) {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+/* Germanized wraps the label in an extra p.form-row — no chrome of its own. */
+body.stmc-checkout .wc-gzd-checkbox-placeholder p.form-row {
 	margin: 0;
+	padding: 0;
+}
+
+/*
+ * Consent text as a normal block with a hanging indent. The html prefix and
+ * the #order_review variant are pure specificity: WooCommerce core ships
+ * ".woocommerce form .form-row label.checkbox { display: inline }" plus
+ * "label { line-height: 2 }", and The7 adds "#order_review
+ * .wc-gzd-checkbox-placeholder p.form-row label { display: inline }" — an
+ * inline label indents only its first line, tearing the text apart.
+ */
+html body.stmc-checkout #order_review .wc-gzd-checkbox-placeholder p.form-row label,
+html body.stmc-checkout .wc-gzd-checkbox-placeholder label,
+html body.stmc-checkout .wc-gzd-checkbox-placeholder label.checkbox,
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label,
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label.checkbox {
+	display: block;
+	position: relative;
+	margin: 0;
+	padding-left: 30px;
 	font-size: var(--stmc-fs-s);
 	font-weight: 400;
+	line-height: 1.55;
 	color: var(--stmc-muted);
 	cursor: pointer;
 }
 
-body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"],
-body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"] {
-	flex: 0 0 auto;
+html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"],
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"] {
+	position: absolute;
+	left: 0;
+	top: 1px;
 	width: 18px;
 	height: 18px;
-	margin: 2px 0 0;
+	margin: 0;
 	accent-color: var(--stmc-accent);
+}
+
+/* The required marker stays quiet — the box itself says it is mandatory. */
+body.stmc-checkout .wc-gzd-checkbox-placeholder abbr.required,
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper abbr.required {
+	color: var(--stmc-muted);
+	text-decoration: none;
+	border-bottom: 0;
 }
 
 body.stmc-checkout .wc-gzd-checkbox-placeholder a,
@@ -1005,6 +1099,80 @@ body.stmc-checkout .stmc-guarantee p strong {
 body.stmc-checkout #order_review table.shop_table {
 	width: 100%;
 	border: 0;
+}
+
+/*
+ * The7 stacks the review table's cells as full-width blocks (label above,
+ * amount below — unreadable in the narrow order column, and the label/value
+ * pairs fall apart). Rebuild every row as ONE flex line: label left, amount
+ * right. Scoped to the checkout review table only — the cart page keeps its
+ * fixed-table layout.
+ */
+body.stmc-checkout #order_review table.shop_table,
+body.stmc-checkout #order_review table.shop_table thead,
+body.stmc-checkout #order_review table.shop_table tbody,
+body.stmc-checkout #order_review table.shop_table tfoot {
+	display: block;
+	width: 100%;
+}
+
+body.stmc-checkout #order_review table.shop_table tr {
+	display: flex;
+	/* The7's own responsive-table CSS turns rows into wrapping columns below
+	   768px (flex-direction: column) — that stacked the amount under its
+	   label again. One label + one amount is ONE horizontal line, always. */
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: baseline;
+	gap: 12px;
+}
+
+body.stmc-checkout #order_review table.shop_table th,
+body.stmc-checkout #order_review table.shop_table td {
+	display: block;
+	flex: 0 0 auto;
+	width: auto;
+}
+
+body.stmc-checkout #order_review table.shop_table th {
+	flex: 1 1 auto;
+	text-align: left;
+}
+
+body.stmc-checkout #order_review table.shop_table th:last-child,
+body.stmc-checkout #order_review table.shop_table td:last-child {
+	margin-left: auto;
+	text-align: right;
+}
+
+/* Product line: image + wrapping name left, price top-right. */
+body.stmc-checkout #order_review table.shop_table tr.cart_item {
+	align-items: flex-start;
+}
+
+body.stmc-checkout #order_review table.shop_table td.product-name {
+	flex: 1 1 auto;
+	white-space: normal;
+	overflow: visible;
+	overflow-wrap: anywhere;
+	text-align: left;
+}
+
+body.stmc-checkout #order_review table.shop_table td.product-name img {
+	float: left;
+	width: 44px;
+	height: 44px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin: 2px 10px 4px 0;
+}
+
+/* Gateway promo rows (e.g. PayPal pay-later) span the whole line. */
+body.stmc-checkout #order_review table.shop_table tr.wc-ppcp-paylater-msg__cont td {
+	flex: 1 1 100%;
+	margin-left: 0;
+	white-space: normal;
+	text-align: left;
 }
 
 body.stmc-checkout #order_review table.shop_table .cart_item .product-name {

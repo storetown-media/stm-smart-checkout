@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.7
+Stable tag: 0.1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.8 =
+* Design round on the three-column layout: fixed column numbering 1 address / 2 payment / 3 order (the CSS counter told the story backwards because WooCommerce renders the order markup before the payment markup); the address and additional-information titles were accidentally hidden by our own heading rule. Consent boxes: consecutive cards merge into one quiet group, text flows as a normal block with hanging indent (WooCommerce core's inline label + line-height 2 tore it apart). Order summary: rows rebuilt as label-left/amount-right lines against The7's stacked block cells, product names wrap instead of truncating, tidy 44px thumbnails; Germanized's relocated duplicate "Your order" heading hidden.
 
 = 0.1.7 =
 * Legal round: server-side safety net for required consent boxes (an order without a required tick is rejected even when the browser check was bypassed — and stays silent when WooCommerce or Germanized already reported the same box, extendable via the `stmc_required_checkboxes` filter). Optional reassurance note under the consent boxes. "Create an account?" info tooltip whose wording is derived from your own registration settings.

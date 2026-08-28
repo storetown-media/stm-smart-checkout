@@ -1,0 +1,35 @@
+name: Quality gates
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  php-lint:
+    name: PHP syntax (php -l)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4', '8.0', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: Lint all PHP files
+        run: |
+          set -e
+          find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
+
+  plugin-check:
+    name: WordPress Plugin Check (PCP)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: './'
+          # Every error blocks the merge — the same gate wp.org applies on submission.
+          exclude-directories: '.github'

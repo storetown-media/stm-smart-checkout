@@ -1,0 +1,119 @@
+/**
+ * STM Smart Checkout — design tokens & base primitives.
+ *
+ * Contract: components read ONLY --stmc-* tokens; settings override the token
+ * values via an inline style block (see STMC_Assets::tokens_css()). Nothing in
+ * this plugin uses !important — shop owners keep the last word from their
+ * child theme, and our own overrides stay maintainable.
+ *
+ * Fonts: intentionally none loaded here. The checkout inherits the shop's
+ * font stack; remote font loading (GDPR: LG München I, 2022) is never added
+ * by this plugin.
+ */
+
+:root {
+	/* Colors (defaults mirror the settings defaults; inline style wins). */
+	--stmc-accent: #ff6600;
+	--stmc-accent-hover: #e55a00;
+	--stmc-ink: #16265c;
+	--stmc-text: #2b3550;
+	--stmc-muted: #5b6474;
+	--stmc-bg: #f0f2f5;
+	--stmc-card: #ffffff;
+	--stmc-line: #dde2ec;
+	--stmc-good: #1a7f37;
+	--stmc-danger: #c62828;
+
+	/* Shape & depth. */
+	--stmc-radius: 12px;
+	--stmc-radius-s: calc(var(--stmc-radius) * 0.5);
+	--stmc-shadow: 0 1px 2px rgba(22, 38, 92, 0.06), 0 8px 24px rgba(22, 38, 92, 0.07);
+
+	/* Type scale — one knob, consistent rhythm. */
+	--stmc-font-scale: 1;
+	--stmc-fs-s: calc(0.8125rem * var(--stmc-font-scale));   /* 13px */
+	--stmc-fs-base: calc(0.875rem * var(--stmc-font-scale)); /* 14px */
+	--stmc-fs-m: calc(1rem * var(--stmc-font-scale));        /* 16px */
+	--stmc-fs-l: calc(1.0625rem * var(--stmc-font-scale));   /* 17px */
+
+	/* Spacing scale. */
+	--stmc-sp-1: 4px;
+	--stmc-sp-2: 8px;
+	--stmc-sp-3: 12px;
+	--stmc-sp-4: 16px;
+	--stmc-sp-5: 24px;
+	--stmc-sp-6: 32px;
+
+	/* Interaction. */
+	--stmc-focus-ring: 0 0 0 3px color-mix(in srgb, var(--stmc-accent) 35%, transparent);
+	--stmc-touch-target: 44px; /* WCAG-friendly minimum, proven in the Magento edition. */
+}
+
+/* ---------------------------------------------------------------------------
+ * Base primitives (namespaced; safe to ship before any layout module exists).
+ * ------------------------------------------------------------------------- */
+
+.stmc-card {
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius);
+	box-shadow: var(--stmc-shadow);
+	padding: var(--stmc-sp-5);
+}
+
+.stmc-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--stmc-sp-2);
+	min-height: var(--stmc-touch-target);
+	padding: 0 var(--stmc-sp-5);
+	border: 0;
+	border-radius: var(--stmc-radius-s);
+	background: var(--stmc-accent);
+	color: #fff;
+	font-size: var(--stmc-fs-m);
+	font-weight: 600;
+	line-height: 1.2;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.stmc-btn:hover,
+.stmc-btn:focus {
+	background: var(--stmc-accent-hover);
+	color: #fff;
+}
+
+.stmc-btn:focus-visible,
+.stmc-focusable:focus-visible {
+	outline: none;
+	box-shadow: var(--stmc-focus-ring);
+}
+
+.stmc-muted {
+	color: var(--stmc-muted);
+}
+
+/* Accessible hiding (screen readers keep the content). */
+.stmc-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.stmc-scope *,
+	.stmc-scope *::before,
+	.stmc-scope *::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+	}
+}

@@ -36,6 +36,7 @@ final class STMC_Plugin {
 		}
 
 		add_filter( 'stmc_modules', array( $this, 'register_core_modules' ), 5 );
+		add_action( 'init', array( 'STMC_Checkout_Context', 'maybe_set_preview_cookie' ), 1 );
 
 		// Boot feature modules once the main query is known (frontend context).
 		add_action( 'wp', array( $this, 'boot_modules' ) );

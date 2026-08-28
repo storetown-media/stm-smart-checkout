@@ -24,6 +24,29 @@ class STMC_Module_Layout extends STMC_Module {
 		if ( STMC_Settings::get( 'layout.continue_shopping' ) ) {
 			add_action( 'woocommerce_after_cart_table', array( $this, 'continue_shopping' ), 20 );
 		}
+
+		/*
+		 * Own numbered section titles. Theme checkout templates differ wildly
+		 * (The7 ships none at all, vanilla Woo has plain h3s) — rendering our
+		 * own and hiding the native ones via CSS gives every theme the same
+		 * consistent result. Numbers come from a CSS counter, so the sequence
+		 * stays correct whatever sections a shop actually shows.
+		 */
+		add_action( 'woocommerce_before_checkout_billing_form', array( $this, 'title_billing' ), 5 );
+		add_action( 'woocommerce_before_order_notes', array( $this, 'title_additional' ), 5 );
+		add_action( 'woocommerce_checkout_before_order_review', array( $this, 'title_order' ), 5 );
+	}
+
+	public function title_billing() {
+		echo '<h3 class="stmc-section-title">' . esc_html__( 'Billing details', 'stm-smart-checkout' ) . '</h3>';
+	}
+
+	public function title_additional() {
+		echo '<h3 class="stmc-section-title">' . esc_html__( 'Additional information', 'stm-smart-checkout' ) . '</h3>';
+	}
+
+	public function title_order() {
+		echo '<h3 class="stmc-section-title stmc-section-title--order">' . esc_html__( 'Your order', 'stm-smart-checkout' ) . '</h3>';
 	}
 
 	/**

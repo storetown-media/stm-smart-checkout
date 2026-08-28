@@ -226,16 +226,22 @@ body.stmc-checkout form.checkout .wc-order-review #order_review {
 	box-shadow: none;
 }
 
-/* ---------- 5. Numbered section headings ---------- */
+/* ---------- 5. Numbered section headings (plugin-rendered) ---------- */
+
+/* Native theme headings step aside — our own .stmc-section-title keeps the
+   numbering consistent across themes (The7 ships none, vanilla Woo plain h3s). */
+body.stmc-checkout form.checkout .woocommerce-billing-fields > h3,
+body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3,
+body.stmc-checkout form.checkout .woocommerce-additional-fields > h3,
+body.stmc-checkout form.checkout #order_review_heading {
+	display: none;
+}
 
 body.stmc-checkout form.checkout {
 	counter-reset: stmc-step;
 }
 
-body.stmc-checkout form.checkout .woocommerce-billing-fields > h3,
-body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3,
-body.stmc-checkout form.checkout .woocommerce-additional-fields > h3,
-body.stmc-checkout form.checkout #order_review_heading {
+body.stmc-checkout .stmc-section-title {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -247,10 +253,9 @@ body.stmc-checkout form.checkout #order_review_heading {
 	color: var(--stmc-ink);
 }
 
-body.stmc-checkout form.checkout .woocommerce-billing-fields > h3::before,
-body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3::before,
-body.stmc-checkout form.checkout .woocommerce-additional-fields > h3::before,
-body.stmc-checkout form.checkout #order_review_heading::before {
+body.stmc-checkout .stmc-section-title::before,
+body.stmc-checkout form.checkout .wc-order-review .stmc-section-title::before,
+body.stmc-checkout form.checkout #order_review .stmc-section-title::before {
 	counter-increment: stmc-step;
 	content: counter(stmc-step);
 	flex: 0 0 auto;
@@ -264,23 +269,6 @@ body.stmc-checkout form.checkout #order_review_heading::before {
 	color: #fff;
 	font-size: 13px;
 	font-weight: 700;
-}
-
-/* The heading card boundary: heading sits inside the review card on The7,
-   as its own element in vanilla Woo — give the standalone one card chrome. */
-body.stmc-checkout form.checkout > #order_review_heading {
-	margin-bottom: 0;
-	padding: 22px 24px 14px;
-	background: var(--stmc-card);
-	border: 1px solid var(--stmc-line);
-	border-bottom: 2px solid var(--stmc-accent);
-	border-radius: var(--stmc-radius) var(--stmc-radius) 0 0;
-	box-shadow: var(--stmc-shadow);
-}
-
-body.stmc-checkout form.checkout > #order_review_heading + #order_review {
-	border-top: 0;
-	border-radius: 0 0 var(--stmc-radius) var(--stmc-radius);
 }
 
 /* ---------- 6. Form fields ---------- */
@@ -344,6 +332,7 @@ body.stmc-checkout .woocommerce form .form-row select {
 	}
 
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review_heading,
+	body.stmc-checkout.stmc-layout-two-column form.checkout > .stmc-section-title--order,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review,
 	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review {
 		grid-column: 2;

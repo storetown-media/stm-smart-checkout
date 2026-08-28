@@ -16,9 +16,17 @@ class STMC_Checkout_Context {
 
 	/**
 	 * True on the pages this plugin styles: cart, checkout (incl. order-pay)
-	 * and the order confirmation.
+	 * and the order confirmation — AND WooCommerce's wc-ajax fragment requests.
+	 *
+	 * The AJAX bridge is essential: update_order_review re-renders #payment and
+	 * the totals via /?wc-ajax=… where is_checkout() is false. Without booting
+	 * there, everything our modules add inside those fragments (trust row etc.)
+	 * would vanish after the first address change (lesson from the live shop).
 	 */
 	public static function is_checkout_surface() {
+		if ( isset( $_GET['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- context detection only.
+			return true;
+		}
 		if ( ! function_exists( 'is_cart' ) ) {
 			return false;
 		}
@@ -65,12 +73,29 @@ class STMC_Checkout_Context {
 		return (bool) apply_filters( 'stmc_active', $active );
 	}
 
-	/** Preview is restricted to users who may manage the shop. */
+	/**
+	 * Preview is restricted to users who may manage the shop. The cookie keeps
+	 * preview alive inside wc-ajax fragment requests (no query param there);
+	 * it is worthless without the capability, so it needs no signing.
+	 */
 	private static function is_preview_request() {
 		if ( ! is_user_logged_in() || ! current_user_can( 'manage_woocommerce' ) ) {
 			return false;
 		}
 		// Nonce-less by design: read-only view toggle, capability-gated, changes nothing.
-		return isset( $_GET[ self::PREVIEW_PARAM ] ) && '1' === $_GET[ self::PREVIEW_PARAM ]; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET[ self::PREVIEW_PARAM ] ) && '1' === $_GET[ self::PREVIEW_PARAM ] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return true;
+		}
+		return ! empty( $_COOKIE[ self::PREVIEW_PARAM ] );
+	}
+
+	/** Set on init so the preview survives AJAX reloads (pattern from the live shop). */
+	public static function maybe_set_preview_cookie() {
+		if ( is_admin() || headers_sent() || ! is_user_logged_in() || ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
+		if ( isset( $_GET[ self::PREVIEW_PARAM ] ) && '1' === $_GET[ self::PREVIEW_PARAM ] && empty( $_COOKIE[ self::PREVIEW_PARAM ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			setcookie( self::PREVIEW_PARAM, '1', 0, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
+		}
 	}
 }

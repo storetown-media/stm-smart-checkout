@@ -82,10 +82,13 @@ class STMC_Module_Header extends STMC_Module {
 		);
 
 		$logo_url   = (string) STMC_Settings::get( 'design.logo_url' );
+		// Deliberately NOT tied to woocommerce_enable_checkout_login_reminder:
+		// theme overrides (The7 among them) render the login form regardless of
+		// that option. The JS core hides this button when no form exists in the
+		// DOM — correct on every theme without guessing template behavior.
 		$show_login = (bool) STMC_Settings::get( 'header.show_login' )
 			&& 2 === $step
-			&& ! is_user_logged_in()
-			&& 'yes' === get_option( 'woocommerce_enable_checkout_login_reminder' );
+			&& ! is_user_logged_in();
 		?>
 		<div class="stmc-band">
 			<div class="stmc-band__in">

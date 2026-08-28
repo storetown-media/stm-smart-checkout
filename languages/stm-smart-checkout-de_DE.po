@@ -16,8 +16,14 @@ msgstr "Akzentfarbe"
 msgid "Accent hover color"
 msgstr "Akzentfarbe (Hover)"
 
+msgid "Additional information"
+msgstr "Zusätzliche Informationen"
+
 msgid "Already a customer? %s"
 msgstr "Bereits Kunde? %s"
+
+msgid "Billing details"
+msgstr "Rechnungsdetails"
 
 msgid "Border color"
 msgstr "Rahmenfarbe"
@@ -189,6 +195,9 @@ msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "Your order"
+msgstr "Ihre Bestellung"
 
 msgctxt "state field label"
 msgid "County"

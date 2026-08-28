@@ -53,6 +53,22 @@
 		bridgeJQueryEvents();
 	}
 
+	// No login form in the DOM (theme/option dependent)? Then the toggle
+	// has nothing to open — remove it instead of leaving a dead button.
+	function pruneLoginToggle() {
+		if ( document.querySelector( 'form.woocommerce-form-login, form.login' ) ) {
+			return;
+		}
+		document.querySelectorAll( '.stmc-login-toggle' ).forEach( function ( btn ) {
+			btn.remove();
+		} );
+	}
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', pruneLoginToggle );
+	} else {
+		pruneLoginToggle();
+	}
+
 	/*
 	 * Login toggle in the header band. The login form is already in the DOM;
 	 * we toggle its INLINE display (WooCommerce ships it with style="display:none").

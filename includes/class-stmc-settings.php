@@ -60,8 +60,12 @@ class STMC_Settings {
 			'layout.continue_shopping'  => array( 'type' => 'bool', 'default' => true ),
 
 			// Fields.
-			'fields.state_optional' => array( 'type' => 'bool', 'default' => true ),
-			'fields.autofill_attrs' => array( 'type' => 'bool', 'default' => true ),
+			'fields.state_optional'    => array( 'type' => 'bool', 'default' => true ),
+			'fields.autofill_attrs'    => array( 'type' => 'bool', 'default' => true ),
+			'fields.postcode_autofill' => array( 'type' => 'bool', 'default' => true ),
+
+			// Mobile.
+			'checkout.sticky_bar' => array( 'type' => 'bool', 'default' => true ),
 
 			// Focus.
 			'focus.extra_hide_selectors' => array( 'type' => 'textarea', 'default' => '' ),

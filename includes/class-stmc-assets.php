@@ -52,8 +52,9 @@ class STMC_Assets {
 			'stmc-checkout',
 			'stmcData',
 			array(
-				'debug'   => (bool) STMC_Settings::get( 'advanced.debug' ),
-				'isBlock' => STMC_Checkout_Context::uses_block_checkout(),
+				'debug'            => (bool) STMC_Settings::get( 'advanced.debug' ),
+				'isBlock'          => STMC_Checkout_Context::uses_block_checkout(),
+				'postcodeAutofill' => (bool) STMC_Settings::get( 'fields.postcode_autofill' ),
 			)
 		);
 	}

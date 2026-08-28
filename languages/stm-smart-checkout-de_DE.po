@@ -40,6 +40,9 @@ msgstr "Betroffene Artikel (bei Teil-Widerruf)"
 msgid "Already a customer? %s"
 msgstr "Bereits Kunde? %s"
 
+msgid "Appears on phones while the real order button is out of view."
+msgstr "Erscheint am Telefon, solange der echte Bestellknopf außerhalb des Sichtbereichs liegt."
+
 msgid "Back to the list"
 msgstr "Zurück zur Liste"
 
@@ -175,6 +178,9 @@ msgstr "Wird geladen &hellip;"
 msgid "Log in"
 msgstr "Anmelden"
 
+msgid "Mobile sticky order bar (total + buy button)"
+msgstr "Mobile Sticky-Bestellleiste (Summe + Kaufknopf)"
+
 msgid "Module: distraction-free mode"
 msgstr "Modul: Ablenkungsfreier Modus"
 
@@ -270,6 +276,9 @@ msgstr "Bitte geben Sie Vor- und Nachnamen an."
 
 msgid "Please enter your order number."
 msgstr "Bitte geben Sie Ihre Bestellnummer an."
+
+msgid "Postcode autofill for Germany, Austria, Switzerland"
+msgstr "PLZ-Autofill für Deutschland, Österreich, Schweiz"
 
 msgid "Processed"
 msgstr "Bearbeitet"
@@ -373,6 +382,9 @@ msgstr "Textfarbe"
 msgid "Thank you. We will process your request promptly and confirm it by email."
 msgstr "Vielen Dank. Wir bearbeiten Ihren Widerruf umgehend und bestätigen ihn per E-Mail."
 
+msgid "The city fills in automatically from bundled databases (no external service, GDPR-safe)."
+msgstr "Der Ort füllt sich automatisch aus mitgelieferten Datenbanken (kein externer Dienst, DSGVO-sicher)."
+
 msgid "The link is appended automatically — no manual menu editing needed."
 msgstr "Der Link wird automatisch angehängt — keine manuelle Menüpflege nötig."
 
@@ -384,6 +396,9 @@ msgstr "Der Text konnte hier nicht geladen werden."
 
 msgid "Three columns (billing / payment / order — most compact)"
 msgstr "Drei Spalten (Rechnung / Zahlungsart / Bestellung — am kompaktesten)"
+
+msgid "Total"
+msgstr "Gesamt"
 
 msgid "Trust item 1 (lock icon)"
 msgstr "Vertrauens-Baustein 1 (Schloss-Symbol)"

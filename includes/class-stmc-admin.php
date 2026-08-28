@@ -125,6 +125,8 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'layout.continue_shopping', __( '"Continue shopping" link on the cart', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.state_optional', __( 'State/county field never required, labels untangled', 'stm-smart-checkout' ), __( 'Fixes the duplicate "Land" label for IE/GB/HU in German shops.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.autofill_attrs', __( 'Correct mobile keyboards & autofill attributes', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'checkout.sticky_bar', __( 'Mobile sticky order bar (total + buy button)', 'stm-smart-checkout' ), __( 'Appears on phones while the real order button is out of view.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
 					<?php else : ?>
@@ -163,7 +165,8 @@ class STMC_Admin {
 				'header.show_progress', 'header.show_login', 'header.sr_title',
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
-				'fields.state_optional', 'fields.autofill_attrs', 'legal.popup', 'focus.extra_hide_selectors',
+				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'checkout.sticky_bar',
+				'legal.popup', 'focus.extra_hide_selectors',
 			),
 			'legal'    => array(
 				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',

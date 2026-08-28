@@ -1160,6 +1160,93 @@ body.stmc-checkout .stmc-modal__foot {
 	text-align: right;
 }
 
+/* ---------- 13e. Postcode autofill highlight ---------- */
+
+@keyframes stmc-autofill-flash {
+	0% { background-color: color-mix(in srgb, var(--stmc-accent) 18%, var(--stmc-card)); }
+	100% { background-color: var(--stmc-card); }
+}
+
+body.stmc-checkout input.stmc-autofilled {
+	animation: stmc-autofill-flash 0.9s ease-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body.stmc-checkout input.stmc-autofilled {
+		animation: none;
+	}
+}
+
+/* ---------- 13f. Mobile sticky order bar ---------- */
+
+body.stmc-checkout .stmc-sticky-bar {
+	position: fixed;
+	inset: auto 0 0 0;
+	z-index: 9000;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+	background: var(--stmc-card);
+	border-top: 1px solid var(--stmc-line);
+	box-shadow: 0 -8px 24px -12px rgba(10, 18, 45, 0.35);
+}
+
+body.stmc-checkout .stmc-sticky-bar[hidden] {
+	display: none;
+}
+
+/* Desktop never shows the bar (the order column is sticky there). */
+@media (min-width: 993px) {
+	body.stmc-checkout .stmc-sticky-bar {
+		display: none;
+	}
+}
+
+body.stmc-checkout .stmc-sticky-bar__total {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.25;
+	min-width: 0;
+}
+
+body.stmc-checkout .stmc-sticky-bar__label {
+	font-size: calc(var(--stmc-fs-s) - 1px);
+	color: var(--stmc-muted);
+}
+
+body.stmc-checkout .stmc-sticky-bar__amount {
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+	color: var(--stmc-ink);
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+
+body.stmc-checkout .stmc-sticky-bar__btn {
+	flex: 0 1 auto;
+	min-height: 46px;
+	padding: 0 22px;
+	border: 0;
+	border-radius: var(--stmc-radius-s);
+	background: var(--stmc-accent);
+	color: #fff;
+	font-size: var(--stmc-fs-m);
+	font-weight: 700;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+body.stmc-checkout .stmc-sticky-bar__btn:active {
+	background: var(--stmc-accent-hover);
+}
+
+/* Room so the bar never covers the page end while visible. */
+html.stmc-has-sticky-bar body.stmc-checkout {
+	padding-bottom: 84px;
+}
+
 /* ---------- 14. Small screens ---------- */
 
 @media (max-width: 782px) {

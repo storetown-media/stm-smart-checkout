@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.5
+Stable tag: 0.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.6 =
+* Postcode autofill for DE/AT/CH from bundled databases (no external service) — the city fills in automatically, multiple matches feed a native suggestion list. Mobile sticky order bar: total + buy button pinned while the real button is out of view; the proxy click runs every native validation.
 
 = 0.1.5 =
 * Three-column checkout layout (billing / payment / order) — the most compact arrangement, selectable under Design. Express area polish: WooPayments' English separator hidden, gateway description rhythm, theme content padding removed on checkout surfaces.

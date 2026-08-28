@@ -34,6 +34,43 @@ class STMC_Module_Fields extends STMC_Module {
 		if ( STMC_Settings::get( 'fields.autofill_attrs' ) ) {
 			add_filter( 'woocommerce_form_field_args', array( $this, 'input_attributes' ), 10, 2 );
 		}
+
+		if ( STMC_Settings::get( 'fields.postcode_autofill' ) ) {
+			// WC-AJAX endpoint; the module boots in wc-ajax requests via the
+			// context bridge, so this registration is present when it fires.
+			add_action( 'wc_ajax_stmc_postcode', array( $this, 'postcode_lookup' ) );
+		}
+	}
+
+	/**
+	 * Postcode → city lookup for DE/AT/CH from the bundled databases
+	 * (inherited from the Magento edition; ~8000 German postcodes).
+	 * Read-only, public data, no nonce needed; input strictly validated.
+	 */
+	public function postcode_lookup() {
+		$country  = isset( $_GET['country'] ) ? strtoupper( sanitize_key( $_GET['country'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$postcode = isset( $_GET['postcode'] ) ? preg_replace( '~\D~', '', (string) wp_unslash( $_GET['postcode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$lengths = array( 'DE' => 5, 'AT' => 4, 'CH' => 4 );
+		if ( ! isset( $lengths[ $country ] ) || strlen( $postcode ) !== $lengths[ $country ] ) {
+			wp_send_json( array( 'cities' => array() ) );
+		}
+
+		static $db = array();
+		if ( ! isset( $db[ $country ] ) ) {
+			$file           = STMC_DIR . 'data/postcode/' . $country . '.json';
+			$raw            = is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : null;
+			$db[ $country ] = is_array( $raw ) ? $raw : array();
+		}
+
+		$hits   = isset( $db[ $country ][ $postcode ] ) ? $db[ $country ][ $postcode ] : array();
+		$cities = array();
+		foreach ( $hits as $hit ) {
+			if ( ! empty( $hit['city'] ) && ! in_array( $hit['city'], $cities, true ) ) {
+				$cities[] = (string) $hit['city'];
+			}
+		}
+		wp_send_json( array( 'cities' => array_slice( $cities, 0, 8 ) ) );
 	}
 
 	/** Replacement labels where the default translation collides with "country". */

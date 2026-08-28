@@ -114,6 +114,9 @@ class STMC_Admin {
 						<?php self::row_number( 'withdrawal.period_days', __( 'Withdrawal period (days)', 'stm-smart-checkout' ), 0, 365 ); ?>
 						<?php self::row_checkbox( 'withdrawal.account_limit', __( 'Hide the account button after the period ends', 'stm-smart-checkout' ), __( 'The public form stays available either way — a submission is never blocked.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'withdrawal.success_link', __( 'Show a withdrawal link on the order confirmation', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'legal.validate_checkboxes', __( 'Verify required consent boxes on the server', 'stm-smart-checkout' ), __( 'Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'legal.guarantee_title', __( 'Reassurance note: lead-in', 'stm-smart-checkout' ), __( 'Example: No risk: — shown in bold in front of the text.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_textarea( 'legal.guarantee_text', __( 'Reassurance note under the consent boxes', 'stm-smart-checkout' ), __( 'Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text.', 'stm-smart-checkout' ) ); ?>
 					<?php elseif ( 'checkout' === $current ) : ?>
 						<?php self::row_checkbox( 'header.show_progress', __( 'Show progress bar (cart → checkout → confirmation)', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'header.show_login', __( 'Show "Already a customer?" login toggle', 'stm-smart-checkout' ) ); ?>
@@ -126,6 +129,7 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'fields.state_optional', __( 'State/county field never required, labels untangled', 'stm-smart-checkout' ), __( 'Fixes the duplicate "Land" label for IE/GB/HU in German shops.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.autofill_attrs', __( 'Correct mobile keyboards & autofill attributes', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'fields.account_hint', __( 'Explain "Create an account?" with an info tooltip', 'stm-smart-checkout' ), __( 'The text is built from your own registration settings, so it always matches what really happens.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.sticky_bar', __( 'Mobile sticky order bar (total + buy button)', 'stm-smart-checkout' ), __( 'Appears on phones while the real order button is out of view.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
@@ -165,12 +169,13 @@ class STMC_Admin {
 				'header.show_progress', 'header.show_login', 'header.sr_title',
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
-				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'checkout.sticky_bar',
-				'legal.popup', 'focus.extra_hide_selectors',
+				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'fields.account_hint',
+				'checkout.sticky_bar', 'legal.popup', 'focus.extra_hide_selectors',
 			),
 			'legal'    => array(
 				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',
 				'withdrawal.period_days', 'withdrawal.account_limit', 'withdrawal.success_link',
+				'legal.validate_checkboxes', 'legal.guarantee_title', 'legal.guarantee_text',
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',

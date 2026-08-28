@@ -40,6 +40,47 @@ class STMC_Module_Fields extends STMC_Module {
 			// context bridge, so this registration is present when it fires.
 			add_action( 'wc_ajax_stmc_postcode', array( $this, 'postcode_lookup' ) );
 		}
+
+		if ( STMC_Settings::get( 'fields.account_hint' ) ) {
+			add_action( 'woocommerce_after_checkout_registration_form', array( $this, 'account_hint' ) );
+		}
+	}
+
+	/**
+	 * "Create an account?" — an info button that says what actually happens.
+	 *
+	 * The hook fires inside .woocommerce-account-fields, so button and tooltip
+	 * are siblings of the checkbox row and travel with the card. The wording is
+	 * derived from the shop's real registration settings rather than hardcoded:
+	 * whether WooCommerce generates the user name and the password decides
+	 * which sentence is true. A wrong promise here costs trust at the worst
+	 * possible moment.
+	 */
+	public function account_hint() {
+		if ( is_user_logged_in() ) {
+			return;
+		}
+		$auto_user = 'yes' === get_option( 'woocommerce_registration_generate_username' );
+		$auto_pass = 'yes' === get_option( 'woocommerce_registration_generate_password' );
+
+		$lines = array();
+		if ( $auto_user ) {
+			$lines[] = __( 'Your account is created automatically with your email address — no extra input needed.', 'stm-smart-checkout' );
+		} else {
+			$lines[] = __( 'Your account is created with the user name you enter above.', 'stm-smart-checkout' );
+		}
+		$lines[] = $auto_pass
+			? __( 'You will receive a link to set your password by email.', 'stm-smart-checkout' )
+			: __( 'The password you enter above is the one you will log in with.', 'stm-smart-checkout' );
+		$lines[] = __( 'In your account you can look up your orders, invoices and downloads again at any time.', 'stm-smart-checkout' );
+
+		printf(
+			'<button type="button" class="stmc-info stmc-focusable" aria-describedby="stmc-account-hint" aria-label="%1$s">i</button>'
+			. '<span class="stmc-info__pop" role="tooltip" id="stmc-account-hint"><strong>%2$s</strong> %3$s</span>',
+			esc_attr__( 'What happens when I create an account?', 'stm-smart-checkout' ),
+			esc_html__( 'How it works:', 'stm-smart-checkout' ),
+			esc_html( implode( ' ', $lines ) )
+		);
 	}
 
 	/**

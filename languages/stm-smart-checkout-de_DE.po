@@ -124,8 +124,14 @@ msgstr "Smart Checkout aktivieren"
 msgid "Entire order"
 msgstr "Gesamte Bestellung"
 
+msgid "Example: No risk: — shown in bold in front of the text."
+msgstr "Beispiel: Kein Risiko: — erscheint fett vor dem Text."
+
 msgid "Example: Secure SSL connection. Leave all three empty for the SSL default."
 msgstr "Beispiel: Sichere SSL-Verbindung. Alle drei leer lassen = SSL-Standardtext."
+
+msgid "Explain \"Create an account?\" with an info tooltip"
+msgstr "„Ein Konto erstellen?“ mit Info-Tooltip erklären"
 
 msgid "Extra CSS selectors to hide (advanced)"
 msgstr "Zusätzlich auszublendende CSS-Selektoren (fortgeschritten)"
@@ -157,8 +163,14 @@ msgstr "Hallo %1$s,\n\nIhr Widerruf zur Bestellung %2$s ist bei uns eingegangen 
 msgid "Hide the account button after the period ends"
 msgstr "Konto-Button nach Fristablauf ausblenden"
 
+msgid "How it works:"
+msgstr "So einfach geht’s:"
+
 msgid "I withdraw from"
 msgstr "Ich widerrufe"
+
+msgid "In your account you can look up your orders, invoices and downloads again at any time."
+msgstr "Im Konto finden Sie Ihre Bestellungen, Rechnungen und Downloads jederzeit wieder."
 
 msgid "Internal notes"
 msgstr "Interne Notizen"
@@ -235,6 +247,9 @@ msgstr "Rechtstexte (AGB, Widerruf) im Overlay öffnen"
 msgid "Open the page instead"
 msgstr "Seite stattdessen öffnen"
 
+msgid "Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text."
+msgstr "Optional, standardmäßig leer. Für ein Versprechen, das Sie wirklich halten — etwa dass Ihre freiwillige Geld-zurück-Garantie von der Download-Zustimmung unberührt bleibt. Nie eine Bedingung, nie ein Rechtstext."
+
 msgid "Order"
 msgstr "Bestellung"
 
@@ -280,6 +295,12 @@ msgstr "Bitte geben Sie Vor- und Nachnamen an."
 msgid "Please enter your order number."
 msgstr "Bitte geben Sie Ihre Bestellnummer an."
 
+msgid "Please read and accept the terms and conditions to proceed with your order."
+msgstr "Bitte lesen und akzeptieren Sie die AGB, um mit Ihrer Bestellung fortzufahren."
+
+msgid "Please tick all required boxes to proceed with your order."
+msgstr "Bitte setzen Sie alle Pflicht-Häkchen, um mit Ihrer Bestellung fortzufahren."
+
 msgid "Postcode autofill for Germany, Austria, Switzerland"
 msgstr "PLZ-Autofill für Deutschland, Österreich, Schweiz"
 
@@ -294,6 +315,12 @@ msgstr "Grund (freiwillig)"
 
 msgid "Reason (voluntary):"
 msgstr "Grund (freiwillig):"
+
+msgid "Reassurance note under the consent boxes"
+msgstr "Beruhigender Hinweis unter den Pflicht-Kästchen"
+
+msgid "Reassurance note: lead-in"
+msgstr "Beruhigender Hinweis: Einleitung"
 
 msgid "Received"
 msgstr "Eingegangen"
@@ -324,6 +351,9 @@ msgstr "STM Smart Checkout benötigt WooCommerce %s oder neuer. Bitte aktualisie
 
 msgid "STM Smart Checkout requires WooCommerce to be installed and active."
 msgstr "STM Smart Checkout benötigt ein installiertes und aktives WooCommerce."
+
+msgid "Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box."
+msgstr "Sicherheitsnetz: Eine Bestellung ohne gesetztes Pflicht-Häkchen wird auch dann abgelehnt, wenn die Browser-Prüfung umgangen wurde. Bleibt still, wenn WooCommerce oder Germanized dasselbe Kästchen bereits gemeldet hat."
 
 msgid "Save"
 msgstr "Speichern"
@@ -391,11 +421,17 @@ msgstr "Der Ort füllt sich automatisch aus mitgelieferten Datenbanken (kein ext
 msgid "The link is appended automatically — no manual menu editing needed."
 msgstr "Der Link wird automatisch angehängt — keine manuelle Menüpflege nötig."
 
+msgid "The password you enter above is the one you will log in with."
+msgstr "Mit dem oben eingegebenen Passwort melden Sie sich künftig an."
+
 msgid "The public form stays available either way — a submission is never blocked."
 msgstr "Das öffentliche Formular bleibt in jedem Fall erreichbar — eine Einreichung wird nie blockiert."
 
 msgid "The text could not be loaded here."
 msgstr "Der Text konnte hier nicht geladen werden."
+
+msgid "The text is built from your own registration settings, so it always matches what really happens."
+msgstr "Der Text entsteht aus Ihren eigenen Registrierungs-Einstellungen und stimmt deshalb immer mit dem überein, was wirklich passiert."
 
 msgid "Three columns (billing / payment / order — most compact)"
 msgstr "Drei Spalten (Rechnung / Zahlungsart / Bestellung — am kompaktesten)"
@@ -418,8 +454,14 @@ msgstr "Zwei Spalten (Bestellübersicht rechts)"
 msgid "Use this form to withdraw from your purchase within the statutory withdrawal period. You do not have to give a reason. We will confirm receipt by email."
 msgstr "Mit diesem Formular widerrufen Sie Ihren Kauf innerhalb der gesetzlichen Widerrufsfrist. Sie müssen keinen Grund angeben. Den Eingang bestätigen wir per E-Mail."
 
+msgid "Verify required consent boxes on the server"
+msgstr "Pflicht-Kästchen serverseitig prüfen"
+
 msgid "We received your withdrawal"
 msgstr "Ihr Widerruf ist bei uns eingegangen"
+
+msgid "What happens when I create an account?"
+msgstr "Was passiert beim Erstellen eines Kontos?"
 
 msgid "Withdraw this order"
 msgstr "Diese Bestellung widerrufen"
@@ -441,6 +483,15 @@ msgstr "Ja"
 
 msgid "You can revoke your order online at any time within the withdrawal period:"
 msgstr "Sie können Ihre Bestellung innerhalb der Widerrufsfrist jederzeit online widerrufen:"
+
+msgid "You will receive a link to set your password by email."
+msgstr "Den Link zum Festlegen Ihres Passworts erhalten Sie per E-Mail."
+
+msgid "Your account is created automatically with your email address — no extra input needed."
+msgstr "Ihr Kundenkonto wird automatisch mit Ihrer E-Mail-Adresse angelegt — ohne zusätzliche Eingaben."
+
+msgid "Your account is created with the user name you enter above."
+msgstr "Ihr Kundenkonto wird mit dem oben eingegebenen Benutzernamen angelegt."
 
 msgid "Your order"
 msgstr "Ihre Bestellung"

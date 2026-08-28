@@ -103,6 +103,44 @@
 	}, false );
 
 	/*
+	 * Info tooltips (.stmc-info): a mouse reveals them via CSS :hover, a
+	 * keyboard via :focus — but a finger does neither, because iOS gives
+	 * buttons no focus on tap. Hence the explicit open state. Delegated on
+	 * document so buttons inside replaced fragments keep working.
+	 */
+	document.addEventListener( 'click', function ( e ) {
+		var btn = e.target.closest ? e.target.closest( '.stmc-info' ) : null;
+		var open = document.querySelectorAll( '.stmc-info.is-open' );
+		if ( btn ) {
+			e.preventDefault();
+			var wasOpen = btn.classList.contains( 'is-open' );
+			open.forEach( function ( x ) {
+				x.classList.remove( 'is-open' );
+			} );
+			if ( ! wasOpen ) {
+				btn.classList.add( 'is-open' );
+			}
+			return;
+		}
+		// A click anywhere else closes it — but not inside the bubble itself,
+		// so the text stays selectable.
+		if ( open.length && ! ( e.target.closest && e.target.closest( '.stmc-info__pop' ) ) ) {
+			open.forEach( function ( x ) {
+				x.classList.remove( 'is-open' );
+			} );
+		}
+	}, false );
+
+	document.addEventListener( 'keydown', function ( e ) {
+		if ( e.key !== 'Escape' ) {
+			return;
+		}
+		document.querySelectorAll( '.stmc-info.is-open' ).forEach( function ( x ) {
+			x.classList.remove( 'is-open' );
+		} );
+	} );
+
+	/*
 	 * Postcode → city autofill (DE/AT/CH, bundled databases). Fills the city
 	 * only when it is empty or was autofilled before — a hand-typed city is
 	 * never overwritten; multiple matches feed a native <datalist>.

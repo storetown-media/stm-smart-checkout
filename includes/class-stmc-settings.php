@@ -36,7 +36,10 @@ class STMC_Settings {
 			'modules.legal'  => array( 'type' => 'bool', 'default' => true ),
 
 			// Legal.
-			'legal.popup' => array( 'type' => 'bool', 'default' => true ),
+			'legal.popup'               => array( 'type' => 'bool', 'default' => true ),
+			'legal.validate_checkboxes' => array( 'type' => 'bool', 'default' => true ),
+			'legal.guarantee_title'     => array( 'type' => 'text', 'default' => '' ),
+			'legal.guarantee_text'      => array( 'type' => 'textarea', 'default' => '' ),
 
 			// Withdrawal (consumer rights; EU 2023/2673). [PRO-CANDIDATE]
 			'withdrawal.enabled'          => array( 'type' => 'bool', 'default' => true ),
@@ -63,6 +66,7 @@ class STMC_Settings {
 			'fields.state_optional'    => array( 'type' => 'bool', 'default' => true ),
 			'fields.autofill_attrs'    => array( 'type' => 'bool', 'default' => true ),
 			'fields.postcode_autofill' => array( 'type' => 'bool', 'default' => true ),
+			'fields.account_hint'      => array( 'type' => 'bool', 'default' => true ),
 
 			// Mobile.
 			'checkout.sticky_bar' => array( 'type' => 'bool', 'default' => true ),

@@ -321,6 +321,103 @@ body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > #shipping_city_
 	grid-column: 2;
 }
 
+/* ---------- 5c. Account block & the info tooltip ---------- */
+
+/* Quiet shell around "Create an account?" — and the positioning context the
+   info button and its tooltip anchor to. */
+body.stmc-checkout .woocommerce-account-fields {
+	position: relative;
+	margin: 4px 0 16px;
+	padding: 12px 44px 12px 14px;
+	background: var(--stmc-bg);
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+}
+
+body.stmc-checkout .woocommerce-account-fields .create-account p:last-child {
+	margin-bottom: 0;
+}
+
+/* Info button: reusable component (account hint today, Pro modules later). */
+body.stmc-checkout .stmc-info {
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	background: var(--stmc-card);
+	border: 1.5px solid var(--stmc-line);
+	border-radius: 50%;
+	color: var(--stmc-muted);
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 11px;
+	font-style: italic;
+	font-weight: 700;
+	line-height: 1;
+	cursor: help;
+}
+
+body.stmc-checkout .stmc-info:hover,
+body.stmc-checkout .stmc-info:focus {
+	border-color: var(--stmc-ink);
+	color: var(--stmc-ink);
+	outline: none;
+}
+
+body.stmc-checkout .stmc-info.is-open {
+	background: var(--stmc-ink);
+	border-color: var(--stmc-ink);
+	color: #fff;
+}
+
+/* The bubble spans the whole shell above the button, so no card edge can
+   clip it — the trap the predecessor ran into with an anchored tooltip. */
+body.stmc-checkout .stmc-info__pop {
+	position: absolute;
+	left: 10px;
+	right: 10px;
+	bottom: calc(100% + 9px);
+	z-index: 40;
+	padding: 12px 15px;
+	background: var(--stmc-ink);
+	border-radius: var(--stmc-radius-s);
+	box-shadow: 0 14px 30px -12px rgba(10, 18, 45, 0.55);
+	color: #fff;
+	font-size: calc(var(--stmc-fs-s) - 0.5px);
+	font-weight: 400;
+	line-height: 1.55;
+	text-align: left;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.15s ease;
+	pointer-events: none;
+}
+
+body.stmc-checkout .stmc-info__pop strong {
+	color: var(--stmc-accent);
+	font-weight: 700;
+}
+
+body.stmc-checkout .stmc-info__pop::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	right: 14px;
+	border: 7px solid transparent;
+	border-top-color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-info:hover + .stmc-info__pop,
+body.stmc-checkout .stmc-info:focus + .stmc-info__pop,
+body.stmc-checkout .stmc-info.is-open + .stmc-info__pop {
+	opacity: 1;
+	visibility: visible;
+}
+
 /* Field descriptions (e.g. the VAT reverse-charge note) stay quiet. */
 body.stmc-checkout .woocommerce form .form-row .description,
 body.stmc-checkout .woocommerce form .form-row + p,
@@ -865,6 +962,42 @@ body.stmc-checkout .form-row.place-order {
 
 body.stmc-checkout .form-row.place-order .wc-ppcp-checkout-container {
 	margin-top: 10px;
+}
+
+/* Reassurance note under the consent boxes (shop-configured, opt-in).
+   Deliberately a different, friendlier shell than the grey consent cards —
+   it must never read as one more condition to agree to. */
+body.stmc-checkout .stmc-guarantee {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	margin: 0 0 12px;
+	padding: 12px 14px;
+	background: var(--stmc-bg);
+	background: color-mix(in srgb, var(--stmc-good) 7%, var(--stmc-card));
+	border: 1px solid var(--stmc-line);
+	border-color: color-mix(in srgb, var(--stmc-good) 30%, var(--stmc-line));
+	border-radius: calc(var(--stmc-radius) - 2px);
+}
+
+body.stmc-checkout .stmc-guarantee svg {
+	flex: 0 0 auto;
+	width: 19px;
+	height: 19px;
+	margin-top: 1px;
+	color: var(--stmc-good);
+}
+
+body.stmc-checkout .stmc-guarantee p {
+	margin: 0;
+	font-size: var(--stmc-fs-s);
+	line-height: 1.55;
+	color: var(--stmc-text);
+}
+
+body.stmc-checkout .stmc-guarantee p strong {
+	color: var(--stmc-good);
+	font-weight: 700;
 }
 
 /* ---------- 13c. Order table & totals ---------- */

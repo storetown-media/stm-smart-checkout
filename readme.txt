@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.6
+Stable tag: 0.1.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ STM Smart Checkout turns the standard WooCommerce checkout into a focused, trust
 * Card-based design controlled by design tokens — customize everything from your theme, no `!important` battles
 * Field manager with real-time validation and correct mobile touch keyboards
 * Postcode autofill for Germany, Austria and Switzerland (city fills in automatically)
-* Separate, configurable legal checkboxes (terms, privacy, right of withdrawal) with server-side validation
+* Legal texts (terms, right of withdrawal) readable in an overlay without leaving the checkout, plus a server-side safety net that verifies required consent boxes again after submit
 * Trust badges with a curated icon set
 * Works with WooCommerce Germanized and German Market instead of fighting them
 * Compatible with the classic (shortcode) checkout today; block-checkout compatible by design
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.7 =
+* Legal round: server-side safety net for required consent boxes (an order without a required tick is rejected even when the browser check was bypassed — and stays silent when WooCommerce or Germanized already reported the same box, extendable via the `stmc_required_checkboxes` filter). Optional reassurance note under the consent boxes. "Create an account?" info tooltip whose wording is derived from your own registration settings.
 
 = 0.1.6 =
 * Postcode autofill for DE/AT/CH from bundled databases (no external service) — the city fills in automatically, multiple matches feed a native suggestion list. Mobile sticky order bar: total + buy button pinned while the real button is out of view; the proxy click runs every native validation.

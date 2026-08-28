@@ -31,8 +31,9 @@ class STMC_Module_Sticky_Bar extends STMC_Module {
 
 	public function render() {
 		$total = WC()->cart ? WC()->cart->get_total() : '';
-		// Same label the real button carries (Germanized's filter included).
-		$label = apply_filters( 'woocommerce_order_button_text', __( 'Place order', 'woocommerce' ) );
+		// Same label the real button carries (Germanized's filter included);
+		// our own fallback is §312j-compliant wording.
+		$label = apply_filters( 'woocommerce_order_button_text', __( 'Order with obligation to pay', 'stm-smart-checkout' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- reading WooCommerce's filter on purpose.
 		?>
 		<div class="stmc-sticky-bar" id="stmc-sticky-bar" hidden aria-hidden="true">
 			<div class="stmc-sticky-bar__total">

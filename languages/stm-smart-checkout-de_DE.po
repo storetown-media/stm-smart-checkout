@@ -253,6 +253,9 @@ msgstr "Bestellnummer:"
 msgid "Order steps"
 msgstr "Bestellschritte"
 
+msgid "Order with obligation to pay"
+msgstr "Zahlungspflichtig bestellen"
+
 msgid "Page background"
 msgstr "Seitenhintergrund"
 

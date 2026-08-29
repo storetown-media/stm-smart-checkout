@@ -53,6 +53,8 @@ final class STMC_Plugin {
 		$modules[] = new STMC_Module_Trust();
 		$modules[] = new STMC_Module_Legal();
 		$modules[] = new STMC_Module_Sticky_Bar();
+		// Third-party integrations (each one no-ops when its plugin is absent).
+		$modules[] = new STMC_Integration_Shiptastic();
 		return $modules;
 	}
 

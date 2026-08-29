@@ -188,8 +188,15 @@ class STMC_Module_Layout extends STMC_Module {
 		}
 		$alt = $image_id ? trim( (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) ) : '';
 
+		/*
+		 * Deliberately NO loading="lazy": theme lazy stacks intercept lazy
+		 * images and left this one permanently unloaded (measured on Basel —
+		 * the same element loaded instantly once the attribute was removed).
+		 * A 4 KB thumbnail in the visible order column gains nothing from
+		 * lazy loading anyway.
+		 */
 		return '<img class="stmc-item-thumb" src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '"'
-			. ' width="44" height="44" loading="lazy" decoding="async">' . $name;
+			. ' width="44" height="44" decoding="async">' . $name;
 	}
 
 	/**

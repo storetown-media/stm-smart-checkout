@@ -814,7 +814,23 @@ body.stmc-checkout #payment ul.payment_methods {
 	border: 0;
 }
 
+/*
+ * The row is a flex container, NOT the browser's inline flow. Reason: the
+ * label is an inline-flex box, which is atomic — it can never break across
+ * lines, so as soon as its content (title + gateway brand icons) no longer
+ * fits beside the radio, the whole label drops to the next line and the
+ * radio is left stranded above it. That is exactly what happened to the
+ * credit-card row, whose icon strip left just 8px of slack. As flex items
+ * the radio and the label stay side by side and the label wraps internally.
+ */
 body.stmc-checkout #payment ul.payment_methods li {
+	display: flex;
+	flex-wrap: wrap;
+	/* Top-aligned, not centered: when a label wraps to two lines (wide icon
+	   strips) a centered radio floats beside the gap instead of the name.
+	   The 4px offset below centers it against the first line. */
+	align-items: flex-start;
+	column-gap: 10px;
 	margin: 0 0 10px;
 	padding: 12px 14px;
 	background: var(--stmc-card);
@@ -827,13 +843,33 @@ body.stmc-checkout #payment ul.payment_methods li {
 	overflow: hidden;
 }
 
-/* Method row: radio + title left, brand icons right, description below. */
+body.stmc-checkout #payment ul.payment_methods li > input[type="radio"] {
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	margin: 4px 0 0;
+	accent-color: var(--stmc-accent);
+}
+
+/* Method row: radio + title left, brand icons right, description below.
+   "flex: 1 1 0" is load-bearing, not cosmetic: a wrapping flex container
+   assigns items to lines by their HYPOTHETICAL size (flex-basis: auto =
+   max-content) BEFORE any shrinking happens, so an auto-basis label still
+   jumped to line 2. A zero basis always fits beside the radio and then
+   grows into the remaining width, wrapping its icons internally instead. */
 body.stmc-checkout #payment ul.payment_methods li > label {
-	display: inline-flex;
+	display: flex;
+	flex: 1 1 0;
+	min-width: 0;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 6px 8px;
 	max-width: 100%;
+}
+
+/* The description belongs on its own full-width row below the title. */
+body.stmc-checkout #payment ul.payment_methods li > div.payment_box {
+	flex: 1 0 100%;
 }
 
 body.stmc-checkout #payment ul.payment_methods li img {
@@ -1116,6 +1152,13 @@ body.stmc-checkout #order_review table.shop_table tfoot {
 	width: 100%;
 }
 
+/* The7 paints the review table itself grey (.woocommerce-checkout
+   .shop_table) — our card already provides the white surface, and the grey
+   band ran edge to edge with the text sitting right on its border. */
+body.stmc-checkout #order_review table.shop_table {
+	background: transparent;
+}
+
 body.stmc-checkout #order_review table.shop_table tr {
 	display: flex;
 	/* The7's own responsive-table CSS turns rows into wrapping columns below
@@ -1125,6 +1168,9 @@ body.stmc-checkout #order_review table.shop_table tr {
 	flex-wrap: nowrap;
 	align-items: baseline;
 	gap: 12px;
+	/* Horizontal breathing room: The7 ships "padding: 10px 0" here, so labels
+	   and amounts touched the card edges. Matches the consent cards' inset. */
+	padding: 10px 14px;
 }
 
 body.stmc-checkout #order_review table.shop_table th,
@@ -1167,12 +1213,20 @@ body.stmc-checkout #order_review table.shop_table td.product-name img {
 	margin: 2px 10px 4px 0;
 }
 
-/* Gateway promo rows (e.g. PayPal pay-later) span the whole line. */
-body.stmc-checkout #order_review table.shop_table tr.wc-ppcp-paylater-msg__cont td {
+/* Gateway promo rows (e.g. PayPal pay-later) span the whole line. The
+   min-width/overflow pair matters: PayPal's banner carries a 300px intrinsic
+   width and would otherwise push past the card edge in the narrow column. */
+body.stmc-checkout #order_review table.shop_table tr[class*="paylater"] td {
 	flex: 1 1 100%;
+	min-width: 0;
+	overflow: hidden;
 	margin-left: 0;
 	white-space: normal;
 	text-align: left;
+}
+
+body.stmc-checkout #order_review table.shop_table tr[class*="paylater"] td > * {
+	max-width: 100%;
 }
 
 body.stmc-checkout #order_review table.shop_table .cart_item .product-name {
@@ -1186,10 +1240,17 @@ body.stmc-checkout #order_review table.shop_table .cart_item .product-quantity {
 	font-weight: 400;
 }
 
+/* Separator on the ROW, not on the cells: as flex items the cells are split
+   by the 12px gap, so cell borders drew two disconnected line segments. */
 body.stmc-checkout #order_review table.shop_table tfoot th,
 body.stmc-checkout #order_review table.shop_table tfoot td,
 body.stmc-checkout #order_review table.shop_table tr.cart-subtotal th,
 body.stmc-checkout #order_review table.shop_table tr.cart-subtotal td {
+	border-top: 0;
+}
+
+body.stmc-checkout #order_review table.shop_table tfoot tr,
+body.stmc-checkout #order_review table.shop_table tr.cart-subtotal {
 	border-top: 1px solid var(--stmc-line);
 }
 

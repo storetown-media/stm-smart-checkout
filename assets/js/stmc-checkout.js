@@ -299,5 +299,48 @@
 	}
 	stickyBar();
 
+	/*
+	 * Quantity steppers in the order summary. Delegated on the document —
+	 * every fragment refresh replaces the buttons, delegation survives it.
+	 * The server clamps against stock/sold-individually; the response only
+	 * confirms, the real re-render comes from Woo's own update_checkout.
+	 */
+	function qtySteppers() {
+		var data = window.stmcData || {};
+		if ( ! data.qtyEndpoint ) {
+			return;
+		}
+		var busy = false;
+		document.addEventListener( 'click', function ( e ) {
+			var btn = e.target.closest( '.stmc-qty__btn' );
+			if ( ! btn || btn.disabled || busy ) {
+				return;
+			}
+			var wrap = btn.closest( '.stmc-qty' );
+			var qty  = parseInt( wrap.querySelector( '.stmc-qty__n' ).textContent, 10 ) + parseInt( btn.dataset.d, 10 );
+			if ( qty < 1 ) {
+				return;
+			}
+			busy = true;
+			wrap.classList.add( 'is-busy' );
+			fetch( data.qtyEndpoint, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: new URLSearchParams( { key: wrap.dataset.key, qty: qty, _wpnonce: data.qtyNonce } ).toString()
+			} ).then( function ( r ) {
+				return r.json();
+			} ).then( function () {
+				if ( window.jQuery ) {
+					window.jQuery( document.body ).trigger( 'update_checkout' );
+				}
+			} ).catch( function () {} ).finally( function () {
+				busy = false;
+				wrap.classList.remove( 'is-busy' );
+			} );
+		} );
+	}
+	qtySteppers();
+
 	S.log( 'core ready', { blockCheckout: S.isBlockCheckout } );
 } )();

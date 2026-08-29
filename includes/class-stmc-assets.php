@@ -55,6 +55,8 @@ class STMC_Assets {
 				'debug'            => (bool) STMC_Settings::get( 'advanced.debug' ),
 				'isBlock'          => STMC_Checkout_Context::uses_block_checkout(),
 				'postcodeAutofill' => (bool) STMC_Settings::get( 'fields.postcode_autofill' ),
+				'qtyEndpoint'      => class_exists( 'WC_AJAX' ) ? WC_AJAX::get_endpoint( 'stmc_set_qty' ) : '',
+				'qtyNonce'         => wp_create_nonce( 'stmc-qty' ),
 			)
 		);
 	}

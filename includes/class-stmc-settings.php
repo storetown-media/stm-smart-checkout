@@ -67,6 +67,9 @@ class STMC_Settings {
 			'fields.autofill_attrs'    => array( 'type' => 'bool', 'default' => true ),
 			'fields.postcode_autofill' => array( 'type' => 'bool', 'default' => true ),
 			'checkout.order_notes'     => array( 'type' => 'bool', 'default' => true ),
+			'checkout.product_thumbs'  => array( 'type' => 'bool', 'default' => true ),
+			'checkout.coupon_field'    => array( 'type' => 'bool', 'default' => true ),
+			'checkout.qty_controls'    => array( 'type' => 'bool', 'default' => true ),
 			'fields.account_hint'      => array( 'type' => 'bool', 'default' => true ),
 
 			// Mobile.

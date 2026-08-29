@@ -1590,6 +1590,61 @@ body.stmc-checkout #order_review table.shop_table td.product-name img {
 	margin: 2px 10px 4px 0;
 }
 
+/* Quantity stepper in the product line: compact, token-voiced, disabled
+   states quiet. While a change is in flight the whole group dims. */
+body.stmc-checkout .stmc-qty {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-left: 6px;
+	vertical-align: middle;
+}
+
+body.stmc-checkout .stmc-qty__btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: 50%;
+	color: var(--stmc-ink);
+	font-size: var(--stmc-fs-base);
+	font-weight: 600;
+	line-height: 1;
+	cursor: pointer;
+	transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+body.stmc-checkout .stmc-qty__btn:hover:not(:disabled) {
+	border-color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-qty__btn:focus-visible {
+	outline: none;
+	box-shadow: var(--stmc-focus-ring);
+}
+
+body.stmc-checkout .stmc-qty__btn:disabled {
+	color: var(--stmc-line);
+	cursor: default;
+}
+
+body.stmc-checkout .stmc-qty__n {
+	min-width: 16px;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .stmc-qty.is-busy {
+	opacity: 0.45;
+	pointer-events: none;
+}
+
 /* Gateway promo rows (e.g. PayPal pay-later) span the whole line. The
    min-width/overflow pair matters: PayPal's banner carries a 300px intrinsic
    width and would otherwise push past the card edge in the narrow column. */

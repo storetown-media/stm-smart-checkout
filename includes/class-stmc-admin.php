@@ -156,6 +156,9 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.account_hint', __( 'Explain "Create an account?" with an info tooltip', 'stm-smart-checkout' ), __( 'The text is built from your own registration settings, so it always matches what really happens.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.order_notes', __( 'Order notes field ("Additional information")', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'checkout.product_thumbs', __( 'Product images in the order summary', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'checkout.qty_controls', __( 'Quantity steppers in the order summary', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'checkout.coupon_field', __( 'Coupon prompt above the checkout', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.sticky_bar', __( 'Mobile sticky order bar (total + buy button)', 'stm-smart-checkout' ), __( 'Appears on phones while the real order button is out of view.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_select( 'focus.fullpage', __( 'Distraction-free: full-page template', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — on themes without a built-in adapter', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never (CSS fallback only)', 'stm-smart-checkout' ) ) ); ?>
@@ -228,7 +231,8 @@ class STMC_Admin {
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
 				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'fields.account_hint',
-				'checkout.order_notes', 'checkout.sticky_bar', 'legal.popup',
+				'checkout.order_notes', 'checkout.product_thumbs', 'checkout.qty_controls', 'checkout.coupon_field',
+				'checkout.sticky_bar', 'legal.popup',
 				'focus.fullpage', 'focus.legal_menu', 'focus.extra_hide_selectors',
 			),
 			'legal'    => array(
@@ -295,6 +299,9 @@ class STMC_Admin {
 				'fields.postcode_autofill'          => __( 'Type a postcode and the city fills in by itself, for Germany, Austria and Switzerland. The databases ship with the plugin — no external service is called, no customer data leaves your server (GDPR-safe). Multiple matching cities appear as a native suggestion list.', 'stm-smart-checkout' ),
 				'fields.account_hint'               => __( 'Adds a small "i" next to "Create an account?" that explains what actually happens — whether a password is chosen or emailed, and what the account is good for. The wording is generated from your real registration settings, so it can never promise something else.', 'stm-smart-checkout' ),
 				'checkout.order_notes'              => __( 'The "order notes" field under "Additional information". Off = the field and its whole section disappear from the checkout — one question less for shops that never read the notes. Notes customers already wrote on old orders stay untouched.', 'stm-smart-checkout' ),
+				'checkout.product_thumbs'           => __( 'Shows each product\'s image in the order summary — customers confirm at a glance that the right variant is in the cart. Cooperates with legal plugins: when Germanized already renders an image, no second one is added.', 'stm-smart-checkout' ),
+				'checkout.qty_controls'             => __( 'Plus/minus steppers beside each product in the order summary: customers fix the quantity right at the checkout instead of walking back to the cart. Updates run through WooCommerce\'s own refresh including all totals; stock limits and sold-individually products are respected.', 'stm-smart-checkout' ),
+				'checkout.coupon_field'             => __( 'The "Have a coupon?" prompt above the checkout. Off = the prompt disappears entirely — recommended when you do not issue coupons, because an empty coupon field makes customers leave to hunt for codes.', 'stm-smart-checkout' ),
 				'checkout.sticky_bar'               => __( 'On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar.', 'stm-smart-checkout' ),
 				'legal.popup'                       => __( 'Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior.', 'stm-smart-checkout' ),
 				'focus.fullpage'                    => __( 'The strongest distraction-free level: cart and checkout render through the plugin\'s own minimal page — the theme\'s header, menus and footer are never built at all. "Automatic" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working.', 'stm-smart-checkout' ),

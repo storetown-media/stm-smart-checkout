@@ -30,6 +30,28 @@ class STMC_Module_Layout extends STMC_Module {
 			add_filter( 'woocommerce_enable_order_notes_field', '__return_false', 100 );
 		}
 
+		// Coupon prompt above the checkout, owner-switchable.
+		if ( ! STMC_Settings::get( 'checkout.coupon_field' ) ) {
+			remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+		}
+
+		/*
+		 * Product thumbnails in the order summary — independent of the legal
+		 * plugin: Germanized can render them (it does on the STM shop), plain
+		 * WooCommerce does not. Late priority + the <img> guard below make the
+		 * two sources cooperate instead of doubling up.
+		 */
+		if ( STMC_Settings::get( 'checkout.product_thumbs' ) ) {
+			add_filter( 'woocommerce_cart_item_name', array( $this, 'item_thumb' ), 50, 3 );
+		}
+
+		// Quantity steppers in the order summary, updating through Woo's own
+		// fragment machinery (update_checkout).
+		if ( STMC_Settings::get( 'checkout.qty_controls' ) ) {
+			add_filter( 'woocommerce_checkout_cart_item_quantity', array( $this, 'qty_controls' ), 20, 3 );
+			add_action( 'wc_ajax_stmc_set_qty', array( $this, 'ajax_set_qty' ) );
+		}
+
 		/*
 		 * Own numbered section titles. Theme checkout templates differ wildly
 		 * (The7 ships none at all, vanilla Woo has plain h3s) — rendering our
@@ -123,6 +145,80 @@ class STMC_Module_Layout extends STMC_Module {
 
 	public function title_order() {
 		echo '<h3 class="stmc-section-title stmc-section-title--order">' . esc_html__( 'Your order', 'stm-smart-checkout' ) . '</h3>';
+	}
+
+	/**
+	 * Prepend the product image to the summary line — checkout only (the cart
+	 * page has its own thumbnail column) and only when no other plugin already
+	 * put one there (Germanized renders its own on some setups).
+	 *
+	 * @param string $name          Item name HTML.
+	 * @param array  $cart_item     Cart item data.
+	 * @param string $cart_item_key Cart item key.
+	 * @return string
+	 */
+	public function item_thumb( $name, $cart_item, $cart_item_key ) {
+		if ( is_cart() || false !== strpos( $name, '<img' ) ) {
+			return $name;
+		}
+		if ( ! is_checkout() && ! wp_doing_ajax() && ! isset( $_GET['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- context detection only.
+			return $name;
+		}
+		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
+		if ( ! $product || ! is_object( $product ) || ! method_exists( $product, 'get_image' ) ) {
+			return $name;
+		}
+		return $product->get_image( 'woocommerce_gallery_thumbnail', array( 'class' => 'stmc-item-thumb' ) ) . $name;
+	}
+
+	/**
+	 * Replace the static "× n" with a stepper. Sold-individually products keep
+	 * the plain text; stock maxima disable the plus button.
+	 *
+	 * @param string $quantity_html Default quantity HTML.
+	 * @param array  $cart_item     Cart item data.
+	 * @param string $cart_item_key Cart item key.
+	 * @return string
+	 */
+	public function qty_controls( $quantity_html, $cart_item, $cart_item_key ) {
+		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
+		if ( ! $product || ! is_object( $product ) || $product->is_sold_individually() ) {
+			return $quantity_html;
+		}
+		$qty = (int) $cart_item['quantity'];
+		$max = (int) $product->get_max_purchase_quantity(); // -1 = unlimited.
+
+		return '<span class="stmc-qty" data-key="' . esc_attr( $cart_item_key ) . '">'
+			. '<button type="button" class="stmc-qty__btn" data-d="-1"' . ( $qty <= 1 ? ' disabled' : '' )
+			. ' aria-label="' . esc_attr__( 'Decrease quantity', 'stm-smart-checkout' ) . '">&minus;</button>'
+			. '<span class="stmc-qty__n" aria-live="polite">' . esc_html( $qty ) . '</span>'
+			. '<button type="button" class="stmc-qty__btn" data-d="1"' . ( $max > 0 && $qty >= $max ? ' disabled' : '' )
+			. ' aria-label="' . esc_attr__( 'Increase quantity', 'stm-smart-checkout' ) . '">+</button>'
+			. '</span>';
+	}
+
+	/** Set a cart line's quantity; the frontend then triggers update_checkout. */
+	public function ajax_set_qty() {
+		check_ajax_referer( 'stmc-qty', '_wpnonce' );
+		$key = sanitize_text_field( wp_unslash( $_POST['key'] ?? '' ) );
+		$qty = max( 1, absint( wp_unslash( $_POST['qty'] ?? 1 ) ) );
+		if ( '' === $key || ! WC()->cart ) {
+			wp_send_json_error();
+		}
+		$item = WC()->cart->get_cart_item( $key );
+		if ( ! $item ) {
+			wp_send_json_error();
+		}
+		$product = $item['data'];
+		if ( $product->is_sold_individually() ) {
+			$qty = 1;
+		}
+		$max = (int) $product->get_max_purchase_quantity();
+		if ( $max > 0 ) {
+			$qty = min( $qty, $max );
+		}
+		WC()->cart->set_quantity( $key, $qty, true );
+		wp_send_json_success( array( 'qty' => $qty ) );
 	}
 
 	/**

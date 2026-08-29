@@ -550,6 +550,30 @@ msgstr "Komitat"
 msgid "What does this setting do?"
 msgstr "Was bewirkt diese Einstellung?"
 
+msgid "Product images in the order summary"
+msgstr "Produktbilder in der Bestellübersicht"
+
+msgid "Quantity steppers in the order summary"
+msgstr "Mengen-Regler in der Bestellübersicht"
+
+msgid "Coupon prompt above the checkout"
+msgstr "Gutschein-Hinweis über der Kasse"
+
+msgid "Decrease quantity"
+msgstr "Menge verringern"
+
+msgid "Increase quantity"
+msgstr "Menge erhöhen"
+
+msgid "Shows each product's image in the order summary — customers confirm at a glance that the right variant is in the cart. Cooperates with legal plugins: when Germanized already renders an image, no second one is added."
+msgstr "Zeigt zu jedem Produkt das Bild in der Bestellübersicht — Kunden sehen auf einen Blick, dass die richtige Variante im Korb liegt. Kooperiert mit Rechts-Plugins: Rendert Germanized bereits ein Bild, kommt kein zweites dazu."
+
+msgid "Plus/minus steppers beside each product in the order summary: customers fix the quantity right at the checkout instead of walking back to the cart. Updates run through WooCommerce's own refresh including all totals; stock limits and sold-individually products are respected."
+msgstr "Plus/Minus-Regler neben jedem Produkt in der Bestellübersicht: Kunden korrigieren die Menge direkt an der Kasse, statt in den Warenkorb zurückzulaufen. Änderungen laufen über WooCommerces eigene Aktualisierung samt aller Summen; Lagerbestände und Einzelverkaufs-Produkte werden respektiert."
+
+msgid "The \"Have a coupon?\" prompt above the checkout. Off = the prompt disappears entirely — recommended when you do not issue coupons, because an empty coupon field makes customers leave to hunt for codes."
+msgstr "Der „Hast du einen Gutschein?"-Hinweis über der Kasse. Aus = der Hinweis verschwindet komplett — empfohlen, wenn Sie keine Gutscheine ausgeben, denn ein leeres Gutscheinfeld schickt Kunden auf Code-Jagd."
+
 msgid "Distraction-free: full-page template"
 msgstr "Ablenkungsfrei: Vollseiten-Vorlage"
 

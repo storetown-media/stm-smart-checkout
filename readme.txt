@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.21
+Stable tag: 0.1.22
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.22 =
+* Order summary round from the second-shop review. Product images now render reliably in the summary regardless of the legal plugin (when Germanized already provides one, no second image is added). Quantity steppers beside each product let customers fix amounts right at the checkout — changes run through WooCommerce's own refresh with all totals, stock limits and sold-individually respected; a setting turns them off. The coupon prompt is owner-switchable too: shops that never issue codes can retire the field that sends customers code-hunting.
 
 = 0.1.21 =
 * Distraction-free works on every theme now: on themes without a built-in adapter, cart and checkout render through the plugin's own minimal full page (template_include) — the theme's header, menus and footer are never built at all, while styles, analytics, consent tools and chat widgets keep working. A configurable legal-links line under the checkout keeps imprint, privacy and terms reachable (pick your legal menu in the backend; the WordPress privacy page is the minimum fallback). Adapter themes (The7, Storefront) stay on their native path; owners can force the template on or off.

@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.11
+Stable tag: 0.1.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.12 =
+* Plugin Check housekeeping — the remaining review warnings are resolved: request values in the withdrawal form and the postcode lookup are unslashed and sanitized before use, withdrawal table queries use the %i identifier placeholder (WordPress 6.2+), and the deliberate direct calls to the plugin's own table carry documented justifications. No functional change.
 
 = 0.1.11 =
 * One typographic system across all three checkout columns. Section titles now run in the body font instead of the theme display face (a checkout is one surface, not three widgets), payment method names drop from the theme reading size to content size so the middle column stops shouting, brand icons follow the type down, and the scale is down to five deliberate steps driven by tokens: fine print, secondary, content, controls, emphasis. Adds a --stmc-fs-xs token and raises content size to 15px.

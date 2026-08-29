@@ -90,7 +90,7 @@ class STMC_Module_Fields extends STMC_Module {
 	 */
 	public function postcode_lookup() {
 		$country  = isset( $_GET['country'] ) ? strtoupper( sanitize_key( $_GET['country'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$postcode = isset( $_GET['postcode'] ) ? preg_replace( '~\D~', '', (string) wp_unslash( $_GET['postcode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$postcode = isset( $_GET['postcode'] ) ? preg_replace( '~\D~', '', sanitize_text_field( wp_unslash( $_GET['postcode'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		$lengths = array( 'DE' => 5, 'AT' => 4, 'CH' => 4 );
 		if ( ! isset( $lengths[ $country ] ) || strlen( $postcode ) !== $lengths[ $country ] ) {

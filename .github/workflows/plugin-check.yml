@@ -12,7 +12,7 @@ jobs:
       matrix:
         php: ['7.4', '8.0', '8.3']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
@@ -26,10 +26,12 @@ jobs:
     name: WordPress Plugin Check (PCP)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
           build-dir: './'
           # Every error blocks the merge — the same gate wp.org applies on submission.
           exclude-directories: '.github'
+          # Repo-only file; build-zip.py never ships it.
+          exclude-files: '.gitignore'

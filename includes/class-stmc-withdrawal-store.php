@@ -60,6 +60,7 @@ class STMC_Withdrawal_Store {
 	public static function insert( array $data ) {
 		global $wpdb;
 		$now = current_time( 'mysql', true );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- write into the plugin's own table.
 		$ok  = $wpdb->insert(
 			self::table(),
 			array(
@@ -87,28 +88,28 @@ class STMC_Withdrawal_Store {
 	/** @return object|null */
 	public static function get( $id ) {
 		global $wpdb;
-		$table = self::table();
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- own table, admin screens read live status.
+		return $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', self::table(), $id ) );
 	}
 
 	/** @return object[] */
 	public static function list_rows( $per_page = 20, $page = 1 ) {
 		global $wpdb;
-		$table  = self::table();
 		$offset = max( 0, ( (int) $page - 1 ) * (int) $per_page );
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} ORDER BY id DESC LIMIT %d OFFSET %d", $per_page, $offset ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- own table, admin screens read live status.
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i ORDER BY id DESC LIMIT %d OFFSET %d', self::table(), $per_page, $offset ) );
 	}
 
 	public static function count_all() {
 		global $wpdb;
-		$table = self::table();
-		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- own table, admin screens read live status.
+		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i', self::table() ) );
 	}
 
 	public static function count_new() {
 		global $wpdb;
-		$table = self::table();
-		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status = 'new'" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- own table, admin screens read live status.
+		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE status = %s', self::table(), 'new' ) );
 	}
 
 	public static function update_row( $id, $status, $notes ) {
@@ -116,6 +117,7 @@ class STMC_Withdrawal_Store {
 		if ( ! in_array( $status, self::STATUSES, true ) ) {
 			$status = 'new';
 		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- status write into the plugin's own table.
 		return false !== $wpdb->update(
 			self::table(),
 			array(

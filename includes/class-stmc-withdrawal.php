@@ -141,7 +141,8 @@ class STMC_Withdrawal {
 	 * ------------------------------------------------------------------ */
 
 	public static function handle_submit() {
-		if ( ! self::is_form_page() || 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || ! isset( $_POST['stmc_wd_submit'] ) ) {
+		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+		if ( ! self::is_form_page() || 'POST' !== $method || ! isset( $_POST['stmc_wd_submit'] ) ) {
 			return;
 		}
 		if ( ! isset( $_POST['stmc_wd_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['stmc_wd_nonce'] ), 'stmc-wd-submit' ) ) {
@@ -149,7 +150,7 @@ class STMC_Withdrawal {
 			return;
 		}
 		// Honeypot: bots fill every field.
-		if ( '' !== trim( (string) ( $_POST['stmc_wd_website'] ?? '' ) ) ) {
+		if ( '' !== sanitize_text_field( wp_unslash( $_POST['stmc_wd_website'] ?? '' ) ) ) {
 			wp_safe_redirect( add_query_arg( 'stmc_wd', 'ok', self::page_url() ) );
 			exit;
 		}
@@ -162,7 +163,7 @@ class STMC_Withdrawal {
 			'address'           => sanitize_textarea_field( wp_unslash( $_POST['stmc_wd_address'] ?? '' ) ),
 			'order_date'        => sanitize_text_field( wp_unslash( $_POST['stmc_wd_odate'] ?? '' ) ),
 			'received_date'     => sanitize_text_field( wp_unslash( $_POST['stmc_wd_rdate'] ?? '' ) ),
-			'scope'             => 'partial' === ( $_POST['stmc_wd_scope'] ?? 'full' ) ? 'partial' : 'full',
+			'scope'             => 'partial' === sanitize_key( wp_unslash( $_POST['stmc_wd_scope'] ?? 'full' ) ) ? 'partial' : 'full',
 			'items_description' => sanitize_textarea_field( wp_unslash( $_POST['stmc_wd_items'] ?? '' ) ),
 			'reason'            => sanitize_textarea_field( wp_unslash( $_POST['stmc_wd_reason'] ?? '' ) ),
 		);

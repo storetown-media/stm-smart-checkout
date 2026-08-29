@@ -1468,7 +1468,6 @@ body.stmc-checkout #order_review table.shop_table thead {
  * fixed-table layout.
  */
 body.stmc-checkout #order_review table.shop_table,
-body.stmc-checkout #order_review table.shop_table thead,
 body.stmc-checkout #order_review table.shop_table tbody,
 body.stmc-checkout #order_review table.shop_table tfoot {
 	/* A flex column so the money lines can be re-ordered: WooCommerce and

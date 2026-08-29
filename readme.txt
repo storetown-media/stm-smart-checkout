@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.15
+Stable tag: 0.1.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.16 =
+* Every setting now explains itself: a "?" icon beside each label opens a plain-language help bubble — what the option does, the background, and when to use it. Hover, focus or tap; Escape closes. The help texts live in one map, so the short inline hints under the fields stay untouched. Fully translated.
 
 = 0.1.15 =
 * The one-column layout is actually one column now. Without its own rules the theme decided — The7 turns the checkout form into its own two-column flexbox, so "one column" silently rendered like "two columns". The layout is a centered 760px flex column: express buttons keep their order, then billing, then the order block, everything stacked.

@@ -71,7 +71,32 @@ class STMC_Admin {
 			function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/' )
 		);
 		?>
-		<div class="wrap">
+		<div class="wrap stmc-settings">
+			<style>
+				.stmc-settings .form-table th { position: relative; }
+				.stmc-help {
+					display: inline-flex; align-items: center; justify-content: center;
+					width: 18px; height: 18px; margin-left: 6px; padding: 0;
+					vertical-align: text-bottom;
+					background: #fff; border: 1.5px solid #a7aaad; border-radius: 50%;
+					color: #646970; font-size: 11px; font-weight: 700; line-height: 1;
+					cursor: help;
+				}
+				.stmc-help:hover, .stmc-help:focus, .stmc-help.is-open {
+					border-color: #2271b1; color: #2271b1; outline: none;
+				}
+				.stmc-help.is-open { background: #2271b1; color: #fff; }
+				.stmc-help__pop {
+					display: none; position: absolute; z-index: 20;
+					top: calc(100% - 8px); left: 0; width: 340px; max-width: 70vw;
+					padding: 12px 15px; background: #1d2327; border-radius: 8px;
+					box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+					color: #f0f0f1; font-size: 12.5px; font-weight: 400; line-height: 1.55;
+				}
+				.stmc-help:hover + .stmc-help__pop,
+				.stmc-help:focus + .stmc-help__pop,
+				.stmc-help.is-open + .stmc-help__pop { display: block; }
+			</style>
 			<h1><?php esc_html_e( 'STM Smart Checkout', 'stm-smart-checkout' ); ?></h1>
 			<p>
 				<?php esc_html_e( 'Configure the checkout, then use preview mode to review it on the live site before enabling it for customers.', 'stm-smart-checkout' ); ?>
@@ -150,6 +175,36 @@ class STMC_Admin {
 				</table>
 				<?php submit_button(); ?>
 			</form>
+			<script>
+				( function () {
+					// Tap/click pins a help bubble open (hover/focus alone is lost on
+					// touch); Escape or a click anywhere else closes it again.
+					function closeAll() {
+						document.querySelectorAll( '.stmc-help.is-open' ).forEach( function ( b ) {
+							b.classList.remove( 'is-open' );
+							b.setAttribute( 'aria-expanded', 'false' );
+						} );
+					}
+					document.addEventListener( 'click', function ( e ) {
+						var btn = e.target.closest( '.stmc-help' );
+						if ( ! btn ) {
+							closeAll();
+							return;
+						}
+						var open = btn.classList.contains( 'is-open' );
+						closeAll();
+						if ( ! open ) {
+							btn.classList.add( 'is-open' );
+							btn.setAttribute( 'aria-expanded', 'true' );
+						}
+					} );
+					document.addEventListener( 'keydown', function ( e ) {
+						if ( 'Escape' === e.key ) {
+							closeAll();
+						}
+					} );
+				} )();
+			</script>
 		</div>
 		<?php
 	}
@@ -202,8 +257,80 @@ class STMC_Admin {
 		return STMC_Settings::OPTION . '[' . implode( '][', array_map( 'sanitize_key', $parts ) ) . ']';
 	}
 
+	/**
+	 * What each setting actually does — one place for every explanation.
+	 * A row whose key appears here automatically gets the "?" help icon;
+	 * the short inline descriptions under the fields stay untouched.
+	 *
+	 * @param string $key Setting key.
+	 * @return string
+	 */
+	private static function help_text( $key ) {
+		static $map = null;
+		if ( null === $map ) {
+			$map = array(
+				'general.enabled'                   => __( 'The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing.', 'stm-smart-checkout' ),
+				'modules.header'                    => __( 'The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the "Already a customer?" login pill and the cart → checkout → confirmation progress. The individual pieces are configured on the Checkout tab.', 'stm-smart-checkout' ),
+				'modules.focus'                     => __( 'Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the advanced selector list on the Checkout tab.', 'stm-smart-checkout' ),
+				'modules.layout'                    => __( 'The layout machinery: the column arrangement chosen on the Design tab, the numbered section headings and the "Continue shopping" link on the cart.', 'stm-smart-checkout' ),
+				'modules.fields'                    => __( 'All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch on the Checkout tab.', 'stm-smart-checkout' ),
+				'modules.trust'                     => __( 'The quiet reassurance row under the order button, repeating the three trust items from the header band.', 'stm-smart-checkout' ),
+				'advanced.debug'                    => __( 'Writes what the checkout scripts are doing to the browser console (F12). Useful only while diagnosing a problem — leave it off in normal operation. Customers never see these messages.', 'stm-smart-checkout' ),
+				'general.remove_data_on_uninstall'  => __( 'Only matters when you DELETE the plugin in the plugins list: On = all settings and the withdrawal-requests table are removed for good. Off = everything survives for a later reinstall. Simply deactivating never deletes anything.', 'stm-smart-checkout' ),
+
+				'header.show_progress'              => __( 'The three-step line in the header band: cart → checkout → confirmation, with the current step highlighted. Customers see where they are and how little is left.', 'stm-smart-checkout' ),
+				'header.show_login'                 => __( 'A small "Already a customer? Log in" pill in the header band. It unfolds the login form WooCommerce already prints on the checkout — without it, that form has no visible trigger once the theme header is hidden.', 'stm-smart-checkout' ),
+				'header.sr_title'                   => __( 'Adds an invisible page heading for screen readers. With the theme header hidden, cart and checkout usually have no H1 at all — assistive technology would announce a page without a name.', 'stm-smart-checkout' ),
+				'header.trust_1'                    => __( 'The three short claims in the header band, each with its icon (lock, shield, card). Keep them factual and specific to your shop — e.g. your real payment options or guarantee. If all three are empty, a single "Secure SSL connection" is shown.', 'stm-smart-checkout' ),
+				'header.trust_2'                    => __( 'Second trust item, shown with the shield icon. Only claims that are actually true for your shop.', 'stm-smart-checkout' ),
+				'header.trust_3'                    => __( 'Third trust item, shown with the card icon — a good place for your payment brands, e.g. "PayPal, Klarna & invoice".', 'stm-smart-checkout' ),
+				'trust.under_button'                => __( 'Repeats the three trust items in small print directly under the buy button — the moment of the last hesitation. Uses the same texts as the header band, so there is only one place to maintain them.', 'stm-smart-checkout' ),
+				'layout.continue_shopping'          => __( 'A small back-to-shop link above the cart table. With the theme menu hidden there is otherwise no way back to the products; the checkout page deliberately never gets one.', 'stm-smart-checkout' ),
+				'fields.state_optional'             => __( 'Never marks the state/county field as required and untangles its labels. Background: for countries like Ireland or the United Kingdom, WooCommerce inserts a state field that German shops usually do not need — and its label collided with the country field.', 'stm-smart-checkout' ),
+				'fields.autofill_attrs'             => __( 'Gives every field the correct autocomplete and input attributes: phones show the number pad for postcode and phone, the email keyboard for email, and browser autofill puts the right data into the right fields.', 'stm-smart-checkout' ),
+				'fields.postcode_autofill'          => __( 'Type a postcode and the city fills in by itself, for Germany, Austria and Switzerland. The databases ship with the plugin — no external service is called, no customer data leaves your server (GDPR-safe). Multiple matching cities appear as a native suggestion list.', 'stm-smart-checkout' ),
+				'fields.account_hint'               => __( 'Adds a small "i" next to "Create an account?" that explains what actually happens — whether a password is chosen or emailed, and what the account is good for. The wording is generated from your real registration settings, so it can never promise something else.', 'stm-smart-checkout' ),
+				'checkout.sticky_bar'               => __( 'On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar.', 'stm-smart-checkout' ),
+				'legal.popup'                       => __( 'Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior.', 'stm-smart-checkout' ),
+				'focus.extra_hide_selectors'        => __( 'For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page.', 'stm-smart-checkout' ),
+
+				'withdrawal.enabled'                => __( 'The EU "withdrawal function": a public online form (its page is created automatically) where guests and customers declare a withdrawal. A submission is never blocked by validation — soft matching links it to an order when possible — and every request lands under WooCommerce → Withdrawals with a status workflow and email notifications.', 'stm-smart-checkout' ),
+				'withdrawal.menu_id'                => __( 'Pick the menu that should carry the link to the withdrawal form — typically your footer legal menu, next to imprint and privacy. The link is appended automatically and removed again when this is switched off.', 'stm-smart-checkout' ),
+				'withdrawal.notify_email'           => __( 'Every new withdrawal request is mailed to this address, including a direct link to the admin view. Leave empty to use the site admin email.', 'stm-smart-checkout' ),
+				'withdrawal.confirm_customer'       => __( 'Sends the customer an automatic "we received your withdrawal" receipt. It confirms receipt only — the actual assessment and refund stay with you.', 'stm-smart-checkout' ),
+				'withdrawal.period_days'            => __( 'Controls the "Withdraw this order" button in My Account: it shows for this many days after the order. The legal period itself comes from your terms — 14 days is the EU minimum for consumers; a voluntary longer promise (e.g. 30 days) goes here.', 'stm-smart-checkout' ),
+				'withdrawal.account_limit'          => __( 'On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject.', 'stm-smart-checkout' ),
+				'withdrawal.success_link'           => __( 'Shows a short "you can withdraw this order online at any time" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text.', 'stm-smart-checkout' ),
+				'legal.validate_checkboxes'         => __( 'Browsers enforce required boxes only client-side — a broken script or a manipulated request could order without consent. This re-checks every required box (WooCommerce terms and Germanized) on the server and rejects the order with a normal error message. It stays silent when another plugin already reported the same box, so customers never read the same complaint twice.', 'stm-smart-checkout' ),
+				'legal.guarantee_title'             => __( 'The bold lead-in of the reassurance note, e.g. "No risk:". Leave empty for a note without a lead-in.', 'stm-smart-checkout' ),
+				'legal.guarantee_text'              => __( 'A friendly clarification under the consent boxes — the classic use: the legally required download consent sounds like losing all rights, and this note clarifies that your voluntary money-back guarantee is unaffected. Only promise what you really keep; the note is styled as reassurance, never as one more condition.', 'stm-smart-checkout' ),
+
+				'design.layout'                     => __( 'Three columns: billing left, payment in the middle, order summary right — the proven compact desktop stage. Ultra-compact: the same stage one type step smaller with tighter cards, for everything at a glance. Two columns: form left, order summary sticky on the right. One column: a centered vertical flow. On narrow screens every layout stacks gracefully; phones are always one column.', 'stm-smart-checkout' ),
+				'design.accent'                     => __( 'The action color: buy button, radio/checkbox accents and the underline of the section headings. Use your brand\'s strongest call-to-action color.', 'stm-smart-checkout' ),
+				'design.accent_hover'               => __( 'The accent color while hovering a button — usually a slightly darker shade of the accent.', 'stm-smart-checkout' ),
+				'design.ink'                        => __( 'The strong text color: order summary lines, amounts, the grand total and other emphasized text.', 'stm-smart-checkout' ),
+				'design.text'                       => __( 'The normal reading color for regular content text.', 'stm-smart-checkout' ),
+				'design.muted'                      => __( 'The quiet color for secondary lines: descriptions, fine print, the consent texts and the tax breakdown.', 'stm-smart-checkout' ),
+				'design.bg'                         => __( 'The page surface behind the cards. A very light grey lets the white cards read as cards.', 'stm-smart-checkout' ),
+				'design.card'                       => __( 'The surface of the cards themselves — white on almost every shop.', 'stm-smart-checkout' ),
+				'design.line'                       => __( 'Borders of cards and fields plus the thin separators between rows.', 'stm-smart-checkout' ),
+				'design.radius'                     => __( 'Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default.', 'stm-smart-checkout' ),
+				'design.font_scale'                 => __( 'Scales every checkout font step together, layout untouched. 110% helps older audiences or brands with generous type; 90% packs more onto the screen.', 'stm-smart-checkout' ),
+				'design.logo_url'                   => __( 'The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height.', 'stm-smart-checkout' ),
+			);
+		}
+		return isset( $map[ $key ] ) ? $map[ $key ] : '';
+	}
+
 	private static function row_open( $key, $label ) {
-		printf( '<tr><th scope="row"><label for="%s">%s</label></th><td>', esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ), esc_html( $label ) );
+		$id   = esc_attr( 'stmc-' . str_replace( '.', '-', $key ) );
+		$help = self::help_text( $key );
+		echo '<tr><th scope="row"><label for="' . $id . '">' . esc_html( $label ) . '</label>';
+		if ( '' !== $help ) {
+			echo ' <button type="button" class="stmc-help" aria-expanded="false" aria-describedby="' . $id . '-help" aria-label="' . esc_attr__( 'What does this setting do?', 'stm-smart-checkout' ) . '">?</button>'
+				. '<span class="stmc-help__pop" role="tooltip" id="' . $id . '-help">' . esc_html( $help ) . '</span>';
+		}
+		echo '</th><td>';
 	}
 
 	private static function row_close( $desc = '' ) {

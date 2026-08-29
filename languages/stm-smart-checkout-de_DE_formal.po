@@ -546,3 +546,141 @@ msgstr "Grafschaft"
 msgctxt "state field label"
 msgid "County (megye)"
 msgstr "Komitat"
+
+msgid "What does this setting do?"
+msgstr "Was bewirkt diese Einstellung?"
+
+msgid "The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing."
+msgstr "Der Hauptschalter. An = Kunden sehen den Smart Checkout auf Warenkorb und Kasse. Aus = Kunden behalten die Standard-Kasse, während Sie in Ruhe konfigurieren. Der Vorschau-Link oben funktioniert in beiden Zuständen — Sie prüfen jede Änderung auf der Live-Site, ohne dass ein Kunde etwas bemerkt."
+
+msgid "The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the \"Already a customer?\" login pill and the cart → checkout → confirmation progress. The individual pieces are configured on the Checkout tab."
+msgstr "Das weiße Kopfband, das an Warenkorb und Kasse den Theme-Header ersetzt: Ihr Logo in der Mitte, die drei Vertrauens-Texte, die „Bereits Kunde?"-Anmelde-Pille und der Fortschritt Warenkorb → Kasse → Bestätigung. Die einzelnen Bestandteile stellen Sie im Tab „Kasse" ein."
+
+msgid "Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the advanced selector list on the Checkout tab."
+msgstr "Blendet alles aus, was vom Abschluss wegführt: Theme-Kopf und Menü, Siegel, Brotkrumen und dekorative Fußbereich-Teile. Rechtslinks im Fußbereich bleiben immer erreichbar. Site-spezifische Extras verstecken Sie über die erweiterte Selektor-Liste im Tab „Kasse"."
+
+msgid "The layout machinery: the column arrangement chosen on the Design tab, the numbered section headings and the \"Continue shopping\" link on the cart."
+msgstr "Die Layout-Maschinerie: die im Design-Tab gewählte Spaltenaufteilung, die nummerierten Abschnitts-Überschriften und der „Weiter einkaufen"-Link im Warenkorb."
+
+msgid "All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch on the Checkout tab."
+msgstr "Alle Formularfeld-Verbesserungen als Gruppe: aufgeräumte Feldpaare (Vor-/Nachname, PLZ/Ort), Bundesland-Korrekturen, richtige Handy-Tastaturen, PLZ-Autovervollständigung und der Konto-Hinweis. Jedes Teil hat im Tab „Kasse" seinen eigenen Schalter."
+
+msgid "The quiet reassurance row under the order button, repeating the three trust items from the header band."
+msgstr "Die dezente Vertrauenszeile unter dem Bestell-Knopf — sie wiederholt die drei Vertrauens-Texte aus dem Kopfband."
+
+msgid "Writes what the checkout scripts are doing to the browser console (F12). Useful only while diagnosing a problem — leave it off in normal operation. Customers never see these messages."
+msgstr "Schreibt in die Browser-Konsole (F12), was die Kassen-Skripte gerade tun. Nur bei der Fehlersuche nützlich — im Normalbetrieb ausgeschaltet lassen. Kunden sehen diese Meldungen nie."
+
+msgid "Only matters when you DELETE the plugin in the plugins list: On = all settings and the withdrawal-requests table are removed for good. Off = everything survives for a later reinstall. Simply deactivating never deletes anything."
+msgstr "Greift nur, wenn Sie das Plugin in der Plugin-Liste LÖSCHEN: An = alle Einstellungen und die Widerrufs-Tabelle werden endgültig entfernt. Aus = alles bleibt für eine spätere Neuinstallation erhalten. Bloßes Deaktivieren löscht nie etwas."
+
+msgid "The three-step line in the header band: cart → checkout → confirmation, with the current step highlighted. Customers see where they are and how little is left."
+msgstr "Die Drei-Schritte-Zeile im Kopfband: Warenkorb → Kasse → Bestätigung, der aktuelle Schritt hervorgehoben. Kunden sehen, wo sie stehen und wie wenig noch fehlt."
+
+msgid "A small \"Already a customer? Log in\" pill in the header band. It unfolds the login form WooCommerce already prints on the checkout — without it, that form has no visible trigger once the theme header is hidden."
+msgstr "Eine kleine „Bereits Kunde? Anmelden"-Pille im Kopfband. Sie klappt das Anmeldeformular auf, das WooCommerce ohnehin an der Kasse ausgibt — ohne sie hätte dieses Formular bei verstecktem Theme-Kopf keinen sichtbaren Auslöser."
+
+msgid "Adds an invisible page heading for screen readers. With the theme header hidden, cart and checkout usually have no H1 at all — assistive technology would announce a page without a name."
+msgstr "Ergänzt eine unsichtbare Seitenüberschrift für Screenreader. Mit verstecktem Theme-Kopf haben Warenkorb und Kasse meist gar keine H1 — Hilfstechnik würde eine Seite ohne Namen vorlesen."
+
+msgid "The three short claims in the header band, each with its icon (lock, shield, card). Keep them factual and specific to your shop — e.g. your real payment options or guarantee. If all three are empty, a single \"Secure SSL connection\" is shown."
+msgstr "Die drei kurzen Aussagen im Kopfband, jede mit ihrem Symbol (Schloss, Schild, Karte). Bleiben Sie sachlich und shop-spezifisch — z. B. Ihre echten Zahlarten oder Ihre Garantie. Sind alle drei leer, erscheint ein einzelnes „Sichere SSL-Verbindung"."
+
+msgid "Second trust item, shown with the shield icon. Only claims that are actually true for your shop."
+msgstr "Zweiter Vertrauens-Text, mit dem Schild-Symbol. Nur Aussagen, die für Ihren Shop wirklich zutreffen."
+
+msgid "Third trust item, shown with the card icon — a good place for your payment brands, e.g. \"PayPal, Klarna & invoice\"."
+msgstr "Dritter Vertrauens-Text, mit dem Karten-Symbol — ein guter Platz für Ihre Zahlarten, z. B. „PayPal, Klarna & Rechnung"."
+
+msgid "Repeats the three trust items in small print directly under the buy button — the moment of the last hesitation. Uses the same texts as the header band, so there is only one place to maintain them."
+msgstr "Wiederholt die drei Vertrauens-Texte klein direkt unter dem Kauf-Knopf — dem Moment des letzten Zögerns. Nutzt dieselben Texte wie das Kopfband, es gibt also nur eine Pflegestelle."
+
+msgid "A small back-to-shop link above the cart table. With the theme menu hidden there is otherwise no way back to the products; the checkout page deliberately never gets one."
+msgstr "Ein kleiner Zurück-zum-Shop-Link über der Warenkorbtabelle. Mit verstecktem Theme-Menü gäbe es sonst keinen Weg zurück zu den Produkten; die Kasse selbst bekommt bewusst keinen."
+
+msgid "Never marks the state/county field as required and untangles its labels. Background: for countries like Ireland or the United Kingdom, WooCommerce inserts a state field that German shops usually do not need — and its label collided with the country field."
+msgstr "Markiert das Bundesland-/Grafschafts-Feld nie als Pflicht und entwirrt seine Beschriftungen. Hintergrund: Für Länder wie Irland oder Großbritannien blendet WooCommerce ein Regionsfeld ein, das deutsche Shops meist nicht brauchen — und dessen Beschriftung mit dem Länderfeld kollidierte."
+
+msgid "Gives every field the correct autocomplete and input attributes: phones show the number pad for postcode and phone, the email keyboard for email, and browser autofill puts the right data into the right fields."
+msgstr "Gibt jedem Feld die richtigen Autofill- und Eingabe-Attribute: Handys zeigen bei PLZ und Telefon den Ziffernblock, bei E-Mail die E-Mail-Tastatur, und das automatische Ausfüllen des Browsers trifft die richtigen Felder."
+
+msgid "Type a postcode and the city fills in by itself, for Germany, Austria and Switzerland. The databases ship with the plugin — no external service is called, no customer data leaves your server (GDPR-safe). Multiple matching cities appear as a native suggestion list."
+msgstr "PLZ eintippen, der Ort füllt sich von selbst — für Deutschland, Österreich und die Schweiz. Die Datenbanken liegen im Plugin: kein externer Dienst, keine Kundendaten verlassen Ihren Server (DSGVO-sicher). Mehrere passende Orte erscheinen als native Vorschlagsliste."
+
+msgid "Adds a small \"i\" next to \"Create an account?\" that explains what actually happens — whether a password is chosen or emailed, and what the account is good for. The wording is generated from your real registration settings, so it can never promise something else."
+msgstr "Ergänzt ein kleines „i" neben „Ein Konto erstellen?", das erklärt, was wirklich passiert — ob ein Passwort gewählt oder gemailt wird und wozu das Konto gut ist. Der Text entsteht aus Ihren echten Registrierungs-Einstellungen und kann daher nie etwas anderes versprechen."
+
+msgid "On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar."
+msgstr "Auf dem Handy bleibt eine schmale Leiste mit Gesamtsumme und Kauf-Knopf am unteren Bildschirmrand, solange der echte Knopf nicht sichtbar ist. Ein Tipp löst den echten Knopf samt aller Prüfungen aus. Am Desktop erscheint die Leiste nie."
+
+msgid "Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior."
+msgstr "Links in den Pflichtkästchen (AGB, Widerruf) öffnen den Rechtstext in einem Overlay, statt die Kasse zu verlassen. Der Text kommt von Ihren bestehenden Seiten — nichts wird doppelt gepflegt. Rechtsklick oder Mittelklick öffnet weiter die normale Seite; schlägt das Laden fehl, verhält sich der Link ganz normal."
+
+msgid "For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page."
+msgstr "Für site-spezifische Elemente, die der ablenkungsfreie Modus nicht kennt: ein CSS-Selektor pro Zeile, versteckt nur auf Warenkorb und Kasse. Beispiel: #mein-chat-widget. Verstecken Sie nie Ihre Rechtslinks im Fußbereich — die sind auf jeder Seite Pflicht."
+
+msgid "The EU \"withdrawal function\": a public online form (its page is created automatically) where guests and customers declare a withdrawal. A submission is never blocked by validation — soft matching links it to an order when possible — and every request lands under WooCommerce → Withdrawals with a status workflow and email notifications."
+msgstr "Die EU-„Widerrufsfunktion": ein öffentliches Online-Formular (die Seite wird automatisch angelegt), über das Gäste und Kunden den Widerruf erklären. Eine Einreichung wird nie durch Validierung blockiert — weiches Abgleichen ordnet sie nach Möglichkeit einer Bestellung zu — und jeder Antrag landet unter WooCommerce → Widerrufe mit Status-Workflow und E-Mail-Benachrichtigungen."
+
+msgid "Pick the menu that should carry the link to the withdrawal form — typically your footer legal menu, next to imprint and privacy. The link is appended automatically and removed again when this is switched off."
+msgstr "Wählen Sie das Menü, das den Link zum Widerrufsformular tragen soll — typisch das Rechts-Menü im Fußbereich, neben Impressum und Datenschutz. Der Link wird automatisch angehängt und beim Abschalten wieder entfernt."
+
+msgid "Every new withdrawal request is mailed to this address, including a direct link to the admin view. Leave empty to use the site admin email."
+msgstr "Jeder neue Widerrufsantrag geht per E-Mail an diese Adresse, mit Direktlink in die Verwaltungsansicht. Leer = die Admin-E-Mail der Website."
+
+msgid "Sends the customer an automatic \"we received your withdrawal\" receipt. It confirms receipt only — the actual assessment and refund stay with you."
+msgstr "Sendet dem Kunden automatisch eine „Wir haben Ihren Widerruf erhalten"-Bestätigung. Sie bestätigt nur den Eingang — Prüfung und Erstattung bleiben bei Ihnen."
+
+msgid "Controls the \"Withdraw this order\" button in My Account: it shows for this many days after the order. The legal period itself comes from your terms — 14 days is the EU minimum for consumers; a voluntary longer promise (e.g. 30 days) goes here."
+msgstr "Steuert den „Diese Bestellung widerrufen"-Knopf im Kundenkonto: Er erscheint so viele Tage nach der Bestellung. Die rechtliche Frist selbst steht in Ihren AGB — 14 Tage sind das EU-Minimum für Verbraucher; ein freiwillig längeres Versprechen (z. B. 30 Tage) gehört hierher."
+
+msgid "On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject."
+msgstr "An = der Knopf im Kundenkonto verschwindet nach Ablauf der Frist. Das öffentliche Formular bleibt trotzdem erreichbar — ein Widerruf darf nie an der Technik scheitern, und verspätete Anträge bewerten Sie, nicht die Software."
+
+msgid "Shows a short \"you can withdraw this order online at any time\" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text."
+msgstr "Zeigt auf der Bestellbestätigung einen kurzen Hinweis „Sie können online widerrufen" mit Link zum Formular. Transparenz, die Kunden honorieren — und weniger formlose Widerrufs-E-Mails."
+
+msgid "Browsers enforce required boxes only client-side — a broken script or a manipulated request could order without consent. This re-checks every required box (WooCommerce terms and Germanized) on the server and rejects the order with a normal error message. It stays silent when another plugin already reported the same box, so customers never read the same complaint twice."
+msgstr "Browser prüfen Pflichtkästchen nur clientseitig — ein kaputtes Skript oder eine manipulierte Anfrage könnte ohne Zustimmung bestellen. Diese Prüfung kontrolliert jedes Pflichtkästchen (WooCommerce-AGB und Germanized) noch einmal auf dem Server und lehnt die Bestellung mit normaler Fehlermeldung ab. Sie schweigt, wenn ein anderes Plugin dasselbe Kästchen bereits gemeldet hat — Kunden lesen nie zweimal dieselbe Beschwerde."
+
+msgid "The bold lead-in of the reassurance note, e.g. \"No risk:\". Leave empty for a note without a lead-in."
+msgstr "Der fette Auftakt des Beruhigungs-Hinweises, z. B. „Kein Risiko:". Leer = Hinweis ohne Auftakt."
+
+msgid "A friendly clarification under the consent boxes — the classic use: the legally required download consent sounds like losing all rights, and this note clarifies that your voluntary money-back guarantee is unaffected. Only promise what you really keep; the note is styled as reassurance, never as one more condition."
+msgstr "Eine freundliche Klarstellung unter den Pflichtkästchen — der Klassiker: Die gesetzlich nötige Download-Zustimmung klingt nach Rechteverlust, und dieser Hinweis stellt klar, dass Ihre freiwillige Geld-zurück-Garantie unberührt bleibt. Versprechen Sie nur, was Sie wirklich halten; der Hinweis ist als Beruhigung gestaltet, nie als weitere Bedingung."
+
+msgid "Three columns: billing left, payment in the middle, order summary right — the proven compact desktop stage. Ultra-compact: the same stage one type step smaller with tighter cards, for everything at a glance. Two columns: form left, order summary sticky on the right. One column: a centered vertical flow. On narrow screens every layout stacks gracefully; phones are always one column."
+msgstr "Drei Spalten: Rechnung links, Zahlungsart in der Mitte, Bestellung rechts — die bewährte kompakte Desktop-Bühne. Ultra-kompakt: dieselbe Bühne eine Schriftstufe kleiner mit engeren Karten, für alles auf einen Blick. Zwei Spalten: Formular links, Bestellübersicht haftend rechts. Eine Spalte: ein zentrierter vertikaler Fluss. Auf schmalen Bildschirmen stapelt jedes Layout sauber; Handys sind immer einspaltig."
+
+msgid "The action color: buy button, radio/checkbox accents and the underline of the section headings. Use your brand's strongest call-to-action color."
+msgstr "Die Aktionsfarbe: Kauf-Knopf, Radio-/Kästchen-Akzente und die Unterstreichung der Abschnitts-Überschriften. Nehmen Sie die stärkste Handlungsfarbe Ihrer Marke."
+
+msgid "The accent color while hovering a button — usually a slightly darker shade of the accent."
+msgstr "Die Akzentfarbe beim Überfahren eines Knopfes — meist eine etwas dunklere Abstufung des Akzents."
+
+msgid "The strong text color: order summary lines, amounts, the grand total and other emphasized text."
+msgstr "Die kräftige Textfarbe: Zeilen der Bestellübersicht, Beträge, die Gesamtsumme und weitere betonte Texte."
+
+msgid "The normal reading color for regular content text."
+msgstr "Die normale Lesefarbe für gewöhnlichen Inhaltstext."
+
+msgid "The quiet color for secondary lines: descriptions, fine print, the consent texts and the tax breakdown."
+msgstr "Die ruhige Farbe für Nebenzeilen: Beschreibungen, Kleingedrucktes, die Zustimmungstexte und die Steuer-Aufschlüsselung."
+
+msgid "The page surface behind the cards. A very light grey lets the white cards read as cards."
+msgstr "Die Seitenfläche hinter den Karten. Ein sehr helles Grau lässt die weißen Karten als Karten wirken."
+
+msgid "The surface of the cards themselves — white on almost every shop."
+msgstr "Die Fläche der Karten selbst — bei fast jedem Shop Weiß."
+
+msgid "Borders of cards and fields plus the thin separators between rows."
+msgstr "Ränder von Karten und Feldern sowie die feinen Trennlinien zwischen Zeilen."
+
+msgid "Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default."
+msgstr "Ecken-Rundung der Karten in Pixeln; Felder und Knöpfe skalieren mit. 0 = scharfe Ecken, 12 = der freundliche Standard."
+
+msgid "Scales every checkout font step together, layout untouched. 110% helps older audiences or brands with generous type; 90% packs more onto the screen."
+msgstr "Skaliert alle Schriftstufen der Kasse gemeinsam, das Layout bleibt unberührt. 110 % hilft älterem Publikum oder Marken mit großzügiger Schrift; 90 % bringt mehr auf den Schirm."
+
+msgid "The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height."
+msgstr "Das Logo in der Mitte des Kassen-Kopfbands. Leer = Ihr Site-Logo. Am besten wirkt eine breite, flache Fassung; angezeigt wird sie mit bis zu 46 px Höhe."

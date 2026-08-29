@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.23
+Stable tag: 0.1.24
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.24 =
+* Order-summary thumbnails survive theme lazy-loaders. Basel's lazy filter swapped the image source for its placeholder and lost the original along the way — the thumbnail rendered briefly, then stayed empty. The markup is now hand-built from the attachment URL, untouched by the attachment-image filter pipeline any lazy plugin hooks into; browser-native lazy loading still defers offscreen images, variations fall back to the parent image, missing images to the WooCommerce placeholder.
 
 = 0.1.23 =
 * The full-page checkout footer configures itself and bends to your will: pick the exact pages in the backend (multi-select), or a whole menu — and without any choice the line now fills itself with the legal pages your site already registered (Germanized's imprint, privacy and withdrawal pages, WooCommerce's terms page, WordPress' privacy page), published pages only, in reading order.

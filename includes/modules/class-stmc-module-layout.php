@@ -165,10 +165,31 @@ class STMC_Module_Layout extends STMC_Module {
 			return $name;
 		}
 		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
-		if ( ! $product || ! is_object( $product ) || ! method_exists( $product, 'get_image' ) ) {
+		if ( ! $product || ! is_object( $product ) || ! method_exists( $product, 'get_image_id' ) ) {
 			return $name;
 		}
-		return $product->get_image( 'woocommerce_gallery_thumbnail', array( 'class' => 'stmc-item-thumb' ) ) . $name;
+
+		/*
+		 * Hand-built markup on purpose: theme lazy-loaders filter the
+		 * attachment-image pipeline and can break it — Basel swaps the src for
+		 * its placeholder and loses the original along the way (measured), so
+		 * get_image() produced a permanently empty thumbnail. A plain <img>
+		 * with the real file URL passes every such filter untouched; the
+		 * browser-native loading="lazy" still defers offscreen loads.
+		 */
+		$image_id = (int) $product->get_image_id();
+		if ( ! $image_id && method_exists( $product, 'get_parent_id' ) && $product->get_parent_id() ) {
+			$image_id = (int) get_post_thumbnail_id( $product->get_parent_id() );
+		}
+		$src = $image_id ? wp_get_attachment_image_src( $image_id, 'woocommerce_gallery_thumbnail' ) : false;
+		$url = $src ? $src[0] : ( function_exists( 'wc_placeholder_img_src' ) ? wc_placeholder_img_src( 'woocommerce_gallery_thumbnail' ) : '' );
+		if ( ! $url ) {
+			return $name;
+		}
+		$alt = $image_id ? trim( (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) ) : '';
+
+		return '<img class="stmc-item-thumb" src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '"'
+			. ' width="44" height="44" loading="lazy" decoding="async">' . $name;
 	}
 
 	/**

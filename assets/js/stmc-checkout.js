@@ -342,5 +342,36 @@
 	}
 	qtySteppers();
 
+	/*
+	 * Three-column: the buy button belongs to the order column. Germanized's
+	 * checkout adjustments put it there themselves — but WooCommerce's native
+	 * place-order block lives INSIDE #payment, so shops without that option
+	 * showed the button in the payment column. The documented adoption
+	 * fallback moves the block once (and again after every fragment refresh,
+	 * which ships a fresh copy inside the new #payment); flex order in the
+	 * order column puts it in reading position. No-op when a legal plugin
+	 * already relocated the button.
+	 */
+	function adoptPlaceOrder() {
+		if ( ! document.body.classList.contains( 'stmc-layout-three-column' ) ) {
+			return;
+		}
+		function adopt() {
+			var target = document.querySelector( '.stmc-order-part--bottom' );
+			var row    = document.querySelector( '.stmc-payment-col .form-row.place-order' );
+			if ( ! target || ! row ) {
+				return;
+			}
+			var previous = target.querySelector( ':scope > .form-row.place-order' );
+			if ( previous ) {
+				previous.remove();
+			}
+			target.appendChild( row );
+		}
+		adopt();
+		S.on( 'updated_checkout', adopt );
+	}
+	adoptPlaceOrder();
+
 	S.log( 'core ready', { blockCheckout: S.isBlockCheckout } );
 } )();

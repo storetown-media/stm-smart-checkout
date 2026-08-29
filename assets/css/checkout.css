@@ -329,6 +329,39 @@ body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .stmc-section-titl
 	font-size: var(--stmc-fs-m);
 }
 
+/* When the order-notes section moves into the payment column (shipping-free
+   carts, see the layout module), the story renumbers itself: payment becomes
+   step 2 and the notes read as a quiet sub-block of that column — no number,
+   no card chrome (the wide card already carries the surface), just a soft
+   separator against the methods above. */
+body.stmc-checkout.stmc-layout-three-column form.checkout #order_review .stmc-payment-col:has(.woocommerce-additional-fields) .stmc-section-title::before {
+	content: "2";
+}
+
+body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-additional-fields {
+	margin: 18px 0 0;
+	padding: 14px 0 0;
+	background: transparent;
+	border: 0;
+	border-top: 1px solid var(--stmc-line-soft);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-additional-fields .stmc-section-title {
+	margin: 0 0 12px;
+	padding: 0 0 8px;
+	border-bottom: 0;
+	font-size: var(--stmc-fs-m);
+}
+
+/* The ID mirrors the numbering rules above — without it the ":has step 2"
+   rule (which carries #order_review) would win and number this head too. */
+body.stmc-checkout.stmc-layout-three-column form.checkout #order_review .stmc-payment-col .woocommerce-additional-fields .stmc-section-title::before {
+	content: none;
+	counter-increment: none;
+}
+
 /* ---------- 5b. Field pairs & descriptions ---------- */
 
 /* Two-lane field raster: everything full width by default, name pair and
@@ -346,6 +379,11 @@ body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > .form-row {
 	width: auto;
 	max-width: none;
 	float: none;
+	/* Woo/theme float-era offsets (.form-row-last carries margin-top: 6px,
+	   measured live) tilt a grid pair — first/last name sat 6px apart. One
+	   uniform rhythm for every row. */
+	margin-top: 0;
+	margin-bottom: 10px;
 }
 
 body.stmc-checkout .woocommerce-billing-fields__field-wrapper > .form-row-first,
@@ -1922,6 +1960,12 @@ body.stmc-checkout.stmc-layout-ultra-compact form.checkout .wc-order-review,
 body.stmc-checkout.stmc-layout-ultra-compact form.woocommerce-form-login {
 	margin-bottom: 14px;
 	padding: 14px 16px;
+}
+
+/* Order notes inside the payment column stay a chrome-free sub-block. */
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-payment-col .woocommerce-additional-fields {
+	margin: 12px 0 0;
+	padding: 10px 0 0;
 }
 
 /* Header band and progress tighten up; the band logo steps down a notch. */

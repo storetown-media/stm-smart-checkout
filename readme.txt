@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.18
+Stable tag: 0.1.19
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.19 =
+* Context translations restored: the rebuilt language files had silently lost every msgctxt entry (the page slug and the state-field labels fell back to English) — found on the first install on a second shop, where the withdrawal page appeared with a German title but an English slug. The build tool now writes GNU context keys correctly, and the page self-heal treats title and slug independently, so existing installs fix their slug on the next upgrade (WordPress keeps the old-slug redirect).
 
 = 0.1.18 =
 * Plugin Check green again: the help-icon markup escapes its id at the exact output spot (a pre-escaped variable is invisible to the reviewer's static analysis), and reading WooCommerce's order-notes switch carries its documented justification.

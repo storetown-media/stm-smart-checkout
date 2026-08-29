@@ -55,14 +55,21 @@ class STMC_Withdrawal {
 			$title = __( 'Withdrawal', 'stm-smart-checkout' );
 			$slug  = sanitize_title( _x( 'withdrawal', 'page slug', 'stm-smart-checkout' ) );
 			$page  = get_post( $page_id );
-			if ( $page && 'Withdrawal' !== $title && 'Withdrawal' === $page->post_title ) {
-				wp_update_post(
-					array(
-						'ID'         => $page_id,
-						'post_title' => $title,
-						'post_name'  => ( 'withdrawal' === $page->post_name && 'withdrawal' !== $slug ) ? $slug : $page->post_name,
-					)
-				);
+			if ( $page ) {
+				$update = array();
+				if ( 'Withdrawal' !== $title && 'Withdrawal' === $page->post_title ) {
+					$update['post_title'] = $title;
+				}
+				// Healed separately: a broken .mo build once translated the title
+				// but not the slug (msgctxt entries were lost), so the two can be
+				// out of sync independently.
+				if ( 'withdrawal' !== $slug && 'withdrawal' === $page->post_name ) {
+					$update['post_name'] = $slug;
+				}
+				if ( $update ) {
+					$update['ID'] = $page_id;
+					wp_update_post( $update );
+				}
 			}
 			return;
 		}

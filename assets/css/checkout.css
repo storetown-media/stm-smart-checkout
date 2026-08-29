@@ -1291,7 +1291,17 @@ body.stmc-checkout .stmc-order-part--bottom > table.shop_table {
    between the total and the button. */
 body.stmc-checkout .stmc-order-part--bottom > .wc-gzd-order-submit,
 body.stmc-checkout .stmc-order-part--bottom > .form-row.place-order { order: 3; }
-body.stmc-checkout .stmc-order-part--bottom > .stmc-guarantee { order: 4; }
+
+/* A gateway's own buttons are an ALTERNATIVE to the buy button, never a step
+   before it: PayPal Payments parks its container next to the place-order row
+   and, while a different gateway is selected, leaves a 45px empty box there
+   (measured on hairdoshop, inner container display:none). Below the button it
+   costs nothing — and when PayPal IS chosen it hides #place_order anyway, so
+   its button then takes the freed slot directly under the total. */
+body.stmc-checkout .stmc-order-part--bottom > .ppc-button-wrapper,
+body.stmc-checkout .stmc-order-part--bottom > [class*="ppcp-button"] { order: 4; }
+
+body.stmc-checkout .stmc-order-part--bottom > .stmc-guarantee { order: 5; }
 
 /* ---------- 13b. Legal checkboxes (Germanized + Woo terms) ---------- */
 

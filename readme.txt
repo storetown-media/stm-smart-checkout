@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.14
+Stable tag: 0.1.15
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.15 =
+* The one-column layout is actually one column now. Without its own rules the theme decided — The7 turns the checkout form into its own two-column flexbox, so "one column" silently rendered like "two columns". The layout is a centered 760px flex column: express buttons keep their order, then billing, then the order block, everything stacked.
 
 = 0.1.14 =
 * Compact review round: on shipping-free carts the "Additional information" section (order notes) moves under the payment methods instead of dangling as a lone card below the address — the numbering follows the story (payment becomes step 2, the notes read as a quiet sub-block). First/last name (and postcode/city) now sit on exactly the same line: WooCommerce's float-era `margin-top` on `.form-row-last` tilted the grid pair by 6px.

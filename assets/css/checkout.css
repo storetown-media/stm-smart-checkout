@@ -702,6 +702,30 @@ body.stmc-checkout .woocommerce form .form-row select {
 	}
 }
 
+/* One column: a single centered flow. Without these rules the THEME decides —
+   The7 turns form.checkout into its own two-column flexbox, so "one column"
+   silently rendered like "two columns" (found in Jan's layout review). A flex
+   COLUMN (not block) on purpose: the express areas keep their order:-3/-2/-1
+   sequence and the "OR" divider (::before, order 0) its slot. */
+@media (min-width: 993px) {
+	body.stmc-checkout.stmc-layout-one-column form.checkout {
+		display: flex;
+		flex-direction: column;
+		max-width: 760px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	body.stmc-checkout.stmc-layout-one-column form.checkout > #customer_details,
+	body.stmc-checkout.stmc-layout-one-column form.checkout > .wc-order-review,
+	body.stmc-checkout.stmc-layout-one-column form.checkout > #order_review {
+		width: auto;
+		max-width: none;
+		min-width: 0;
+		float: none;
+	}
+}
+
 /* ---------- 7b. Three-column layout (≥1160px): billing | payment | order ----------
    The predecessor's signature layout, and its exact card architecture: the
    billing column is one card, and payment + order share ONE wide card split

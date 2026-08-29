@@ -35,6 +35,21 @@ class STMC_Integration_Shiptastic extends STMC_Module {
 
 		// Late priority: run after Shiptastic registered its fields.
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'move_pickup_notice' ), 1000 );
+
+		/*
+		 * DHL preferred services print at woocommerce_review_order_after_payment
+		 * priority 500 — AFTER our payment column closed (5), so the block
+		 * fostered itself into the order column under the buy button. Only the
+		 * PRIORITY moves (same callback): everything Shiptastic built — its JS,
+		 * refresh behavior, conditions — keeps working, the block just joins
+		 * the payment column under the methods, where delivery services belong.
+		 */
+		$dhl = '\Vendidero\Shiptastic\DHL\ParcelServices';
+		if ( class_exists( $dhl ) && is_callable( array( $dhl, 'maybe_output_fields' ) ) ) {
+			if ( false !== remove_action( 'woocommerce_review_order_after_payment', array( $dhl, 'maybe_output_fields' ), 500 ) ) {
+				add_action( 'woocommerce_review_order_after_payment', array( $dhl, 'maybe_output_fields' ), 4 );
+			}
+		}
 	}
 
 	/**

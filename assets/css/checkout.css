@@ -1516,8 +1516,16 @@ body.stmc-checkout #order_review table.shop_table tfoot {
 	width: 100%;
 }
 
-body.stmc-checkout #order_review table.shop_table tfoot tr { order: 2; }
+/* The money block is a closed story: known lines get explicit slots, and
+   ANY unknown row a third-party plugin prints into the totals lands AFTER
+   the grand total by default — extras never interrupt the money. */
+body.stmc-checkout #order_review table.shop_table tfoot tr { order: 6; }
 body.stmc-checkout #order_review table.shop_table tfoot tr.cart-subtotal { order: 1; }
+body.stmc-checkout #order_review table.shop_table tfoot tr.woocommerce-shipping-totals,
+body.stmc-checkout #order_review table.shop_table tfoot tr.shipping,
+body.stmc-checkout #order_review table.shop_table tfoot tr.fee,
+body.stmc-checkout #order_review table.shop_table tfoot tr.tax-total,
+body.stmc-checkout #order_review table.shop_table tfoot tr.order-tax { order: 2; }
 body.stmc-checkout #order_review table.shop_table tfoot tr.stm-net-row { order: 3; }
 body.stmc-checkout #order_review table.shop_table tfoot tr[class*="paylater"] { order: 4; }
 body.stmc-checkout #order_review table.shop_table tfoot tr.order-total { order: 5; }
@@ -2148,8 +2156,19 @@ body.stmc-checkout .pickup_location_notice a {
 	text-underline-offset: 2px;
 }
 
-/* DHL preferred services: their row closes the order column, after the
-   grand total — delivery fine-tuning is the coda, not a money line. */
+/* DHL preferred services live in the payment column now (the integration
+   re-prioritizes their hook); the <tr> markup gets flattened outside a table,
+   so the section separates itself with a soft line above its header — same
+   voice as the order-notes sub-block. */
+body.stmc-checkout .stmc-payment-col .dhl-preferred-service-header {
+	margin-top: 18px;
+	padding-top: 14px;
+	border-top: 1px solid var(--stmc-line-soft);
+}
+
+/* Fallback for setups where the row still renders inside the review table:
+   it closes the order column, after the grand total — delivery fine-tuning
+   is the coda, not a money line. */
 body.stmc-checkout #order_review table.shop_table tfoot tr.dhl-preferred-service {
 	order: 6;
 	display: block;

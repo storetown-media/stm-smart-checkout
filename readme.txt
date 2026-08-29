@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.25
+Stable tag: 0.1.26
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.26 =
+* DHL preferred services join the payment column, right under the methods — the integration only re-prioritizes their hook, so everything Shiptastic built (its script, refresh behavior, conditions) keeps working untouched. And a new default makes the totals block third-party-proof: any unknown row a plugin prints into the totals now lands after the grand total automatically — extras can never interrupt the money story again.
 
 = 0.1.25 =
 * First member of the integrations family: Shiptastic (+ DHL). The pickup-location offer ("Not at home?") no longer interrupts the address fields mid-flow — it closes the address block as a quiet card. DHL's preferred services (delivery-day tiles, drop-off location, neighbor) speak the checkout's design language now and settle after the grand total, where delivery fine-tuning belongs. The adapter is guarded (no-op without Shiptastic) and never forks the plugin's behavior — the pattern every future integration follows.

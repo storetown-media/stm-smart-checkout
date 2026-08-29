@@ -74,6 +74,8 @@ class STMC_Settings {
 
 			// Focus.
 			'focus.extra_hide_selectors' => array( 'type' => 'textarea', 'default' => '' ),
+			'focus.fullpage'             => array( 'type' => 'choice', 'default' => 'auto', 'choices' => array( 'auto', 'on', 'off' ) ),
+			'focus.legal_menu'           => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
 
 			// Design tokens (rendered as --stmc-* custom properties).
 			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => array( 'one-column', 'two-column', 'three-column', 'ultra-compact' ) ),

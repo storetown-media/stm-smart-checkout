@@ -158,6 +158,8 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'checkout.order_notes', __( 'Order notes field ("Additional information")', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.sticky_bar', __( 'Mobile sticky order bar (total + buy button)', 'stm-smart-checkout' ), __( 'Appears on phones while the real order button is out of view.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_select( 'focus.fullpage', __( 'Distraction-free: full-page template', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — on themes without a built-in adapter', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never (CSS fallback only)', 'stm-smart-checkout' ) ) ); ?>
+						<?php self::row_menu( 'focus.legal_menu', __( 'Legal links in the checkout footer', 'stm-smart-checkout' ), __( 'Shown under the full-page checkout — pick the menu with imprint, privacy and terms.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
 					<?php else : ?>
 						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), array( 'three-column' => __( 'Three columns (billing / payment / order — most compact)', 'stm-smart-checkout' ), 'ultra-compact' => __( 'Ultra-compact (three columns, dense — everything at a glance)', 'stm-smart-checkout' ), 'two-column' => __( 'Two columns (order summary right)', 'stm-smart-checkout' ), 'one-column' => __( 'One column', 'stm-smart-checkout' ) ) ); ?>
@@ -226,7 +228,8 @@ class STMC_Admin {
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
 				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'fields.account_hint',
-				'checkout.order_notes', 'checkout.sticky_bar', 'legal.popup', 'focus.extra_hide_selectors',
+				'checkout.order_notes', 'checkout.sticky_bar', 'legal.popup',
+				'focus.fullpage', 'focus.legal_menu', 'focus.extra_hide_selectors',
 			),
 			'legal'    => array(
 				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',
@@ -294,6 +297,8 @@ class STMC_Admin {
 				'checkout.order_notes'              => __( 'The "order notes" field under "Additional information". Off = the field and its whole section disappear from the checkout — one question less for shops that never read the notes. Notes customers already wrote on old orders stay untouched.', 'stm-smart-checkout' ),
 				'checkout.sticky_bar'               => __( 'On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar.', 'stm-smart-checkout' ),
 				'legal.popup'                       => __( 'Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior.', 'stm-smart-checkout' ),
+				'focus.fullpage'                    => __( 'The strongest distraction-free level: cart and checkout render through the plugin\'s own minimal page — the theme\'s header, menus and footer are never built at all. "Automatic" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working.', 'stm-smart-checkout' ),
+				'focus.legal_menu'                  => __( 'The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the menu that carries them; it renders as a quiet line under the checkout. Without a choice, the WordPress privacy-policy page is linked as a minimum.', 'stm-smart-checkout' ),
 				'focus.extra_hide_selectors'        => __( 'For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page.', 'stm-smart-checkout' ),
 
 				'withdrawal.enabled'                => __( 'The EU "withdrawal function": a public online form (its page is created automatically) where guests and customers declare a withdrawal. A submission is never blocked by validation — soft matching links it to an order when possible — and every request lands under WooCommerce → Withdrawals with a status workflow and email notifications.', 'stm-smart-checkout' ),

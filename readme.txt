@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.20
+Stable tag: 0.1.21
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.21 =
+* Distraction-free works on every theme now: on themes without a built-in adapter, cart and checkout render through the plugin's own minimal full page (template_include) — the theme's header, menus and footer are never built at all, while styles, analytics, consent tools and chat widgets keep working. A configurable legal-links line under the checkout keeps imprint, privacy and terms reachable (pick your legal menu in the backend; the WordPress privacy page is the minimum fallback). Adapter themes (The7, Storefront) stay on their native path; owners can force the template on or off.
 
 = 0.1.20 =
 * Theme-proof layout round, measured on a second shop (Basel theme, Bootstrap checkout template). Theme templates that wrap the billing and order anchors in their own grid markup (a .col-sm-6 gave the billing column 50% of its 50%) become layout-transparent — the checkout grid now always places the anchors themselves, whatever the template wraps them in. The default template's "Product / Subtotal" table head is retired (our column title already labels the area; as a re-flowed line its two cells overlapped). Gateway description boxes with intrinsically sized badges (Klarna) can no longer push past the card edge. Themes without a server-side adapter get a narrow distraction-free CSS fallback: the page-title hero banner and the breadcrumb step aside while the screen-reader heading keeps the page named.

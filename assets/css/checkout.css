@@ -42,6 +42,43 @@ body.stmc-focus.stmc-checkout .woocommerce-breadcrumb {
 	display: none;
 }
 
+/* Fullpage template (themes without a server-side adapter): its own quiet
+   stage and the legal line that keeps imprint & privacy reachable. */
+body.stmc-fullpage {
+	background: var(--stmc-bg);
+}
+
+.stmc-fullpage__main {
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 8px 20px 40px;
+}
+
+.stmc-fullpage__footer {
+	margin-top: 40px;
+	padding: 22px 20px 30px;
+	background: var(--stmc-card);
+	border-top: 1px solid var(--stmc-line);
+}
+
+.stmc-legal-line {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 8px 22px;
+}
+
+.stmc-legal-line a {
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+	text-decoration: none;
+}
+
+.stmc-legal-line a:hover {
+	color: var(--stmc-ink);
+	text-decoration: underline;
+}
+
 /* ---------- 2. Header band ---------- */
 
 body.stmc-checkout .stmc-band {

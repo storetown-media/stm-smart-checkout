@@ -550,6 +550,36 @@ msgstr "Komitat"
 msgid "What does this setting do?"
 msgstr "Was bewirkt diese Einstellung?"
 
+msgid "Distraction-free: full-page template"
+msgstr "Ablenkungsfrei: Vollseiten-Vorlage"
+
+msgid "Automatic — on themes without a built-in adapter"
+msgstr "Automatisch — bei Themes ohne eingebauten Adapter"
+
+msgid "Always"
+msgstr "Immer"
+
+msgid "Never (CSS fallback only)"
+msgstr "Nie (nur CSS-Fallback)"
+
+msgid "Legal links in the checkout footer"
+msgstr "Rechtslinks im Kassen-Fuß"
+
+msgid "Shown under the full-page checkout — pick the menu with imprint, privacy and terms."
+msgstr "Erscheint unter der Vollseiten-Kasse — wählen Sie das Menü mit Impressum, Datenschutz und AGB."
+
+msgid "Legal links"
+msgstr "Rechtslinks"
+
+msgid "Privacy policy"
+msgstr "Datenschutzerklärung"
+
+msgid "The strongest distraction-free level: cart and checkout render through the plugin's own minimal page — the theme's header, menus and footer are never built at all. \"Automatic\" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working."
+msgstr "Die stärkste Ablenkungsfrei-Stufe: Warenkorb und Kasse laufen über die eigene Minimal-Seite des Plugins — Kopfbereich, Menüs und Fußbereich des Themes werden gar nicht erst aufgebaut. „Automatisch" nutzt sie nur bei Themes ohne eingebauten Adapter (The7 und Storefront haben einen und bleiben auf ihrem nativen Weg). Styles, Analytics, Consent-Tools und Chat-Widgets funktionieren weiter."
+
+msgid "The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the menu that carries them; it renders as a quiet line under the checkout. Without a choice, the WordPress privacy-policy page is linked as a minimum."
+msgstr "Die Vollseiten-Kasse ersetzt den Theme-Fußbereich — Impressum, Datenschutz und AGB müssen auf jeder Seite erreichbar bleiben. Wählen Sie das Menü, das sie trägt; es erscheint als ruhige Zeile unter der Kasse. Ohne Auswahl wird mindestens die WordPress-Datenschutzseite verlinkt."
+
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 

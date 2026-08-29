@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.12
+Stable tag: 0.1.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.13 =
+* Parity round with the live shop's proven checkout, plus a new layout. Step numbering now follows the form flow (1 billing details, 2 additional information, 3 payment — the order summary is the unnumbered constant); step heads grow to the measured 1.15rem in the title blue with the number in a matching disc. Field and payment-method labels speak in the label blue at content size. Consent boxes and "Create an account?" become modern switches on individual white cards. In the order column the totals table now leads, consents and the buy button follow, and the money lines re-order so the grand total closes the column with zebra rhythm on the quiet lines. Payment and order share ONE wide card split by a soft center line (three-column stage now starts at 1160px). The express area gets its measured title size and a translated "OR" divider. New: an ultra-compact layout — the three-column stage one type step down with tight cards and fields, modeled on the Magento edition; on touch screens density yields to reachability (16px field text, full-height targets).
 
 = 0.1.12 =
 * Plugin Check housekeeping — the remaining review warnings are resolved: request values in the withdrawal form and the postcode lookup are unslashed and sanitized before use, withdrawal table queries use the %i identifier placeholder (WordPress 6.2+), and the deliberate direct calls to the plugin's own table carry documented justifications. No functional change.

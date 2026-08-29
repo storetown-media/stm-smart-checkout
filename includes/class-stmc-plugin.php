@@ -64,7 +64,13 @@ final class STMC_Plugin {
 		// Core body classes: the visual system's namespace, independent of modules.
 		add_filter( 'body_class', function ( $classes ) {
 			$classes[] = 'stmc-checkout';
-			$classes[] = 'stmc-layout-' . sanitize_html_class( (string) STMC_Settings::get( 'design.layout' ) );
+			$layout    = sanitize_html_class( (string) STMC_Settings::get( 'design.layout' ) );
+			$classes[] = 'stmc-layout-' . $layout;
+			// Ultra-compact is the three-column choreography plus a density
+			// modifier — the base class keeps every three-column rule working.
+			if ( 'ultra-compact' === $layout ) {
+				$classes[] = 'stmc-layout-three-column';
+			}
 			return $classes;
 		} );
 

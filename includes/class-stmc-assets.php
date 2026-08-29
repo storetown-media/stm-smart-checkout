@@ -88,6 +88,9 @@ class STMC_Assets {
 			// Values are sanitized on save (hex colors, int, whitelisted choice).
 			$css .= $prop . ':' . $value . ';';
 		}
+		// The express divider word, translatable ("OR" → "ODER"). Quotes and
+		// backslashes are stripped so the string can never escape the literal.
+		$css .= "--stmc-divider-label:'" . str_replace( array( "'", '"', '\\' ), '', __( 'OR', 'stm-smart-checkout' ) ) . "';";
 		$css .= '}';
 		return $css;
 	}

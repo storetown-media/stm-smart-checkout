@@ -75,7 +75,7 @@ class STMC_Settings {
 			'focus.extra_hide_selectors' => array( 'type' => 'textarea', 'default' => '' ),
 
 			// Design tokens (rendered as --stmc-* custom properties).
-			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => array( 'one-column', 'two-column', 'three-column' ) ),
+			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => array( 'one-column', 'two-column', 'three-column', 'ultra-compact' ) ),
 			'design.accent'       => array( 'type' => 'color', 'default' => '#ff6600' ),
 			'design.accent_hover' => array( 'type' => 'color', 'default' => '#e55a00' ),
 			'design.ink'          => array( 'type' => 'color', 'default' => '#16265c' ),

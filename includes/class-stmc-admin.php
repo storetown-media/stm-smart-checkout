@@ -134,7 +134,7 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
 					<?php else : ?>
-						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), array( 'three-column' => __( 'Three columns (billing / payment / order — most compact)', 'stm-smart-checkout' ), 'two-column' => __( 'Two columns (order summary right)', 'stm-smart-checkout' ), 'one-column' => __( 'One column', 'stm-smart-checkout' ) ) ); ?>
+						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), array( 'three-column' => __( 'Three columns (billing / payment / order — most compact)', 'stm-smart-checkout' ), 'ultra-compact' => __( 'Ultra-compact (three columns, dense — everything at a glance)', 'stm-smart-checkout' ), 'two-column' => __( 'Two columns (order summary right)', 'stm-smart-checkout' ), 'one-column' => __( 'One column', 'stm-smart-checkout' ) ) ); ?>
 						<?php self::row_color( 'design.accent', __( 'Accent color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.accent_hover', __( 'Accent hover color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.ink', __( 'Heading color', 'stm-smart-checkout' ) ); ?>

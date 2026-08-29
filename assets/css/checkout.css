@@ -272,15 +272,15 @@ body.stmc-checkout .stmc-section-title {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	margin: 0 0 16px;
+	margin: 0 0 20px;
 	padding: 0 0 14px;
 	border-bottom: 2px solid var(--stmc-accent);
 	font-family: inherit;
-	font-size: var(--stmc-fs-l);
-	font-weight: 600;
+	font-size: var(--stmc-fs-xl);
+	font-weight: 700;
 	line-height: 1.3;
 	letter-spacing: -0.01em;
-	color: var(--stmc-ink);
+	color: var(--stmc-title);
 }
 
 body.stmc-checkout .stmc-section-title::before,
@@ -295,53 +295,38 @@ body.stmc-checkout form.checkout #order_review .stmc-section-title::before {
 	width: 26px;
 	height: 26px;
 	border-radius: 50%;
-	background: var(--stmc-accent);
+	background: var(--stmc-title);
 	color: #fff;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 700;
 }
 
-/* Three-column layout: FIXED numbers 1 | 2 | 3 per column. The CSS counter
-   follows DOM order, but WooCommerce renders the order column's markup before
-   the payment column while the visual order is billing | payment | order —
-   so the counter would tell the story backwards. (The #order_review selector
-   mirrors the specificity of the shared rule above.) */
+/* Three-column layout: FIXED numbers per FORM step, matching the live shop.
+   The numbers follow the order the customer acts in — 1 billing details,
+   2 additional information, 3 payment — while "Your order" stays unnumbered
+   (it is the constant companion, not a step). The CSS counter cannot express
+   this: it follows DOM order, and WooCommerce renders the order column's
+   markup before the payment column. (The #order_review selector mirrors the
+   specificity of the shared rule above.) */
 body.stmc-checkout.stmc-layout-three-column .woocommerce-billing-fields .stmc-section-title::before {
 	content: "1";
 	counter-increment: none;
 }
 
-body.stmc-checkout.stmc-layout-three-column form.checkout #order_review .stmc-payment-col .stmc-section-title::before {
+body.stmc-checkout.stmc-layout-three-column .woocommerce-additional-fields .stmc-section-title::before {
 	content: "2";
 	counter-increment: none;
 }
 
-/* The order column's title joins the numbered story as step 3. */
-body.stmc-checkout .stmc-col-title::before {
+body.stmc-checkout.stmc-layout-three-column form.checkout #order_review .stmc-payment-col .stmc-section-title::before {
 	content: "3";
-	flex: 0 0 auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 26px;
-	height: 26px;
-	border-radius: 50%;
-	background: var(--stmc-accent);
-	color: #fff;
-	font-size: 13px;
-	font-weight: 700;
-}
-
-/* "Additional information" is a sub-block of the address column in the
-   three-column layout — a quiet heading, not a numbered step of its own. */
-body.stmc-checkout.stmc-layout-three-column .woocommerce-additional-fields .stmc-section-title {
-	font-size: var(--stmc-fs-m);
-	border-bottom: 1px solid var(--stmc-line);
-}
-
-body.stmc-checkout.stmc-layout-three-column .woocommerce-additional-fields .stmc-section-title::before {
-	content: none;
 	counter-increment: none;
+}
+
+/* The payment column's head runs one size below the step heads — the live
+   shop renders it at 1rem against the 1.15rem billing head. */
+body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .stmc-section-title {
+	font-size: var(--stmc-fs-m);
 }
 
 /* ---------- 5b. Field pairs & descriptions ---------- */
@@ -384,10 +369,11 @@ body.stmc-checkout .woocommerce-shipping-fields__field-wrapper > #shipping_city_
 body.stmc-checkout .woocommerce-account-fields {
 	position: relative;
 	margin: 4px 0 16px;
-	padding: 12px 44px 12px 14px;
-	background: var(--stmc-bg);
-	border: 1px solid var(--stmc-line);
-	border-radius: calc(var(--stmc-radius) - 2px);
+	padding: 15px 44px 15px 18px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line-soft);
+	border-radius: var(--stmc-radius);
+	box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
 }
 
 body.stmc-checkout .woocommerce-account-fields .create-account p:last-child {
@@ -396,12 +382,22 @@ body.stmc-checkout .woocommerce-account-fields .create-account p:last-child {
 
 /* "Create an account?" is an option the customer acts on, not fine print —
    it sits at content size like the field and method labels, unlike the
-   consent boxes further down (those are legal text and stay quiet). */
+   consent boxes further down (those are legal text and stay quiet).
+   The row is a flex line so the switch sits beside the words, not inline
+   with them. */
 body.stmc-checkout .woocommerce-account-fields label,
 body.stmc-checkout .woocommerce-account-fields label span {
 	font-size: var(--stmc-fs-base);
-	font-weight: 500;
-	color: var(--stmc-text);
+	font-weight: 600;
+	color: var(--stmc-ink);
+}
+
+body.stmc-checkout .woocommerce-account-fields .form-row label {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+	cursor: pointer;
 }
 
 /* Info button: reusable component (account hint today, Pro modules later). */
@@ -483,13 +479,19 @@ body.stmc-checkout .stmc-info.is-open + .stmc-info__pop {
 	visibility: visible;
 }
 
-/* Field descriptions (e.g. the VAT reverse-charge note) stay quiet. */
+/* Field descriptions (e.g. the VAT reverse-charge note) stay quiet — and
+   visible: themes hide span.description until JS decides otherwise. */
 body.stmc-checkout .woocommerce form .form-row .description,
+body.stmc-checkout .woocommerce form .form-row span.description,
 body.stmc-checkout .woocommerce form .form-row + p,
 body.stmc-checkout .woocommerce form .form-row small {
-	font-size: var(--stmc-fs-s);
+	display: block;
+	margin: 6px 2px 0;
+	font-size: var(--stmc-fs-xs);
+	font-weight: 400;
 	line-height: 1.5;
 	color: var(--stmc-muted);
+	letter-spacing: 0;
 }
 
 /* Empty section shells (e.g. shipping fields on digital-only carts) get no
@@ -543,7 +545,9 @@ body.stmc-checkout .select2-container .select2-selection__rendered {
 	body.stmc-checkout .woocommerce form .form-row textarea,
 	body.stmc-checkout .woocommerce form .form-row select,
 	body.stmc-checkout .select2-container .select2-selection--single {
-		font-size: var(--stmc-fs-m);
+		/* max(): the ultra-compact layout scales fs-m below 16px — the iOS
+		   zoom threshold must hold in every layout. */
+		font-size: max(1rem, var(--stmc-fs-m));
 	}
 }
 
@@ -561,12 +565,28 @@ body.stmc-checkout .woocommerce form .form-row select:focus {
 	outline: none;
 }
 
+/* Field labels speak in the label blue at content size — measured on the
+   live shop (14.7px/600 #00178F); the muted 13px draft read as fine print
+   next to it. The required star inherits so the line stays quiet. */
 body.stmc-checkout .woocommerce form .form-row label {
-	margin-bottom: 6px;
-	font-size: var(--stmc-fs-s);
+	margin-bottom: 7px;
+	font-size: var(--stmc-fs-base);
 	font-weight: 600;
+	line-height: 1.35;
+	color: var(--stmc-label);
+	letter-spacing: 0;
+}
+
+body.stmc-checkout .woocommerce form .form-row label .required,
+body.stmc-checkout .woocommerce form .form-row label abbr.required {
+	color: inherit;
+	border: 0;
+	text-decoration: none;
+}
+
+body.stmc-checkout .woocommerce form .form-row label .optional {
 	color: var(--stmc-muted);
-	letter-spacing: 0.01em;
+	font-weight: 400;
 }
 
 body.stmc-checkout .woocommerce-input-wrapper,
@@ -644,84 +664,69 @@ body.stmc-checkout .woocommerce form .form-row select {
 	}
 }
 
-/* ---------- 7b. Three-column layout (≥1200px): billing | payment | order ----------
-   The predecessor's signature layout. The review wrapper spans tracks 2+3 and
-   turns into its own grid: payment column left (own card), order title +
-   totals table + checkboxes/submit right (two shells reading as one card). */
+/* ---------- 7b. Three-column layout (≥1160px): billing | payment | order ----------
+   The predecessor's signature layout, and its exact card architecture: the
+   billing column is one card, and payment + order share ONE wide card split
+   by a soft center line (42px of air on both sides of it). The review wrapper
+   keeps the section-4 card chrome and spans the wide track; the inner columns
+   are transparent. Track ratio 361:751 reproduces the measured live grid
+   (three equal 305px content columns). */
 
-@media (min-width: 1200px) {
+@media (min-width: 1160px) {
 	body.stmc-checkout.stmc-layout-three-column form.checkout {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: minmax(0, 361fr) minmax(0, 751fr);
 	}
 
 	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
 	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review {
-		grid-column: 2 / -1;
+		grid-column: 2;
 		position: static;
-	}
-
-	/* The theme wrapper loses its card chrome — the inner columns carry it. */
-	body.stmc-checkout.stmc-layout-three-column form.checkout .wc-order-review {
-		margin: 0;
-		padding: 0;
-		background: transparent;
-		border: 0;
-		border-radius: 0;
-		box-shadow: none;
 	}
 
 	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		column-gap: 24px;
+		column-gap: 0;
 		row-gap: 0;
 		align-items: start;
 	}
 
+	/* Vanilla themes have no .wc-order-review wrapper — #order_review itself
+	   carries the section-4 card there. With the wrapper, the inner grid
+	   stays transparent (section 4 already handles that case). */
+
 	body.stmc-checkout.stmc-layout-three-column .stmc-payment-col {
 		grid-column: 1;
 		grid-row: 1 / span 2;
-		padding: 22px 24px;
-		background: var(--stmc-card);
-		border: 1px solid var(--stmc-line);
-		border-radius: var(--stmc-radius);
-		box-shadow: var(--stmc-shadow);
+		padding: 0 42px 0 0;
+		border-right: 1px solid var(--stmc-line-soft);
 	}
 
 	body.stmc-checkout.stmc-layout-three-column .stmc-order-part--top {
 		grid-column: 2;
 		grid-row: 1;
-		padding: 22px 24px 8px;
-		background: var(--stmc-card);
-		border: 1px solid var(--stmc-line);
-		border-bottom: 0;
-		border-radius: var(--stmc-radius) var(--stmc-radius) 0 0;
-		box-shadow: var(--stmc-shadow);
+		padding: 0 0 0 42px;
 	}
 
 	body.stmc-checkout.stmc-layout-three-column .stmc-order-part--bottom {
 		grid-column: 2;
 		grid-row: 2;
-		padding: 8px 24px 22px;
-		background: var(--stmc-card);
-		border: 1px solid var(--stmc-line);
-		border-top: 0;
-		border-radius: 0 0 var(--stmc-radius) var(--stmc-radius);
-		box-shadow: var(--stmc-shadow);
+		padding: 0 0 0 42px;
 	}
 }
 
-/* Column title without a step number (the order part is the constant). */
+/* Column title without a step number (the order part is the constant) —
+   16px/700 in body ink, exactly the predecessor's .stm-ck-spaltentitel. */
 body.stmc-checkout .stmc-col-title {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	margin: 0 0 16px;
-	padding: 0 0 14px;
+	padding: 0 0 12px;
 	border-bottom: 2px solid var(--stmc-accent);
 	font-family: inherit;
-	font-size: var(--stmc-fs-l);
-	font-weight: 600;
+	font-size: var(--stmc-fs-m);
+	font-weight: 700;
 	line-height: 1.3;
 	letter-spacing: -0.01em;
 	color: var(--stmc-ink);
@@ -846,22 +851,31 @@ body.stmc-checkout .wc-ppcp-express-checkout legend,
 body.stmc-checkout .wc-ppcp-express-checkout .express-title {
 	display: block;
 	width: 100%;
-	margin: 0 0 12px;
+	margin: 0 0 14px;
 	border: 0;
 	text-align: center;
-	font-size: var(--stmc-fs-l);
+	font-size: var(--stmc-fs-xl);
 	font-weight: 700;
-	color: var(--stmc-ink);
+	color: var(--stmc-title);
 }
 
-/* Neutral, language-free divider between the express area and the form. */
+/* "OR" divider between the express area and the form — the word arrives
+   translated via the --stmc-divider-label token (empty fallback keeps the
+   flanking lines as a neutral divider). */
 body.stmc-checkout form.checkout:has(> .wc-ppcp-express-checkout, > .wcpay-express-checkout-wrapper, > .woocommerce-pay-buttons)::before {
-	content: "";
+	content: var(--stmc-divider-label, "");
 	grid-column: 1 / -1;
 	order: 0;
 	display: block;
-	border-top: 1px solid var(--stmc-line);
-	margin: 6px 0 18px;
+	margin: 10px 0 18px;
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-align: center;
+	background:
+		linear-gradient(var(--stmc-line), var(--stmc-line)) left center / calc(50% - 40px) 1px no-repeat,
+		linear-gradient(var(--stmc-line), var(--stmc-line)) right center / calc(50% - 40px) 1px no-repeat;
 }
 
 /* ---------- 9. Payment methods ---------- */
@@ -970,12 +984,13 @@ body.stmc-checkout #payment ul.payment_methods li:has(input:checked) {
 
 /* Method names sit at content size, not at the body's reading size — they
    are one row in a list of choices, and inheriting a theme's 18px article
-   size made this column shout next to the address and order columns. */
+   size made this column shout next to the address and order columns. They
+   share the field labels' blue voice (measured parity with the live shop). */
 body.stmc-checkout #payment ul.payment_methods label {
 	font-size: var(--stmc-fs-base);
 	font-weight: 600;
 	line-height: 1.4;
-	color: var(--stmc-ink);
+	color: var(--stmc-label);
 	cursor: pointer;
 }
 
@@ -1032,17 +1047,17 @@ body.stmc-checkout .stmc-trust-row {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
-	gap: 8px 10px;
-	margin-top: 18px;
+	justify-content: center;
+	gap: 7px 14px;
+	margin-top: 14px;
 	padding-top: 16px;
-	border-top: 1px solid var(--stmc-line);
+	border-top: 1px solid var(--stmc-line-soft);
 }
 
 body.stmc-checkout .stmc-trust-row__item {
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
+	gap: 5px;
 	font-size: var(--stmc-fs-xs);
 	line-height: 1.3;
 	color: var(--stmc-muted);
@@ -1050,9 +1065,9 @@ body.stmc-checkout .stmc-trust-row__item {
 }
 
 body.stmc-checkout .stmc-trust-row__item svg {
-	width: 14px;
-	height: 14px;
-	color: var(--stmc-accent);
+	width: 13px;
+	height: 13px;
+	color: var(--stmc-muted);
 	opacity: 0.9;
 }
 
@@ -1080,17 +1095,45 @@ body.stmc-checkout form.woocommerce-form-login .form-row {
 	margin-bottom: 14px;
 }
 
+/* ---------- 13a. Order column: reading order ----------
+   In the markup Germanized prints its consent boxes BEFORE the totals table
+   (they arrive at woocommerce_review_order_after_payment, the table after).
+   The customer reads the other way around: what am I buying, then what am I
+   agreeing to, then the button. Flex order restates the column without
+   touching the DOM — AJAX replaces the table in place and never notices. */
+
+body.stmc-checkout .stmc-order-part--bottom {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Anything unaccounted for keeps the consent group's slot. */
+body.stmc-checkout .stmc-order-part--bottom > * { order: 2; }
+
+body.stmc-checkout .stmc-order-part--bottom > table.shop_table {
+	order: 1;
+	margin: 0 0 16px;
+}
+
+body.stmc-checkout .stmc-order-part--bottom > .stmc-guarantee { order: 3; }
+body.stmc-checkout .stmc-order-part--bottom > .wc-gzd-order-submit,
+body.stmc-checkout .stmc-order-part--bottom > .form-row.place-order { order: 4; }
+
 /* ---------- 13b. Legal checkboxes (Germanized + Woo terms) ---------- */
 
 /* Only shells that actually hold a checkbox/text get card chrome — Germanized
-   prints empty placeholders for unused checkbox types. */
+   prints empty placeholders for unused checkbox types. Each consent is its
+   own white card with a modern switch, exactly the live shop's pattern. */
 body.stmc-checkout .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text),
 body.stmc-checkout .woocommerce-terms-and-conditions-wrapper .form-row:has(input) {
+	position: relative;
 	margin: 0 0 12px;
-	padding: 12px 14px;
-	background: var(--stmc-bg);
-	border: 1px solid var(--stmc-line);
-	border-radius: calc(var(--stmc-radius) - 2px);
+	padding: 15px 16px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line-soft);
+	border-radius: var(--stmc-radius);
+	box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 	font-size: var(--stmc-fs-s);
 	line-height: 1.55;
 	color: var(--stmc-muted);
@@ -1101,21 +1144,11 @@ body.stmc-checkout .wc-gzd-checkbox-placeholder:not(:has(input, .wc-gzd-legal-ch
 	padding: 0;
 }
 
-/* Consecutive consent cards read as ONE quiet group: the upper card gives up
-   its bottom edge, the lower one keeps a single shared separator line.
-   ":not(:empty)" stands in for "has content": a :has() inside :has() is
-   invalid CSS and would void the whole rule (Germanized renders unused
-   checkbox types as literally empty placeholder divs). */
-body.stmc-checkout .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text):has(+ .wc-gzd-checkbox-placeholder:not(:empty)) {
-	margin-bottom: 0;
-	border-bottom: 0;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-}
-
-body.stmc-checkout .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text) + .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text) {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+/* A rejected order marks the row invalid — the card shows it, quietly. */
+body.stmc-checkout .wc-gzd-checkbox-placeholder:has(.woocommerce-invalid),
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper .form-row:has(.woocommerce-invalid) {
+	border-color: var(--stmc-danger);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--stmc-danger) 8%, transparent);
 }
 
 /* Germanized wraps the label in an extra p.form-row — no chrome of its own. */
@@ -1125,22 +1158,24 @@ body.stmc-checkout .wc-gzd-checkbox-placeholder p.form-row {
 }
 
 /*
- * Consent text as a normal block with a hanging indent. The html prefix and
- * the #order_review variant are pure specificity: WooCommerce core ships
+ * Consent row: switch left, text beside it. The html prefix and the
+ * #order_review variant are pure specificity: WooCommerce core ships
  * ".woocommerce form .form-row label.checkbox { display: inline }" plus
  * "label { line-height: 2 }", and The7 adds "#order_review
  * .wc-gzd-checkbox-placeholder p.form-row label { display: inline }" — an
- * inline label indents only its first line, tearing the text apart.
+ * inline label cannot hold a flex line together.
  */
 html body.stmc-checkout #order_review .wc-gzd-checkbox-placeholder p.form-row label,
 html body.stmc-checkout .wc-gzd-checkbox-placeholder label,
 html body.stmc-checkout .wc-gzd-checkbox-placeholder label.checkbox,
 html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label,
 html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label.checkbox {
-	display: block;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
 	position: relative;
 	margin: 0;
-	padding-left: 30px;
+	padding: 0 12px 0 0;
 	font-size: var(--stmc-fs-s);
 	font-weight: 400;
 	line-height: 1.55;
@@ -1148,30 +1183,100 @@ html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label.checkbox
 	cursor: pointer;
 }
 
-html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"],
-html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"] {
-	position: absolute;
-	left: 0;
-	top: 1px;
-	width: 18px;
-	height: 18px;
-	margin: 0;
-	accent-color: var(--stmc-accent);
+body.stmc-checkout .wc-gzd-checkbox-placeholder .woocommerce-gzd-legal-checkbox-text,
+body.stmc-checkout .wc-gzd-checkbox-placeholder label > span,
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label > span {
+	flex: 1 1 auto;
+	min-width: 0;
 }
 
-/* The required marker stays quiet — the box itself says it is mandatory. */
+/*
+ * The checkbox itself becomes a switch — appearance:none plus a sliding
+ * ::before knob, no extra markup, WooCommerce/Germanized logic untouched
+ * (the proven pattern from the live shop). Shared by the consent boxes and
+ * "Create an account?".
+ */
+html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"],
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"],
+html body.stmc-checkout .woocommerce-account-fields input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	position: relative;
+	flex: 0 0 auto;
+	width: 46px;
+	height: 26px;
+	min-width: 46px;
+	margin: 1px 0 0;
+	padding: 0;
+	background: var(--stmc-switch-off);
+	border: 0;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"]::before,
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"]::before,
+html body.stmc-checkout .woocommerce-account-fields input[type="checkbox"]::before {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 1px 3px rgba(16, 24, 40, 0.35);
+	transition: left 0.2s ease;
+}
+
+html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"]:checked,
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"]:checked,
+html body.stmc-checkout .woocommerce-account-fields input[type="checkbox"]:checked {
+	background: var(--stmc-title);
+}
+
+html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"]:checked::before,
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"]:checked::before,
+html body.stmc-checkout .woocommerce-account-fields input[type="checkbox"]:checked::before {
+	left: 23px;
+}
+
+html body.stmc-checkout .wc-gzd-checkbox-placeholder input[type="checkbox"]:focus-visible,
+html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper input[type="checkbox"]:focus-visible,
+html body.stmc-checkout .woocommerce-account-fields input[type="checkbox"]:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--stmc-title) 25%, transparent);
+}
+
+/* The required marker sits quietly in the card corner (title keeps meaning). */
 body.stmc-checkout .wc-gzd-checkbox-placeholder abbr.required,
 body.stmc-checkout .woocommerce-terms-and-conditions-wrapper abbr.required {
-	color: var(--stmc-muted);
+	position: absolute;
+	top: 9px;
+	right: 12px;
+	margin: 0;
+	color: color-mix(in srgb, var(--stmc-muted) 55%, var(--stmc-card));
+	font-size: var(--stmc-fs-s);
+	line-height: 1;
 	text-decoration: none;
 	border-bottom: 0;
+	cursor: help;
 }
 
 body.stmc-checkout .wc-gzd-checkbox-placeholder a,
 body.stmc-checkout .woocommerce-terms-and-conditions-wrapper a {
-	color: var(--stmc-ink);
+	color: var(--stmc-title);
+	font-weight: 600;
 	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, var(--stmc-title) 35%, transparent);
 	text-underline-offset: 2px;
+	transition: text-decoration-color 0.15s ease;
+}
+
+body.stmc-checkout .wc-gzd-checkbox-placeholder a:hover,
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper a:hover {
+	text-decoration-color: var(--stmc-title);
 }
 
 /* Place-order zone: button, PayPal's replacement container, trust row. */
@@ -1210,9 +1315,9 @@ body.stmc-checkout .stmc-guarantee svg {
 
 body.stmc-checkout .stmc-guarantee p {
 	margin: 0;
-	font-size: var(--stmc-fs-s);
+	font-size: var(--stmc-fs-xs);
 	line-height: 1.55;
-	color: var(--stmc-text);
+	color: color-mix(in srgb, var(--stmc-good) 70%, var(--stmc-ink));
 }
 
 body.stmc-checkout .stmc-guarantee p strong {
@@ -1238,8 +1343,26 @@ body.stmc-checkout #order_review table.shop_table,
 body.stmc-checkout #order_review table.shop_table thead,
 body.stmc-checkout #order_review table.shop_table tbody,
 body.stmc-checkout #order_review table.shop_table tfoot {
-	display: block;
+	/* A flex column so the money lines can be re-ordered: WooCommerce and
+	   Germanized print the grand total before the tax breakdown, but the
+	   story reads subtotal → tax → net → (promos) → grand total. The grand
+	   total closes the column, exactly like the live shop. */
+	display: flex;
+	flex-direction: column;
 	width: 100%;
+}
+
+body.stmc-checkout #order_review table.shop_table tfoot tr { order: 2; }
+body.stmc-checkout #order_review table.shop_table tfoot tr.cart-subtotal { order: 1; }
+body.stmc-checkout #order_review table.shop_table tfoot tr.stm-net-row { order: 3; }
+body.stmc-checkout #order_review table.shop_table tfoot tr[class*="paylater"] { order: 4; }
+body.stmc-checkout #order_review table.shop_table tfoot tr.order-total { order: 5; }
+
+/* Zebra on the quiet money lines, matching the live shop's rhythm. */
+body.stmc-checkout #order_review table.shop_table tfoot tr.cart-subtotal,
+body.stmc-checkout #order_review table.shop_table tfoot tr.stm-net-row {
+	background: color-mix(in srgb, var(--stmc-bg) 55%, var(--stmc-card));
+	border-radius: 8px;
 }
 
 /* The7 paints the review table itself grey (.woocommerce-checkout
@@ -1319,14 +1442,15 @@ body.stmc-checkout #order_review table.shop_table tr[class*="paylater"] td > * {
 	max-width: 100%;
 }
 
-/* Name and price of the product line share one type. The link variant is
-   explicit: The7 paints product links in its heading blue. */
+/* Name and price of the product line share one type — 13px/700 navy like
+   the live shop's compact product rows. The link variant is explicit: The7
+   paints product links in its heading blue. */
 body.stmc-checkout #order_review table.shop_table .cart_item .product-name,
 body.stmc-checkout #order_review table.shop_table .cart_item .product-name a,
 body.stmc-checkout #order_review table.shop_table .cart_item .product-total {
-	font-size: var(--stmc-fs-base);
+	font-size: var(--stmc-fs-s);
 	color: var(--stmc-ink);
-	font-weight: 600;
+	font-weight: 700;
 }
 
 body.stmc-checkout #order_review table.shop_table .cart_item .product-name a {
@@ -1347,9 +1471,11 @@ body.stmc-checkout #order_review table.shop_table tr.cart-subtotal td {
 	border-top: 0;
 }
 
-body.stmc-checkout #order_review table.shop_table tfoot tr,
-body.stmc-checkout #order_review table.shop_table tr.cart-subtotal {
-	border-top: 1px solid var(--stmc-line);
+/* With the zebra carrying the rhythm, lines only frame the block: one above
+   the totals (after the products) and one above the closing grand total. */
+body.stmc-checkout #order_review table.shop_table tr.cart-subtotal,
+body.stmc-checkout #order_review table.shop_table tfoot tr.order-total {
+	border-top: 1px solid var(--stmc-line-soft);
 }
 
 /*
@@ -1765,5 +1891,166 @@ html.stmc-has-sticky-bar body.stmc-checkout {
 
 	body.stmc-checkout .stmc-trust-row {
 		justify-content: center;
+	}
+}
+
+/* ---------- 16. Ultra-compact layout (Magento edition parity) ----------
+   The three-column choreography plus a density modifier: the body carries
+   BOTH stmc-layout-three-column and stmc-layout-ultra-compact, so every
+   three-column rule above keeps working and this block only tightens the
+   scale. Modeled on the Magento edition's ultra-compact layout: one type
+   step down across the board, tighter card padding, compact fields and
+   method rows, a slimmer buy button — the whole checkout at a glance.
+   Token redefinition does most of the work; components read only tokens. */
+
+body.stmc-checkout.stmc-layout-ultra-compact {
+	--stmc-fs-xs: calc(0.6875rem * var(--stmc-font-scale)); /* 11px */
+	--stmc-fs-s: calc(0.75rem * var(--stmc-font-scale));    /* 12px */
+	--stmc-fs-base: calc(0.8125rem * var(--stmc-font-scale)); /* 13px */
+	--stmc-fs-m: calc(0.875rem * var(--stmc-font-scale));   /* 14px */
+	--stmc-fs-l: calc(0.9375rem * var(--stmc-font-scale));  /* 15px */
+	--stmc-fs-xl: calc(1rem * var(--stmc-font-scale));      /* 16px */
+	--stmc-radius: 10px;
+}
+
+/* Cards: 14/16 instead of 22/24 (Magento: 14px section padding). */
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce-billing-fields,
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce-shipping-fields,
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce-additional-fields,
+body.stmc-checkout.stmc-layout-ultra-compact form.checkout #order_review,
+body.stmc-checkout.stmc-layout-ultra-compact form.checkout .wc-order-review,
+body.stmc-checkout.stmc-layout-ultra-compact form.woocommerce-form-login {
+	margin-bottom: 14px;
+	padding: 14px 16px;
+}
+
+/* Header band and progress tighten up; the band logo steps down a notch. */
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-band {
+	padding: 8px 16px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-band img {
+	max-height: 36px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-steps {
+	margin: 14px auto 12px;
+}
+
+/* Section heads: smaller, closer to their content. */
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-section-title {
+	margin: 0 0 12px;
+	padding: 0 0 9px;
+	gap: 8px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-section-title::before,
+body.stmc-checkout.stmc-layout-ultra-compact form.checkout .wc-order-review .stmc-section-title::before,
+body.stmc-checkout.stmc-layout-ultra-compact form.checkout #order_review .stmc-section-title::before {
+	width: 22px;
+	height: 22px;
+	font-size: 11px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-col-title {
+	margin: 0 0 12px;
+	padding: 0 0 9px;
+}
+
+/* Fields: 38px controls, tight rows (Magento: 8/10 padding, 13px text). */
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row {
+	margin-bottom: 8px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row input.input-text,
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row select,
+body.stmc-checkout.stmc-layout-ultra-compact .select2-container .select2-selection--single {
+	height: 38px;
+	padding: 0 10px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row .select2-container .select2-selection__rendered,
+body.stmc-checkout.stmc-layout-ultra-compact .select2-container .select2-selection__rendered {
+	line-height: 36px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row label {
+	margin-bottom: 3px;
+}
+
+/* Method rows: compact cards, single tight rhythm. */
+body.stmc-checkout.stmc-layout-ultra-compact #payment ul.payment_methods li {
+	margin: 0 0 6px;
+	padding: 8px 10px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact #payment ul.payment_methods li img {
+	max-height: 16px;
+}
+
+/* Consent cards and the reassurance note shrink with the scale. */
+body.stmc-checkout.stmc-layout-ultra-compact .wc-gzd-checkbox-placeholder:has(input, .wc-gzd-legal-checkbox-text),
+body.stmc-checkout.stmc-layout-ultra-compact .woocommerce-terms-and-conditions-wrapper .form-row:has(input) {
+	margin: 0 0 8px;
+	padding: 10px 12px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-guarantee {
+	margin: 0 0 8px;
+	padding: 9px 11px;
+}
+
+/* Totals rows: 6/10 instead of 10/14. */
+body.stmc-checkout.stmc-layout-ultra-compact #order_review table.shop_table tr {
+	padding: 6px 10px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact #order_review table.shop_table td.product-name img {
+	width: 36px;
+	height: 36px;
+}
+
+/* Buy button: slimmer but still a WCAG-sized target. */
+body.stmc-checkout.stmc-layout-ultra-compact #place_order {
+	min-height: 46px;
+}
+
+body.stmc-checkout.stmc-layout-ultra-compact .stmc-trust-row {
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+/* Express area joins the compact rhythm. */
+body.stmc-checkout.stmc-layout-ultra-compact .wc-ppcp-express-checkout legend,
+body.stmc-checkout.stmc-layout-ultra-compact .wc-ppcp-express-checkout .express-title {
+	margin: 0 0 8px;
+}
+
+/* The wide three-column stage: tighter split line, tighter column air. */
+@media (min-width: 1160px) {
+	body.stmc-checkout.stmc-layout-ultra-compact form.checkout {
+		gap: 0 16px;
+	}
+
+	body.stmc-checkout.stmc-layout-ultra-compact .stmc-payment-col {
+		padding: 0 24px 0 0;
+	}
+
+	body.stmc-checkout.stmc-layout-ultra-compact .stmc-order-part--top,
+	body.stmc-checkout.stmc-layout-ultra-compact .stmc-order-part--bottom {
+		padding: 0 0 0 24px;
+	}
+}
+
+/* On touch screens density gives way to reachability: full-height fields. */
+@media (max-width: 767px) {
+	body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row input.input-text,
+	body.stmc-checkout.stmc-layout-ultra-compact .woocommerce form .form-row select,
+	body.stmc-checkout.stmc-layout-ultra-compact .select2-container .select2-selection--single {
+		height: 44px;
+	}
+
+	body.stmc-checkout.stmc-layout-ultra-compact #place_order {
+		min-height: 52px;
 	}
 }

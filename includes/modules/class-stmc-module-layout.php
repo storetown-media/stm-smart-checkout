@@ -35,7 +35,7 @@ class STMC_Module_Layout extends STMC_Module {
 		add_action( 'woocommerce_before_checkout_billing_form', array( $this, 'title_billing' ), 5 );
 		add_action( 'woocommerce_before_order_notes', array( $this, 'title_additional' ), 5 );
 
-		if ( 'three-column' === STMC_Settings::get( 'design.layout' ) ) {
+		if ( in_array( STMC_Settings::get( 'design.layout' ), array( 'three-column', 'ultra-compact' ), true ) ) {
 			/*
 			 * Three-column choreography (proven on the live shop's predecessor):
 			 * #order_review's siblings get wrapped into a right "order" part

@@ -24,6 +24,16 @@
 	--stmc-good: #1a7f37;
 	--stmc-danger: #c62828;
 
+	/*
+	 * Voice colors, matched to the live shop's checkout (the design source of
+	 * truth): titles speak in a brighter blue than body ink, field and method
+	 * labels in the site's link blue. Switches reuse the title blue when on.
+	 */
+	--stmc-title: #1b3a8c;
+	--stmc-label: #00178f;
+	--stmc-line-soft: #eef1f6;
+	--stmc-switch-off: #d5dbe8;
+
 	/* Shape & depth. */
 	--stmc-radius: 12px;
 	--stmc-radius-s: calc(var(--stmc-radius) * 0.5);
@@ -42,6 +52,8 @@
 	--stmc-fs-base: calc(0.9375rem * var(--stmc-font-scale)); /* 15px */
 	--stmc-fs-m: calc(1rem * var(--stmc-font-scale));        /* 16px */
 	--stmc-fs-l: calc(1.0625rem * var(--stmc-font-scale));   /* 17px */
+	/* Step headings only — matches the live shop's 1.15rem heads. */
+	--stmc-fs-xl: calc(1.15rem * var(--stmc-font-scale));    /* ~18.4px */
 
 	/* Spacing scale. */
 	--stmc-sp-1: 4px;

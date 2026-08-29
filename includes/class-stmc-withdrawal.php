@@ -45,6 +45,25 @@ class STMC_Withdrawal {
 	public static function ensure_page() {
 		$page_id = (int) get_option( self::PAGE_OPT );
 		if ( $page_id && 'trash' !== get_post_status( $page_id ) ) {
+			/*
+			 * Heal a page that was created before the textdomain had loaded:
+			 * German shops got a page literally titled "Withdrawal". Only the
+			 * untouched English defaults are rewritten — a title or slug the
+			 * owner changed is never overridden. WordPress keeps a redirect
+			 * from the old slug automatically (_wp_old_slug).
+			 */
+			$title = __( 'Withdrawal', 'stm-smart-checkout' );
+			$slug  = sanitize_title( _x( 'withdrawal', 'page slug', 'stm-smart-checkout' ) );
+			$page  = get_post( $page_id );
+			if ( $page && 'Withdrawal' !== $title && 'Withdrawal' === $page->post_title ) {
+				wp_update_post(
+					array(
+						'ID'         => $page_id,
+						'post_title' => $title,
+						'post_name'  => ( 'withdrawal' === $page->post_name && 'withdrawal' !== $slug ) ? $slug : $page->post_name,
+					)
+				);
+			}
 			return;
 		}
 		$page_id = wp_insert_post(
@@ -160,7 +179,9 @@ class STMC_Withdrawal {
 			'email'             => sanitize_email( wp_unslash( $_POST['stmc_wd_email'] ?? '' ) ),
 			'first_name'        => sanitize_text_field( wp_unslash( $_POST['stmc_wd_first'] ?? '' ) ),
 			'last_name'         => sanitize_text_field( wp_unslash( $_POST['stmc_wd_last'] ?? '' ) ),
-			'address'           => sanitize_textarea_field( wp_unslash( $_POST['stmc_wd_address'] ?? '' ) ),
+			'street'            => sanitize_text_field( wp_unslash( $_POST['stmc_wd_street'] ?? '' ) ),
+			'postcode'          => sanitize_text_field( wp_unslash( $_POST['stmc_wd_postcode'] ?? '' ) ),
+			'city'              => sanitize_text_field( wp_unslash( $_POST['stmc_wd_city'] ?? '' ) ),
 			'order_date'        => sanitize_text_field( wp_unslash( $_POST['stmc_wd_odate'] ?? '' ) ),
 			'received_date'     => sanitize_text_field( wp_unslash( $_POST['stmc_wd_rdate'] ?? '' ) ),
 			'scope'             => 'partial' === sanitize_key( wp_unslash( $_POST['stmc_wd_scope'] ?? 'full' ) ) ? 'partial' : 'full',
@@ -168,6 +189,9 @@ class STMC_Withdrawal {
 			'reason'            => sanitize_textarea_field( wp_unslash( $_POST['stmc_wd_reason'] ?? '' ) ),
 		);
 		self::$values = $v;
+
+		// The store keeps one address blob — join the single fields for it.
+		$v['address'] = trim( $v['street'] . "\n" . trim( $v['postcode'] . ' ' . $v['city'] ) );
 
 		if ( '' === $v['order_number'] ) {
 			self::$errors[] = __( 'Please enter your order number.', 'stm-smart-checkout' );
@@ -249,13 +273,31 @@ class STMC_Withdrawal {
 	 * Form rendering
 	 * ------------------------------------------------------------------ */
 
+	/** Copy billing name/address details from an order into the prefill set. */
+	private static function prefill_from_order( $order, array $p, $with_number ) {
+		if ( $with_number ) {
+			$p['order_number'] = $order->get_order_number();
+			$created           = $order->get_date_created();
+			$p['order_date']   = $created ? $created->date_i18n( 'Y-m-d' ) : '';
+		}
+		$p['email']      = $order->get_billing_email();
+		$p['first_name'] = $order->get_billing_first_name();
+		$p['last_name']  = $order->get_billing_last_name();
+		$p['street']     = trim( $order->get_billing_address_1() . ' ' . $order->get_billing_address_2() );
+		$p['postcode']   = $order->get_billing_postcode();
+		$p['city']       = $order->get_billing_city();
+		return $p;
+	}
+
 	private static function prefill() {
 		$p = array(
 			'order_number' => '',
 			'email'        => '',
 			'first_name'   => '',
 			'last_name'    => '',
-			'address'      => '',
+			'street'       => '',
+			'postcode'     => '',
+			'city'         => '',
 			'order_date'   => '',
 		);
 		if ( is_user_logged_in() ) {
@@ -263,6 +305,29 @@ class STMC_Withdrawal {
 			$p['email']      = $u->user_email;
 			$p['first_name'] = get_user_meta( $u->ID, 'billing_first_name', true );
 			$p['last_name']  = get_user_meta( $u->ID, 'billing_last_name', true );
+			$p['street']     = trim( get_user_meta( $u->ID, 'billing_address_1', true ) . ' ' . get_user_meta( $u->ID, 'billing_address_2', true ) );
+			$p['postcode']   = get_user_meta( $u->ID, 'billing_postcode', true );
+			$p['city']       = get_user_meta( $u->ID, 'billing_city', true );
+
+			/*
+			 * A logged-in customer almost always withdraws their most recent
+			 * order — suggest it (number, date, billing details) instead of
+			 * greeting them with empty fields. Everything stays editable.
+			 */
+			if ( function_exists( 'wc_get_orders' ) ) {
+				$last = wc_get_orders(
+					array(
+						'customer_id' => $u->ID,
+						'limit'       => 1,
+						'orderby'     => 'date',
+						'order'       => 'DESC',
+						'status'      => array( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-pending' ),
+					)
+				);
+				if ( $last ) {
+					$p = self::prefill_from_order( $last[0], $p, true );
+				}
+			}
 		}
 		// Arriving from "Withdraw this order" in My Account (owner-checked).
 		if ( isset( $_GET['stmc_order'], $_GET['stmc_nc'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- verified next line.
@@ -270,13 +335,7 @@ class STMC_Withdrawal {
 			if ( wp_verify_nonce( sanitize_key( $_GET['stmc_nc'] ), 'stmc-wd-prefill-' . $oid ) ) {
 				$order = wc_get_order( $oid );
 				if ( $order && is_user_logged_in() && $order->get_customer_id() === get_current_user_id() ) {
-					$p['order_number'] = $order->get_order_number();
-					$p['email']        = $order->get_billing_email();
-					$p['first_name']   = $order->get_billing_first_name();
-					$p['last_name']    = $order->get_billing_last_name();
-					$p['address']      = trim( $order->get_billing_address_1() . "\n" . $order->get_billing_postcode() . ' ' . $order->get_billing_city() );
-					$created           = $order->get_date_created();
-					$p['order_date']   = $created ? $created->date_i18n( 'Y-m-d' ) : '';
+					$p = self::prefill_from_order( $order, $p, true );
 				}
 			}
 		}
@@ -291,6 +350,9 @@ class STMC_Withdrawal {
 
 		$p = self::prefill();
 		$v = wp_parse_args( self::$values, array_merge( $p, array(
+			'street'            => '',
+			'postcode'          => '',
+			'city'              => '',
 			'received_date'     => '',
 			'scope'             => 'full',
 			'items_description' => '',
@@ -302,15 +364,17 @@ class STMC_Withdrawal {
 			$out = '<p class="stmc-wd__row"><label for="' . esc_attr( $id ) . '">' . esc_html( $label )
 				. ( $required ? ' <span class="stmc-wd__req" aria-hidden="true">*</span>' : '' ) . '</label>';
 			$map = array(
-				'order'   => 'order_number',
-				'email'   => 'email',
-				'first'   => 'first_name',
-				'last'    => 'last_name',
-				'address' => 'address',
-				'odate'   => 'order_date',
-				'rdate'   => 'received_date',
-				'items'   => 'items_description',
-				'reason'  => 'reason',
+				'order'    => 'order_number',
+				'email'    => 'email',
+				'first'    => 'first_name',
+				'last'     => 'last_name',
+				'street'   => 'street',
+				'postcode' => 'postcode',
+				'city'     => 'city',
+				'odate'    => 'order_date',
+				'rdate'    => 'received_date',
+				'items'    => 'items_description',
+				'reason'   => 'reason',
 			);
 			$val = isset( $map[ $key ], $v[ $map[ $key ] ] ) ? $v[ $map[ $key ] ] : '';
 			if ( 'textarea' === $type ) {
@@ -342,7 +406,12 @@ class STMC_Withdrawal {
 		echo $field( 'first', __( 'First name', 'stm-smart-checkout' ), 'text', true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $field( 'last', __( 'Last name', 'stm-smart-checkout' ), 'text', true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</div>';
-		echo $field( 'address', __( 'Address', 'stm-smart-checkout' ), 'textarea' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		// Address as single fields, exactly like the checkout — not one big blob.
+		echo $field( 'street', __( 'Street and house number', 'stm-smart-checkout' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="stmc-wd__grid">';
+		echo $field( 'postcode', __( 'Postcode', 'stm-smart-checkout' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $field( 'city', __( 'City', 'stm-smart-checkout' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '</div>';
 		echo '<div class="stmc-wd__grid">';
 		echo $field( 'odate', __( 'Order date', 'stm-smart-checkout' ), 'date' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $field( 'rdate', __( 'Goods received on', 'stm-smart-checkout' ), 'date' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

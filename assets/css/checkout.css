@@ -348,6 +348,13 @@ body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-addit
 	box-shadow: none;
 }
 
+/* With order notes switched off the shell arrives empty — no separator then. */
+body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-additional-fields:not(:has(.form-row, .stmc-section-title)) {
+	margin: 0;
+	padding: 0;
+	border-top: 0;
+}
+
 body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-additional-fields .stmc-section-title {
 	margin: 0 0 12px;
 	padding: 0 0 8px;

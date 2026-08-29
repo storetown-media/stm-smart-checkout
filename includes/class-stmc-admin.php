@@ -155,6 +155,7 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'fields.autofill_attrs', __( 'Correct mobile keyboards & autofill attributes', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.account_hint', __( 'Explain "Create an account?" with an info tooltip', 'stm-smart-checkout' ), __( 'The text is built from your own registration settings, so it always matches what really happens.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'checkout.order_notes', __( 'Order notes field ("Additional information")', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.sticky_bar', __( 'Mobile sticky order bar (total + buy button)', 'stm-smart-checkout' ), __( 'Appears on phones while the real order button is out of view.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
@@ -225,7 +226,7 @@ class STMC_Admin {
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
 				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'fields.account_hint',
-				'checkout.sticky_bar', 'legal.popup', 'focus.extra_hide_selectors',
+				'checkout.order_notes', 'checkout.sticky_bar', 'legal.popup', 'focus.extra_hide_selectors',
 			),
 			'legal'    => array(
 				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',
@@ -290,6 +291,7 @@ class STMC_Admin {
 				'fields.autofill_attrs'             => __( 'Gives every field the correct autocomplete and input attributes: phones show the number pad for postcode and phone, the email keyboard for email, and browser autofill puts the right data into the right fields.', 'stm-smart-checkout' ),
 				'fields.postcode_autofill'          => __( 'Type a postcode and the city fills in by itself, for Germany, Austria and Switzerland. The databases ship with the plugin — no external service is called, no customer data leaves your server (GDPR-safe). Multiple matching cities appear as a native suggestion list.', 'stm-smart-checkout' ),
 				'fields.account_hint'               => __( 'Adds a small "i" next to "Create an account?" that explains what actually happens — whether a password is chosen or emailed, and what the account is good for. The wording is generated from your real registration settings, so it can never promise something else.', 'stm-smart-checkout' ),
+				'checkout.order_notes'              => __( 'The "order notes" field under "Additional information". Off = the field and its whole section disappear from the checkout — one question less for shops that never read the notes. Notes customers already wrote on old orders stay untouched.', 'stm-smart-checkout' ),
 				'checkout.sticky_bar'               => __( 'On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar.', 'stm-smart-checkout' ),
 				'legal.popup'                       => __( 'Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior.', 'stm-smart-checkout' ),
 				'focus.extra_hide_selectors'        => __( 'For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page.', 'stm-smart-checkout' ),

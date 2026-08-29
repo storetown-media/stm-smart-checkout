@@ -1,43 +1,64 @@
 /**
  * STM Smart Checkout — withdrawal form page.
  * Token-driven, self-contained (loads only on the form page).
+ * Speaks the checkout's design language: white card, label blue, 46px
+ * controls, choice cards for the scope, a full-width CTA.
  */
 
 .stmc-wd {
-	max-width: 720px;
+	max-width: 760px;
 	margin: 0 auto;
 }
 
 .stmc-wd__intro {
+	margin: 0 0 18px;
 	font-size: var(--stmc-fs-m);
-	line-height: 1.6;
-	color: var(--stmc-muted);
+	line-height: 1.65;
+	color: var(--stmc-text);
 }
 
 .stmc-wd__error {
-	margin: 0 0 12px;
-	padding: 12px 14px;
+	margin: 0 0 14px;
+	padding: 12px 15px;
 	background: color-mix(in srgb, var(--stmc-danger) 8%, var(--stmc-card));
 	border: 1px solid var(--stmc-danger);
 	border-radius: calc(var(--stmc-radius) - 2px);
 	color: var(--stmc-danger);
 	font-size: var(--stmc-fs-base);
+	line-height: 1.5;
 }
 
 .stmc-wd--ok,
 .stmc-wd__form {
 	margin-top: 10px;
-	padding: 24px;
+	padding: 28px 32px 30px;
 	background: var(--stmc-card);
 	border: 1px solid var(--stmc-line);
 	border-radius: var(--stmc-radius);
 	box-shadow: var(--stmc-shadow);
 }
 
+.stmc-wd--ok {
+	border-color: color-mix(in srgb, var(--stmc-good) 30%, var(--stmc-line));
+	background: color-mix(in srgb, var(--stmc-good) 5%, var(--stmc-card));
+}
+
 .stmc-wd--ok h2 {
 	margin: 0 0 8px;
+	font-family: inherit;
+	font-size: var(--stmc-fs-xl, var(--stmc-fs-l));
+	font-weight: 700;
 	color: var(--stmc-good);
 }
+
+.stmc-wd--ok p {
+	margin: 0;
+	font-size: var(--stmc-fs-base);
+	line-height: 1.6;
+	color: var(--stmc-text);
+}
+
+/* ---------- Field raster (mirrors the checkout) ---------- */
 
 .stmc-wd__grid {
 	display: grid;
@@ -45,37 +66,47 @@
 	gap: 0 16px;
 }
 
-@media (max-width: 640px) {
-	.stmc-wd__grid {
-		grid-template-columns: 1fr;
-	}
-}
-
 .stmc-wd__row {
-	margin: 0 0 14px;
+	margin: 0 0 16px;
+	padding: 0;
 }
 
 .stmc-wd__row label {
 	display: block;
-	margin-bottom: 6px;
-	font-size: var(--stmc-fs-s);
+	margin-bottom: 7px;
+	font-size: var(--stmc-fs-base);
 	font-weight: 600;
-	color: var(--stmc-muted);
+	line-height: 1.35;
+	color: var(--stmc-label, var(--stmc-ink));
+	letter-spacing: 0;
 }
 
 .stmc-wd__req {
-	color: var(--stmc-danger);
+	color: inherit;
 }
 
 .stmc-wd__row input,
 .stmc-wd__row textarea {
 	width: 100%;
-	padding: 10px 14px;
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: 0 14px;
+	height: 46px;
 	border: 1px solid var(--stmc-line);
 	border-radius: calc(var(--stmc-radius) - 2px);
 	background: var(--stmc-card);
+	font-family: inherit;
 	font-size: var(--stmc-fs-base);
 	color: var(--stmc-text);
+	transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stmc-wd__row textarea {
+	height: auto;
+	min-height: 96px;
+	padding: 12px 14px;
+	line-height: 1.6;
+	resize: vertical;
 }
 
 .stmc-wd__row input:focus,
@@ -87,44 +118,108 @@
 
 .stmc-wd__hint {
 	display: block;
-	margin-top: 4px;
-	font-size: var(--stmc-fs-s);
+	margin-top: 6px;
+	font-size: var(--stmc-fs-xs);
 	font-weight: 400;
+	line-height: 1.5;
 	color: var(--stmc-muted);
 }
 
+/* ---------- Scope: two choice cards, like the payment rows ---------- */
+
 .stmc-wd__scope {
-	margin: 0 0 14px;
-	padding: 12px 14px;
-	border: 1px solid var(--stmc-line);
-	border-radius: calc(var(--stmc-radius) - 2px);
+	margin: 4px 0 16px;
+	padding: 0;
+	border: 0;
 }
 
 .stmc-wd__scope legend {
-	padding: 0 6px;
-	font-size: var(--stmc-fs-s);
+	padding: 0;
+	margin-bottom: 7px;
+	font-size: var(--stmc-fs-base);
 	font-weight: 600;
-	color: var(--stmc-muted);
+	color: var(--stmc-label, var(--stmc-ink));
 }
 
 .stmc-wd__scope label {
 	display: inline-flex;
 	align-items: center;
-	gap: 7px;
-	margin-right: 22px;
+	gap: 9px;
+	margin: 0 10px 0 0;
+	padding: 12px 16px;
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
 	font-size: var(--stmc-fs-base);
+	font-weight: 600;
+	color: var(--stmc-label, var(--stmc-ink));
 	cursor: pointer;
+	transition: border-color 0.18s ease;
+}
+
+.stmc-wd__scope label:has(input:checked) {
+	border-color: var(--stmc-ink);
+	box-shadow: 0 0 0 1px var(--stmc-ink);
 }
 
 .stmc-wd__scope input[type="radio"] {
 	accent-color: var(--stmc-accent);
-	width: 17px;
-	height: 17px;
+	width: 18px;
+	height: 18px;
+	margin: 0;
 }
 
+/* ---------- Submit: the checkout's buy-button voice ---------- */
+
 .stmc-wd__actions {
-	margin: 18px 0 0;
+	margin: 22px 0 0;
 }
+
+.stmc-wd__actions .stmc-btn {
+	width: 100%;
+	min-height: 50px;
+	font-size: var(--stmc-fs-m);
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	border-radius: var(--stmc-radius-s);
+	box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--stmc-accent) 80%, transparent);
+}
+
+/* ---------- Site-injected consent rows (e.g. a privacy tick) ---------- */
+
+.stmc-wd__form input[type="checkbox"] {
+	accent-color: var(--stmc-accent);
+	width: 18px;
+	height: 18px;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 640px) {
+	.stmc-wd__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.stmc-wd--ok,
+	.stmc-wd__form {
+		padding: 20px 16px 22px;
+	}
+
+	.stmc-wd__scope label {
+		display: flex;
+		margin: 0 0 8px;
+	}
+}
+
+@media (max-width: 767px) {
+	/* iOS zooms the page when focused field text is below 16px. */
+	.stmc-wd__row input,
+	.stmc-wd__row textarea {
+		font-size: max(1rem, var(--stmc-fs-base));
+	}
+}
+
+/* ---------- Bits outside the form page ---------- */
 
 .stmc-wd__hp {
 	position: absolute;

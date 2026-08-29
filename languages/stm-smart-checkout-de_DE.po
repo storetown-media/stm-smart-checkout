@@ -550,6 +550,27 @@ msgstr "Komitat"
 msgid "What does this setting do?"
 msgstr "Was bewirkt diese Einstellung?"
 
+msgid "Street and house number"
+msgstr "Straße und Hausnummer"
+
+msgid "Postcode"
+msgstr "Postleitzahl"
+
+msgid "City"
+msgstr "Ort / Stadt"
+
+msgid "You are not required to give a reason."
+msgstr "Eine Begründung ist nicht erforderlich."
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Order notes field (\"Additional information\")"
+msgstr "Bestellhinweise-Feld („Zusätzliche Informationen")"
+
+msgid "The \"order notes\" field under \"Additional information\". Off = the field and its whole section disappear from the checkout — one question less for shops that never read the notes. Notes customers already wrote on old orders stay untouched."
+msgstr "Das Bestellhinweise-Feld unter „Zusätzliche Informationen". Aus = das Feld und seine ganze Sektion verschwinden aus der Kasse — eine Frage weniger für Shops, die die Hinweise nie lesen. Hinweise, die Kunden auf alten Bestellungen geschrieben haben, bleiben unberührt."
+
 msgid "The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing."
 msgstr "Der Hauptschalter. An = Kunden sehen den Smart Checkout auf Warenkorb und Kasse. Aus = Kunden behalten die Standard-Kasse, während Sie in Ruhe konfigurieren. Der Vorschau-Link oben funktioniert in beiden Zuständen — Sie prüfen jede Änderung auf der Live-Site, ohne dass ein Kunde etwas bemerkt."
 

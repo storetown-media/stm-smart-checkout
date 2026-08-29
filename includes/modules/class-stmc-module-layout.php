@@ -25,6 +25,11 @@ class STMC_Module_Layout extends STMC_Module {
 			add_action( 'woocommerce_after_cart_table', array( $this, 'continue_shopping' ), 20 );
 		}
 
+		// Order-notes switch: WooCommerce's own filter removes the field cleanly.
+		if ( ! STMC_Settings::get( 'checkout.order_notes' ) ) {
+			add_filter( 'woocommerce_enable_order_notes_field', '__return_false', 100 );
+		}
+
 		/*
 		 * Own numbered section titles. Theme checkout templates differ wildly
 		 * (The7 ships none at all, vanilla Woo has plain h3s) — rendering our
@@ -108,6 +113,10 @@ class STMC_Module_Layout extends STMC_Module {
 	}
 
 	public function title_additional() {
+		// No heading over a section whose only field (order notes) is disabled.
+		if ( ! apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) ) ) {
+			return;
+		}
 		echo '<h3 class="stmc-section-title">' . esc_html__( 'Additional information', 'stm-smart-checkout' ) . '</h3>';
 	}
 

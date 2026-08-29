@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.16
+Stable tag: 0.1.17
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.17 =
+* Withdrawal round from the live review. The form pre-fills with the customer's data — logged-in customers get their billing details plus their most recent order suggested (number, date, address), everything editable. The address is entered as single fields exactly like the checkout (street, postcode, city) instead of one big blob. The form speaks the checkout's design language now: white card, label blue, 46px controls, choice cards for the scope, a full-width call-to-action. Fixed: German shops got a page literally titled "Withdrawal" — the textdomain loaded after the page was created; the priority is corrected and existing untouched pages heal themselves (title and slug, WordPress keeps the old-slug redirect). The last untranslated strings are gone. New: the order-notes field ("Additional information") can be switched off in the backend.
 
 = 0.1.16 =
 * Every setting now explains itself: a "?" icon beside each label opens a plain-language help bubble — what the option does, the background, and when to use it. Hover, focus or tap; Escape closes. The help texts live in one map, so the short inline hints under the fields stay untouched. Fully translated.

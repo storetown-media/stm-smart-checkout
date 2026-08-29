@@ -261,6 +261,13 @@ body.stmc-checkout form.checkout {
 	counter-reset: stmc-step;
 }
 
+/*
+ * Section titles run in the body font, not the theme's display face. A
+ * checkout is one dense functional surface — mixing a headline family into
+ * it makes three columns read as three unrelated widgets. Themes size bare
+ * h3 elements freely (some with !important), which is why family, size and
+ * line-height are all stated here rather than left to inherit.
+ */
 body.stmc-checkout .stmc-section-title {
 	display: flex;
 	align-items: center;
@@ -268,8 +275,11 @@ body.stmc-checkout .stmc-section-title {
 	margin: 0 0 16px;
 	padding: 0 0 14px;
 	border-bottom: 2px solid var(--stmc-accent);
+	font-family: inherit;
 	font-size: var(--stmc-fs-l);
-	font-weight: 700;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: -0.01em;
 	color: var(--stmc-ink);
 }
 
@@ -384,6 +394,16 @@ body.stmc-checkout .woocommerce-account-fields .create-account p:last-child {
 	margin-bottom: 0;
 }
 
+/* "Create an account?" is an option the customer acts on, not fine print —
+   it sits at content size like the field and method labels, unlike the
+   consent boxes further down (those are legal text and stay quiet). */
+body.stmc-checkout .woocommerce-account-fields label,
+body.stmc-checkout .woocommerce-account-fields label span {
+	font-size: var(--stmc-fs-base);
+	font-weight: 500;
+	color: var(--stmc-text);
+}
+
 /* Info button: reusable component (account hint today, Pro modules later). */
 body.stmc-checkout .stmc-info {
 	position: absolute;
@@ -399,9 +419,8 @@ body.stmc-checkout .stmc-info {
 	border: 1.5px solid var(--stmc-line);
 	border-radius: 50%;
 	color: var(--stmc-muted);
-	font-family: Georgia, "Times New Roman", serif;
-	font-size: 11px;
-	font-style: italic;
+	font-family: inherit;
+	font-size: var(--stmc-fs-s);
 	font-weight: 700;
 	line-height: 1;
 	cursor: help;
@@ -433,7 +452,7 @@ body.stmc-checkout .stmc-info__pop {
 	border-radius: var(--stmc-radius-s);
 	box-shadow: 0 14px 30px -12px rgba(10, 18, 45, 0.55);
 	color: #fff;
-	font-size: calc(var(--stmc-fs-s) - 0.5px);
+	font-size: var(--stmc-fs-xs);
 	font-weight: 400;
 	line-height: 1.55;
 	text-align: left;
@@ -498,6 +517,34 @@ body.stmc-checkout .select2-container .select2-selection--single {
 	font-size: var(--stmc-fs-base);
 	color: var(--stmc-text);
 	transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Select2 renders the chosen value in its own inner span, which does not
+   inherit the container's size — the country field read a size larger than
+   every other field next to it. The long selector is deliberate: themes
+   style this span with the `font` SHORTHAND (The7 uses a --the7-form-md-font
+   variable), which carries a size and therefore beats a short selector — and
+   which a search for `font-size` declarations will not turn up. */
+body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection__rendered,
+body.stmc-checkout .select2-container .select2-selection__rendered {
+	font-size: var(--stmc-fs-base);
+	color: var(--stmc-text);
+	line-height: 44px;
+}
+
+/*
+ * iOS Safari zooms the whole page in whenever a focused field's text is
+ * below 16px — on a checkout that means the layout jumps on every single tap
+ * and the customer has to pinch back out. 16px is the documented threshold,
+ * so field text (and only field text) steps up on touch-sized screens.
+ */
+@media (max-width: 767px) {
+	body.stmc-checkout .woocommerce form .form-row input.input-text,
+	body.stmc-checkout .woocommerce form .form-row textarea,
+	body.stmc-checkout .woocommerce form .form-row select,
+	body.stmc-checkout .select2-container .select2-selection--single {
+		font-size: var(--stmc-fs-m);
+	}
 }
 
 body.stmc-checkout .woocommerce form .form-row textarea {
@@ -672,8 +719,11 @@ body.stmc-checkout .stmc-col-title {
 	margin: 0 0 16px;
 	padding: 0 0 14px;
 	border-bottom: 2px solid var(--stmc-accent);
+	font-family: inherit;
 	font-size: var(--stmc-fs-l);
-	font-weight: 700;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: -0.01em;
 	color: var(--stmc-ink);
 }
 
@@ -899,10 +949,18 @@ body.stmc-checkout #payment ul.payment_methods li > div.payment_box {
 	flex: 1 0 100%;
 }
 
+/* Brand icons follow the type down — at 24px they dominated a 15px name. */
 body.stmc-checkout #payment ul.payment_methods li img {
-	max-height: 24px;
+	max-height: 20px;
 	width: auto;
 	vertical-align: middle;
+}
+
+/* Gateways that summarize extra icons in a "+3" badge size it themselves;
+   pull it onto the scale so it reads as part of the row. */
+body.stmc-checkout #payment ul.payment_methods li [class*="logos-count"] {
+	font-size: var(--stmc-fs-xs);
+	color: var(--stmc-muted);
 }
 
 body.stmc-checkout #payment ul.payment_methods li:has(input:checked) {
@@ -910,8 +968,13 @@ body.stmc-checkout #payment ul.payment_methods li:has(input:checked) {
 	box-shadow: 0 0 0 1px var(--stmc-ink);
 }
 
+/* Method names sit at content size, not at the body's reading size — they
+   are one row in a list of choices, and inheriting a theme's 18px article
+   size made this column shout next to the address and order columns. */
 body.stmc-checkout #payment ul.payment_methods label {
+	font-size: var(--stmc-fs-base);
 	font-weight: 600;
+	line-height: 1.4;
 	color: var(--stmc-ink);
 	cursor: pointer;
 }
@@ -980,7 +1043,7 @@ body.stmc-checkout .stmc-trust-row__item {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
-	font-size: calc(var(--stmc-fs-s) - 1px);
+	font-size: var(--stmc-fs-xs);
 	line-height: 1.3;
 	color: var(--stmc-muted);
 	white-space: nowrap;
@@ -1318,7 +1381,7 @@ body.stmc-checkout #order_review tr.stm-net-row td {
 body.stmc-checkout #order_review .order-total .includes_tax,
 body.stmc-checkout #order_review .wc-gzd-total-tax-hint {
 	display: block;
-	font-size: calc(var(--stmc-fs-s) - 1px);
+	font-size: var(--stmc-fs-xs);
 	font-weight: 400;
 	color: var(--stmc-muted);
 }
@@ -1335,7 +1398,7 @@ body.stmc-checkout #order_review .wc-ppcp-paylater-msg__container td {
 /* The7 prints the remove column's header as visible text; silence it. */
 body.stmc-checkout .shop_table.cart thead th {
 	padding: 0 0 14px;
-	font-size: calc(var(--stmc-fs-s) - 1px);
+	font-size: var(--stmc-fs-xs);
 	font-weight: 700;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -1622,7 +1685,7 @@ body.stmc-checkout .stmc-sticky-bar__total {
 }
 
 body.stmc-checkout .stmc-sticky-bar__label {
-	font-size: calc(var(--stmc-fs-s) - 1px);
+	font-size: var(--stmc-fs-xs);
 	color: var(--stmc-muted);
 }
 
@@ -1666,7 +1729,7 @@ html.stmc-has-sticky-bar body.stmc-checkout {
 
 	body.stmc-checkout .stmc-band__trust {
 		gap: 4px 14px;
-		font-size: calc(var(--stmc-fs-s) - 1px);
+		font-size: var(--stmc-fs-xs);
 	}
 
 	body.stmc-checkout .stmc-band__trust span {
@@ -1687,7 +1750,7 @@ html.stmc-has-sticky-bar body.stmc-checkout {
 
 	body.stmc-checkout .stmc-steps li {
 		flex: 1 1 0;
-		font-size: calc(var(--stmc-fs-s) - 1px);
+		font-size: var(--stmc-fs-xs);
 	}
 
 	body.stmc-checkout .woocommerce-billing-fields,

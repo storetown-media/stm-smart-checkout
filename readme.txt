@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.10
+Stable tag: 0.1.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.11 =
+* One typographic system across all three checkout columns. Section titles now run in the body font instead of the theme display face (a checkout is one surface, not three widgets), payment method names drop from the theme reading size to content size so the middle column stops shouting, brand icons follow the type down, and the scale is down to five deliberate steps driven by tokens: fine print, secondary, content, controls, emphasis. Adds a --stmc-fs-xs token and raises content size to 15px.
 
 = 0.1.10 =
 * Consistent typography in the order summary. WooCommerce wraps every amount in its own price elements and themes style those wrappers directly, bypassing the cell — on The7 that meant a 13px tax label beside an 18px amount, three different blues in one column, and a grand total rendered in a completely different font family. The price wrappers now inherit from their cell, so each amount matches its label in family, size and color, with weight alone marking the value and the grand total as the only emphasized line.

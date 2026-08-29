@@ -29,10 +29,17 @@
 	--stmc-radius-s: calc(var(--stmc-radius) * 0.5);
 	--stmc-shadow: 0 1px 2px rgba(22, 38, 92, 0.06), 0 8px 24px rgba(22, 38, 92, 0.07);
 
-	/* Type scale — one knob, consistent rhythm. */
+	/*
+	 * Type scale — one knob, consistent rhythm. Deliberately short: a checkout
+	 * is a form, not an article, and every extra step makes it look busier.
+	 * xs = fine print, s = secondary (labels, descriptions, legal text),
+	 * base = content (inputs, method names, product lines), m = controls,
+	 * l = emphasis (section titles, grand total). Nothing else.
+	 */
 	--stmc-font-scale: 1;
+	--stmc-fs-xs: calc(0.75rem * var(--stmc-font-scale));    /* 12px */
 	--stmc-fs-s: calc(0.8125rem * var(--stmc-font-scale));   /* 13px */
-	--stmc-fs-base: calc(0.875rem * var(--stmc-font-scale)); /* 14px */
+	--stmc-fs-base: calc(0.9375rem * var(--stmc-font-scale)); /* 15px */
 	--stmc-fs-m: calc(1rem * var(--stmc-font-scale));        /* 16px */
 	--stmc-fs-l: calc(1.0625rem * var(--stmc-font-scale));   /* 17px */
 

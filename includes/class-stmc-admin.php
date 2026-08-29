@@ -325,12 +325,12 @@ class STMC_Admin {
 	}
 
 	private static function row_open( $key, $label ) {
-		$id   = esc_attr( 'stmc-' . str_replace( '.', '-', $key ) );
+		$id   = 'stmc-' . str_replace( '.', '-', $key );
 		$help = self::help_text( $key );
-		echo '<tr><th scope="row"><label for="' . $id . '">' . esc_html( $label ) . '</label>';
+		echo '<tr><th scope="row"><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
 		if ( '' !== $help ) {
-			echo ' <button type="button" class="stmc-help" aria-expanded="false" aria-describedby="' . $id . '-help" aria-label="' . esc_attr__( 'What does this setting do?', 'stm-smart-checkout' ) . '">?</button>'
-				. '<span class="stmc-help__pop" role="tooltip" id="' . $id . '-help">' . esc_html( $help ) . '</span>';
+			echo ' <button type="button" class="stmc-help" aria-expanded="false" aria-describedby="' . esc_attr( $id . '-help' ) . '" aria-label="' . esc_attr__( 'What does this setting do?', 'stm-smart-checkout' ) . '">?</button>'
+				. '<span class="stmc-help__pop" role="tooltip" id="' . esc_attr( $id . '-help' ) . '">' . esc_html( $help ) . '</span>';
 		}
 		echo '</th><td>';
 	}

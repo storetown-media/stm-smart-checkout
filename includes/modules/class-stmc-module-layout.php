@@ -114,6 +114,7 @@ class STMC_Module_Layout extends STMC_Module {
 
 	public function title_additional() {
 		// No heading over a section whose only field (order notes) is disabled.
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- reading WooCommerce's own switch the same way its template does, not defining a hook.
 		if ( ! apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) ) ) {
 			return;
 		}

@@ -81,21 +81,59 @@ class STMC_Module_Focus extends STMC_Module {
 	}
 
 	/**
-	 * The legal line for the fullpage footer: the owner picks the menu that
-	 * carries imprint, privacy & terms (same pattern as the withdrawal link);
-	 * without a choice we fall back to WordPress' privacy policy page so the
-	 * page is never legally orphaned.
+	 * The site's registered legal pages, in reading order: imprint, privacy,
+	 * terms, withdrawal. Sources: Germanized's page options, WooCommerce's
+	 * terms page, WordPress' privacy page — the shop already told one of them
+	 * where its legal pages live, so the fullpage footer can fill itself.
+	 *
+	 * @return int[] Page IDs.
+	 */
+	private static function known_legal_page_ids() {
+		$ids = array(
+			(int) get_option( 'woocommerce_imprint_page_id', 0 ),
+			(int) get_option( 'woocommerce_data_security_page_id', 0 ),
+			(int) get_option( 'wp_page_for_privacy_policy', 0 ),
+			function_exists( 'wc_terms_and_conditions_page_id' ) ? (int) wc_terms_and_conditions_page_id() : 0,
+			(int) get_option( 'woocommerce_revocation_page_id', 0 ),
+		);
+		$ids = array_values( array_unique( array_filter( $ids ) ) );
+		return array_filter( $ids, function ( $id ) {
+			return 'publish' === get_post_status( $id );
+		} );
+	}
+
+	/**
+	 * The legal line for the fullpage footer. Three sources, most explicit
+	 * wins: pages picked in the backend → the chosen legal menu → the legal
+	 * pages the site already registered with Germanized/WooCommerce/WordPress.
+	 * A checkout must never orphan imprint & privacy.
 	 */
 	public static function legal_footer() {
+		echo '<nav class="stmc-legal-line" aria-label="' . esc_attr__( 'Legal links', 'stm-smart-checkout' ) . '">';
+
+		$page_ids = (array) STMC_Settings::get( 'focus.legal_pages' );
+		if ( $page_ids ) {
+			foreach ( $page_ids as $page_id ) {
+				if ( 'publish' === get_post_status( $page_id ) ) {
+					echo '<a href="' . esc_url( get_permalink( $page_id ) ) . '">' . esc_html( get_the_title( $page_id ) ) . '</a>';
+				}
+			}
+			echo '</nav>';
+			return;
+		}
+
 		$menu_id = (int) STMC_Settings::get( 'focus.legal_menu' );
 		$items   = $menu_id ? wp_get_nav_menu_items( $menu_id ) : array();
-		echo '<nav class="stmc-legal-line" aria-label="' . esc_attr__( 'Legal links', 'stm-smart-checkout' ) . '">';
 		if ( $items ) {
 			foreach ( $items as $item ) {
 				echo '<a href="' . esc_url( $item->url ) . '">' . esc_html( $item->title ) . '</a>';
 			}
-		} elseif ( function_exists( 'get_privacy_policy_url' ) && get_privacy_policy_url() ) {
-			echo '<a href="' . esc_url( get_privacy_policy_url() ) . '">' . esc_html__( 'Privacy policy', 'stm-smart-checkout' ) . '</a>';
+			echo '</nav>';
+			return;
+		}
+
+		foreach ( self::known_legal_page_ids() as $page_id ) {
+			echo '<a href="' . esc_url( get_permalink( $page_id ) ) . '">' . esc_html( get_the_title( $page_id ) ) . '</a>';
 		}
 		echo '</nav>';
 	}

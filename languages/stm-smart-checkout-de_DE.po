@@ -592,6 +592,24 @@ msgstr "Rechtslinks im Kassen-Fuß"
 msgid "Shown under the full-page checkout — pick the menu with imprint, privacy and terms."
 msgstr "Erscheint unter der Vollseiten-Kasse — wählen Sie das Menü mit Impressum, Datenschutz und AGB."
 
+msgid "Checkout footer: pages"
+msgstr "Kassen-Fuß: Seiten"
+
+msgid "Hold Ctrl/Cmd to select several. Empty = the menu below, or the legal pages your site already registered."
+msgstr "Strg/Cmd halten für Mehrfachauswahl. Leer = das Menü darunter oder die bereits hinterlegten Rechtsseiten Ihrer Website."
+
+msgid "Checkout footer: menu (alternative)"
+msgstr "Kassen-Fuß: Menü (Alternative)"
+
+msgid "Used when no pages are picked above."
+msgstr "Greift, wenn oben keine Seiten gewählt sind."
+
+msgid "The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the pages for the quiet line under the checkout. Left empty, the menu below is used; without either, the line fills itself with the legal pages your site already registered (Germanized, WooCommerce terms, WordPress privacy)."
+msgstr "Die Vollseiten-Kasse ersetzt den Theme-Fußbereich — Impressum, Datenschutz und AGB müssen auf jeder Seite erreichbar bleiben. Wählen Sie die Seiten für die ruhige Zeile unter der Kasse. Bleibt die Auswahl leer, greift das Menü darunter; fehlt beides, füllt sich die Zeile von selbst mit den bereits hinterlegten Rechtsseiten Ihrer Website (Germanized, WooCommerce-AGB, WordPress-Datenschutz)."
+
+msgid "Alternative to picking single pages: a whole menu (typically your footer legal menu) renders as the legal line. Only used while no pages are selected above."
+msgstr "Alternative zur Einzelauswahl: ein ganzes Menü (typisch Ihr Rechts-Menü im Fußbereich) erscheint als Rechtszeile. Greift nur, solange oben keine Seiten gewählt sind."
+
 msgid "Legal links"
 msgstr "Rechtslinks"
 

@@ -79,6 +79,7 @@ class STMC_Settings {
 			'focus.extra_hide_selectors' => array( 'type' => 'textarea', 'default' => '' ),
 			'focus.fullpage'             => array( 'type' => 'choice', 'default' => 'auto', 'choices' => array( 'auto', 'on', 'off' ) ),
 			'focus.legal_menu'           => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
+			'focus.legal_pages'          => array( 'type' => 'int_list', 'default' => array() ),
 
 			// Design tokens (rendered as --stmc-* custom properties).
 			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => array( 'one-column', 'two-column', 'three-column', 'ultra-compact' ) ),
@@ -162,6 +163,11 @@ class STMC_Settings {
 				return in_array( (string) $value, $field['choices'], true ) ? (string) $value : $field['default'];
 			case 'url':
 				return esc_url_raw( is_string( $value ) ? $value : '' );
+			case 'int_list':
+				if ( ! is_array( $value ) ) {
+					return array();
+				}
+				return array_values( array_unique( array_filter( array_map( 'absint', $value ) ) ) );
 			case 'textarea':
 				return sanitize_textarea_field( is_string( $value ) ? $value : '' );
 			default:

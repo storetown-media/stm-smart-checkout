@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.22
+Stable tag: 0.1.23
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.23 =
+* The full-page checkout footer configures itself and bends to your will: pick the exact pages in the backend (multi-select), or a whole menu — and without any choice the line now fills itself with the legal pages your site already registered (Germanized's imprint, privacy and withdrawal pages, WooCommerce's terms page, WordPress' privacy page), published pages only, in reading order.
 
 = 0.1.22 =
 * Order summary round from the second-shop review. Product images now render reliably in the summary regardless of the legal plugin (when Germanized already provides one, no second image is added). Quantity steppers beside each product let customers fix amounts right at the checkout — changes run through WooCommerce's own refresh with all totals, stock limits and sold-individually respected; a setting turns them off. The coupon prompt is owner-switchable too: shops that never issue codes can retire the field that sends customers code-hunting.

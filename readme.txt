@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.19
+Stable tag: 0.1.20
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.20 =
+* Theme-proof layout round, measured on a second shop (Basel theme, Bootstrap checkout template). Theme templates that wrap the billing and order anchors in their own grid markup (a .col-sm-6 gave the billing column 50% of its 50%) become layout-transparent — the checkout grid now always places the anchors themselves, whatever the template wraps them in. The default template's "Product / Subtotal" table head is retired (our column title already labels the area; as a re-flowed line its two cells overlapped). Gateway description boxes with intrinsically sized badges (Klarna) can no longer push past the card edge. Themes without a server-side adapter get a narrow distraction-free CSS fallback: the page-title hero banner and the breadcrumb step aside while the screen-reader heading keeps the page named.
 
 = 0.1.19 =
 * Context translations restored: the rebuilt language files had silently lost every msgctxt entry (the page slug and the state-field labels fell back to English) — found on the first install on a second shop, where the withdrawal page appeared with a German title but an English slug. The build tool now writes GNU context keys correctly, and the page self-heal treats title and slug independently, so existing installs fix their slug on the next upgrade (WordPress keeps the old-slug redirect).

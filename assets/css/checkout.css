@@ -31,6 +31,17 @@ body.stmc-checkout #content .woocommerce {
 	padding-top: 0;
 }
 
+/* Distraction-free CSS fallback for themes without a server-side adapter:
+   the big page-title banner ("CHECKOUT" hero on Basel/Woodmart-style themes)
+   and the breadcrumb repeat what our band and progress already say. Scoped
+   to the focus module's body class; the screen-reader H1 keeps the page
+   named. Deliberately narrow — headers/menus of unknown themes are adapter
+   work, not blind CSS. */
+body.stmc-focus.stmc-checkout .page-title,
+body.stmc-focus.stmc-checkout .woocommerce-breadcrumb {
+	display: none;
+}
+
 /* ---------- 2. Header band ---------- */
 
 body.stmc-checkout .stmc-band {
@@ -646,6 +657,37 @@ body.stmc-checkout .woocommerce form .form-row select {
 /* Between 993px and 1199px the three-column layout falls back to this
    two-column behavior — hence the paired selectors throughout the block. */
 
+/*
+ * Theme checkout templates wrap the two layout anchors in their own grid
+ * markup — Basel puts #customer_details into a Bootstrap .col-sm-6 (50%
+ * width) and #order_review into a .checkout-order-review sidebar; other
+ * themes wrap similarly. Our form grid would then place and size the FOREIGN
+ * wrappers instead of the anchors (measured on hairdoshop.de: 187px billing
+ * fields inside a 374px track). Every wrapper in the chain around an anchor
+ * becomes layout-transparent; the anchor selectors throughout this section
+ * are descendant selectors for the same reason. The :not guards keep our own
+ * wrappers and identified containers untouched.
+ */
+body.stmc-checkout form.checkout div:not([class*="stmc-"]):not([id]):not(.wc-order-review):has(#customer_details),
+body.stmc-checkout form.checkout div:not([class*="stmc-"]):not([id]):not(.wc-order-review):has(#order_review) {
+	display: contents;
+}
+
+/* Woo core / theme float-era column pairs inside the anchors. */
+body.stmc-checkout form.checkout .col2-set .col-1,
+body.stmc-checkout form.checkout .col2-set .col-2 {
+	float: none;
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Bootstrap-style .row classes on the anchors carry negative margins. */
+body.stmc-checkout form.checkout #customer_details,
+body.stmc-checkout form.checkout #order_review {
+	margin-left: 0;
+	margin-right: 0;
+}
+
 @media (min-width: 993px) {
 	body.stmc-checkout.stmc-layout-three-column form.checkout,
 	body.stmc-checkout.stmc-layout-two-column form.checkout {
@@ -655,19 +697,19 @@ body.stmc-checkout .woocommerce form .form-row select {
 		align-items: start;
 	}
 
-	body.stmc-checkout.stmc-layout-three-column form.checkout > #customer_details,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > #customer_details {
+	body.stmc-checkout.stmc-layout-three-column form.checkout #customer_details,
+	body.stmc-checkout.stmc-layout-two-column form.checkout #customer_details {
 		grid-column: 1;
 	}
 
-	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review_heading,
-	body.stmc-checkout.stmc-layout-three-column form.checkout > .stmc-section-title--order,
-	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
-	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review_heading,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > .stmc-section-title--order,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review {
+	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review_heading,
+	body.stmc-checkout.stmc-layout-three-column form.checkout .stmc-section-title--order,
+	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review,
+	body.stmc-checkout.stmc-layout-three-column form.checkout .wc-order-review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout #order_review_heading,
+	body.stmc-checkout.stmc-layout-two-column form.checkout .stmc-section-title--order,
+	body.stmc-checkout.stmc-layout-two-column form.checkout #order_review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout .wc-order-review {
 		grid-column: 2;
 	}
 
@@ -684,8 +726,8 @@ body.stmc-checkout .woocommerce form .form-row select {
 		grid-column: 1 / -1;
 	}
 
-	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review {
+	body.stmc-checkout.stmc-layout-two-column form.checkout .wc-order-review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout #order_review {
 		position: sticky;
 		top: 20px;
 	}
@@ -696,12 +738,12 @@ body.stmc-checkout .woocommerce form .form-row select {
 	 * percentages resolve against the track and shrink the columns (measured:
 	 * order review at 126px of a 420px track). Neutralize them.
 	 */
-	body.stmc-checkout.stmc-layout-three-column form.checkout > #customer_details,
-	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review,
-	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > #customer_details,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > .wc-order-review,
-	body.stmc-checkout.stmc-layout-two-column form.checkout > #order_review {
+	body.stmc-checkout.stmc-layout-three-column form.checkout #customer_details,
+	body.stmc-checkout.stmc-layout-three-column form.checkout .wc-order-review,
+	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout #customer_details,
+	body.stmc-checkout.stmc-layout-two-column form.checkout .wc-order-review,
+	body.stmc-checkout.stmc-layout-two-column form.checkout #order_review {
 		width: auto;
 		max-width: none;
 		min-width: 0;
@@ -723,9 +765,9 @@ body.stmc-checkout .woocommerce form .form-row select {
 		margin-right: auto;
 	}
 
-	body.stmc-checkout.stmc-layout-one-column form.checkout > #customer_details,
-	body.stmc-checkout.stmc-layout-one-column form.checkout > .wc-order-review,
-	body.stmc-checkout.stmc-layout-one-column form.checkout > #order_review {
+	body.stmc-checkout.stmc-layout-one-column form.checkout #customer_details,
+	body.stmc-checkout.stmc-layout-one-column form.checkout .wc-order-review,
+	body.stmc-checkout.stmc-layout-one-column form.checkout #order_review {
 		width: auto;
 		max-width: none;
 		min-width: 0;
@@ -746,8 +788,8 @@ body.stmc-checkout .woocommerce form .form-row select {
 		grid-template-columns: minmax(0, 361fr) minmax(0, 751fr);
 	}
 
-	body.stmc-checkout.stmc-layout-three-column form.checkout > #order_review,
-	body.stmc-checkout.stmc-layout-three-column form.checkout > .wc-order-review {
+	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review,
+	body.stmc-checkout.stmc-layout-three-column form.checkout .wc-order-review {
 		grid-column: 2;
 		position: static;
 	}
@@ -1068,6 +1110,16 @@ body.stmc-checkout #payment div.payment_box {
 	border-radius: calc(var(--stmc-radius) - 4px);
 	color: var(--stmc-muted);
 	font-size: var(--stmc-fs-s);
+	/* Gateway boxes bring intrinsically sized badges/iframes (Klarna) that
+	   pushed past the card edge in narrow columns. */
+	max-width: 100%;
+	min-width: 0;
+	overflow: hidden;
+}
+
+body.stmc-checkout #payment div.payment_box iframe,
+body.stmc-checkout #payment div.payment_box img {
+	max-width: 100%;
 }
 
 body.stmc-checkout #payment div.payment_box p {
@@ -1399,6 +1451,13 @@ body.stmc-checkout .stmc-guarantee p strong {
 body.stmc-checkout #order_review table.shop_table {
 	width: 100%;
 	border: 0;
+}
+
+/* The default Woo template ships a "Product / Subtotal" table head; our
+   column title already labels the area, and as a re-flowed flex line the two
+   header cells just overlapped (measured on Basel). */
+body.stmc-checkout #order_review table.shop_table thead {
+	display: none;
 }
 
 /*

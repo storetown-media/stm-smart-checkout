@@ -712,12 +712,39 @@ body.stmc-checkout #order_review table th {
 	white-space: normal;
 }
 
+/* An amount reads as the answer to its label, so it carries the same size
+   and color — only the weight sets it apart. */
 body.stmc-checkout .cart_totals table td,
 body.stmc-checkout #order_review table td {
 	padding: 12px 0;
 	text-align: right;
 	white-space: nowrap;
 	font-variant-numeric: tabular-nums;
+	font-size: var(--stmc-fs-base);
+	font-weight: 600;
+	color: var(--stmc-ink);
+}
+
+/*
+ * ONE rule puts the cell back in charge of every price. WooCommerce wraps
+ * amounts in .woocommerce-Price-amount > bdi, and The7 styles those wrappers
+ * directly — its own base font size, its heading color, and on the grand
+ * total even a different family (Cambay instead of Inter). That silently beat
+ * the cell rules above, which is why a 13px tax label sat next to an 18px
+ * blue amount and three different blues appeared in one column.
+ */
+body.stmc-checkout .cart_totals .woocommerce-Price-amount,
+body.stmc-checkout .cart_totals .woocommerce-Price-amount bdi,
+body.stmc-checkout .cart_totals .woocommerce-Price-currencySymbol,
+body.stmc-checkout #order_review .woocommerce-Price-amount,
+body.stmc-checkout #order_review .woocommerce-Price-amount bdi,
+body.stmc-checkout #order_review .woocommerce-Price-currencySymbol,
+body.stmc-checkout #order_review table.shop_table td strong {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	color: inherit;
 }
 
 body.stmc-checkout .cart_totals .order-total th,
@@ -1229,10 +1256,18 @@ body.stmc-checkout #order_review table.shop_table tr[class*="paylater"] td > * {
 	max-width: 100%;
 }
 
-body.stmc-checkout #order_review table.shop_table .cart_item .product-name {
+/* Name and price of the product line share one type. The link variant is
+   explicit: The7 paints product links in its heading blue. */
+body.stmc-checkout #order_review table.shop_table .cart_item .product-name,
+body.stmc-checkout #order_review table.shop_table .cart_item .product-name a,
+body.stmc-checkout #order_review table.shop_table .cart_item .product-total {
 	font-size: var(--stmc-fs-base);
 	color: var(--stmc-ink);
 	font-weight: 600;
+}
+
+body.stmc-checkout #order_review table.shop_table .cart_item .product-name a {
+	text-decoration: none;
 }
 
 body.stmc-checkout #order_review table.shop_table .cart_item .product-quantity {
@@ -1254,7 +1289,20 @@ body.stmc-checkout #order_review table.shop_table tr.cart-subtotal {
 	border-top: 1px solid var(--stmc-line);
 }
 
+/*
+ * The row carries the tone as well, not just its cells. Some sites force a
+ * color onto every td/th site-wide with !important (The7's custom-CSS field
+ * is a common home for such leftovers); a cell that has to give up its own
+ * color then still inherits the right tone from its row instead of falling
+ * back to the theme's. Label and amount of one line share it either way.
+ */
+body.stmc-checkout #order_review table.shop_table tr {
+	color: var(--stmc-ink);
+}
+
 /* Secondary money lines (tax breakdown, net amount) stay quiet. */
+body.stmc-checkout #order_review table.shop_table tr.order-tax,
+body.stmc-checkout #order_review table.shop_table tr.stm-net-row,
 body.stmc-checkout #order_review tr.order-tax th,
 body.stmc-checkout #order_review tr.order-tax td,
 body.stmc-checkout #order_review tr.stm-net-row th,

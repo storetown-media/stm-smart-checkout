@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.9
+Stable tag: 0.1.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 No. No remote fonts, no tracking, no external requests.
 
 == Changelog ==
+
+= 0.1.10 =
+* Consistent typography in the order summary. WooCommerce wraps every amount in its own price elements and themes style those wrappers directly, bypassing the cell — on The7 that meant a 13px tax label beside an 18px amount, three different blues in one column, and a grand total rendered in a completely different font family. The price wrappers now inherit from their cell, so each amount matches its label in family, size and color, with weight alone marking the value and the grand total as the only emphasized line.
 
 = 0.1.9 =
 * Payment method rows are flex rows: a gateway with a wide brand icon strip (credit card) no longer pushes its label onto a second line, stranding the radio button above it — an inline-flex label is atomic and cannot break, so it dropped as a whole. Radio buttons now match the consent checkboxes at 18px. Order summary: rows get horizontal padding so labels and amounts no longer touch the card edge, the theme's grey table background is dropped in favor of the card surface, and row separators are drawn on the row instead of the cells (as flex items the cells were split by the column gap, breaking each line into two segments).

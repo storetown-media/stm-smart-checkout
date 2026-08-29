@@ -831,9 +831,21 @@ body.stmc-checkout form.checkout #order_review {
 		position: static;
 	}
 
+	/*
+	 * Rows must be named, not left implicit. The payment column spans both of
+	 * them, so whenever it is the tallest thing in the grid — four gateways,
+	 * DHL tiles and the notes field make that the normal case — the browser
+	 * splits its surplus height evenly over two auto rows. Half of it then
+	 * lands INSIDE row 1, under the totals table, and pushes the buy button
+	 * that far down (measured on hairdoshop: 456px of empty grid between the
+	 * grand total and the button). "auto 1fr" sizes row 1 to the summary and
+	 * hands every surplus pixel to row 2, where it falls harmlessly below the
+	 * button — the order part keeps starting exactly where the summary ends.
+	 */
 	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		grid-template-rows: auto 1fr;
 		column-gap: 0;
 		row-gap: 0;
 		align-items: start;
@@ -1273,9 +1285,13 @@ body.stmc-checkout .stmc-order-part--bottom > table.shop_table {
 	margin: 0 0 16px;
 }
 
-body.stmc-checkout .stmc-order-part--bottom > .stmc-guarantee { order: 3; }
+/* The button follows the consents directly — nothing decorative may push it
+   away from the grand total it belongs to. The reassurance note therefore
+   reads AFTER the decision, where a promise belongs, not as one more hurdle
+   between the total and the button. */
 body.stmc-checkout .stmc-order-part--bottom > .wc-gzd-order-submit,
-body.stmc-checkout .stmc-order-part--bottom > .form-row.place-order { order: 4; }
+body.stmc-checkout .stmc-order-part--bottom > .form-row.place-order { order: 3; }
+body.stmc-checkout .stmc-order-part--bottom > .stmc-guarantee { order: 4; }
 
 /* ---------- 13b. Legal checkboxes (Germanized + Woo terms) ---------- */
 

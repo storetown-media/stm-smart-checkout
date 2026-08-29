@@ -37,10 +37,12 @@ class STMC_Module_Legal extends STMC_Module {
 		}
 
 		/*
-		 * Reassurance note under the legal checkboxes. Priority 11 places it
-		 * directly after Germanized's boxes (priority 10 on the same hook) and
-		 * after the three-column layout opened the order part (priority 5) —
-		 * so it reads as a comment on the consents, never as a condition.
+		 * Reassurance note in the order part. Priority 11 keeps it inside the
+		 * part the three-column layout opened at priority 5 and after
+		 * Germanized's boxes (priority 10 on the same hook); flex order then
+		 * seats it BELOW the buy button, so it reads as a promise about the
+		 * decision just made and never as one more condition between the
+		 * grand total and the button.
 		 */
 		if ( '' !== $this->guarantee_text() ) {
 			add_action( 'woocommerce_review_order_after_payment', array( $this, 'guarantee_notice' ), 11 );

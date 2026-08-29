@@ -44,10 +44,19 @@ class STMC_Integration_Shiptastic extends STMC_Module {
 		 * refresh behavior, conditions — keeps working, the block just joins
 		 * the payment column under the methods, where delivery services belong.
 		 */
-		$dhl = '\Vendidero\Shiptastic\DHL\ParcelServices';
-		if ( class_exists( $dhl ) && is_callable( array( $dhl, 'maybe_output_fields' ) ) ) {
-			if ( false !== remove_action( 'woocommerce_review_order_after_payment', array( $dhl, 'maybe_output_fields' ), 500 ) ) {
-				add_action( 'woocommerce_review_order_after_payment', array( $dhl, 'maybe_output_fields' ), 4 );
+		/*
+		 * NO leading backslash: Shiptastic registers with __CLASS__, and hook
+		 * IDs are plain string comparisons — '\Vendidero\…' never matches
+		 * 'Vendidero\…' (that exact mismatch made the first attempt a no-op).
+		 * has_action() finds the REAL priority instead of assuming 500, so a
+		 * Shiptastic update cannot silently break the relocation either.
+		 */
+		$callback = array( 'Vendidero\Shiptastic\DHL\ParcelServices', 'maybe_output_fields' );
+		if ( is_callable( $callback ) ) {
+			$prio = has_action( 'woocommerce_review_order_after_payment', $callback );
+			if ( false !== $prio && $prio > 5 ) {
+				remove_action( 'woocommerce_review_order_after_payment', $callback, $prio );
+				add_action( 'woocommerce_review_order_after_payment', $callback, 4 );
 			}
 		}
 	}

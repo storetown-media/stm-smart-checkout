@@ -91,7 +91,7 @@ class STMC_Module_Layout extends STMC_Module {
 			 * during AJAX: update_order_review re-runs these hooks for its
 			 * fragment, which would duplicate the section and eat typed notes.
 			 */
-			if ( ! wp_doing_ajax() && function_exists( 'WC' ) && WC()->cart && ! WC()->cart->needs_shipping_address() ) {
+			if ( ! STMC_Settings::get( 'checkout.notes_collapsed' ) && ! wp_doing_ajax() && function_exists( 'WC' ) && WC()->cart && ! WC()->cart->needs_shipping_address() ) {
 				remove_action( 'woocommerce_checkout_shipping', array( WC()->checkout(), 'checkout_form_shipping' ) );
 				add_action( 'woocommerce_review_order_after_payment', array( WC()->checkout(), 'checkout_form_shipping' ), 3 );
 			}
@@ -140,6 +140,21 @@ class STMC_Module_Layout extends STMC_Module {
 		if ( ! apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) ) ) {
 			return;
 		}
+		/*
+		 * Collapsed: the section is one line until someone wants it. Almost
+		 * nobody writes an order note, yet the empty card cost a full step
+		 * number and a card's height in every checkout. As a disclosure it
+		 * costs one line — and dropping the .stmc-section-title also drops it
+		 * out of the step counter, so the numbering closes up by itself.
+		 */
+		if ( STMC_Settings::get( 'checkout.notes_collapsed' ) ) {
+			printf(
+				'<button type="button" class="stmc-notes-toggle" aria-expanded="false">%s</button>',
+				esc_html__( 'Add a note to your order', 'stm-smart-checkout' )
+			);
+			return;
+		}
+
 		echo '<h3 class="stmc-section-title">' . esc_html__( 'Additional information', 'stm-smart-checkout' ) . '</h3>';
 	}
 

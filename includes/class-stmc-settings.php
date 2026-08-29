@@ -41,6 +41,18 @@ class STMC_Settings {
 			'legal.guarantee_title'     => array( 'type' => 'text', 'default' => '' ),
 			'legal.guarantee_text'      => array( 'type' => 'textarea', 'default' => '' ),
 
+			/*
+			 * Own consent box. Default OFF on purpose: a shop that still runs a
+			 * legal plugin already prints one, and two consent boxes are worse
+			 * than none. The renderer additionally steps aside when it sees
+			 * Germanized's own checkbox hook registered.
+			 */
+			'legal.consent'          => array( 'type' => 'bool', 'default' => false ),
+			'legal.consent_text'     => array( 'type' => 'textarea', 'default' => '' ),
+			'legal.consent_error'    => array( 'type' => 'textarea', 'default' => '' ),
+			'legal.terms_page'       => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
+			'legal.revocation_page'  => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
+
 			// Withdrawal (consumer rights; EU 2023/2673). [PRO-CANDIDATE]
 			'withdrawal.enabled'          => array( 'type' => 'bool', 'default' => true ),
 			'withdrawal.menu_id'          => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
@@ -67,6 +79,7 @@ class STMC_Settings {
 			'fields.autofill_attrs'    => array( 'type' => 'bool', 'default' => true ),
 			'fields.postcode_autofill' => array( 'type' => 'bool', 'default' => true ),
 			'checkout.order_notes'     => array( 'type' => 'bool', 'default' => true ),
+			'checkout.notes_collapsed' => array( 'type' => 'bool', 'default' => true ),
 			'checkout.product_thumbs'  => array( 'type' => 'bool', 'default' => true ),
 			'checkout.coupon_field'    => array( 'type' => 'bool', 'default' => true ),
 			'checkout.qty_controls'    => array( 'type' => 'bool', 'default' => true ),

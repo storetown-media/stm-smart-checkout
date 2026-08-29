@@ -32,6 +32,10 @@ class STMC_Module_Legal extends STMC_Module {
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'validate_required_checkboxes' ), 20, 2 );
 		}
 
+		// Written on the order, not just validated: a consent nobody can show
+		// afterwards is worth little. Same reason it records the exact wording.
+		add_action( 'woocommerce_checkout_create_order', array( $this, 'record_consent' ), 20 );
+
 		if ( ! is_checkout() || ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) ) {
 			return;
 		}
@@ -44,6 +48,24 @@ class STMC_Module_Legal extends STMC_Module {
 		 * decision just made and never as one more condition between the
 		 * grand total and the button.
 		 */
+		/*
+		 * Own consent box, priority 8: after the three-column layout opened the
+		 * order part (5) and before the reassurance note (11), so flex order 2
+		 * seats it between the grand total and the buy button — the place a
+		 * legal plugin would have used.
+		 */
+		if ( $this->consent_enabled() ) {
+			add_action( 'woocommerce_review_order_after_payment', array( $this, 'consent_box' ), 8 );
+			/*
+			 * Our box takes WooCommerce's place rather than standing beside it:
+			 * Woo's own tick covers the terms page alone, ours covers terms AND
+			 * the cancellation policy in one sentence. Two boxes would ask for
+			 * the same consent twice and leave nobody sure which one binds.
+			 * Same switch Germanized uses for the same reason.
+			 */
+			add_filter( 'woocommerce_checkout_show_terms', '__return_false', 100 );
+		}
+
 		if ( '' !== $this->guarantee_text() ) {
 			add_action( 'woocommerce_review_order_after_payment', array( $this, 'guarantee_notice' ), 11 );
 		}
@@ -53,6 +75,161 @@ class STMC_Module_Legal extends STMC_Module {
 		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ), 20 );
 		add_action( 'wp_footer', array( $this, 'modal' ), 60 );
+	}
+
+	const CONSENT_NAME = 'stmc_consent';
+
+	/**
+	 * Is the shop's own consent box in charge?
+	 *
+	 * Off unless switched on, and it always steps aside for a legal plugin
+	 * that still prints its own box: two consent boxes are worse than none,
+	 * and the customer cannot tell which one is the binding one. Germanized is
+	 * asked by its RENDERER hook, not by "is the plugin active" — an installed
+	 * Germanized whose frontend layer never loads (measured on a live shop:
+	 * Pro halts, `woocommerce_gzdp_loaded` never fires, so not one of its
+	 * checkout hooks exists) prints nothing, and then this box is exactly what
+	 * the checkout is missing.
+	 *
+	 * @return bool
+	 */
+	private function consent_enabled() {
+		if ( ! STMC_Settings::get( 'legal.consent' ) ) {
+			return false;
+		}
+		if ( has_action( 'woocommerce_review_order_after_payment', 'woocommerce_gzd_template_render_checkout_checkboxes' ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Page URL for a consent link: the page picked in the backend wins, then
+	 * whatever the shop already registered. Terms fall back to WooCommerce's
+	 * own setting, withdrawal to Germanized's page option and to the
+	 * revocation page this plugin creates itself.
+	 *
+	 * @param string $which 'terms' or 'revocation'.
+	 * @return string Permalink, empty when no page is known.
+	 */
+	private function legal_page_url( $which ) {
+		$picked = (int) STMC_Settings::get( 'terms' === $which ? 'legal.terms_page' : 'legal.revocation_page' );
+
+		$candidates = array( $picked );
+		if ( 'terms' === $which ) {
+			$candidates[] = function_exists( 'wc_terms_and_conditions_page_id' ) ? (int) wc_terms_and_conditions_page_id() : 0;
+		} else {
+			$candidates[] = (int) get_option( 'woocommerce_revocation_page_id', 0 );
+			$candidates[] = class_exists( 'STMC_Withdrawal' ) ? (int) get_option( STMC_Withdrawal::PAGE_OPT, 0 ) : 0;
+		}
+
+		foreach ( $candidates as $id ) {
+			if ( $id > 0 && 'publish' === get_post_status( $id ) ) {
+				return (string) get_permalink( $id );
+			}
+		}
+		return '';
+	}
+
+	/**
+	 * The consent sentence with its links filled in.
+	 *
+	 * Shops write the wording with {terms}…{/terms} and {revocation}…
+	 * {/revocation} around the words that should become links — the same
+	 * placeholder idea Germanized uses, so a shop moving over can paste its
+	 * existing sentence. A placeholder whose page is unknown keeps its plain
+	 * words instead of producing a dead link.
+	 *
+	 * @return string HTML.
+	 */
+	private function consent_label() {
+		$text = trim( (string) STMC_Settings::get( 'legal.consent_text' ) );
+		if ( '' === $text ) {
+			$text = __( 'I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}.', 'stm-smart-checkout' );
+		}
+
+		foreach ( array( 'terms', 'revocation' ) as $which ) {
+			$url  = $this->legal_page_url( $which );
+			$open = '' === $url
+				? ''
+				: '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">';
+			$text = str_replace(
+				array( '{' . $which . '}', '{/' . $which . '}' ),
+				array( $open, '' === $url ? '' : '</a>' ),
+				$text
+			);
+		}
+		return $text;
+	}
+
+	/**
+	 * @return string Error shown when the box is left unticked.
+	 */
+	private function consent_error() {
+		$own = trim( (string) STMC_Settings::get( 'legal.consent_error' ) );
+		return '' !== $own
+			? $own
+			: __( 'Please accept the terms and conditions and the cancellation policy to place your order.', 'stm-smart-checkout' );
+	}
+
+	/**
+	 * The consent box.
+	 *
+	 * Deliberately wearing WooCommerce's own terms-wrapper class names: the
+	 * card chrome, the switch and the invalid state are already styled for
+	 * those, so the box is visually identical to the one a legal plugin would
+	 * render — without a single extra CSS rule.
+	 *
+	 * Not rendered during AJAX. update_order_review replaces
+	 * .woocommerce-checkout-payment with the whole payment template, and
+	 * anything printed around it would be inserted a SECOND time next to the
+	 * new #payment — two inputs of the same name, and the customer's tick
+	 * silently lost. Skipping AJAX leaves the full-page copy untouched, which
+	 * also preserves the tick across every totals refresh.
+	 */
+	public function consent_box() {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+		$checked = '' !== $this->posted_value( self::CONSENT_NAME );
+
+		echo '<div class="woocommerce-terms-and-conditions-wrapper stmc-consent">';
+		echo '<p class="form-row validate-required">';
+		echo '<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">';
+		printf(
+			'<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="%1$s" id="%1$s" value="1" %2$s /> ',
+			esc_attr( self::CONSENT_NAME ),
+			checked( $checked, true, false )
+		);
+		echo '<span class="stmc-consent__text">' . wp_kses(
+			$this->consent_label(),
+			array(
+				'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
+				'strong' => array(),
+				'em'     => array(),
+				'br'     => array(),
+			)
+		) . '</span>';
+		echo '<span class="required" aria-hidden="true">*</span>';
+		echo '</label></p></div>';
+	}
+
+	/**
+	 * Keeps the evidence: when the box was ticked, and the exact sentence the
+	 * customer agreed to. Wording changes over time — a stored "yes" that
+	 * points at today's text proves nothing about last year's order.
+	 *
+	 * @param WC_Order $order Order being created.
+	 */
+	public function record_consent( $order ) {
+		if ( ! $this->consent_enabled() || ! is_object( $order ) || ! method_exists( $order, 'update_meta_data' ) ) {
+			return;
+		}
+		if ( '' === $this->posted_value( self::CONSENT_NAME ) ) {
+			return;
+		}
+		$order->update_meta_data( '_stmc_consent_accepted', wc_clean( gmdate( 'c' ) ) );
+		$order->update_meta_data( '_stmc_consent_text', $this->plain_text( $this->consent_label() ) );
 	}
 
 	private function guarantee_text() {
@@ -129,6 +306,10 @@ class STMC_Module_Legal extends STMC_Module {
 	 */
 	private function required_checkboxes() {
 		$list = array();
+
+		if ( $this->consent_enabled() ) {
+			$list[ self::CONSENT_NAME ] = $this->consent_error();
+		}
 
 		if ( function_exists( 'wc_terms_and_conditions_checkbox_enabled' ) && wc_terms_and_conditions_checkbox_enabled() ) {
 			$list['terms'] = __( 'Please read and accept the terms and conditions to proceed with your order.', 'stm-smart-checkout' );

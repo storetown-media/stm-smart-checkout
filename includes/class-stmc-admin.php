@@ -139,6 +139,11 @@ class STMC_Admin {
 						<?php self::row_number( 'withdrawal.period_days', __( 'Withdrawal period (days)', 'stm-smart-checkout' ), 0, 365 ); ?>
 						<?php self::row_checkbox( 'withdrawal.account_limit', __( 'Hide the account button after the period ends', 'stm-smart-checkout' ), __( 'The public form stays available either way — a submission is never blocked.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'withdrawal.success_link', __( 'Show a withdrawal link on the order confirmation', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'legal.consent', __( 'Own consent box: terms and cancellation policy to tick', 'stm-smart-checkout' ), __( 'Renders a required checkbox above the buy button. Stays out of the way while a legal plugin still prints its own box.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_textarea( 'legal.consent_error', __( 'Consent error message', 'stm-smart-checkout' ), __( 'Shown when the box is left unticked. Empty = the built-in message.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_page( 'legal.terms_page', __( 'Terms and conditions page', 'stm-smart-checkout' ), __( 'Empty = the page WooCommerce already knows.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_page( 'legal.revocation_page', __( 'Cancellation policy page', 'stm-smart-checkout' ), __( 'Empty = the page your legal plugin registered, otherwise the revocation page this plugin creates.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.validate_checkboxes', __( 'Verify required consent boxes on the server', 'stm-smart-checkout' ), __( 'Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_text( 'legal.guarantee_title', __( 'Reassurance note: lead-in', 'stm-smart-checkout' ), __( 'Example: No risk: — shown in bold in front of the text.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'legal.guarantee_text', __( 'Reassurance note under the consent boxes', 'stm-smart-checkout' ), __( 'Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text.', 'stm-smart-checkout' ) ); ?>
@@ -156,6 +161,7 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'fields.account_hint', __( 'Explain "Create an account?" with an info tooltip', 'stm-smart-checkout' ), __( 'The text is built from your own registration settings, so it always matches what really happens.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.order_notes', __( 'Order notes field ("Additional information")', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_checkbox( 'checkout.notes_collapsed', __( 'Show order notes as an expandable line', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.product_thumbs', __( 'Product images in the order summary', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.qty_controls', __( 'Quantity steppers in the order summary', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.coupon_field', __( 'Coupon prompt above the checkout', 'stm-smart-checkout' ) ); ?>
@@ -232,7 +238,7 @@ class STMC_Admin {
 				'header.trust_1', 'header.trust_2', 'header.trust_3',
 				'trust.under_button', 'layout.continue_shopping',
 				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'fields.account_hint',
-				'checkout.order_notes', 'checkout.product_thumbs', 'checkout.qty_controls', 'checkout.coupon_field',
+				'checkout.order_notes', 'checkout.notes_collapsed', 'checkout.product_thumbs', 'checkout.qty_controls', 'checkout.coupon_field',
 				'checkout.sticky_bar', 'legal.popup',
 				'focus.fullpage', 'focus.legal_pages', 'focus.legal_menu', 'focus.extra_hide_selectors',
 			),
@@ -240,6 +246,7 @@ class STMC_Admin {
 				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',
 				'withdrawal.period_days', 'withdrawal.account_limit', 'withdrawal.success_link',
 				'legal.validate_checkboxes', 'legal.guarantee_title', 'legal.guarantee_text',
+				'legal.consent', 'legal.consent_text', 'legal.consent_error', 'legal.terms_page', 'legal.revocation_page',
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
@@ -323,6 +330,12 @@ class STMC_Admin {
 				'withdrawal.period_days'            => __( 'Controls the "Withdraw this order" button in My Account: it shows for this many days after the order. The legal period itself comes from your terms — 14 days is the EU minimum for consumers; a voluntary longer promise (e.g. 30 days) goes here.', 'stm-smart-checkout' ),
 				'withdrawal.account_limit'          => __( 'On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject.', 'stm-smart-checkout' ),
 				'withdrawal.success_link'           => __( 'Shows a short "you can withdraw this order online at any time" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text.', 'stm-smart-checkout' ),
+				'legal.consent'                     => __( 'The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Meant for shops without a legal plugin — it switches itself off as long as WooCommerce or Germanized still print their own box, because two consent boxes leave nobody knowing which one binds. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts.', 'stm-smart-checkout' ),
+				'legal.consent_text'                => __( 'The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link.', 'stm-smart-checkout' ),
+				'legal.consent_error'               => __( 'The error shown when someone tries to order without ticking. Empty = the built-in message. Name the missing step plainly; customers read this at the very moment they wanted to be finished.', 'stm-smart-checkout' ),
+				'legal.terms_page'                  => __( 'The page the {terms} link opens. Empty = the terms page WooCommerce already has in its settings.', 'stm-smart-checkout' ),
+				'legal.revocation_page'             => __( 'The page the {revocation} link opens. Empty = the revocation page a legal plugin registered, otherwise the one this plugin creates and keeps in shape itself.', 'stm-smart-checkout' ),
+				'checkout.notes_collapsed'          => __( 'The order notes start as a single line ("Add a note to your order") and the field appears on click. Hardly anyone writes a note, yet the open field costs a whole card and a step number in every checkout. A note that is already there — after a validation reload, for instance — opens the field automatically, so typed text is never hidden. Off = the classic open section with its own heading and number.', 'stm-smart-checkout' ),
 				'legal.validate_checkboxes'         => __( 'Browsers enforce required boxes only client-side — a broken script or a manipulated request could order without consent. This re-checks every required box (WooCommerce terms and Germanized) on the server and rejects the order with a normal error message. It stays silent when another plugin already reported the same box, so customers never read the same complaint twice.', 'stm-smart-checkout' ),
 				'legal.guarantee_title'             => __( 'The bold lead-in of the reassurance note, e.g. "No risk:". Leave empty for a note without a lead-in.', 'stm-smart-checkout' ),
 				'legal.guarantee_text'              => __( 'A friendly clarification under the consent boxes — the classic use: the legally required download consent sounds like losing all rights, and this note clarifies that your voluntary money-back guarantee is unaffected. Only promise what you really keep; the note is styled as reassurance, never as one more condition.', 'stm-smart-checkout' ),
@@ -468,6 +481,20 @@ class STMC_Admin {
 			);
 		}
 		echo '</select>';
+		self::row_close( $desc );
+	}
+
+	private static function row_page( $key, $label, $desc = '' ) {
+		self::row_open( $key, $label );
+		wp_dropdown_pages(
+			array(
+				'name'              => self::name( $key ),
+				'id'                => 'stmc-' . str_replace( '.', '-', $key ),
+				'selected'          => (int) STMC_Settings::get( $key ),
+				'show_option_none'  => __( '— automatic —', 'stm-smart-checkout' ),
+				'option_none_value' => '0',
+			)
+		);
 		self::row_close( $desc );
 	}
 

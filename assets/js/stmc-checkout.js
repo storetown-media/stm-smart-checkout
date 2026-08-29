@@ -373,5 +373,37 @@
 	}
 	adoptPlaceOrder();
 
+	/*
+	 * Order notes disclosure. The trigger owns the state (aria-expanded); CSS
+	 * reads it with :has(), so there is nothing to keep in sync. Opens itself
+	 * when a note is already there — a validation reload must never hide text
+	 * the customer typed.
+	 */
+	function notesDisclosure() {
+		var toggle = document.querySelector( '.stmc-notes-toggle' );
+		if ( ! toggle ) {
+			return;
+		}
+		var section = toggle.closest( '.woocommerce-additional-fields' );
+		var field   = section ? section.querySelector( 'textarea, input[type="text"]' ) : null;
+
+		function open( state ) {
+			toggle.setAttribute( 'aria-expanded', state ? 'true' : 'false' );
+		}
+
+		if ( field && '' !== ( field.value || '' ).trim() ) {
+			open( true );
+		}
+
+		toggle.addEventListener( 'click', function () {
+			var next = 'true' !== toggle.getAttribute( 'aria-expanded' );
+			open( next );
+			if ( next && field ) {
+				field.focus();
+			}
+		} );
+	}
+	notesDisclosure();
+
 	S.log( 'core ready', { blockCheckout: S.isBlockCheckout } );
 } )();

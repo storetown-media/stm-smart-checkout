@@ -777,3 +777,66 @@ msgstr "Skaliert alle Schriftstufen der Kasse gemeinsam, das Layout bleibt unber
 
 msgid "The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height."
 msgstr "Das Logo in der Mitte des Kassen-Kopfbands. Leer = Ihr Site-Logo. Am besten wirkt eine breite, flache Fassung; angezeigt wird sie mit bis zu 46 px Höhe."
+
+msgid "Own consent box: terms and cancellation policy to tick"
+msgstr "Eigene Einwilligungs-Box: AGB und Widerrufsbelehrung zum Anklicken"
+
+msgid "Renders a required checkbox above the buy button. Stays out of the way while a legal plugin still prints its own box."
+msgstr "Rendert ein Pflicht-Kästchen über dem Kaufknopf. Hält sich zurück, solange ein Rechts-Plugin noch seine eigene Box druckt."
+
+msgid "Consent wording"
+msgstr "Einwilligungstext"
+
+msgid "Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links."
+msgstr "Leer = der eingebaute Satz. Setzen Sie {terms}…{/terms} und {revocation}…{/revocation} um die Wörter, die zu Links werden sollen."
+
+msgid "Consent error message"
+msgstr "Fehlermeldung zur Einwilligung"
+
+msgid "Shown when the box is left unticked. Empty = the built-in message."
+msgstr "Wird gezeigt, wenn das Kästchen nicht angehakt ist. Leer = die eingebaute Meldung."
+
+msgid "Terms and conditions page"
+msgstr "AGB-Seite"
+
+msgid "Empty = the page WooCommerce already knows."
+msgstr "Leer = die Seite, die WooCommerce ohnehin kennt."
+
+msgid "Cancellation policy page"
+msgstr "Widerrufsbelehrungs-Seite"
+
+msgid "Empty = the page your legal plugin registered, otherwise the revocation page this plugin creates."
+msgstr "Leer = die Seite, die Ihr Rechts-Plugin registriert hat, sonst die Widerrufsseite, die dieses Plugin anlegt."
+
+msgid "Show order notes as an expandable line"
+msgstr "Bestellhinweise als aufklappbare Zeile zeigen"
+
+msgid "The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Meant for shops without a legal plugin — it switches itself off as long as WooCommerce or Germanized still print their own box, because two consent boxes leave nobody knowing which one binds. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts."
+msgstr "Die Einwilligungs-Box für AGB und Widerrufsbelehrung, gerendert von diesem Plugin: ein Pflicht-Kästchen zwischen Gesamtsumme und Kaufknopf, serverseitig geprüft und samt des exakten Wortlauts, den der Kunde gesehen hat, auf die Bestellung geschrieben. Gedacht für Shops ohne Rechts-Plugin — sie schaltet sich selbst ab, solange WooCommerce oder Germanized noch ihre eigene Box drucken, denn bei zwei Einwilligungs-Boxen weiß niemand mehr, welche bindet. Das ist eine Layout- und Technik-Funktion, keine Rechtsberatung: welche Einwilligung Ihr Shop braucht, beantwortet, wer Ihre Rechtstexte schreibt."
+
+msgid "The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link."
+msgstr "Der Satz neben dem Kästchen. Leer lassen für den eingebauten. Wörter in {terms}…{/terms} oder {revocation}…{/revocation} einfassen, um sie in Links auf die Seiten unten zu verwandeln — dieselbe Platzhalter-Schreibweise wie bei Germanized, ein vorhandener Satz lässt sich also direkt einfügen. Ein Platzhalter, dessen Seite unbekannt ist, behält seinen reinen Text, statt einen toten Link zu erzeugen."
+
+msgid "The error shown when someone tries to order without ticking. Empty = the built-in message. Name the missing step plainly; customers read this at the very moment they wanted to be finished."
+msgstr "Der Fehler, der erscheint, wenn jemand ohne Häkchen bestellen will. Leer = die eingebaute Meldung. Benennen Sie den fehlenden Schritt klar; Kunden lesen das genau in dem Moment, in dem sie fertig sein wollten."
+
+msgid "The page the {terms} link opens. Empty = the terms page WooCommerce already has in its settings."
+msgstr "Die Seite, die der {terms}-Link öffnet. Leer = die AGB-Seite, die WooCommerce bereits in seinen Einstellungen führt."
+
+msgid "The page the {revocation} link opens. Empty = the revocation page a legal plugin registered, otherwise the one this plugin creates and keeps in shape itself."
+msgstr "Die Seite, die der {revocation}-Link öffnet. Leer = die Widerrufsseite, die ein Rechts-Plugin registriert hat, sonst die, die dieses Plugin selbst anlegt und in Form hält."
+
+msgid "The order notes start as a single line (\"Add a note to your order\") and the field appears on click. Hardly anyone writes a note, yet the open field costs a whole card and a step number in every checkout. A note that is already there — after a validation reload, for instance — opens the field automatically, so typed text is never hidden. Off = the classic open section with its own heading and number."
+msgstr "Die Bestellhinweise beginnen als eine Zeile („Hinweis zur Bestellung hinzufügen“), das Feld erscheint auf Klick. Kaum jemand schreibt einen Hinweis, das offene Feld kostet aber in jeder Kasse eine ganze Karte und eine Schrittnummer. Ein bereits vorhandener Hinweis — etwa nach einem Validierungs-Neuladen — klappt das Feld automatisch auf, getippter Text verschwindet also nie. Aus = der klassische offene Abschnitt mit eigener Überschrift und Nummer."
+
+msgid "— automatic —"
+msgstr "— automatisch —"
+
+msgid "Add a note to your order"
+msgstr "Hinweis zur Bestellung hinzufügen"
+
+msgid "I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}."
+msgstr "Ich habe die {terms}Allgemeinen Geschäftsbedingungen{/terms} und die {revocation}Widerrufsbelehrung{/revocation} gelesen und akzeptiere sie."
+
+msgid "Please accept the terms and conditions and the cancellation policy to place your order."
+msgstr "Bitte akzeptiere die AGB und die Widerrufsbelehrung, um deine Bestellung abzuschließen."

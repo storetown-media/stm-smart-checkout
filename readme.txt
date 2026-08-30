@@ -1,5 +1,5 @@
 === STM Smart Checkout for WooCommerce ===
-Contributors: storetownmedia
+Contributors: jobhunter99
 Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1

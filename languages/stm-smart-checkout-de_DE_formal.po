@@ -687,3 +687,9 @@ msgstr "Die Lieferzeit unter jedem Produkt in Warenkorb und Kasse — eine der A
 
 msgid "Delivery time: %s"
 msgstr "Lieferzeit: %s"
+
+msgid "Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch below is off — customers still see the standard checkout."
+msgstr "Der Vorschau-Modus ist für Sie aktiv. Deshalb zeigt die Kasse den Smart Checkout, obwohl der Schalter unten aus ist — Kunden sehen weiterhin die Standard-Kasse."
+
+msgid "End preview"
+msgstr "Vorschau beenden"

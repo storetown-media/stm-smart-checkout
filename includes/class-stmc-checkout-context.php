@@ -82,20 +82,77 @@ class STMC_Checkout_Context {
 		if ( ! is_user_logged_in() || ! current_user_can( 'manage_woocommerce' ) ) {
 			return false;
 		}
-		// Nonce-less by design: read-only view toggle, capability-gated, changes nothing.
-		if ( isset( $_GET[ self::PREVIEW_PARAM ] ) && '1' === $_GET[ self::PREVIEW_PARAM ] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$requested = self::requested_preview();
+		if ( 'off' === $requested ) {
+			return false;
+		}
+		if ( 'on' === $requested ) {
 			return true;
 		}
 		return ! empty( $_COOKIE[ self::PREVIEW_PARAM ] );
 	}
 
-	/** Set on init so the preview survives AJAX reloads (pattern from the live shop). */
+	/**
+	 * What the URL asks for: 'on', 'off', or '' when it says nothing.
+	 *
+	 * Nonce-less by design: a read-only view toggle, capability-gated, that
+	 * changes no data.
+	 *
+	 * @return string
+	 */
+	private static function requested_preview() {
+		if ( ! isset( $_GET[ self::PREVIEW_PARAM ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return '';
+		}
+		$value = sanitize_key( wp_unslash( $_GET[ self::PREVIEW_PARAM ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( in_array( $value, array( '0', 'off', 'no' ), true ) ) {
+			return 'off';
+		}
+		return '1' === $value ? 'on' : '';
+	}
+
+	/**
+	 * Preview state lives in a cookie so it survives the wc-ajax fragment
+	 * requests, which carry no query string of their own.
+	 *
+	 * That cookie used to have no way out. Once a shop manager had looked at
+	 * the preview, every later visit to the checkout showed it again — and the
+	 * settings screen said "Smart Checkout: off" the whole time, which is what
+	 * a shop owner reads as "the switch is broken" (reported on a live shop,
+	 * 30.08.2026). A state that can be entered must be leavable: ?stmc_preview=0
+	 * clears it, and the settings screen offers that link whenever the cookie
+	 * is set.
+	 */
 	public static function maybe_set_preview_cookie() {
 		if ( is_admin() || headers_sent() || ! is_user_logged_in() || ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
-		if ( isset( $_GET[ self::PREVIEW_PARAM ] ) && '1' === $_GET[ self::PREVIEW_PARAM ] && empty( $_COOKIE[ self::PREVIEW_PARAM ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			setcookie( self::PREVIEW_PARAM, '1', 0, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
+		$requested = self::requested_preview();
+		$path      = COOKIEPATH ? COOKIEPATH : '/';
+
+		if ( 'off' === $requested ) {
+			if ( ! empty( $_COOKIE[ self::PREVIEW_PARAM ] ) ) {
+				setcookie( self::PREVIEW_PARAM, '', time() - YEAR_IN_SECONDS, $path, COOKIE_DOMAIN, is_ssl(), true );
+				unset( $_COOKIE[ self::PREVIEW_PARAM ] );
+			}
+			return;
 		}
+
+		if ( 'on' === $requested && empty( $_COOKIE[ self::PREVIEW_PARAM ] ) ) {
+			setcookie( self::PREVIEW_PARAM, '1', 0, $path, COOKIE_DOMAIN, is_ssl(), true );
+		}
+	}
+
+	/**
+	 * Is the preview cookie currently set for this user? Read by the settings
+	 * screen, which is the one place a shop owner looks when the checkout does
+	 * not match the switch.
+	 *
+	 * @return bool
+	 */
+	public static function preview_cookie_set() {
+		return is_user_logged_in()
+			&& current_user_can( 'manage_woocommerce' )
+			&& ! empty( $_COOKIE[ self::PREVIEW_PARAM ] );
 	}
 }

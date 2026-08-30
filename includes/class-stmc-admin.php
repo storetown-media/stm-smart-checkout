@@ -105,11 +105,9 @@ class STMC_Admin {
 			$current = 'general';
 		}
 
-		$preview_url = add_query_arg(
-			STMC_Checkout_Context::PREVIEW_PARAM,
-			'1',
-			function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/' )
-		);
+		$checkout_url    = function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/' );
+		$preview_url     = add_query_arg( STMC_Checkout_Context::PREVIEW_PARAM, '1', $checkout_url );
+		$preview_off_url = add_query_arg( STMC_Checkout_Context::PREVIEW_PARAM, '0', $checkout_url );
 		?>
 		<div class="wrap stmc-settings">
 			<style>
@@ -142,6 +140,22 @@ class STMC_Admin {
 				<?php esc_html_e( 'Configure the checkout, then use preview mode to review it on the live site before enabling it for customers.', 'stm-smart-checkout' ); ?>
 				<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open checkout preview', 'stm-smart-checkout' ); ?></a>
 			</p>
+
+			<?php if ( STMC_Checkout_Context::preview_cookie_set() ) : ?>
+				<?php
+				/*
+				 * The one message this screen owes its reader: preview mode is
+				 * why the checkout can look switched on while the switch says
+				 * off. Without it a shop owner reads a broken toggle.
+				 */
+				?>
+				<div class="notice notice-info inline">
+					<p>
+						<?php esc_html_e( 'Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch below is off — customers still see the standard checkout.', 'stm-smart-checkout' ); ?>
+						<a href="<?php echo esc_url( $preview_off_url ); ?>"><?php esc_html_e( 'End preview', 'stm-smart-checkout' ); ?></a>
+					</p>
+				</div>
+			<?php endif; ?>
 
 			<nav class="nav-tab-wrapper">
 				<?php foreach ( $tabs as $slug => $label ) : ?>

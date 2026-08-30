@@ -76,6 +76,8 @@ class STMC_Assets {
 			'--stmc-accent'       => STMC_Settings::get( 'design.accent' ),
 			'--stmc-accent-hover' => STMC_Settings::get( 'design.accent_hover' ),
 			'--stmc-ink'          => STMC_Settings::get( 'design.ink' ),
+			'--stmc-title'        => STMC_Settings::get( 'design.title' ),
+			'--stmc-label'        => STMC_Settings::get( 'design.label' ),
 			'--stmc-text'         => STMC_Settings::get( 'design.text' ),
 			'--stmc-muted'        => STMC_Settings::get( 'design.muted' ),
 			'--stmc-bg'           => STMC_Settings::get( 'design.bg' ),

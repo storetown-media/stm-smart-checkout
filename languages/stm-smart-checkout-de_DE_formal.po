@@ -657,3 +657,15 @@ msgstr "inkl. %s MwSt."
 
 msgid "incl. %s"
 msgstr "inkl. %s"
+
+msgid "Step heading color"
+msgstr "Farbe der Schritt-Überschriften"
+
+msgid "Field label color"
+msgstr "Farbe der Feldbeschriftungen"
+
+msgid "The blue of the numbered step headings — \"Billing details\", \"Payment method\". It reads as a second voice beside the body text and is what makes the checkout look like one designed surface rather than a stack of form fields. Keep it darker than the accent color: this is structure, not a call to action."
+msgstr "Das Blau der nummerierten Schritt-überschriften — „Rechnungsdetails“, „Zahlungsart“. Es wirkt als zweite Stimme neben dem Fließtext und ist das, was die Kasse wie eine gestaltete Fläche aussehen lässt statt wie einen Stapel Formularfelder. Halten Sie es dunkler als die Akzentfarbe: das hier ist Struktur, keine Handlungsaufforderung."
+
+msgid "The blue of the field labels above the inputs. A shade of its own on purpose: labels are read while filling in, headings while orienting, and giving them the same color flattens the form into one grey block. Contrast against the card background matters more here than anywhere else — this is the text people read most."
+msgstr "Das Blau der Feldbeschriftungen über den Eingabefeldern. Bewusst ein eigener Ton: Beschriftungen liest man beim Ausfüllen, Überschriften beim Orientieren — dieselbe Farbe für beides flacht das Formular zu einem grauen Block ab. Der Kontrast zum Kartenhintergrund zählt hier mehr als anderswo: das ist der Text, den man am meisten liest."

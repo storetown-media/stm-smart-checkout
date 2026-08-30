@@ -166,6 +166,8 @@ class STMC_Admin {
 						<?php self::row_color( 'design.accent', __( 'Accent color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.accent_hover', __( 'Accent hover color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.ink', __( 'Heading color', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_color( 'design.title', __( 'Step heading color', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_color( 'design.label', __( 'Field label color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.text', __( 'Text color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.muted', __( 'Secondary text color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.bg', __( 'Page background', 'stm-smart-checkout' ) ); ?>
@@ -250,7 +252,7 @@ class STMC_Admin {
 				'legal.button_text', 'legal.button_notice', 'legal.vat_note',
 			),
 			'design'   => array(
-				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
+				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.title', 'design.label', 'design.text', 'design.muted',
 				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_size', 'design.logo_url',
 			),
 		);
@@ -359,6 +361,8 @@ class STMC_Admin {
 				'design.card'                       => __( 'The surface of the cards themselves — white on almost every shop.', 'stm-smart-checkout' ),
 				'design.line'                       => __( 'Borders of cards and fields plus the thin separators between rows.', 'stm-smart-checkout' ),
 				'design.radius'                     => __( 'Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default.', 'stm-smart-checkout' ),
+				'design.title'                      => __( 'The blue of the numbered step headings — "Billing details", "Payment method". It reads as a second voice beside the body text and is what makes the checkout look like one designed surface rather than a stack of form fields. Keep it darker than the accent color: this is structure, not a call to action.', 'stm-smart-checkout' ),
+				'design.label'                      => __( 'The blue of the field labels above the inputs. A shade of its own on purpose: labels are read while filling in, headings while orienting, and giving them the same color flattens the form into one grey block. Contrast against the card background matters more here than anywhere else — this is the text people read most.', 'stm-smart-checkout' ),
 				'design.font_size'                  => __( 'The size of the checkout body text in pixels; every other step — fine print, labels, controls, section titles — is a fixed ratio of it, so the rhythm holds at any value. 15 is the default. Pixels rather than a percentage: a percentage was measured against the root font size of the theme, which made the same setting render differently on two shops. 16-17 suits an older audience; 13-14 packs more onto one screen.', 'stm-smart-checkout' ),
 				'design.logo_url'                   => __( 'The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height.', 'stm-smart-checkout' ),
 			);

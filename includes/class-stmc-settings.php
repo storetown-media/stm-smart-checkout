@@ -92,6 +92,8 @@ class STMC_Settings {
 			'design.accent'       => array( 'type' => 'color', 'default' => '#ff6600' ),
 			'design.accent_hover' => array( 'type' => 'color', 'default' => '#e55a00' ),
 			'design.ink'          => array( 'type' => 'color', 'default' => '#16265c' ),
+			'design.title'        => array( 'type' => 'color', 'default' => '#1b3a8c' ),
+			'design.label'        => array( 'type' => 'color', 'default' => '#00178f' ),
 			'design.text'         => array( 'type' => 'color', 'default' => '#2b3550' ),
 			'design.muted'        => array( 'type' => 'color', 'default' => '#5b6474' ),
 			'design.bg'           => array( 'type' => 'color', 'default' => '#f0f2f5' ),

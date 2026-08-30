@@ -405,5 +405,45 @@
 	}
 	notesDisclosure();
 
+	/*
+	 * The "OR" divider above the form may only appear when an express button
+	 * actually rendered. CSS alone cannot tell: gateways print their express
+	 * container whether or not they end up showing anything in it — measured
+	 * on hairdoshop, Klarna ships <div class="woocommerce-pay-buttons"> with
+	 * an empty #kec-pay-button inside, 0x0 pixels, and the :has() selector
+	 * happily drew an "ODER" above a form with no express payment at all.
+	 * So we measure instead: a container with height counts, an empty one
+	 * does not. Buttons arrive asynchronously, hence the observer and the
+	 * re-check after every fragment refresh.
+	 */
+	function expressDivider() {
+		var form = document.querySelector( 'form.checkout' );
+		if ( ! form ) {
+			return;
+		}
+		var SELECTORS = '.wc-ppcp-express-checkout, .wcpay-express-checkout-wrapper, .woocommerce-pay-buttons';
+
+		function evaluate() {
+			var shown = false;
+			form.querySelectorAll( ':scope > ' + SELECTORS ).forEach( function ( el ) {
+				if ( el.getBoundingClientRect().height > 2 ) {
+					shown = true;
+				}
+			} );
+			form.classList.toggle( 'stmc-has-express', shown );
+		}
+
+		evaluate();
+
+		if ( window.ResizeObserver ) {
+			var ro = new ResizeObserver( evaluate );
+			form.querySelectorAll( ':scope > ' + SELECTORS ).forEach( function ( el ) {
+				ro.observe( el );
+			} );
+		}
+		S.on( 'updated_checkout', evaluate );
+	}
+	expressDivider();
+
 	S.log( 'core ready', { blockCheckout: S.isBlockCheckout } );
 } )();

@@ -1038,8 +1038,16 @@ body.stmc-checkout .wc-ppcp-express-checkout .express-title {
 
 /* "OR" divider between the express area and the form — the word arrives
    translated via the --stmc-divider-label token (empty fallback keeps the
-   flanking lines as a neutral divider). */
-body.stmc-checkout form.checkout:has(> .wc-ppcp-express-checkout, > .wcpay-express-checkout-wrapper, > .woocommerce-pay-buttons)::before {
+   flanking lines as a neutral divider).
+
+   Keyed on a class the script sets after MEASURING the express containers,
+   not on their presence: gateways print the container whether or not they
+   show a button in it (measured on hairdoshop — Klarna's
+   .woocommerce-pay-buttons sat there at 0x0 with an empty #kec-pay-button,
+   and a presence-based :has() drew "ODER" above a form that had no express
+   payment at all). No script, no divider — which is right, because the
+   express buttons it separates need script to exist in the first place. */
+body.stmc-checkout form.checkout.stmc-has-express::before {
 	content: var(--stmc-divider-label, "");
 	grid-column: 1 / -1;
 	order: 0;

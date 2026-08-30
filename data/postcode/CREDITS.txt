@@ -1,0 +1,29 @@
+Postcode data — source and licence
+==================================
+
+The files DE.json, AT.json and CH.json in this directory are derived from
+GeoNames, the free geographical database:
+
+    https://www.geonames.org/
+    https://download.geonames.org/export/zip/
+
+GeoNames data is licensed under the Creative Commons Attribution 4.0 licence:
+
+    https://creativecommons.org/licenses/by/4.0/
+
+That licence permits use and redistribution, including commercially, and is
+compatible with this plugin's GPLv2-or-later licence. It requires attribution,
+which is given here and in the plugin's readme.txt.
+
+What was changed
+----------------
+The original GeoNames export is a tab-separated table with one row per
+postcode/place pair. It has been reduced to the two fields this checkout needs
+(place name and administrative region), grouped by postcode, and stored as
+JSON so a lookup is a single array access.
+
+How it is used
+--------------
+The files are read from disk when a customer types a postcode, and only the
+matching city names are returned. No request leaves the shop, and no address a
+customer enters is transmitted anywhere.

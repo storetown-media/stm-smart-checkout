@@ -81,6 +81,12 @@ Yes — HPOS (High-Performance Order Storage) and the cart/checkout blocks are b
 
 No. No remote fonts, no tracking, no external requests. The postcode databases for DE/AT/CH ship with the plugin.
 
+== Credits ==
+
+The bundled postcode databases for Germany, Austria and Switzerland are derived from the free geographical database GeoNames (https://www.geonames.org/), used under the Creative Commons Attribution 4.0 licence (https://creativecommons.org/licenses/by/4.0/).
+
+They ship as plain JSON inside the plugin and are read locally. Nothing is fetched at runtime, and no address a customer types is sent anywhere.
+
 == Screenshots ==
 
 1. The three-column checkout: trust header band with progress, express payment area, and address, payment and order summary side by side.

@@ -87,6 +87,11 @@ class STMC_Module_Fields extends STMC_Module {
 	 * Postcode → city lookup for DE/AT/CH from the bundled databases
 	 * (inherited from the Magento edition; ~8000 German postcodes).
 	 * Read-only, public data, no nonce needed; input strictly validated.
+	 *
+	 * The data is derived from GeoNames (https://www.geonames.org/), used under
+	 * CC BY 4.0 — the attribution that licence requires lives in readme.txt and
+	 * in data/postcode/CREDITS.txt. Everything is read from disk; no request
+	 * leaves the shop, so no customer address travels anywhere.
 	 */
 	public function postcode_lookup() {
 		$country  = isset( $_GET['country'] ) ? strtoupper( sanitize_key( wp_unslash( $_GET['country'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended

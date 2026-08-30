@@ -60,9 +60,7 @@ class STMC_Module_Legal extends STMC_Module {
 		 * guard for the same reason as the VAT row: the summary is re-rendered
 		 * inside ?wc-ajax=..., where is_checkout() is false.
 		 */
-		if ( $this->delivery_enabled() ) {
-			add_filter( 'woocommerce_cart_item_name', array( $this, 'item_delivery_time' ), 60, 2 );
-		}
+		add_filter( 'woocommerce_cart_item_name', array( $this, 'item_delivery_time' ), 60, 2 );
 
 		if ( ! is_checkout() || ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) ) {
 			return;
@@ -267,16 +265,45 @@ class STMC_Module_Legal extends STMC_Module {
 	const DELIVERY_META = '_stmc_delivery_time';
 
 	/**
-	 * Is this plugin responsible for showing delivery times?
+	 * Will a legal plugin print a delivery time for THIS product?
 	 *
-	 * Only where a legal plugin is not already doing it — Germanized prints its
-	 * own under every line and two of them would contradict each other the
-	 * moment one is edited.
+	 * Per product, not per shop — and that distinction is the whole point.
+	 * The first version asked "is a legal plugin delivering consent boxes?"
+	 * and stood down for the entire shop if so. On STM that left a checkout
+	 * with a configured delivery time showing none at all: Germanized renders
+	 * there and would print delivery times, but the product carries no
+	 * delivery-time term, so Germanized printed nothing and we had politely
+	 * stepped aside for it. Two plugins each waiting for the other.
 	 *
+	 * A term is the honest signal: Germanized prints a delivery time exactly
+	 * where one is assigned. No term, nobody printing, so we do.
+	 *
+	 * @param int[] $ids Product and parent id.
 	 * @return bool
 	 */
-	private function delivery_enabled() {
-		return '' === self::legal_plugin_renders_consent();
+	private function delivery_shown_by_legal_plugin( array $ids ) {
+		if ( 'germanized' !== self::legal_plugin_renders_consent() || ! taxonomy_exists( 'product_delivery_time' ) ) {
+			return false;
+		}
+		foreach ( $ids as $id ) {
+			$terms = get_the_terms( $id, 'product_delivery_time' );
+			if ( is_array( $terms ) && ! empty( $terms ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param WC_Product $product Product or variation.
+	 * @return int[] The product id, and its parent when it has one.
+	 */
+	private function product_ids( $product ) {
+		$ids = array( (int) $product->get_id() );
+		if ( method_exists( $product, 'get_parent_id' ) && $product->get_parent_id() ) {
+			$ids[] = (int) $product->get_parent_id();
+		}
+		return $ids;
 	}
 
 	/**
@@ -297,10 +324,7 @@ class STMC_Module_Legal extends STMC_Module {
 			return '';
 		}
 
-		$ids = array( (int) $product->get_id() );
-		if ( method_exists( $product, 'get_parent_id' ) && $product->get_parent_id() ) {
-			$ids[] = (int) $product->get_parent_id();
-		}
+		$ids = $this->product_ids( $product );
 
 		foreach ( $ids as $id ) {
 			$own = trim( (string) get_post_meta( $id, self::DELIVERY_META, true ) );
@@ -342,7 +366,11 @@ class STMC_Module_Legal extends STMC_Module {
 	 */
 	public function item_delivery_time( $name, $cart_item ) {
 		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
-		if ( ! $product || ( method_exists( $product, 'is_virtual' ) && $product->is_virtual() ) ) {
+		if ( ! $product || ! method_exists( $product, 'get_id' )
+			|| ( method_exists( $product, 'is_virtual' ) && $product->is_virtual() ) ) {
+			return $name;
+		}
+		if ( $this->delivery_shown_by_legal_plugin( $this->product_ids( $product ) ) ) {
 			return $name;
 		}
 		$time = $this->delivery_time_for( $product );

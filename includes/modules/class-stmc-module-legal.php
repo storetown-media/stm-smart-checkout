@@ -299,10 +299,13 @@ class STMC_Module_Legal extends STMC_Module {
 				$percent = trim( str_replace( '%', '', (string) WC_Tax::get_rate_percent( $tax->tax_rate_id ) ) );
 				$percent = '' === $percent ? '' : $percent . ' %';
 			}
-			$label = '' !== $percent
+			if ( '' !== $percent ) {
 				/* translators: %s: tax rate, e.g. "19 %". */
-				? sprintf( __( 'incl. %s VAT', 'stm-smart-checkout' ), $percent )
-				: sprintf( __( 'incl. %s', 'stm-smart-checkout' ), (string) $tax->label );
+				$label = sprintf( __( 'incl. %s VAT', 'stm-smart-checkout' ), $percent );
+			} else {
+				/* translators: %s: the shop's own name for the tax rate. */
+				$label = sprintf( __( 'incl. %s', 'stm-smart-checkout' ), (string) $tax->label );
+			}
 
 			echo '<tr class="stmc-vat-note"><th>' . esc_html( $label ) . '</th><td>'
 				. wp_kses_post( $tax->formatted_amount ) . '</td></tr>';

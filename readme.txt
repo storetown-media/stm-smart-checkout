@@ -83,12 +83,10 @@ No. No remote fonts, no tracking, no external requests. The postcode databases f
 
 == Screenshots ==
 
-1. The two-column checkout: trust header band with progress, numbered sections, order summary as a card.
-2. The three-column layout — address, payment and order summary side by side on wide screens.
-3. The buy zone: totals, consent box, reassurance note, buy button, gateway buttons — in reading order.
-4. Legal texts open in an overlay without leaving the checkout.
-5. The design tab: colours, font size in pixels and layout, each setting with its own plain-language help bubble.
-6. The checkout settings with "detected at the checkout" — what the automatic detection found, and what is not covered without a legal plugin.
+1. The three-column checkout: trust header band with progress, express payment area, and address, payment and order summary side by side.
+2. The buy zone in reading order — totals, required consent, reassurance note, buy button, trust row.
+3. Terms and cancellation policy open in an overlay, without leaving the checkout.
+4. The same checkout on a phone: one column, reachable targets, express buttons kept.
 
 == Changelog ==
 

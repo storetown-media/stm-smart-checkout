@@ -126,19 +126,6 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'advanced.debug', __( 'Debug logging (browser console)', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'general.remove_data_on_uninstall', __( 'Remove all settings when the plugin is deleted', 'stm-smart-checkout' ) ); ?>
 					<?php elseif ( 'legal' === $current ) : ?>
-						<?php self::row_checkbox( 'withdrawal.enabled', __( 'Online withdrawal form (EU withdrawal function)', 'stm-smart-checkout' ), __( 'Creates a public form page for guests and customers; submissions are never blocked and land under WooCommerce → Withdrawals.', 'stm-smart-checkout' ) ); ?>
-						<?php
-						$wd_page = (int) get_option( STMC_Withdrawal::PAGE_OPT );
-						if ( $wd_page ) {
-							echo '<tr><th scope="row">' . esc_html__( 'Form page', 'stm-smart-checkout' ) . '</th><td><a href="' . esc_url( get_permalink( $wd_page ) ) . '" target="_blank" rel="noopener">' . esc_html( get_the_title( $wd_page ) ) . '</a> &middot; <a href="' . esc_url( get_edit_post_link( $wd_page ) ) . '">' . esc_html__( 'Edit', 'stm-smart-checkout' ) . '</a></td></tr>';
-						}
-						?>
-						<?php self::row_menu( 'withdrawal.menu_id', __( 'Add the withdrawal link to this menu', 'stm-smart-checkout' ), __( 'The link is appended automatically — no manual menu editing needed.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'withdrawal.notify_email', __( 'Notify this email about new requests', 'stm-smart-checkout' ), __( 'Empty = the site admin email.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'withdrawal.confirm_customer', __( 'Send the customer a receipt confirmation', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_number( 'withdrawal.period_days', __( 'Withdrawal period (days)', 'stm-smart-checkout' ), 0, 365 ); ?>
-						<?php self::row_checkbox( 'withdrawal.account_limit', __( 'Hide the account button after the period ends', 'stm-smart-checkout' ), __( 'The public form stays available either way — a submission is never blocked.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'withdrawal.success_link', __( 'Show a withdrawal link on the order confirmation', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_select( 'legal.consent', __( 'Own consent box: terms and cancellation policy to tick', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — only when no legal plugin delivers one', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never', 'stm-smart-checkout' ) ) ); ?>
 						<?php self::row_consent_detection(); ?>
 						<?php self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) ); ?>
@@ -168,14 +155,13 @@ class STMC_Admin {
 						<?php self::row_checkbox( 'checkout.product_thumbs', __( 'Product images in the order summary', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.qty_controls', __( 'Quantity steppers in the order summary', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'checkout.coupon_field', __( 'Coupon prompt above the checkout', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'checkout.sticky_bar', __( 'Mobile sticky order bar (total + buy button)', 'stm-smart-checkout' ), __( 'Appears on phones while the real order button is out of view.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_select( 'focus.fullpage', __( 'Distraction-free: full-page template', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — on themes without a built-in adapter', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never (CSS fallback only)', 'stm-smart-checkout' ) ) ); ?>
 						<?php self::row_pages( 'focus.legal_pages', __( 'Checkout footer: pages', 'stm-smart-checkout' ), __( 'Hold Ctrl/Cmd to select several. Empty = the menu below, or the legal pages your site already registered.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_menu( 'focus.legal_menu', __( 'Checkout footer: menu (alternative)', 'stm-smart-checkout' ), __( 'Used when no pages are picked above.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
 					<?php else : ?>
-						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), array( 'three-column' => __( 'Three columns (billing / payment / order — most compact)', 'stm-smart-checkout' ), 'ultra-compact' => __( 'Ultra-compact (three columns, dense — everything at a glance)', 'stm-smart-checkout' ), 'two-column' => __( 'Two columns (order summary right)', 'stm-smart-checkout' ), 'one-column' => __( 'One column', 'stm-smart-checkout' ) ) ); ?>
+						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), self::layout_choices() ); ?>
 						<?php self::row_color( 'design.accent', __( 'Accent color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.accent_hover', __( 'Accent hover color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.ink', __( 'Heading color', 'stm-smart-checkout' ) ); ?>
@@ -188,6 +174,18 @@ class STMC_Admin {
 						<?php self::row_number( 'design.font_size', __( 'Base font size (px)', 'stm-smart-checkout' ), 11, 24 ); ?>
 						<?php self::row_url( 'design.logo_url', __( 'Checkout logo URL', 'stm-smart-checkout' ), __( 'Shown in the checkout header. Leave empty to use the site logo.', 'stm-smart-checkout' ) ); ?>
 					<?php endif; ?>
+					<?php
+					/**
+					 * Extra rows for this tab.
+					 *
+					 * The Pro plugin renders its fields here with the same
+					 * row_* helpers, so both plugins speak one visual language
+					 * instead of two settings screens that drift apart.
+					 *
+					 * @param string $current The tab being rendered.
+					 */
+					do_action( 'stmc_admin_tab_' . $current, $current );
+					?>
 				</table>
 				<?php submit_button(); ?>
 			</form>
@@ -242,12 +240,10 @@ class STMC_Admin {
 				'trust.under_button', 'layout.continue_shopping',
 				'fields.state_optional', 'fields.autofill_attrs', 'fields.postcode_autofill', 'fields.account_hint',
 				'checkout.order_notes', 'checkout.notes_collapsed', 'checkout.product_thumbs', 'checkout.qty_controls', 'checkout.coupon_field',
-				'checkout.sticky_bar', 'legal.popup',
+				'legal.popup',
 				'focus.fullpage', 'focus.legal_pages', 'focus.legal_menu', 'focus.extra_hide_selectors',
 			),
 			'legal'    => array(
-				'withdrawal.enabled', 'withdrawal.menu_id', 'withdrawal.notify_email', 'withdrawal.confirm_customer',
-				'withdrawal.period_days', 'withdrawal.account_limit', 'withdrawal.success_link',
 				'legal.validate_checkboxes', 'legal.guarantee_title', 'legal.guarantee_text',
 				'legal.consent', 'legal.consent_text', 'legal.consent_error', 'legal.terms_page', 'legal.revocation_page',
 				'legal.button_text', 'legal.button_notice',
@@ -257,8 +253,21 @@ class STMC_Admin {
 				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_size', 'design.logo_url',
 			),
 		);
+		/**
+		 * Which settings keys each tab actually renders.
+		 *
+		 * Everything NOT listed for the current tab is written back as a
+		 * hidden field, because the settings screen saves the whole option at
+		 * once — a Pro key missing from this map would be silently wiped every
+		 * time someone saved a different tab.
+		 *
+		 * @param array  $visible     tab slug => settings keys.
+		 * @param string $current_tab The tab being rendered.
+		 */
+		$visible = (array) apply_filters( 'stmc_admin_tab_fields', $visible, $current_tab );
+
 		foreach ( STMC_Settings::fields() as $key => $field ) {
-			if ( in_array( $key, $visible[ $current_tab ], true ) ) {
+			if ( in_array( $key, isset( $visible[ $current_tab ] ) ? $visible[ $current_tab ] : array(), true ) ) {
 				continue;
 			}
 			$value = STMC_Settings::get( $key );
@@ -320,20 +329,12 @@ class STMC_Admin {
 				'checkout.product_thumbs'           => __( 'Shows each product\'s image in the order summary — customers confirm at a glance that the right variant is in the cart. Cooperates with legal plugins: when Germanized already renders an image, no second one is added.', 'stm-smart-checkout' ),
 				'checkout.qty_controls'             => __( 'Plus/minus steppers beside each product in the order summary: customers fix the quantity right at the checkout instead of walking back to the cart. Updates run through WooCommerce\'s own refresh including all totals; stock limits and sold-individually products are respected.', 'stm-smart-checkout' ),
 				'checkout.coupon_field'             => __( 'The "Have a coupon?" prompt above the checkout. Off = the prompt disappears entirely — recommended when you do not issue coupons, because an empty coupon field makes customers leave to hunt for codes.', 'stm-smart-checkout' ),
-				'checkout.sticky_bar'               => __( 'On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar.', 'stm-smart-checkout' ),
 				'legal.popup'                       => __( 'Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior.', 'stm-smart-checkout' ),
 				'focus.fullpage'                    => __( 'The strongest distraction-free level: cart and checkout render through the plugin\'s own minimal page — the theme\'s header, menus and footer are never built at all. "Automatic" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working.', 'stm-smart-checkout' ),
 				'focus.legal_pages'                 => __( 'The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the pages for the quiet line under the checkout. Left empty, the menu below is used; without either, the line fills itself with the legal pages your site already registered (Germanized, WooCommerce terms, WordPress privacy).', 'stm-smart-checkout' ),
 				'focus.legal_menu'                  => __( 'Alternative to picking single pages: a whole menu (typically your footer legal menu) renders as the legal line. Only used while no pages are selected above.', 'stm-smart-checkout' ),
 				'focus.extra_hide_selectors'        => __( 'For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page.', 'stm-smart-checkout' ),
 
-				'withdrawal.enabled'                => __( 'The EU "withdrawal function": a public online form (its page is created automatically) where guests and customers declare a withdrawal. A submission is never blocked by validation — soft matching links it to an order when possible — and every request lands under WooCommerce → Withdrawals with a status workflow and email notifications.', 'stm-smart-checkout' ),
-				'withdrawal.menu_id'                => __( 'Pick the menu that should carry the link to the withdrawal form — typically your footer legal menu, next to imprint and privacy. The link is appended automatically and removed again when this is switched off.', 'stm-smart-checkout' ),
-				'withdrawal.notify_email'           => __( 'Every new withdrawal request is mailed to this address, including a direct link to the admin view. Leave empty to use the site admin email.', 'stm-smart-checkout' ),
-				'withdrawal.confirm_customer'       => __( 'Sends the customer an automatic "we received your withdrawal" receipt. It confirms receipt only — the actual assessment and refund stay with you.', 'stm-smart-checkout' ),
-				'withdrawal.period_days'            => __( 'Controls the "Withdraw this order" button in My Account: it shows for this many days after the order. The legal period itself comes from your terms — 14 days is the EU minimum for consumers; a voluntary longer promise (e.g. 30 days) goes here.', 'stm-smart-checkout' ),
-				'withdrawal.account_limit'          => __( 'On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject.', 'stm-smart-checkout' ),
-				'withdrawal.success_link'           => __( 'Shows a short "you can withdraw this order online at any time" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text.', 'stm-smart-checkout' ),
 				'legal.consent'                     => __( 'The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts.', 'stm-smart-checkout' ),
 				'legal.button_text'                 => __( 'The label on the buy button. German law (BGB 312j) requires it to say that ordering costs money — WooCommerce ships "Place order", which does not, and courts have rejected softer wordings. This plugin therefore sets a compliant default wherever no legal plugin sets the label itself; where Germanized or German Market do, theirs wins and this field is ignored. Change it only for a wording you know is equivalent.', 'stm-smart-checkout' ),
 				'legal.button_notice'                => __( 'A short text printed immediately above the buy button, where the essential information about the order has to be readable (BGH; LG Berlin 2024): delivery time, the essential characteristics of what is being bought. Keep it to the duty — this is the last thing a customer reads before deciding, and every extra sentence here costs orders. Empty prints nothing.', 'stm-smart-checkout' ),
@@ -363,7 +364,7 @@ class STMC_Admin {
 		return isset( $map[ $key ] ) ? $map[ $key ] : '';
 	}
 
-	private static function row_open( $key, $label ) {
+	public static function row_open( $key, $label ) {
 		$id   = 'stmc-' . str_replace( '.', '-', $key );
 		$help = self::help_text( $key );
 		echo '<tr><th scope="row"><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
@@ -374,14 +375,14 @@ class STMC_Admin {
 		echo '</th><td>';
 	}
 
-	private static function row_close( $desc = '' ) {
+	public static function row_close( $desc = '' ) {
 		if ( '' !== $desc ) {
 			printf( '<p class="description">%s</p>', esc_html( $desc ) );
 		}
 		echo '</td></tr>';
 	}
 
-	private static function row_checkbox( $key, $label, $desc = '' ) {
+	public static function row_checkbox( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		printf(
 			'<label><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s> %4$s</label>',
@@ -393,7 +394,7 @@ class STMC_Admin {
 		self::row_close( $desc );
 	}
 
-	private static function row_color( $key, $label ) {
+	public static function row_color( $key, $label ) {
 		self::row_open( $key, $label );
 		printf(
 			'<input type="color" id="%1$s" name="%2$s" value="%3$s">',
@@ -404,7 +405,7 @@ class STMC_Admin {
 		self::row_close();
 	}
 
-	private static function row_number( $key, $label, $min, $max ) {
+	public static function row_number( $key, $label, $min, $max ) {
 		self::row_open( $key, $label );
 		printf(
 			'<input type="number" class="small-text" id="%1$s" name="%2$s" value="%3$s" min="%4$d" max="%5$d">',
@@ -417,7 +418,7 @@ class STMC_Admin {
 		self::row_close();
 	}
 
-	private static function row_select( $key, $label, array $choices ) {
+	public static function row_select( $key, $label, array $choices ) {
 		self::row_open( $key, $label );
 		printf( '<select id="%1$s" name="%2$s">', esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ), esc_attr( self::name( $key ) ) );
 		foreach ( $choices as $value => $text ) {
@@ -432,7 +433,7 @@ class STMC_Admin {
 		self::row_close();
 	}
 
-	private static function row_text( $key, $label, $desc = '' ) {
+	public static function row_text( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		printf(
 			'<input type="text" class="regular-text" id="%1$s" name="%2$s" value="%3$s">',
@@ -443,7 +444,7 @@ class STMC_Admin {
 		self::row_close( $desc );
 	}
 
-	private static function row_textarea( $key, $label, $desc = '' ) {
+	public static function row_textarea( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		printf(
 			'<textarea class="large-text" rows="3" id="%1$s" name="%2$s">%3$s</textarea>',
@@ -454,7 +455,7 @@ class STMC_Admin {
 		self::row_close( $desc );
 	}
 
-	private static function row_menu( $key, $label, $desc = '' ) {
+	public static function row_menu( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		printf( '<select id="%1$s" name="%2$s">', esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ), esc_attr( self::name( $key ) ) );
 		printf( '<option value="0" %s>%s</option>', selected( 0, (int) STMC_Settings::get( $key ), false ), esc_html__( '— Off —', 'stm-smart-checkout' ) );
@@ -470,7 +471,7 @@ class STMC_Admin {
 		self::row_close( $desc );
 	}
 
-	private static function row_pages( $key, $label, $desc = '' ) {
+	public static function row_pages( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		$selected = array_map( 'intval', (array) STMC_Settings::get( $key ) );
 		printf(
@@ -529,7 +530,37 @@ class STMC_Admin {
 			. '</p></td></tr>';
 	}
 
-	private static function row_page( $key, $label, $desc = '' ) {
+	/**
+	 * Layout dropdown, built from the list the sanitizer accepts.
+	 *
+	 * Labels are declared for every layout this project knows, then reduced to
+	 * the ones actually available — so a Pro layout gets its wording from the
+	 * plugin that owns it, and a layout Lite does not ship never appears in a
+	 * dropdown that would refuse to save it.
+	 */
+	private static function layout_choices() {
+		$labels = array(
+			'three-column'  => __( 'Three columns (billing / payment / order — most compact)', 'stm-smart-checkout' ),
+			'two-column'    => __( 'Two columns (order summary right)', 'stm-smart-checkout' ),
+			'one-column'    => __( 'One column', 'stm-smart-checkout' ),
+		);
+		/**
+		 * Labels for the layout dropdown.
+		 *
+		 * @param array $labels layout key => label.
+		 */
+		$labels    = (array) apply_filters( 'stmc_layout_labels', $labels );
+		$available = STMC_Settings::layouts();
+		$choices   = array();
+		foreach ( $labels as $key => $label ) {
+			if ( in_array( $key, $available, true ) ) {
+				$choices[ $key ] = $label;
+			}
+		}
+		return $choices;
+	}
+
+	public static function row_page( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		$dropdown = wp_dropdown_pages(
 			array(
@@ -551,7 +582,7 @@ class STMC_Admin {
 		self::row_close( $desc );
 	}
 
-	private static function row_url( $key, $label, $desc = '' ) {
+	public static function row_url( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		printf(
 			'<input type="url" class="regular-text" id="%1$s" name="%2$s" value="%3$s" placeholder="https://">',

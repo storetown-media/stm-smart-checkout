@@ -31,10 +31,8 @@ final class STMC_Plugin {
 
 	public function init() {
 		STMC_Assets::init();
-		STMC_Withdrawal::init(); // Site-wide (form page, account, menus) — not a checkout-surface module.
 		if ( is_admin() && class_exists( 'STMC_Admin' ) ) {
 			STMC_Admin::init();
-			STMC_Admin_Withdrawals::init();
 		}
 
 		add_filter( 'stmc_modules', array( $this, 'register_core_modules' ), 5 );
@@ -52,7 +50,6 @@ final class STMC_Plugin {
 		$modules[] = new STMC_Module_Fields();
 		$modules[] = new STMC_Module_Trust();
 		$modules[] = new STMC_Module_Legal();
-		$modules[] = new STMC_Module_Sticky_Bar();
 		// Third-party integrations (each one no-ops when its plugin is absent).
 		$modules[] = new STMC_Integration_Shiptastic();
 		return $modules;
@@ -66,7 +63,7 @@ final class STMC_Plugin {
 		// Core body classes: the visual system's namespace, independent of modules.
 		add_filter( 'body_class', function ( $classes ) {
 			$classes[] = 'stmc-checkout';
-			$layout    = sanitize_html_class( (string) STMC_Settings::get( 'design.layout' ) );
+			$layout    = sanitize_html_class( STMC_Settings::layout() );
 			$classes[] = 'stmc-layout-' . $layout;
 			// Ultra-compact is the three-column choreography plus a density
 			// modifier — the base class keeps every three-column rule working.

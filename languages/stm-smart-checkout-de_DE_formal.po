@@ -10,41 +10,17 @@ msgstr ""
 msgid "\"Continue shopping\" link on the cart"
 msgstr "„Weiter einkaufen“-Link im Warenkorb"
 
-msgid "A new withdrawal request has been submitted."
-msgstr "Ein neuer Widerruf wurde eingereicht."
-
 msgid "Accent color"
 msgstr "Akzentfarbe"
 
 msgid "Accent hover color"
 msgstr "Akzentfarbe (Hover)"
 
-msgid "Acknowledged"
-msgstr "Bestätigt"
-
-msgid "Add the withdrawal link to this menu"
-msgstr "Widerrufslink diesem Menü hinzufügen"
-
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
-msgid "Address"
-msgstr "Adresse"
-
-msgid "Affected items"
-msgstr "Betroffene Artikel"
-
-msgid "Affected items (for partial withdrawal)"
-msgstr "Betroffene Artikel (bei Teil-Widerruf)"
-
 msgid "Already a customer? %s"
 msgstr "Bereits Kunde? %s"
-
-msgid "Appears on phones while the real order button is out of view."
-msgstr "Erscheint am Telefon, solange der echte Bestellknopf außerhalb des Sichtbereichs liegt."
-
-msgid "Back to the list"
-msgstr "Zurück zur Liste"
 
 msgid "Billing details"
 msgstr "Rechnungsdetails"
@@ -88,17 +64,8 @@ msgstr "Weiter einkaufen"
 msgid "Correct mobile keyboards & autofill attributes"
 msgstr "Korrekte Mobil-Tastaturen & Autofill-Attribute"
 
-msgid "Creates a public form page for guests and customers; submissions are never blocked and land under WooCommerce → Withdrawals."
-msgstr "Legt eine öffentliche Formularseite für Gäste und Kunden an; Einreichungen werden nie blockiert und landen unter WooCommerce → Widerrufe."
-
-msgid "Customer"
-msgstr "Kunde"
-
 msgid "Customers read the linked pages without leaving the checkout; right-click still opens the page normally."
 msgstr "Kunden lesen die verlinkten Seiten, ohne die Kasse zu verlassen; Rechtsklick öffnet die Seite weiterhin normal."
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Debug logging (browser console)"
 msgstr "Debug-Ausgaben (Browser-Konsole)"
@@ -106,23 +73,8 @@ msgstr "Debug-Ausgaben (Browser-Konsole)"
 msgid "Design"
 msgstr "Design"
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "Email address used for the order"
-msgstr "E-Mail-Adresse der Bestellung"
-
-msgid "Email:"
-msgstr "E-Mail:"
-
-msgid "Empty = the site admin email."
-msgstr "Leer = Admin-E-Mail der Website."
-
 msgid "Enable Smart Checkout"
 msgstr "Smart Checkout aktivieren"
-
-msgid "Entire order"
-msgstr "Gesamte Bestellung"
 
 msgid "Example: No risk: — shown in bold in front of the text."
 msgstr "Beispiel: Kein Risiko: — erscheint fett vor dem Text."
@@ -136,50 +88,23 @@ msgstr "„Ein Konto erstellen?“ mit Info-Tooltip erklären"
 msgid "Extra CSS selectors to hide (advanced)"
 msgstr "Zusätzlich auszublendende CSS-Selektoren (fortgeschritten)"
 
-msgid "First name"
-msgstr "Vorname"
-
 msgid "Fixes the duplicate \"Land\" label for IE/GB/HU in German shops."
 msgstr "Behebt die doppelte Beschriftung „Land“ bei IE/GB/HU in deutschen Shops."
 
 msgid "Font scale"
 msgstr "Schriftgröße"
 
-msgid "Form page"
-msgstr "Formularseite"
-
 msgid "General"
 msgstr "Allgemein"
-
-msgid "Goods received on"
-msgstr "Ware erhalten am"
 
 msgid "Heading color"
 msgstr "Überschriftfarbe"
 
-msgid "Hello %1$s,\n\nwe have received your withdrawal for order %2$s and will process it promptly. You will hear from us.\n\nThis confirmation was generated automatically."
-msgstr "Hallo %1$s,\n\nIhr Widerruf zur Bestellung %2$s ist bei uns eingegangen und wird umgehend bearbeitet. Sie hören von uns.\n\nDiese Bestätigung wurde automatisch erstellt."
-
-msgid "Hide the account button after the period ends"
-msgstr "Konto-Button nach Fristablauf ausblenden"
-
 msgid "How it works:"
 msgstr "So einfach geht’s:"
 
-msgid "I withdraw from"
-msgstr "Ich widerrufe"
-
 msgid "In your account you can look up your orders, invoices and downloads again at any time."
 msgstr "Im Konto finden Sie Ihre Bestellungen, Rechnungen und Downloads jederzeit wieder."
-
-msgid "Internal notes"
-msgstr "Interne Notizen"
-
-msgid "Items:"
-msgstr "Artikel:"
-
-msgid "Last name"
-msgstr "Nachname"
 
 msgid "Legal"
 msgstr "Recht"
@@ -189,9 +114,6 @@ msgstr "Wird geladen &hellip;"
 
 msgid "Log in"
 msgstr "Anmelden"
-
-msgid "Mobile sticky order bar (total + buy button)"
-msgstr "Mobile Sticky-Bestellleiste (Summe + Kaufknopf)"
 
 msgid "Module: distraction-free mode"
 msgstr "Modul: Ablenkungsfreier Modus"
@@ -208,21 +130,6 @@ msgstr "Modul: Layout-Extras"
 msgid "Module: trust elements"
 msgstr "Modul: Vertrauens-Elemente"
 
-msgid "Name:"
-msgstr "Name:"
-
-msgid "New"
-msgstr "Neu"
-
-msgid "New withdrawal request"
-msgstr "Neuer Widerruf eingegangen"
-
-msgid "No withdrawal requests yet."
-msgstr "Noch keine Widerrufe eingegangen."
-
-msgid "Notify this email about new requests"
-msgstr "Diese E-Mail über neue Anträge benachrichtigen"
-
 msgid "Off = the standard checkout renders for customers. Preview mode works regardless of this switch."
 msgstr "Aus = Kunden sehen die Standard-Kasse. Der Vorschau-Modus funktioniert unabhängig von diesem Schalter."
 
@@ -238,14 +145,8 @@ msgstr "Drei Spalten (Rechnung / Zahlungsart / Bestellung — am kompaktesten)"
 msgid "Two columns (order summary right)"
 msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
-msgid "Ultra-compact (three columns, dense — everything at a glance)"
-msgstr "Ultra-kompakt (drei Spalten, dicht — alles auf einen Blick)"
-
 msgid "One selector per line. Hidden only on cart/checkout. Never hide your footer legal links."
 msgstr "Ein Selektor pro Zeile. Wirkt nur auf Warenkorb/Kasse. Blenden Sie nie Ihre Rechtslinks im Fußbereich aus."
-
-msgid "Online withdrawal form (EU withdrawal function)"
-msgstr "Online-Widerrufsformular (EU-Widerrufsfunktion)"
 
 msgid "Only claims that are actually true for your shop."
 msgstr "Nur Zusagen, die für Ihren Shop wirklich gelten."
@@ -262,50 +163,17 @@ msgstr "Seite stattdessen öffnen"
 msgid "Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text."
 msgstr "Optional, standardmäßig leer. Für ein Versprechen, das Sie wirklich halten — etwa dass Ihre freiwillige Geld-zurück-Garantie von der Download-Zustimmung unberührt bleibt. Nie eine Bedingung, nie ein Rechtstext."
 
-msgid "Order"
-msgstr "Bestellung"
-
 msgid "Order completed"
 msgstr "Bestellung abgeschlossen"
-
-msgid "Order date"
-msgstr "Bestelldatum"
-
-msgid "Order number"
-msgstr "Bestellnummer"
-
-msgid "Order number:"
-msgstr "Bestellnummer:"
 
 msgid "Order steps"
 msgstr "Bestellschritte"
 
-msgid "Order with obligation to pay"
-msgstr "Zahlungspflichtig bestellen"
-
 msgid "Page background"
 msgstr "Seitenhintergrund"
 
-msgid "Part of the order"
-msgstr "Teil der Bestellung"
-
-msgid "Partial"
-msgstr "Teilweise"
-
 msgid "Payment method"
 msgstr "Zahlungsart"
-
-msgid "Please describe which items you are withdrawing."
-msgstr "Bitte beschreiben Sie, welche Artikel Sie widerrufen."
-
-msgid "Please enter a valid email address."
-msgstr "Bitte geben Sie eine gültige E-Mail-Adresse an."
-
-msgid "Please enter your first and last name."
-msgstr "Bitte geben Sie Vor- und Nachnamen an."
-
-msgid "Please enter your order number."
-msgstr "Bitte geben Sie Ihre Bestellnummer an."
 
 msgid "Please read and accept the terms and conditions to proceed with your order."
 msgstr "Bitte lesen und akzeptieren Sie die AGB, um mit Ihrer Bestellung fortzufahren."
@@ -316,29 +184,11 @@ msgstr "Bitte setzen Sie alle Pflicht-Häkchen, um mit Ihrer Bestellung fortzufa
 msgid "Postcode autofill for Germany, Austria, Switzerland"
 msgstr "PLZ-Autofill für Deutschland, Österreich, Schweiz"
 
-msgid "Processed"
-msgstr "Bearbeitet"
-
-msgid "Processing"
-msgstr "Bearbeitung"
-
-msgid "Reason (voluntary)"
-msgstr "Grund (freiwillig)"
-
-msgid "Reason (voluntary):"
-msgstr "Grund (freiwillig):"
-
 msgid "Reassurance note under the consent boxes"
 msgstr "Beruhigender Hinweis unter den Pflicht-Kästchen"
 
 msgid "Reassurance note: lead-in"
 msgstr "Beruhigender Hinweis: Einleitung"
-
-msgid "Received"
-msgstr "Eingegangen"
-
-msgid "Rejected"
-msgstr "Abgelehnt"
 
 msgid "Remove all settings when the plugin is deleted"
 msgstr "Alle Einstellungen beim Löschen des Plugins entfernen"
@@ -348,9 +198,6 @@ msgstr "Seitentitel für Screenreader ausgeben"
 
 msgid "Repeat trust items under the order button"
 msgstr "Vertrauens-Bausteine unter dem Bestellknopf wiederholen"
-
-msgid "Request not found."
-msgstr "Antrag nicht gefunden."
 
 msgid "STM Smart Checkout"
 msgstr "STM Smart Checkout"
@@ -367,35 +214,17 @@ msgstr "STM Smart Checkout benötigt ein installiertes und aktives WooCommerce."
 msgid "Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box."
 msgstr "Sicherheitsnetz: Eine Bestellung ohne gesetztes Pflicht-Häkchen wird auch dann abgelehnt, wenn die Browser-Prüfung umgangen wurde. Bleibt still, wenn WooCommerce oder Germanized dasselbe Kästchen bereits gemeldet hat."
 
-msgid "Save"
-msgstr "Speichern"
-
-msgid "Saved."
-msgstr "Gespeichert."
-
-msgid "Scope"
-msgstr "Umfang"
-
-msgid "Scope:"
-msgstr "Umfang:"
-
 msgid "Secondary text color"
 msgstr "Sekundäre Textfarbe"
 
 msgid "Secure SSL connection"
 msgstr "Sichere SSL-Verbindung"
 
-msgid "Send the customer a receipt confirmation"
-msgstr "Dem Kunden eine Eingangsbestätigung senden"
-
 msgid "Settings"
 msgstr "Einstellungen"
 
 msgid "Show \"Already a customer?\" login toggle"
 msgstr "„Bereits Kunde?“-Anmeldeknopf anzeigen"
-
-msgid "Show a withdrawal link on the order confirmation"
-msgstr "Widerrufslink auf der Bestellbestätigung anzeigen"
 
 msgid "Show progress bar (cart → checkout → confirmation)"
 msgstr "Fortschrittsleiste anzeigen (Warenkorb → Kasse → Bestätigung)"
@@ -412,32 +241,14 @@ msgstr "Bundesland / Region"
 msgid "State/county field never required, labels untangled"
 msgstr "Bundesland-Feld nie Pflicht, Beschriftungen entwirrt"
 
-msgid "Status"
-msgstr "Status"
-
-msgid "Submit a withdrawal online"
-msgstr "Widerruf online einreichen"
-
-msgid "Submit withdrawal"
-msgstr "Widerruf absenden"
-
 msgid "Text color"
 msgstr "Textfarbe"
-
-msgid "Thank you. We will process your request promptly and confirm it by email."
-msgstr "Vielen Dank. Wir bearbeiten Ihren Widerruf umgehend und bestätigen ihn per E-Mail."
 
 msgid "The city fills in automatically from bundled databases (no external service, GDPR-safe)."
 msgstr "Der Ort füllt sich automatisch aus mitgelieferten Datenbanken (kein externer Dienst, DSGVO-sicher)."
 
-msgid "The link is appended automatically — no manual menu editing needed."
-msgstr "Der Link wird automatisch angehängt — keine manuelle Menüpflege nötig."
-
 msgid "The password you enter above is the one you will log in with."
 msgstr "Mit dem oben eingegebenen Passwort melden Sie sich künftig an."
-
-msgid "The public form stays available either way — a submission is never blocked."
-msgstr "Das öffentliche Formular bleibt in jedem Fall erreichbar — eine Einreichung wird nie blockiert."
 
 msgid "The text could not be loaded here."
 msgstr "Der Text konnte hier nicht geladen werden."
@@ -447,9 +258,6 @@ msgstr "Der Text entsteht aus Ihren eigenen Registrierungs-Einstellungen und sti
 
 msgid "Three columns (billing / payment / order — most compact)"
 msgstr "Drei Spalten (Rechnung / Zahlungsart / Bestellung — am kompaktesten)"
-
-msgid "Total"
-msgstr "Gesamt"
 
 msgid "Trust item 1 (lock icon)"
 msgstr "Vertrauens-Baustein 1 (Schloss-Symbol)"
@@ -463,38 +271,14 @@ msgstr "Vertrauens-Baustein 3 (Karten-Symbol)"
 msgid "Two columns (order summary right)"
 msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
-msgid "Use this form to withdraw from your purchase within the statutory withdrawal period. You do not have to give a reason. We will confirm receipt by email."
-msgstr "Mit diesem Formular widerrufen Sie Ihren Kauf innerhalb der gesetzlichen Widerrufsfrist. Sie müssen keinen Grund angeben. Den Eingang bestätigen wir per E-Mail."
-
 msgid "Verify required consent boxes on the server"
 msgstr "Pflicht-Kästchen serverseitig prüfen"
-
-msgid "We received your withdrawal"
-msgstr "Ihr Widerruf ist bei uns eingegangen"
 
 msgid "What happens when I create an account?"
 msgstr "Was passiert beim Erstellen eines Kontos?"
 
-msgid "Withdraw this order"
-msgstr "Diese Bestellung widerrufen"
-
-msgid "Withdrawal"
-msgstr "Widerruf"
-
-msgid "Withdrawal period (days)"
-msgstr "Widerrufsfrist (Tage)"
-
-msgid "Withdrawal requests"
-msgstr "Widerrufs-Anträge"
-
-msgid "Withdrawals"
-msgstr "Widerrufe"
-
 msgid "Yes"
 msgstr "Ja"
-
-msgid "You can revoke your order online at any time within the withdrawal period:"
-msgstr "Sie können Ihre Bestellung innerhalb der Widerrufsfrist jederzeit online widerrufen:"
 
 msgid "You will receive a link to set your password by email."
 msgstr "Den Link zum Festlegen Ihres Passworts erhalten Sie per E-Mail."
@@ -508,36 +292,8 @@ msgstr "Ihr Kundenkonto wird mit dem oben eingegebenen Benutzernamen angelegt."
 msgid "Your order"
 msgstr "Ihre Bestellung"
 
-msgid "Your request could not be saved. Please try again or contact us directly."
-msgstr "Ihr Widerruf konnte nicht gespeichert werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt."
-
-msgid "Your session expired. Please try again."
-msgstr "Ihre Sitzung ist abgelaufen. Bitte versuchen Sie es erneut."
-
-msgid "Your withdrawal has been received"
-msgstr "Ihr Widerruf ist eingegangen"
-
-msgid "matched"
-msgstr "zugeordnet"
-
-msgid "no match"
-msgstr "keine Zuordnung"
-
-msgid "no match — verify manually"
-msgstr "keine Zuordnung — bitte manuell prüfen"
-
-msgid "part of the order"
-msgstr "einen Teil der Bestellung"
-
-msgid "the entire order"
-msgstr "die gesamte Bestellung"
-
 msgid "— Off —"
 msgstr "— Aus —"
-
-msgctxt "page slug"
-msgid "withdrawal"
-msgstr "widerruf"
 
 msgctxt "state field label"
 msgid "County"
@@ -621,21 +377,6 @@ msgstr "Die stärkste Ablenkungsfrei-Stufe: Warenkorb und Kasse laufen über die
 
 msgid "The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the menu that carries them; it renders as a quiet line under the checkout. Without a choice, the WordPress privacy-policy page is linked as a minimum."
 msgstr "Die Vollseiten-Kasse ersetzt den Theme-Fußbereich — Impressum, Datenschutz und AGB müssen auf jeder Seite erreichbar bleiben. Wählen Sie das Menü, das sie trägt; es erscheint als ruhige Zeile unter der Kasse. Ohne Auswahl wird mindestens die WordPress-Datenschutzseite verlinkt."
-
-msgid "Street and house number"
-msgstr "Straße und Hausnummer"
-
-msgid "Postcode"
-msgstr "Postleitzahl"
-
-msgid "City"
-msgstr "Ort / Stadt"
-
-msgid "You are not required to give a reason."
-msgstr "Eine Begründung ist nicht erforderlich."
-
-msgid "Email"
-msgstr "E-Mail"
 
 msgid "Order notes field (\"Additional information\")"
 msgstr "Bestellhinweise-Feld („Zusätzliche Informationen")"
@@ -839,7 +580,7 @@ msgid "I have read and accept the {terms}terms and conditions{/terms} and the {r
 msgstr "Ich habe die {terms}Allgemeinen Geschäftsbedingungen{/terms} und die {revocation}Widerrufsbelehrung{/revocation} gelesen und akzeptiere sie."
 
 msgid "Please accept the terms and conditions and the cancellation policy to place your order."
-msgstr "Bitte akzeptiere die AGB und die Widerrufsbelehrung, um deine Bestellung abzuschließen."
+msgstr "Bitte akzeptieren Sie die AGB und die Widerrufsbelehrung, um Ihre Bestellung abzuschließen."
 
 msgid "Automatic — only when no legal plugin delivers one"
 msgstr "Automatisch — nur wenn kein Rechts-Plugin eine liefert"
@@ -898,3 +639,6 @@ msgstr "Ein kurzer Text unmittelbar über dem Kaufknopf, wo die wesentlichen Ang
 
 msgid "This plugin then covers the checkout itself — consent, button label, the information above the button. It does not cover what lives outside the checkout: unit prices, delivery times on product pages, or sending the cancellation policy with the order email. If your shop needs those, keep a legal plugin such as Germanized alongside."
 msgstr "Dieses Plugin deckt dann die Kasse selbst ab — Einwilligung, Knopfbeschriftung, die Angaben über dem Knopf. Es deckt nicht ab, was außerhalb der Kasse liegt: Grundpreise, Lieferzeiten auf Produktseiten oder den Versand der Widerrufsbelehrung mit der Bestellmail. Wenn Ihr Shop das braucht, behalten Sie daneben ein Rechts-Plugin wie Germanized."
+
+msgid "Order with obligation to pay"
+msgstr "Zahlungspflichtig bestellen"

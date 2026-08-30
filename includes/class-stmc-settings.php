@@ -22,7 +22,7 @@ class STMC_Settings {
 	 * Types map to sanitizers in sanitize_value().
 	 */
 	public static function fields() {
-		return array(
+		$fields = array(
 			// General.
 			'general.enabled'                  => array( 'type' => 'bool', 'default' => false ),
 			'general.remove_data_on_uninstall' => array( 'type' => 'bool', 'default' => false ),
@@ -56,15 +56,6 @@ class STMC_Settings {
 			'legal.terms_page'       => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
 			'legal.revocation_page'  => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
 
-			// Withdrawal (consumer rights; EU 2023/2673). [PRO-CANDIDATE]
-			'withdrawal.enabled'          => array( 'type' => 'bool', 'default' => true ),
-			'withdrawal.menu_id'          => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
-			'withdrawal.notify_email'     => array( 'type' => 'text', 'default' => '' ),
-			'withdrawal.confirm_customer' => array( 'type' => 'bool', 'default' => true ),
-			'withdrawal.period_days'      => array( 'type' => 'int', 'default' => 14, 'min' => 0, 'max' => 365 ),
-			'withdrawal.account_limit'    => array( 'type' => 'bool', 'default' => false ),
-			'withdrawal.success_link'     => array( 'type' => 'bool', 'default' => true ),
-
 			// Header band + progress.
 			'header.sr_title'      => array( 'type' => 'bool', 'default' => true ),
 			'header.show_progress' => array( 'type' => 'bool', 'default' => true ),
@@ -88,8 +79,6 @@ class STMC_Settings {
 			'checkout.qty_controls'    => array( 'type' => 'bool', 'default' => true ),
 			'fields.account_hint'      => array( 'type' => 'bool', 'default' => true ),
 
-			// Mobile.
-			'checkout.sticky_bar' => array( 'type' => 'bool', 'default' => true ),
 
 			// Focus.
 			'focus.extra_hide_selectors' => array( 'type' => 'textarea', 'default' => '' ),
@@ -98,7 +87,7 @@ class STMC_Settings {
 			'focus.legal_pages'          => array( 'type' => 'int_list', 'default' => array() ),
 
 			// Design tokens (rendered as --stmc-* custom properties).
-			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => array( 'one-column', 'two-column', 'three-column', 'ultra-compact' ) ),
+			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => self::layouts() ),
 			'design.accent'       => array( 'type' => 'color', 'default' => '#ff6600' ),
 			'design.accent_hover' => array( 'type' => 'color', 'default' => '#e55a00' ),
 			'design.ink'          => array( 'type' => 'color', 'default' => '#16265c' ),
@@ -114,6 +103,17 @@ class STMC_Settings {
 			// Advanced.
 			'advanced.debug' => array( 'type' => 'bool', 'default' => false ),
 		);
+
+		/**
+		 * The whole settings registry.
+		 *
+		 * The Pro plugin registers its own keys here — the sanitizer, the
+		 * defaults and the settings screen all read this one list, so a Pro key
+		 * added through this filter is saved and sanitized like any other.
+		 *
+		 * @param array $fields key => [ type, default, (choices, min, max) ].
+		 */
+		return (array) apply_filters( 'stmc_settings_fields', $fields );
 	}
 
 	/** Default values as a nested array (used on activation and as fallback). */
@@ -140,6 +140,60 @@ class STMC_Settings {
 			$value = $value[ $part ];
 		}
 		return $value;
+	}
+
+	/**
+	 * Layout keys this installation offers.
+	 *
+	 * Lite ships the three that stand on their own; the Pro plugin appends its
+	 * own through this filter. Kept here rather than inline in the field
+	 * definition so the settings screen and the sanitizer read the SAME list —
+	 * a layout offered in the dropdown but rejected by the sanitizer is the
+	 * kind of bug nobody finds until a shop saves its settings.
+	 *
+	 * @return string[]
+	 */
+	public static function layouts() {
+		/**
+		 * Available checkout layouts.
+		 *
+		 * @param string[] $layouts Layout keys.
+		 */
+		return (array) apply_filters( 'stmc_layouts', array( 'one-column', 'two-column', 'three-column' ) );
+	}
+
+	/**
+	 * The layout that will actually render.
+	 *
+	 * A stored layout can outlive the plugin that provided it — deactivate Pro
+	 * and "ultra-compact" is still in the database while its stylesheet is
+	 * gone. Falling through to the plain default would drop such a shop from a
+	 * three-column checkout to a two-column one without warning (measured on a
+	 * live shop the moment Pro was not yet activated). So an unknown layout
+	 * degrades to its nearest relative instead: ultra-compact IS the
+	 * three-column layout, only denser.
+	 *
+	 * @return string
+	 */
+	public static function layout() {
+		/*
+		 * The RAW option, not get(): reading a setting sanitizes it, and a
+		 * choice that is no longer offered sanitizes to the plain default —
+		 * so by the time get() answers, the very value this method exists to
+		 * rescue is already gone.
+		 */
+		$raw       = get_option( self::OPTION, array() );
+		$stored    = is_array( $raw ) && isset( $raw['design']['layout'] ) ? (string) $raw['design']['layout'] : '';
+		$available = self::layouts();
+		if ( in_array( $stored, $available, true ) ) {
+			return $stored;
+		}
+		$nearest = array( 'ultra-compact' => 'three-column' );
+		if ( isset( $nearest[ $stored ] ) && in_array( $nearest[ $stored ], $available, true ) ) {
+			return $nearest[ $stored ];
+		}
+		$fields = self::fields();
+		return isset( $fields['design.layout'] ) ? (string) $fields['design.layout']['default'] : 'two-column';
 	}
 
 	/** Sanitize a whole submitted settings array (register_setting callback). */

@@ -29,6 +29,20 @@ STM Smart Checkout turns the standard WooCommerce checkout into a focused, trust
 
 The Pro version adds the express payment zone, payment-method customizer, payment-dependent required fields, EU VAT ID validation (VIES) with reverse charge, order bumps, an online withdrawal form module and a safe mode with automatic fallback. Pro is distributed separately at storetown-media.de.
 
+**Auf Deutsch**
+
+STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte, vertrauenswürdige Kaufstrecke — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder die WooCommerce-Kasse selbst zu ersetzen.
+
+* Ablenkungsfreie Kassen-Layouts mit Fortschrittsanzeige und Trust-Kopfband
+* Kartenbasiertes Design über Design-Tokens steuerbar — alles aus dem Backend anpassbar, ohne `!important`-Kämpfe mit dem Theme
+* Feldverwaltung mit Sofortprüfung und den richtigen Tastaturen auf dem Handy
+* PLZ-Autovervollständigung für Deutschland, Österreich und die Schweiz (der Ort füllt sich selbst)
+* Rechtstexte (AGB, Widerruf) im Overlay lesbar, ohne die Kasse zu verlassen — plus serverseitige Absicherung, die die Pflichthäkchen nach dem Absenden erneut prüft
+* Pflichtangaben auch ohne Rechts-Plugin: Einwilligung, Knopfbeschriftung nach § 312j BGB, MwSt.-Ausweisung und Lieferzeit je Artikel — jeweils nur dann, wenn kein anderes Plugin sie bereits liefert
+* Arbeitet mit WooCommerce Germanized und German Market zusammen, statt gegen sie
+
+**Grundsatz:** Ihre Zahlungsarten rendern weiter ihre eigenen Express-Knöpfe, Ihr Rechts-Plugin behält seine Rechtstexte, Ihr Theme behält seine Typografie. Dieses Plugin ordnet alles zu einer Kasse, die verkauft.
+
 == Frequently Asked Questions ==
 
 = Does this work with the block-based checkout? =
@@ -39,11 +53,71 @@ The plugin declares compatibility with the cart/checkout blocks and does not int
 
 Yes — coexistence with both is a core design goal. The plugin respects their legal checkboxes, button texts and tax displays.
 
+= Do I need a legal plugin for a German shop? =
+
+No. If none is present, the checkout supplies the mandatory pieces itself: the consent box for terms and cancellation policy, the § 312j BGB button label, the VAT statement in the order summary, and the delivery time under each product. Each of these is decided by asking whether another plugin is actually rendering it — not by asking whether one is installed — so nothing ever appears twice.
+
+= What does it deliberately not cover? =
+
+Unit prices (PAngV) and sending the cancellation policy with the order confirmation mail stay with a dedicated legal plugin. The settings screen states this in plain language rather than leaving you to find out later, and it shows what the automatic detection last found on your checkout.
+
+= Can I try it without switching my live checkout over? =
+
+Yes. Leave the plugin switched off and open the checkout with `?stmc_preview=1` as a shop manager — you see the Smart Checkout, customers keep seeing the standard one. `?stmc_preview=off` ends the preview again, and the settings screen tells you while it is running, with the link that ends it.
+
+= What happens to my checkout if I deactivate the plugin? =
+
+You get the standard WooCommerce checkout back, unchanged. The plugin arranges and supplements the existing checkout; it does not replace the template, the gateways or the order process, and it stores nothing your shop would miss.
+
+= Does it work with my theme? =
+
+It is built to. Themes with a server-side adapter (The7, Storefront) use their native distraction-free path; every other theme gets the plugin's own minimal full-page template, so the theme's header, menus and footer are never built while styles, analytics, consent tools and chat widgets keep working. Layout rules place the checkout anchors themselves, whatever markup a theme template wraps them in.
+
+= Is it compatible with HPOS? =
+
+Yes — HPOS (High-Performance Order Storage) and the cart/checkout blocks are both declared compatible.
+
 = Does it load external fonts or call external services? =
 
-No. No remote fonts, no tracking, no external requests.
+No. No remote fonts, no tracking, no external requests. The postcode databases for DE/AT/CH ship with the plugin.
+
+== Screenshots ==
+
+1. The two-column checkout: trust header band with progress, numbered sections, order summary as a card.
+2. The three-column layout — address, payment and order summary side by side on wide screens.
+3. The buy zone: totals, consent box, reassurance note, buy button, gateway buttons — in reading order.
+4. Legal texts open in an overlay without leaving the checkout.
+5. The design tab: colours, font size in pixels and layout, each setting with its own plain-language help bubble.
+6. The checkout settings with "detected at the checkout" — what the automatic detection found, and what is not covered without a legal plugin.
 
 == Changelog ==
+
+= 0.1.35 =
+* Preview mode can be left again. Once a shop manager had opened the preview, every later visit showed the Smart Checkout while the settings screen kept saying "off" — which reads like a broken switch. `?stmc_preview=0` (also "off", "no") clears the cookie and takes effect in the same request, and the settings screen now says out loud whenever the cookie is set: preview is on for you, this is why the checkout looks switched on, customers still see the standard checkout — with the link that ends it. Customers were never affected.
+
+= 0.1.34 =
+* Delivery time per line item — the last piece a shop without a legal plugin was missing in its checkout. Shown under every product in cart and checkout, resolved from the most specific source that knows one: a value typed onto this product (new field in the product's Shipping tab) wins, then Germanized's own delivery-time term (variation falling back to parent), then the shop-wide default. The `stmc_delivery_time` filter has the last word for shops that compute it from stock, a supplier feed or the shipping zone. Where a legal plugin already states the delivery time for a product, this one stays away — decided per product, not per shop.
+
+= 0.1.33 =
+* The two blues become settings. The step-heading blue and the field-label blue were hardcoded in the token file, which made them the only colors a shop could not change; both are colour settings on the Design tab now, with their current values as defaults, so nothing shifts visually. They stay deliberately separate from "Heading color" — labels are read while filling in, headings while orienting, and one colour for both flattens the form into a grey block. The reassurance note moves back between the consent boxes and the buy button, where it comments on the consent right above it.
+
+= 0.1.32 =
+* The order summary states its VAT. With gross prices WooCommerce prints no tax row at all, reasoning that the price already contains it — so on a shop whose legal plugin has stopped rendering, the summary charges VAT and says nothing about it. The checkout now states it itself, one row per tax rate beside the other money lines, wherever no legal plugin is doing it. The percentage comes from the tax rate, never from its name: shops name their rates freely, and a legal statement must not depend on what someone typed into a settings field.
+
+= 0.1.31 =
+* Lite and Pro become two plugins. The withdrawal complex, the mobile sticky order bar and the ultra-compact layout move to a separate STM Smart Checkout Pro plugin, so the free plugin neither carries nor loads paid code. Lite grows the extension points that make an add-on possible instead of a fork: `stmc_settings_fields`, `stmc_admin_tab_fields`, `stmc_admin_tab_{slug}`, `stmc_layouts`, `stmc_layout_labels` and public row helpers, so both plugins speak one visual language. New `STMC_Settings::layout()` resolves the effective layout from the raw option, so a stored layout whose provider is momentarily absent degrades to its nearest relative instead of silently falling back to the default.
+
+= 0.1.30 =
+* The checkout stands on its own legally. For shops with neither Germanized nor German Market, the plugin now owns the buy-button label wherever no legal plugin sets one (§ 312j BGB) — previously a compliant label arrived only by way of WooCommerce's German translation, which is accidental compliance, not compliance. Priority 5, so anything hooking later keeps the last word, and a setting for shops with their own wording. Plus a slot for the information that must be readable in the same glance as the button, printed inside the place-order row so it travels with the button wherever the layout moves it. The settings screen now says plainly what the plugin does not cover when no legal plugin is present.
+
+= 0.1.29 =
+* Font size in pixels. The type scale had one knob expressed as a percentage of rem, which handed the real size to the theme's root font size — the same setting rendered differently on two shops. It is a pixel value now, with every step a fixed ratio of it, chosen to reproduce the previous scale exactly at the 15px default; the old percentage is migrated rather than reset. Payment rows stay one row: a gateway setting `display:block` inline on its own rows made the block-level label start a new line, stranding the radio above it — an inline-flex label sits beside the radio there and is blockified back to flex where the row is flex, so nothing changes elsewhere. No `!important` involved.
+
+= 0.1.28 =
+* The consent box detects the legal plugin itself. The switch becomes a three-way choice with Automatic as the default: the box asks the checkout whether a legal plugin is actually printing consent boxes, and only steps in when none is. Asked by hook, never by "is the plugin installed" — that distinction is the whole feature: a legal plugin can sit there active and configured and still render nothing, and a presence check would leave such a checkout with no consent at all. The decision is recorded and shown on the settings screen, because automatic behaviour nobody can inspect is how a checkout ends up legally naked without anyone noticing.
+
+= 0.1.27 =
+* The checkout can carry its own legal consent — one required checkbox for terms and cancellation policy, seated between the grand total and the buy button, rendered with WooCommerce's own terms-wrapper class names so the existing card chrome, switch and invalid state apply. Links fill themselves from the pages the shop already registered; a placeholder whose page is unknown keeps its plain words instead of producing a dead link. Server-side validation reuses the existing required-checkbox path, and the acceptance is written onto the order together with the exact wording shown — a stored "yes" pointing at today's text proves nothing about last year's order. Order notes become a one-line disclosure at the end of the address column, so the field that hardly anyone fills stops costing a card and a step number.
 
 = 0.1.26 =
 * DHL preferred services join the payment column, right under the methods — the integration only re-prioritizes their hook, so everything Shiptastic built (its script, refresh behavior, conditions) keeps working untouched. And a new default makes the totals block third-party-proof: any unknown row a plugin prints into the totals now lands after the grand total automatically — extras can never interrupt the money story again.

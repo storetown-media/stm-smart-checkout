@@ -91,9 +91,6 @@ msgstr "Zusätzlich auszublendende CSS-Selektoren (fortgeschritten)"
 msgid "Fixes the duplicate \"Land\" label for IE/GB/HU in German shops."
 msgstr "Behebt die doppelte Beschriftung „Land“ bei IE/GB/HU in deutschen Shops."
 
-msgid "Font scale"
-msgstr "Schriftgröße"
-
 msgid "General"
 msgstr "Allgemein"
 
@@ -342,12 +339,6 @@ msgstr "Immer"
 msgid "Never (CSS fallback only)"
 msgstr "Nie (nur CSS-Fallback)"
 
-msgid "Legal links in the checkout footer"
-msgstr "Rechtslinks im Kassen-Fuß"
-
-msgid "Shown under the full-page checkout — pick the menu with imprint, privacy and terms."
-msgstr "Erscheint unter der Vollseiten-Kasse — wählen Sie das Menü mit Impressum, Datenschutz und AGB."
-
 msgid "Checkout footer: pages"
 msgstr "Kassen-Fuß: Seiten"
 
@@ -369,14 +360,8 @@ msgstr "Alternative zur Einzelauswahl: ein ganzes Menü (typisch Ihr Rechts-Men�
 msgid "Legal links"
 msgstr "Rechtslinks"
 
-msgid "Privacy policy"
-msgstr "Datenschutzerklärung"
-
 msgid "The strongest distraction-free level: cart and checkout render through the plugin's own minimal page — the theme's header, menus and footer are never built at all. \"Automatic\" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working."
 msgstr "Die stärkste Ablenkungsfrei-Stufe: Warenkorb und Kasse laufen über die eigene Minimal-Seite des Plugins — Kopfbereich, Menüs und Fußbereich des Themes werden gar nicht erst aufgebaut. „Automatisch" nutzt sie nur bei Themes ohne eingebauten Adapter (The7 und Storefront haben einen und bleiben auf ihrem nativen Weg). Styles, Analytics, Consent-Tools und Chat-Widgets funktionieren weiter."
-
-msgid "The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the menu that carries them; it renders as a quiet line under the checkout. Without a choice, the WordPress privacy-policy page is linked as a minimum."
-msgstr "Die Vollseiten-Kasse ersetzt den Theme-Fußbereich — Impressum, Datenschutz und AGB müssen auf jeder Seite erreichbar bleiben. Wählen Sie das Menü, das sie trägt; es erscheint als ruhige Zeile unter der Kasse. Ohne Auswahl wird mindestens die WordPress-Datenschutzseite verlinkt."
 
 msgid "Order notes field (\"Additional information\")"
 msgstr "Bestellhinweise-Feld („Zusätzliche Informationen")"
@@ -444,35 +429,11 @@ msgstr "PLZ eintippen, der Ort füllt sich von selbst — für Deutschland, Öst
 msgid "Adds a small \"i\" next to \"Create an account?\" that explains what actually happens — whether a password is chosen or emailed, and what the account is good for. The wording is generated from your real registration settings, so it can never promise something else."
 msgstr "Ergänzt ein kleines „i" neben „Ein Konto erstellen?", das erklärt, was wirklich passiert — ob ein Passwort gewählt oder gemailt wird und wozu das Konto gut ist. Der Text entsteht aus Ihren echten Registrierungs-Einstellungen und kann daher nie etwas anderes versprechen."
 
-msgid "On phones, a slim bar with the order total and a buy button stays pinned at the bottom of the screen while the real button is out of view. Tapping it triggers the real button including every validation. Desktop never shows the bar."
-msgstr "Auf dem Handy bleibt eine schmale Leiste mit Gesamtsumme und Kauf-Knopf am unteren Bildschirmrand, solange der echte Knopf nicht sichtbar ist. Ein Tipp löst den echten Knopf samt aller Prüfungen aus. Am Desktop erscheint die Leiste nie."
-
 msgid "Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior."
 msgstr "Links in den Pflichtkästchen (AGB, Widerruf) öffnen den Rechtstext in einem Overlay, statt die Kasse zu verlassen. Der Text kommt von Ihren bestehenden Seiten — nichts wird doppelt gepflegt. Rechtsklick oder Mittelklick öffnet weiter die normale Seite; schlägt das Laden fehl, verhält sich der Link ganz normal."
 
 msgid "For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page."
 msgstr "Für site-spezifische Elemente, die der ablenkungsfreie Modus nicht kennt: ein CSS-Selektor pro Zeile, versteckt nur auf Warenkorb und Kasse. Beispiel: #mein-chat-widget. Verstecken Sie nie Ihre Rechtslinks im Fußbereich — die sind auf jeder Seite Pflicht."
-
-msgid "The EU \"withdrawal function\": a public online form (its page is created automatically) where guests and customers declare a withdrawal. A submission is never blocked by validation — soft matching links it to an order when possible — and every request lands under WooCommerce → Withdrawals with a status workflow and email notifications."
-msgstr "Die EU-„Widerrufsfunktion": ein öffentliches Online-Formular (die Seite wird automatisch angelegt), über das Gäste und Kunden den Widerruf erklären. Eine Einreichung wird nie durch Validierung blockiert — weiches Abgleichen ordnet sie nach Möglichkeit einer Bestellung zu — und jeder Antrag landet unter WooCommerce → Widerrufe mit Status-Workflow und E-Mail-Benachrichtigungen."
-
-msgid "Pick the menu that should carry the link to the withdrawal form — typically your footer legal menu, next to imprint and privacy. The link is appended automatically and removed again when this is switched off."
-msgstr "Wählen Sie das Menü, das den Link zum Widerrufsformular tragen soll — typisch das Rechts-Menü im Fußbereich, neben Impressum und Datenschutz. Der Link wird automatisch angehängt und beim Abschalten wieder entfernt."
-
-msgid "Every new withdrawal request is mailed to this address, including a direct link to the admin view. Leave empty to use the site admin email."
-msgstr "Jeder neue Widerrufsantrag geht per E-Mail an diese Adresse, mit Direktlink in die Verwaltungsansicht. Leer = die Admin-E-Mail der Website."
-
-msgid "Sends the customer an automatic \"we received your withdrawal\" receipt. It confirms receipt only — the actual assessment and refund stay with you."
-msgstr "Sendet dem Kunden automatisch eine „Wir haben Ihren Widerruf erhalten"-Bestätigung. Sie bestätigt nur den Eingang — Prüfung und Erstattung bleiben bei Ihnen."
-
-msgid "Controls the \"Withdraw this order\" button in My Account: it shows for this many days after the order. The legal period itself comes from your terms — 14 days is the EU minimum for consumers; a voluntary longer promise (e.g. 30 days) goes here."
-msgstr "Steuert den „Diese Bestellung widerrufen"-Knopf im Kundenkonto: Er erscheint so viele Tage nach der Bestellung. Die rechtliche Frist selbst steht in Ihren AGB — 14 Tage sind das EU-Minimum für Verbraucher; ein freiwillig längeres Versprechen (z. B. 30 Tage) gehört hierher."
-
-msgid "On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject."
-msgstr "An = der Knopf im Kundenkonto verschwindet nach Ablauf der Frist. Das öffentliche Formular bleibt trotzdem erreichbar — ein Widerruf darf nie an der Technik scheitern, und verspätete Anträge bewerten Sie, nicht die Software."
-
-msgid "Shows a short \"you can withdraw this order online at any time\" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text."
-msgstr "Zeigt auf der Bestellbestätigung einen kurzen Hinweis „Sie können online widerrufen" mit Link zum Formular. Transparenz, die Kunden honorieren — und weniger formlose Widerrufs-E-Mails."
 
 msgid "Browsers enforce required boxes only client-side — a broken script or a manipulated request could order without consent. This re-checks every required box (WooCommerce terms and Germanized) on the server and rejects the order with a normal error message. It stays silent when another plugin already reported the same box, so customers never read the same complaint twice."
 msgstr "Browser prüfen Pflichtkästchen nur clientseitig — ein kaputtes Skript oder eine manipulierte Anfrage könnte ohne Zustimmung bestellen. Diese Prüfung kontrolliert jedes Pflichtkästchen (WooCommerce-AGB und Germanized) noch einmal auf dem Server und lehnt die Bestellung mit normaler Fehlermeldung ab. Sie schweigt, wenn ein anderes Plugin dasselbe Kästchen bereits gemeldet hat — Kunden lesen nie zweimal dieselbe Beschwerde."
@@ -513,17 +474,11 @@ msgstr "Ränder von Karten und Feldern sowie die feinen Trennlinien zwischen Zei
 msgid "Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default."
 msgstr "Ecken-Rundung der Karten in Pixeln; Felder und Knöpfe skalieren mit. 0 = scharfe Ecken, 12 = der freundliche Standard."
 
-msgid "Scales every checkout font step together, layout untouched. 110% helps older audiences or brands with generous type; 90% packs more onto the screen."
-msgstr "Skaliert alle Schriftstufen der Kasse gemeinsam, das Layout bleibt unberührt. 110 % hilft älterem Publikum oder Marken mit großzügiger Schrift; 90 % bringt mehr auf den Schirm."
-
 msgid "The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height."
 msgstr "Das Logo in der Mitte des Kassen-Kopfbands. Leer = Ihr Site-Logo. Am besten wirkt eine breite, flache Fassung; angezeigt wird sie mit bis zu 46 px Höhe."
 
 msgid "Own consent box: terms and cancellation policy to tick"
 msgstr "Eigene Einwilligungs-Box: AGB und Widerrufsbelehrung zum Anklicken"
-
-msgid "Renders a required checkbox above the buy button. Stays out of the way while a legal plugin still prints its own box."
-msgstr "Rendert ein Pflicht-Kästchen über dem Kaufknopf. Hält sich zurück, solange ein Rechts-Plugin noch seine eigene Box druckt."
 
 msgid "Consent wording"
 msgstr "Einwilligungstext"
@@ -551,9 +506,6 @@ msgstr "Leer = die Seite, die Ihr Rechts-Plugin registriert hat, sonst die Wider
 
 msgid "Show order notes as an expandable line"
 msgstr "Bestellhinweise als aufklappbare Zeile zeigen"
-
-msgid "The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Meant for shops without a legal plugin — it switches itself off as long as WooCommerce or Germanized still print their own box, because two consent boxes leave nobody knowing which one binds. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts."
-msgstr "Die Einwilligungs-Box für AGB und Widerrufsbelehrung, gerendert von diesem Plugin: ein Pflicht-Kästchen zwischen Gesamtsumme und Kaufknopf, serverseitig geprüft und samt des exakten Wortlauts, den der Kunde gesehen hat, auf die Bestellung geschrieben. Gedacht für Shops ohne Rechts-Plugin — sie schaltet sich selbst ab, solange WooCommerce oder Germanized noch ihre eigene Box drucken, denn bei zwei Einwilligungs-Boxen weiß niemand mehr, welche bindet. Das ist eine Layout- und Technik-Funktion, keine Rechtsberatung: welche Einwilligung Ihr Shop braucht, beantwortet, wer Ihre Rechtstexte schreibt."
 
 msgid "The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link."
 msgstr "Der Satz neben dem Kästchen. Leer lassen für den eingebauten. Wörter in {terms}…{/terms} oder {revocation}…{/revocation} einfassen, um sie in Links auf die Seiten unten zu verwandeln — dieselbe Platzhalter-Schreibweise wie bei Germanized, ein vorhandener Satz lässt sich also direkt einfügen. Ein Platzhalter, dessen Seite unbekannt ist, behält seinen reinen Text, statt einen toten Link zu erzeugen."
@@ -693,3 +645,4 @@ msgstr "Der Vorschau-Modus ist für Sie aktiv. Deshalb zeigt die Kasse den Smart
 
 msgid "End preview"
 msgstr "Vorschau beenden"
+

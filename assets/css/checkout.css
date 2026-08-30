@@ -1421,13 +1421,31 @@ body.stmc-checkout .woocommerce-additional-fields:has(> .stmc-notes-toggle[aria-
 }
 
 /* Delivery time under the product name — a legal duty, so it is readable,
-   and quiet, so it never competes with the product it describes. */
+   and quiet, so it never competes with the product it describes.
+
+   UNDER, and that takes three declarations rather than one. Legal plugins wrap
+   the item name in a container of their own, and on STM that wrapper turns out
+   to be a nowrap flex row (from a stylesheet no scan can read — the
+   adoptedStyleSheets trap). A block-level span in a nowrap flex row is not a
+   block, it is a squeezed column: measured 18px wide and 122px tall, one
+   letter per line. So the line claims a full row of its own (flex-basis 100%),
+   the wrapper is allowed to wrap in the first place, and order:99 sends it
+   behind the quantity stepper instead of pushing that onto a third line. All
+   three are inert wherever the cell is a plain block, which is the common
+   case. */
 body.stmc-checkout .stmc-delivery-time {
 	display: block;
+	flex: 1 0 100%;
+	order: 99;
 	margin: 2px 0 0;
 	font-size: var(--stmc-fs-xs);
 	line-height: 1.45;
 	color: var(--stmc-muted);
+}
+
+body.stmc-checkout #order_review td.product-name *:has(> .stmc-delivery-time),
+body.stmc-checkout .shop_table.cart td.product-name *:has(> .stmc-delivery-time) {
+	flex-wrap: wrap;
 }
 
 /* ---------- 13b. Legal checkboxes (Germanized + Woo terms) ---------- */

@@ -669,3 +669,21 @@ msgstr "Das Blau der nummerierten Schritt-überschriften — „Rechnungsdetails
 
 msgid "The blue of the field labels above the inputs. A shade of its own on purpose: labels are read while filling in, headings while orienting, and giving them the same color flattens the form into one grey block. Contrast against the card background matters more here than anywhere else — this is the text people read most."
 msgstr "Das Blau der Feldbeschriftungen über den Eingabefeldern. Bewusst ein eigener Ton: Beschriftungen liest man beim Ausfüllen, Überschriften beim Orientieren — dieselbe Farbe für beides flacht das Formular zu einem grauen Block ab. Der Kontrast zum Kartenhintergrund zählt hier mehr als anderswo: das ist der Text, den man am meisten liest."
+
+msgid "Delivery time"
+msgstr "Lieferzeit"
+
+msgid "Shown under this product in cart and checkout. Empty = the shop-wide default."
+msgstr "Wird unter diesem Produkt in Warenkorb und Kasse gezeigt. Leer = der shopweite Standard."
+
+msgid "Delivery time (shop-wide default)"
+msgstr "Lieferzeit (shopweiter Standard)"
+
+msgid "Example: 2-4 working days. Shown under every product; a product with its own value overrides it."
+msgstr "Beispiel: 2–4 Werktage. Wird unter jedem Produkt gezeigt; ein Produkt mit eigenem Wert sticht ihn."
+
+msgid "The delivery time shown under every product in cart and checkout — one of the things a customer has to be told before ordering, and the single most common reason for a \"where is my parcel\" email when it is missing. Write it the way you would say it: \"2-4 working days\", \"ships tomorrow\". A product with its own delivery time overrides this, and where a legal plugin already maintains delivery times this plugin reads THOSE rather than asking you to type them a second time. Empty prints nothing."
+msgstr "Die Lieferzeit unter jedem Produkt in Warenkorb und Kasse — eine der Angaben, die ein Kunde vor der Bestellung erfahren muss, und der häufigste Grund für eine „Wo bleibt mein Paket“-Mail, wenn sie fehlt. Schreiben Sie sie, wie Sie sie sagen würden: „2–4 Werktage“, „versandfertig morgen“. Ein Produkt mit eigener Lieferzeit sticht diesen Wert, und wo ein Rechts-Plugin bereits Lieferzeiten pflegt, liest dieses Plugin JENE, statt sie ein zweites Mal abzufragen. Leer gibt nichts aus."
+
+msgid "Delivery time: %s"
+msgstr "Lieferzeit: %s"

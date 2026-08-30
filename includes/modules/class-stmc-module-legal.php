@@ -55,6 +55,15 @@ class STMC_Module_Legal extends STMC_Module {
 			add_action( 'woocommerce_review_order_after_order_total', array( $this, 'vat_note' ) );
 		}
 
+		/*
+		 * Delivery time per line item. Registered before the checkout-surface
+		 * guard for the same reason as the VAT row: the summary is re-rendered
+		 * inside ?wc-ajax=..., where is_checkout() is false.
+		 */
+		if ( $this->delivery_enabled() ) {
+			add_filter( 'woocommerce_cart_item_name', array( $this, 'item_delivery_time' ), 60, 2 );
+		}
+
 		if ( ! is_checkout() || ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) ) {
 			return;
 		}
@@ -145,7 +154,7 @@ class STMC_Module_Legal extends STMC_Module {
 			return $decision;
 		}
 
-		$foreign  = $this->legal_plugin_renders_consent();
+		$foreign  = self::legal_plugin_renders_consent();
 		$decision = ( 'on' === $mode ) ? true : ( '' === $foreign );
 
 		self::remember_detection( $foreign, $decision, $mode );
@@ -166,7 +175,7 @@ class STMC_Module_Legal extends STMC_Module {
 	 *
 	 * @return string Identifier of the delivering plugin, '' when none is.
 	 */
-	private function legal_plugin_renders_consent() {
+	public static function legal_plugin_renders_consent() {
 		// Germanized renders the checkout boxes here, and carries them inside
 		// its own submit block when its checkout templates are in charge.
 		if ( has_action( 'woocommerce_review_order_after_payment', 'woocommerce_gzd_template_render_checkout_checkboxes' )
@@ -255,6 +264,97 @@ class STMC_Module_Legal extends STMC_Module {
 		return is_array( $note ) && isset( $note['plugin'], $note['own'] ) ? $note : null;
 	}
 
+	const DELIVERY_META = '_stmc_delivery_time';
+
+	/**
+	 * Is this plugin responsible for showing delivery times?
+	 *
+	 * Only where a legal plugin is not already doing it — Germanized prints its
+	 * own under every line and two of them would contradict each other the
+	 * moment one is edited.
+	 *
+	 * @return bool
+	 */
+	private function delivery_enabled() {
+		return '' === self::legal_plugin_renders_consent();
+	}
+
+	/**
+	 * The delivery time for one product, from the most specific source that
+	 * knows one.
+	 *
+	 * The order matters. A value typed onto THIS product is a deliberate
+	 * statement and beats everything. Next comes the legal plugin's own data:
+	 * a shop that keeps Germanized has maintained those terms for years, and
+	 * re-typing them here would only create a second truth to drift from. The
+	 * shop-wide default is the fallback, not the rule.
+	 *
+	 * @param WC_Product|null $product Product or variation.
+	 * @return string
+	 */
+	private function delivery_time_for( $product ) {
+		if ( ! is_object( $product ) || ! method_exists( $product, 'get_id' ) ) {
+			return '';
+		}
+
+		$ids = array( (int) $product->get_id() );
+		if ( method_exists( $product, 'get_parent_id' ) && $product->get_parent_id() ) {
+			$ids[] = (int) $product->get_parent_id();
+		}
+
+		foreach ( $ids as $id ) {
+			$own = trim( (string) get_post_meta( $id, self::DELIVERY_META, true ) );
+			if ( '' !== $own ) {
+				return $own;
+			}
+		}
+
+		// Germanized keeps delivery times as a taxonomy on the product.
+		if ( taxonomy_exists( 'product_delivery_time' ) ) {
+			foreach ( $ids as $id ) {
+				$terms = get_the_terms( $id, 'product_delivery_time' );
+				if ( is_array( $terms ) && ! empty( $terms[0]->name ) ) {
+					return (string) $terms[0]->name;
+				}
+			}
+		}
+
+		$time = trim( (string) STMC_Settings::get( 'legal.delivery_time' ) );
+
+		/**
+		 * The delivery time shown for one product.
+		 *
+		 * Last word for shops that compute it — from stock, from a supplier
+		 * feed, from the shipping zone. Return an empty string to show none.
+		 *
+		 * @param string     $time    Resolved delivery time.
+		 * @param WC_Product $product The product or variation.
+		 */
+		return (string) apply_filters( 'stmc_delivery_time', $time, $product );
+	}
+
+	/**
+	 * Appends the delivery time under the product name in cart and checkout.
+	 *
+	 * @param string $name      Item name HTML.
+	 * @param array  $cart_item Cart item.
+	 * @return string
+	 */
+	public function item_delivery_time( $name, $cart_item ) {
+		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
+		if ( ! $product || ( method_exists( $product, 'is_virtual' ) && $product->is_virtual() ) ) {
+			return $name;
+		}
+		$time = $this->delivery_time_for( $product );
+		if ( '' === $time ) {
+			return $name;
+		}
+		return $name . '<span class="stmc-delivery-time">'
+			/* translators: %s: the shop's delivery time, e.g. "2-4 working days". */
+			. esc_html( sprintf( __( 'Delivery time: %s', 'stm-smart-checkout' ), $time ) )
+			. '</span>';
+	}
+
 	/**
 	 * Should this plugin print the VAT line?
 	 *
@@ -266,7 +366,7 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @return bool
 	 */
 	private function vat_note_enabled() {
-		if ( ! STMC_Settings::get( 'legal.vat_note' ) || '' !== $this->legal_plugin_renders_consent() ) {
+		if ( ! STMC_Settings::get( 'legal.vat_note' ) || '' !== self::legal_plugin_renders_consent() ) {
 			return false;
 		}
 		if ( ! function_exists( 'wc_tax_enabled' ) || ! wc_tax_enabled() ) {
@@ -322,7 +422,7 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @return bool
 	 */
 	private function button_owner() {
-		return '' === $this->legal_plugin_renders_consent();
+		return '' === self::legal_plugin_renders_consent();
 	}
 
 	/**

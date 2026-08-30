@@ -17,8 +17,48 @@ class STMC_Admin {
 
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
+		// Product-level delivery time, in the tab where shipping data belongs.
+		add_action( 'woocommerce_product_options_shipping', array( __CLASS__, 'product_delivery_field' ) );
+		add_action( 'woocommerce_process_product_meta', array( __CLASS__, 'save_product_delivery_field' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( STMC_FILE ), array( __CLASS__, 'action_links' ) );
+	}
+
+	/**
+	 * One text field, deliberately free-form. Germanized models delivery times
+	 * as a taxonomy, which is the right call for a shop maintaining dozens of
+	 * them — but a shop that has none should not have to build a vocabulary
+	 * before it can write "ships tomorrow" on one product.
+	 */
+	public static function product_delivery_field() {
+		if ( ! function_exists( 'woocommerce_wp_text_input' ) ) {
+			return;
+		}
+		woocommerce_wp_text_input(
+			array(
+				'id'          => STMC_Module_Legal::DELIVERY_META,
+				'label'       => __( 'Delivery time', 'stm-smart-checkout' ),
+				'description' => __( 'Shown under this product in cart and checkout. Empty = the shop-wide default.', 'stm-smart-checkout' ),
+				'desc_tip'    => true,
+			)
+		);
+	}
+
+	/**
+	 * @param int $post_id Product being saved.
+	 */
+	public static function save_product_delivery_field( $post_id ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// WooCommerce verified its own product nonce before this hook fires.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$value = isset( $_POST[ STMC_Module_Legal::DELIVERY_META ] ) ? sanitize_text_field( wp_unslash( $_POST[ STMC_Module_Legal::DELIVERY_META ] ) ) : '';
+		if ( '' === $value ) {
+			delete_post_meta( $post_id, STMC_Module_Legal::DELIVERY_META );
+			return;
+		}
+		update_post_meta( $post_id, STMC_Module_Legal::DELIVERY_META, $value );
 	}
 
 	public static function menu() {
@@ -130,6 +170,7 @@ class STMC_Admin {
 						<?php self::row_consent_detection(); ?>
 						<?php self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'legal.consent_error', __( 'Consent error message', 'stm-smart-checkout' ), __( 'Shown when the box is left unticked. Empty = the built-in message.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'legal.delivery_time', __( 'Delivery time (shop-wide default)', 'stm-smart-checkout' ), __( 'Example: 2-4 working days. Shown under every product; a product with its own value overrides it.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.vat_note', __( 'Show the VAT included in the order summary', 'stm-smart-checkout' ), __( 'Only with gross prices, and only while no legal plugin already prints it.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_text( 'legal.button_text', __( 'Buy button label', 'stm-smart-checkout' ), __( 'Empty = "Order with obligation to pay". Only used while no legal plugin sets the label itself.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'legal.button_notice', __( 'Information directly above the button', 'stm-smart-checkout' ), __( 'Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed.', 'stm-smart-checkout' ) ); ?>
@@ -249,7 +290,7 @@ class STMC_Admin {
 			'legal'    => array(
 				'legal.validate_checkboxes', 'legal.guarantee_title', 'legal.guarantee_text',
 				'legal.consent', 'legal.consent_text', 'legal.consent_error', 'legal.terms_page', 'legal.revocation_page',
-				'legal.button_text', 'legal.button_notice', 'legal.vat_note',
+				'legal.button_text', 'legal.button_notice', 'legal.vat_note', 'legal.delivery_time',
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.title', 'design.label', 'design.text', 'design.muted',
@@ -339,6 +380,7 @@ class STMC_Admin {
 				'focus.extra_hide_selectors'        => __( 'For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page.', 'stm-smart-checkout' ),
 
 				'legal.consent'                     => __( 'The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts.', 'stm-smart-checkout' ),
+				'legal.delivery_time'               => __( 'The delivery time shown under every product in cart and checkout — one of the things a customer has to be told before ordering, and the single most common reason for a "where is my parcel" email when it is missing. Write it the way you would say it: "2-4 working days", "ships tomorrow". A product with its own delivery time overrides this, and where a legal plugin already maintains delivery times this plugin reads THOSE rather than asking you to type them a second time. Empty prints nothing.', 'stm-smart-checkout' ),
 				'legal.vat_note'                    => __( 'With gross prices WooCommerce prints no tax row at all — its own template skips them, on the reasoning that the price already contains the tax. German shops still have to state it, which is normally a legal plugin’s job; where none is doing it, this line fills the gap: one row per tax rate, right beside the other money lines. The percentage is read from the tax rate itself, never from its name, because shops name their rates freely and a legal statement must not depend on that. Off with net prices anyway — WooCommerce prints its own rows there and two would state the same amount twice.', 'stm-smart-checkout' ),
 				'legal.button_text'                 => __( 'The label on the buy button. German law (BGB 312j) requires it to say that ordering costs money — WooCommerce ships "Place order", which does not, and courts have rejected softer wordings. This plugin therefore sets a compliant default wherever no legal plugin sets the label itself; where Germanized or German Market do, theirs wins and this field is ignored. Change it only for a wording you know is equivalent.', 'stm-smart-checkout' ),
 				'legal.button_notice'                => __( 'A short text printed immediately above the buy button, where the essential information about the order has to be readable (BGH; LG Berlin 2024): delivery time, the essential characteristics of what is being bought. Keep it to the duty — this is the last thing a customer reads before deciding, and every extra sentence here costs orders. Empty prints nothing.', 'stm-smart-checkout' ),

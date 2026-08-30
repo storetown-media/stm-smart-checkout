@@ -52,6 +52,7 @@ class STMC_Settings {
 			'legal.consent_text'     => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.consent_error'    => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.vat_note'         => array( 'type' => 'bool', 'default' => true ),
+			'legal.delivery_time'    => array( 'type' => 'text', 'default' => '' ),
 			'legal.button_text'      => array( 'type' => 'text', 'default' => '' ),
 			'legal.button_notice'    => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.terms_page'       => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),

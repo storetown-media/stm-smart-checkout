@@ -1398,6 +1398,16 @@ body.stmc-checkout .woocommerce-additional-fields:has(> .stmc-notes-toggle[aria-
 	box-shadow: none;
 }
 
+/* Delivery time under the product name — a legal duty, so it is readable,
+   and quiet, so it never competes with the product it describes. */
+body.stmc-checkout .stmc-delivery-time {
+	display: block;
+	margin: 2px 0 0;
+	font-size: var(--stmc-fs-xs);
+	line-height: 1.45;
+	color: var(--stmc-muted);
+}
+
 /* ---------- 13b. Legal checkboxes (Germanized + Woo terms) ---------- */
 
 /* Only shells that actually hold a checkbox/text get card chrome — Germanized

@@ -484,15 +484,29 @@ class STMC_Admin {
 		self::row_close( $desc );
 	}
 
+	/*
+	 * Let the dropdown RETURN its markup and escape it at the echo point.
+	 * Printing it directly is what a reader would write, but the sniff cannot
+	 * see into wp_dropdown_pages() and reads every argument as unescaped
+	 * output — the same lesson that cost v0.1.18: escape where you echo.
+	 */
 	private static function row_page( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
-		wp_dropdown_pages(
+		$dropdown = wp_dropdown_pages(
 			array(
 				'name'              => self::name( $key ),
 				'id'                => 'stmc-' . str_replace( '.', '-', $key ),
 				'selected'          => (int) STMC_Settings::get( $key ),
 				'show_option_none'  => __( '— automatic —', 'stm-smart-checkout' ),
 				'option_none_value' => '0',
+				'echo'              => false,
+			)
+		);
+		echo wp_kses(
+			$dropdown,
+			array(
+				'select' => array( 'name' => array(), 'id' => array(), 'class' => array() ),
+				'option' => array( 'value' => array(), 'selected' => array(), 'class' => array() ),
 			)
 		);
 		self::row_close( $desc );

@@ -87,6 +87,8 @@ No. No remote fonts, no tracking, no external requests. The postcode databases f
 2. The buy zone in reading order — totals, required consent, reassurance note, buy button, trust row.
 3. Terms and cancellation policy open in an overlay, without leaving the checkout.
 4. The same checkout on a phone: one column, reachable targets, express buttons kept.
+5. The design tab — layout, the two blues, font size in pixels, every setting with its own plain-language help bubble.
+6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
 

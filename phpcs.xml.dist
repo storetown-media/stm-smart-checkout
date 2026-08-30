@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset name="STM Smart Checkout">
+	<description>
+		Die Gates, an denen eine wp.org-Einreichung tatsaechlich scheitert:
+		Sicherheit, Datenbank, Textdomain und die Frage, ob der Code wirklich
+		auf der im Header versprochenen PHP-Version laeuft.
+
+		Bewusst NICHT der volle WordPress-Standard: dessen Stil- und
+		Dokumentationsregeln (Yoda-Bedingungen, Kommentarformate, Ausrichtung)
+		erzeugen Hunderte Meldungen, die mit der Freigabe nichts zu tun haben
+		und die echten Funde darin begraben wuerden.
+	</description>
+
+	<file>.</file>
+	<exclude-pattern>/.git/</exclude-pattern>
+	<exclude-pattern>/.github/</exclude-pattern>
+	<exclude-pattern>/.wordpress-org/</exclude-pattern>
+	<exclude-pattern>/data/</exclude-pattern>
+	<exclude-pattern>/languages/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/vendor/</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="parallel" value="8"/>
+	<arg value="ps"/>
+
+	<!--
+		Sicherheit: unsanitisierte Eingaben, fehlendes Escaping am Ausgabepunkt,
+		fehlende Nonces. Das ist die Kategorie, wegen der Plugins abgelehnt werden.
+	-->
+	<rule ref="WordPress.Security"/>
+	<rule ref="WordPress.DB"/>
+
+	<!-- Skripte/Styles gehoeren in die Queue, nicht als <script> in die Seite. -->
+	<rule ref="WordPress.WP.EnqueuedResources"/>
+	<rule ref="WordPress.WP.GlobalVariablesOverride"/>
+	<rule ref="WordPress.WP.DeprecatedFunctions"/>
+
+	<!-- Textdomain: ein Tippfehler laesst den String still auf Englisch stehen. -->
+	<rule ref="WordPress.WP.I18n"/>
+	<config name="text_domain" value="stm-smart-checkout"/>
+
+	<!--
+		Der Header verspricht "Requires PHP: 7.4". php -l findet nur Syntaxfehler;
+		eine PHP-8-Funktion auf einem 7.4-Shop ist syntaktisch tadellos und faellt
+		erst beim Kunden auf die Nase.
+	-->
+	<config name="testVersion" value="7.4-"/>
+	<rule ref="PHPCompatibilityWP"/>
+</ruleset>

@@ -31,7 +31,41 @@ jobs:
         uses: wordpress/plugin-check-action@v1
         with:
           build-dir: './'
+          # All five categories, named explicitly. They are also the action's
+          # default, but a default can change under us — and "security" and
+          # "plugin_repo" are exactly the two we must not silently lose.
+          categories: |
+            general
+            plugin_repo
+            security
+            performance
+            accessibility
           # Every error blocks the merge — the same gate wp.org applies on submission.
           exclude-directories: '.github'
-          # Repo-only file; build-zip.py never ships it.
-          exclude-files: '.gitignore'
+          # Repo-only files; build-zip.py ships neither.
+          exclude-files: |
+            .gitignore
+            phpcs.xml.dist
+
+  phpcs:
+    name: Security & PHP 7.4 compatibility (PHPCS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: cs2pr
+      - name: Install PHPCS with the WordPress and PHPCompatibility rulesets
+        run: |
+          set -e
+          composer init --quiet --no-interaction --name=stm/smart-checkout-cs
+          composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer require --dev --no-interaction --no-progress \
+            wp-coding-standards/wpcs:^3.1 \
+            phpcompatibility/phpcompatibility-wp:^2.1
+      - name: Run PHPCS
+        # Config lives in phpcs.xml.dist: WordPress.Security, WordPress.DB,
+        # I18n, and PHPCompatibility against the 7.4 floor the header promises.
+        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr

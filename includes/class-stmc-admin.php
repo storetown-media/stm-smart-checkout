@@ -107,7 +107,22 @@ class STMC_Admin {
 
 		$checkout_url    = function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/' );
 		$preview_url     = add_query_arg( STMC_Checkout_Context::PREVIEW_PARAM, '1', $checkout_url );
-		$preview_off_url = add_query_arg( STMC_Checkout_Context::PREVIEW_PARAM, '0', $checkout_url );
+		/*
+		 * "off", not "0". This plugin accepts both, but a site can bring its own
+		 * preview gate through the stmc_active filter — the STM adapter does,
+		 * with its own HttpOnly cookie, and it listens for "off" alone. A link
+		 * that only speaks our dialect would have left the preview running and
+		 * looked broken doing it.
+		 */
+		$preview_off_url = add_query_arg( STMC_Checkout_Context::PREVIEW_PARAM, 'off', $checkout_url );
+
+		/*
+		 * Ask whether the checkout is actually rendering, not whether OUR
+		 * cookie is set. Preview can also arrive through the stmc_active
+		 * filter, and the question a shop owner has is the same either way:
+		 * the switch says off, so why is it on?
+		 */
+		$forced_on = ! STMC_Settings::get( 'general.enabled' ) && STMC_Checkout_Context::is_active();
 		?>
 		<div class="wrap stmc-settings">
 			<style>
@@ -141,7 +156,7 @@ class STMC_Admin {
 				<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open checkout preview', 'stm-smart-checkout' ); ?></a>
 			</p>
 
-			<?php if ( STMC_Checkout_Context::preview_cookie_set() ) : ?>
+			<?php if ( $forced_on ) : ?>
 				<?php
 				/*
 				 * The one message this screen owes its reader: preview mode is

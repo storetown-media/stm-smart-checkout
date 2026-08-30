@@ -143,16 +143,4 @@ class STMC_Checkout_Context {
 		}
 	}
 
-	/**
-	 * Is the preview cookie currently set for this user? Read by the settings
-	 * screen, which is the one place a shop owner looks when the checkout does
-	 * not match the switch.
-	 *
-	 * @return bool
-	 */
-	public static function preview_cookie_set() {
-		return is_user_logged_in()
-			&& current_user_can( 'manage_woocommerce' )
-			&& ! empty( $_COOKIE[ self::PREVIEW_PARAM ] );
-	}
 }

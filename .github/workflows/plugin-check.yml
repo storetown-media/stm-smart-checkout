@@ -73,7 +73,9 @@ jobs:
         run: |
           set -e
           erwartet=$(find . -name '*.php' -not -path './vendor/*' -not -path './.git/*' | wc -l)
-          geprueft=$(vendor/bin/phpcs --report=json 2>/dev/null | jq '.files | length' || echo 0)
+          # -q ist Pflicht: das Ruleset schaltet den Fortschrittsanzeiger ein, und
+          # dessen Punkte landen auf stdout — mitten im JSON, das jq lesen soll.
+          geprueft=$(vendor/bin/phpcs -q --report=json 2>/dev/null | jq '.files | length' 2>/dev/null || echo 0)
           echo "PHP-Dateien im Baum: $erwartet — von PHPCS geprüft: $geprueft"
           if [ "$geprueft" -lt "$erwartet" ]; then
             echo "::error::PHPCS inspected $geprueft of $erwartet PHP files — the ruleset is not reaching the code."

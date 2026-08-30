@@ -1663,7 +1663,8 @@ body.stmc-checkout #order_review table.shop_table tfoot tr.woocommerce-shipping-
 body.stmc-checkout #order_review table.shop_table tfoot tr.shipping,
 body.stmc-checkout #order_review table.shop_table tfoot tr.fee,
 body.stmc-checkout #order_review table.shop_table tfoot tr.tax-total,
-body.stmc-checkout #order_review table.shop_table tfoot tr.order-tax { order: 2; }
+body.stmc-checkout #order_review table.shop_table tfoot tr.order-tax,
+body.stmc-checkout #order_review table.shop_table tfoot tr.stmc-vat-note { order: 2; }
 body.stmc-checkout #order_review table.shop_table tfoot tr.stm-net-row { order: 3; }
 body.stmc-checkout #order_review table.shop_table tfoot tr[class*="paylater"] { order: 4; }
 body.stmc-checkout #order_review table.shop_table tfoot tr.order-total { order: 5; }

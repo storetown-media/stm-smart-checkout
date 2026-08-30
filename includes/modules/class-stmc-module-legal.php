@@ -36,31 +36,36 @@ class STMC_Module_Legal extends STMC_Module {
 		// afterwards is worth little. Same reason it records the exact wording.
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'record_consent' ), 20 );
 
+		/*
+		 * VAT has to be visible, and WooCommerce hides it exactly where German
+		 * shops need it: with gross prices its review-order template prints no
+		 * tax row at all, on the reasoning that the price already contains the
+		 * tax. A legal plugin normally fills that in — measured on a live shop
+		 * whose Germanized had stopped rendering: 25,23 € of VAT charged and not
+		 * one word about it in the summary.
+		 *
+		 * Registered BEFORE the checkout-surface guard, for the same reason the
+		 * validator above is: update_order_review arrives as ?wc-ajax=..., where
+		 * is_checkout() is still false while modules boot on 'wp'. The first
+		 * totals refresh would otherwise replace a table that HAS the VAT row
+		 * with one that does not — which is exactly what happened: the row sat
+		 * in the server HTML and was gone from the DOM.
+		 */
+		if ( $this->vat_note_enabled() ) {
+			add_action( 'woocommerce_review_order_after_order_total', array( $this, 'vat_note' ) );
+		}
+
 		if ( ! is_checkout() || ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) ) {
 			return;
 		}
 
 		/*
-		 * Reassurance note in the order part. Priority 11 keeps it inside the
-		 * part the three-column layout opened at priority 5 and after
-		 * Germanized's boxes (priority 10 on the same hook); flex order then
-		 * seats it BELOW the buy button, so it reads as a promise about the
-		 * decision just made and never as one more condition between the
-		 * grand total and the button.
-		 */
-		/*
-		 * Own consent box, priority 8: after the three-column layout opened the
-		 * order part (5) and before the reassurance note (11), so flex order 2
-		 * seats it between the grand total and the buy button — the place a
-		 * legal plugin would have used.
-		 */
-		/*
 		 * The buy button carries a legal duty of its own (BGB 312j: the label
-		 * must say that ordering costs money; "Bestellung abschicken" does
-		 * not). WooCommerce ships no such label, so a shop running this
-		 * checkout WITHOUT a legal plugin was one filter away from a
-		 * non-compliant button — and this plugin promises the opposite.
-		 * Priority 5 leaves the last word to anything hooking later.
+		 * must say that ordering costs money; "Bestellung abschicken" does not).
+		 * WooCommerce ships no such label, so a shop running this checkout
+		 * WITHOUT a legal plugin was one filter away from a non-compliant button
+		 * — and this plugin promises the opposite. Priority 5 leaves the last
+		 * word to anything hooking later.
 		 */
 		if ( $this->button_owner() ) {
 			add_filter( 'woocommerce_order_button_text', array( $this, 'button_text' ), 5 );
@@ -74,6 +79,12 @@ class STMC_Module_Legal extends STMC_Module {
 			add_action( 'woocommerce_gzd_review_order_before_submit', array( $this, 'button_notice' ), 20 );
 		}
 
+		/*
+		 * Own consent box, priority 8: after the three-column layout opened the
+		 * order part (5) and before the reassurance note (11), so flex order 2
+		 * seats it between the grand total and the buy button — the place a legal
+		 * plugin would have used.
+		 */
 		if ( $this->consent_enabled() ) {
 			add_action( 'woocommerce_review_order_after_payment', array( $this, 'consent_box' ), 8 );
 			/*
@@ -86,6 +97,14 @@ class STMC_Module_Legal extends STMC_Module {
 			add_filter( 'woocommerce_checkout_show_terms', '__return_false', 100 );
 		}
 
+		/*
+		 * Reassurance note in the order part. Priority 11 keeps it inside the
+		 * part the three-column layout opened at priority 5 and after
+		 * Germanized's boxes (priority 10 on the same hook); flex order then
+		 * seats it BELOW the buy button, so it reads as a promise about the
+		 * decision just made and never as one more condition between the grand
+		 * total and the button.
+		 */
 		if ( '' !== $this->guarantee_text() ) {
 			add_action( 'woocommerce_review_order_after_payment', array( $this, 'guarantee_notice' ), 11 );
 		}
@@ -165,7 +184,28 @@ class STMC_Module_Legal extends STMC_Module {
 		 *
 		 * @param string $plugin Identifier, '' when none delivers consent.
 		 */
-		return (string) apply_filters( 'stmc_legal_plugin_renders_consent', '' );
+		$filtered = (string) apply_filters( 'stmc_legal_plugin_renders_consent', '' );
+		if ( '' !== $filtered ) {
+			return $filtered;
+		}
+
+		/*
+		 * During wc-ajax the hooks are not a reliable witness. Germanized
+		 * registers its frontend hooks inside an `if ( ! wp_doing_ajax() )`,
+		 * so asking mid-fragment answers "nobody delivers consent" on a shop
+		 * where Germanized plainly does — and every line this module fills in
+		 * would be added a second time to the refreshed totals table (measured
+		 * on STM: the VAT row appeared twice after one update_checkout).
+		 * The answer remembered from the last full render is the truthful one.
+		 */
+		if ( wp_doing_ajax() ) {
+			$note = self::detection_note();
+			if ( is_array( $note ) && ! empty( $note['plugin'] ) ) {
+				return (string) $note['plugin'];
+			}
+		}
+
+		return '';
 	}
 
 	/**
@@ -213,6 +253,60 @@ class STMC_Module_Legal extends STMC_Module {
 	public static function detection_note() {
 		$note = get_option( self::DETECT_OPT );
 		return is_array( $note ) && isset( $note['plugin'], $note['own'] ) ? $note : null;
+	}
+
+	/**
+	 * Should this plugin print the VAT line?
+	 *
+	 * Only with GROSS prices: when the shop shows net prices WooCommerce
+	 * prints its own tax rows, and a second line would state the same amount
+	 * twice. And only where no legal plugin is delivering one, like every
+	 * other piece this module fills in.
+	 *
+	 * @return bool
+	 */
+	private function vat_note_enabled() {
+		if ( ! STMC_Settings::get( 'legal.vat_note' ) || '' !== $this->legal_plugin_renders_consent() ) {
+			return false;
+		}
+		if ( ! function_exists( 'wc_tax_enabled' ) || ! wc_tax_enabled() ) {
+			return false;
+		}
+		$cart = function_exists( 'WC' ) && WC()->cart ? WC()->cart : null;
+		return $cart && method_exists( $cart, 'display_prices_including_tax' ) && $cart->display_prices_including_tax();
+	}
+
+	/**
+	 * One row per tax rate: "incl. 19 % VAT — 25.23 €".
+	 *
+	 * The percentage comes from the rate, not from the rate's NAME: shops name
+	 * their rates freely ("Umsatzsteuer" on one shop, "MwSt. 19 % DE" on
+	 * another, both measured), and a legal statement must not depend on what
+	 * someone typed in a settings field.
+	 */
+	public function vat_note() {
+		$cart = function_exists( 'WC' ) && WC()->cart ? WC()->cart : null;
+		if ( ! $cart || ! method_exists( $cart, 'get_tax_totals' ) ) {
+			return;
+		}
+		foreach ( (array) $cart->get_tax_totals() as $tax ) {
+			if ( ! is_object( $tax ) || empty( $tax->formatted_amount ) ) {
+				continue;
+			}
+			$percent = '';
+			if ( class_exists( 'WC_Tax' ) && isset( $tax->tax_rate_id ) ) {
+				// "19%" out of WooCommerce, "19 %" into a German sentence.
+				$percent = trim( str_replace( '%', '', (string) WC_Tax::get_rate_percent( $tax->tax_rate_id ) ) );
+				$percent = '' === $percent ? '' : $percent . ' %';
+			}
+			$label = '' !== $percent
+				/* translators: %s: tax rate, e.g. "19 %". */
+				? sprintf( __( 'incl. %s VAT', 'stm-smart-checkout' ), $percent )
+				: sprintf( __( 'incl. %s', 'stm-smart-checkout' ), (string) $tax->label );
+
+			echo '<tr class="stmc-vat-note"><th>' . esc_html( $label ) . '</th><td>'
+				. wp_kses_post( $tax->formatted_amount ) . '</td></tr>';
+		}
 	}
 
 	/**

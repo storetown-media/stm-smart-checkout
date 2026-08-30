@@ -642,3 +642,18 @@ msgstr "Dieses Plugin deckt dann die Kasse selbst ab — Einwilligung, Knopfbesc
 
 msgid "Order with obligation to pay"
 msgstr "Zahlungspflichtig bestellen"
+
+msgid "Show the VAT included in the order summary"
+msgstr "Enthaltene MwSt. in der Bestellübersicht zeigen"
+
+msgid "Only with gross prices, and only while no legal plugin already prints it."
+msgstr "Nur bei Bruttopreisen, und nur solange kein Rechts-Plugin sie bereits ausgibt."
+
+msgid "With gross prices WooCommerce prints no tax row at all — its own template skips them, on the reasoning that the price already contains the tax. German shops still have to state it, which is normally a legal plugin’s job; where none is doing it, this line fills the gap: one row per tax rate, right beside the other money lines. The percentage is read from the tax rate itself, never from its name, because shops name their rates freely and a legal statement must not depend on that. Off with net prices anyway — WooCommerce prints its own rows there and two would state the same amount twice."
+msgstr "Bei Bruttopreisen gibt WooCommerce gar keine Steuerzeile aus — die eigene Vorlage überspringt sie mit der Begründung, der Preis enthalte die Steuer ja bereits. Deutsche Shops müssen sie trotzdem ausweisen, was normalerweise die Aufgabe eines Rechts-Plugins ist; wo keines das tut, schließt diese Zeile die Lücke: eine Zeile je Steuersatz, direkt bei den anderen Geldzeilen. Der Prozentsatz wird aus dem Steuersatz selbst gelesen, nie aus dessen Namen — Shops benennen ihre Sätze frei, und eine rechtliche Angabe darf davon nicht abhängen. Bei Nettopreisen ohnehin aus: dort gibt WooCommerce eigene Zeilen aus, und zwei würden denselben Betrag doppelt nennen."
+
+msgid "incl. %s VAT"
+msgstr "inkl. %s MwSt."
+
+msgid "incl. %s"
+msgstr "inkl. %s"

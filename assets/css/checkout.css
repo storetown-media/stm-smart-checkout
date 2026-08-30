@@ -86,19 +86,32 @@ body.stmc-checkout .stmc-band {
 	border-bottom: 1px solid var(--stmc-line);
 }
 
+/* One line, not three. The band is a header: logo left, the trust signals in
+   the space between, the login pill right. Stacked it cost 116px of a checkout
+   before the customer reached the first field — attention spent on chrome. The
+   trust row grows into whatever space is left and centers itself in it, so the
+   band still looks composed when a shop has a wide logo, no logo at all, or
+   the login button switched off. It wraps rather than squeezing: below the
+   phone breakpoint the stack comes back deliberately (section 14). */
 body.stmc-checkout .stmc-band__in {
 	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px 24px;
 	max-width: 1180px;
 	margin: 0 auto;
-	padding: 18px 24px 15px;
-	text-align: center;
+	padding: 12px 24px;
+	text-align: left;
 }
 
 body.stmc-checkout .stmc-band__logo {
 	display: block;
+	flex: 0 0 auto;
 	width: auto;
-	height: 38px;
-	margin: 0 auto;
+	height: 34px;
+	margin: 0;
 }
 
 body.stmc-checkout .stmc-band__sitename {
@@ -110,11 +123,12 @@ body.stmc-checkout .stmc-band__sitename {
 
 body.stmc-checkout .stmc-band__trust {
 	display: flex;
+	flex: 1 1 auto;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	gap: 6px 24px;
-	margin: 11px 0 0;
+	margin: 0;
 	font-size: var(--stmc-fs-s);
 	line-height: 1.4;
 	color: var(--stmc-muted);
@@ -135,12 +149,9 @@ body.stmc-checkout .stmc-band__trust svg {
 	opacity: 0.9;
 }
 
-/* Login pill, right-aligned inside the band. */
+/* Login pill: a member of the row now, not something floating over it. */
 body.stmc-checkout .stmc-login-toggle {
-	position: absolute;
-	top: 50%;
-	right: 24px;
-	transform: translateY(-50%);
+	flex: 0 0 auto;
 	margin: 0;
 	padding: 8px 14px;
 	background: var(--stmc-card);
@@ -2167,12 +2178,21 @@ body.stmc-checkout input.stmc-autofilled {
 /* ---------- 14. Small screens ---------- */
 
 @media (max-width: 782px) {
+	/* On a phone the row has no room to be a row — back to the centered
+	   stack, which is what the width actually affords. */
 	body.stmc-checkout .stmc-band__in {
+		display: block;
 		padding: 16px 16px 14px;
+		text-align: center;
+	}
+
+	body.stmc-checkout .stmc-band__logo {
+		margin: 0 auto;
 	}
 
 	body.stmc-checkout .stmc-band__trust {
 		gap: 4px 14px;
+		margin: 11px 0 0;
 		font-size: var(--stmc-fs-xs);
 	}
 
@@ -2181,8 +2201,6 @@ body.stmc-checkout input.stmc-autofilled {
 	}
 
 	body.stmc-checkout .stmc-login-toggle {
-		position: static;
-		transform: none;
 		display: inline-block;
 		margin-top: 12px;
 	}

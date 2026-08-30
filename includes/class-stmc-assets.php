@@ -82,7 +82,7 @@ class STMC_Assets {
 			'--stmc-card'         => STMC_Settings::get( 'design.card' ),
 			'--stmc-line'         => STMC_Settings::get( 'design.line' ),
 			'--stmc-radius'       => absint( STMC_Settings::get( 'design.radius' ) ) . 'px',
-			'--stmc-font-scale'   => STMC_Settings::get( 'design.font_scale' ),
+			'--stmc-font-base'    => (int) STMC_Settings::get( 'design.font_size' ) . 'px',
 		);
 
 		$css = ':root{';

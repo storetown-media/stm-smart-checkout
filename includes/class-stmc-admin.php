@@ -183,7 +183,7 @@ class STMC_Admin {
 						<?php self::row_color( 'design.card', __( 'Card background', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_color( 'design.line', __( 'Border color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_number( 'design.radius', __( 'Card corner radius (px)', 'stm-smart-checkout' ), 0, 32 ); ?>
-						<?php self::row_select( 'design.font_scale', __( 'Font scale', 'stm-smart-checkout' ), array( '0.9' => '90%', '1' => '100%', '1.1' => '110%' ) ); ?>
+						<?php self::row_number( 'design.font_size', __( 'Base font size (px)', 'stm-smart-checkout' ), 11, 24 ); ?>
 						<?php self::row_url( 'design.logo_url', __( 'Checkout logo URL', 'stm-smart-checkout' ), __( 'Shown in the checkout header. Leave empty to use the site logo.', 'stm-smart-checkout' ) ); ?>
 					<?php endif; ?>
 				</table>
@@ -251,7 +251,7 @@ class STMC_Admin {
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
-				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_scale', 'design.logo_url',
+				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_size', 'design.logo_url',
 			),
 		);
 		foreach ( STMC_Settings::fields() as $key => $field ) {
@@ -351,7 +351,7 @@ class STMC_Admin {
 				'design.card'                       => __( 'The surface of the cards themselves — white on almost every shop.', 'stm-smart-checkout' ),
 				'design.line'                       => __( 'Borders of cards and fields plus the thin separators between rows.', 'stm-smart-checkout' ),
 				'design.radius'                     => __( 'Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default.', 'stm-smart-checkout' ),
-				'design.font_scale'                 => __( 'Scales every checkout font step together, layout untouched. 110% helps older audiences or brands with generous type; 90% packs more onto the screen.', 'stm-smart-checkout' ),
+				'design.font_size'                  => __( 'The size of the checkout body text in pixels; every other step — fine print, labels, controls, section titles — is a fixed ratio of it, so the rhythm holds at any value. 15 is the default. Pixels rather than a percentage: a percentage was measured against the root font size of the theme, which made the same setting render differently on two shops. 16-17 suits an older audience; 13-14 packs more onto one screen.', 'stm-smart-checkout' ),
 				'design.logo_url'                   => __( 'The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height.', 'stm-smart-checkout' ),
 			);
 		}

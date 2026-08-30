@@ -46,14 +46,21 @@
 	 * base = content (inputs, method names, product lines), m = controls,
 	 * l = emphasis (section titles, grand total). Nothing else.
 	 */
-	--stmc-font-scale: 1;
-	--stmc-fs-xs: calc(0.75rem * var(--stmc-font-scale));    /* 12px */
-	--stmc-fs-s: calc(0.8125rem * var(--stmc-font-scale));   /* 13px */
-	--stmc-fs-base: calc(0.9375rem * var(--stmc-font-scale)); /* 15px */
-	--stmc-fs-m: calc(1rem * var(--stmc-font-scale));        /* 16px */
-	--stmc-fs-l: calc(1.0625rem * var(--stmc-font-scale));   /* 17px */
+	/*
+	 * One knob in PIXELS, and every step is a ratio of it. Pixels because a
+	 * shop owner asked in pixels — and because rem hands the real size to the
+	 * theme's root font size, so two shops with the same setting rendered
+	 * differently. The ratios reproduce the previous 12/13/15/16/17/18.4
+	 * scale exactly at the 15px default.
+	 */
+	--stmc-font-base: 15px;
+	--stmc-fs-xs: calc(var(--stmc-font-base) * 0.8);       /* 12px */
+	--stmc-fs-s: calc(var(--stmc-font-base) * 0.8667);     /* 13px */
+	--stmc-fs-base: var(--stmc-font-base);                 /* 15px */
+	--stmc-fs-m: calc(var(--stmc-font-base) * 1.0667);     /* 16px */
+	--stmc-fs-l: calc(var(--stmc-font-base) * 1.1333);     /* 17px */
 	/* Step headings only — matches the live shop's 1.15rem heads. */
-	--stmc-fs-xl: calc(1.15rem * var(--stmc-font-scale));    /* ~18.4px */
+	--stmc-fs-xl: calc(var(--stmc-font-base) * 1.2267);    /* ~18.4px */
 
 	/* Spacing scale. */
 	--stmc-sp-1: 4px;

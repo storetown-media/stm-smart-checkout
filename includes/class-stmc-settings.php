@@ -106,7 +106,7 @@ class STMC_Settings {
 			'design.card'         => array( 'type' => 'color', 'default' => '#ffffff' ),
 			'design.line'         => array( 'type' => 'color', 'default' => '#dde2ec' ),
 			'design.radius'       => array( 'type' => 'int', 'default' => 12, 'min' => 0, 'max' => 32 ),
-			'design.font_scale'   => array( 'type' => 'choice', 'default' => '1', 'choices' => array( '0.9', '1', '1.1' ) ),
+			'design.font_size'    => array( 'type' => 'int', 'default' => 15, 'min' => 11, 'max' => 24 ),
 			'design.logo_url'     => array( 'type' => 'url', 'default' => '' ),
 
 			// Advanced.

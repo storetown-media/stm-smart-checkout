@@ -3,7 +3,7 @@
  * Plugin Name:       STM Smart Checkout for WooCommerce
  * Plugin URI:        https://www.storetown-media.de/stm-smart-checkout/
  * Description:       Conversion-focused, legally compliant checkout for WooCommerce — distraction-free layouts, trust elements and DACH-ready legal features that work with your gateways and Germanized instead of replacing them.
- * Version:           0.1.28
+ * Version:           0.1.29
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      7.4
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'STMC_VERSION', '0.1.28' );
+define( 'STMC_VERSION', '0.1.29' );
 define( 'STMC_FILE', __FILE__ );
 define( 'STMC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'STMC_URL', plugin_dir_url( __FILE__ ) );
@@ -104,11 +104,30 @@ function stmc_boot() {
 }
 
 function stmc_upgrade() {
+	stmc_migrate_font_scale();
 	STMC_Withdrawal_Store::install();
 	if ( STMC_Settings::get( 'withdrawal.enabled' ) ) {
 		STMC_Withdrawal::ensure_page();
 	}
 	update_option( 'stmc_version', STMC_VERSION );
+}
+
+/**
+ * The font scale was a percentage of the theme's root size (0.9 / 1 / 1.1);
+ * it is a pixel value now. Carries the shop's chosen size over instead of
+ * silently resetting a checkout to the default the next time it updates.
+ */
+function stmc_migrate_font_scale() {
+	$settings = get_option( 'stmc_settings' );
+	if ( ! is_array( $settings ) || ! isset( $settings['design']['font_scale'] ) ) {
+		return;
+	}
+	if ( ! isset( $settings['design']['font_size'] ) ) {
+		$scale                            = (float) $settings['design']['font_scale'];
+		$settings['design']['font_size']  = (int) round( 15 * ( $scale > 0 ? $scale : 1 ) );
+	}
+	unset( $settings['design']['font_scale'] );
+	update_option( 'stmc_settings', $settings );
 }
 
 function stmc_notice_php() {

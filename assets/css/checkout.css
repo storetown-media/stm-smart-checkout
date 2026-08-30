@@ -1116,6 +1116,7 @@ body.stmc-checkout #payment ul.payment_methods li > input[type="radio"] {
 	width: 18px;
 	height: 18px;
 	margin: 4px 0 0;
+	vertical-align: middle;
 	accent-color: var(--stmc-accent);
 }
 
@@ -1124,9 +1125,19 @@ body.stmc-checkout #payment ul.payment_methods li > input[type="radio"] {
    assigns items to lines by their HYPOTHETICAL size (flex-basis: auto =
    max-content) BEFORE any shrinking happens, so an auto-basis label still
    jumped to line 2. A zero basis always fits beside the radio and then
-   grows into the remaining width, wrapping its icons internally instead. */
+   grows into the remaining width, wrapping its icons internally instead.
+
+   inline-flex, not flex, and that one word is the whole fix for two rows:
+   WooCommerce PayPal Payments sets display:block INLINE on its credit-card
+   and Google Pay rows (measured on hairdoshop — style="display: block;" on
+   exactly those two, nothing in any stylesheet). A block row makes a
+   block-level label start on its own line, stranding the radio above it.
+   Forcing the row back to flex would take !important and would break the
+   gateway's own display:none hiding. inline-flex costs nothing where the row
+   IS flex — flex items are blockified, so it computes back to flex — and it
+   keeps the label beside the radio where the row is block. */
 body.stmc-checkout #payment ul.payment_methods li > label {
-	display: flex;
+	display: inline-flex;
 	flex: 1 1 0;
 	min-width: 0;
 	flex-wrap: wrap;
@@ -2434,12 +2445,12 @@ body.stmc-checkout .dhl-hidden {
    Token redefinition does most of the work; components read only tokens. */
 
 body.stmc-checkout.stmc-layout-ultra-compact {
-	--stmc-fs-xs: calc(0.6875rem * var(--stmc-font-scale)); /* 11px */
-	--stmc-fs-s: calc(0.75rem * var(--stmc-font-scale));    /* 12px */
-	--stmc-fs-base: calc(0.8125rem * var(--stmc-font-scale)); /* 13px */
-	--stmc-fs-m: calc(0.875rem * var(--stmc-font-scale));   /* 14px */
-	--stmc-fs-l: calc(0.9375rem * var(--stmc-font-scale));  /* 15px */
-	--stmc-fs-xl: calc(1rem * var(--stmc-font-scale));      /* 16px */
+	--stmc-fs-xs: calc(var(--stmc-font-base) * 0.7333);  /* 11px */
+	--stmc-fs-s: calc(var(--stmc-font-base) * 0.8);      /* 12px */
+	--stmc-fs-base: calc(var(--stmc-font-base) * 0.8667); /* 13px */
+	--stmc-fs-m: calc(var(--stmc-font-base) * 0.9333);   /* 14px */
+	--stmc-fs-l: var(--stmc-font-base);                  /* 15px */
+	--stmc-fs-xl: calc(var(--stmc-font-base) * 1.0667);  /* 16px */
 	--stmc-radius: 10px;
 }
 

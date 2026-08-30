@@ -47,6 +47,47 @@ jobs:
             .gitignore
             phpcs.xml.dist
 
+  plugin-check-package:
+    name: Plugin Check on the shipped package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Reduce the checkout to what actually ships
+        # The job above checks the REPOSITORY; wp.org receives the ZIP, which has
+        # neither .wordpress-org nor phpcs.xml.dist in it. Checking one and
+        # shipping the other is how a defect survives to submission. The list
+        # comes from .distignore — the same file build-zip.py builds from, so the
+        # two cannot drift apart.
+        run: |
+          set -e
+          while IFS= read -r zeile; do
+            zeile="${zeile%%#*}"
+            zeile="$(echo "$zeile" | xargs || true)"
+            [ -z "$zeile" ] && continue
+            [ "$zeile" = ".git/" ] && continue   # der Runner braucht es noch
+            rm -rf -- "$zeile"
+          done < .distignore
+          echo "--- Das geht an wp.org: ---"
+          find . -type f -not -path './.git/*' | sed 's|^\./||' | sort
+          test -f stm-smart-checkout.php || { echo "::error::main plugin file missing"; exit 1; }
+          test -f readme.txt            || { echo "::error::readme.txt missing"; exit 1; }
+          for weg in .wordpress-org phpcs.xml.dist .github; do
+            [ -e "$weg" ] && { echo "::error::$weg survived the reduction"; exit 1; }
+          done
+          exit 0
+
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: './'
+          categories: |
+            general
+            plugin_repo
+            security
+            performance
+            accessibility
+
   phpcs:
     name: Security & PHP 7.4 compatibility (PHPCS)
     runs-on: ubuntu-latest

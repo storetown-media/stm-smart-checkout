@@ -1,0 +1,24 @@
+# Was zum Repository gehoert, aber nicht ins ausgelieferte Plugin.
+#
+# EINE Quelle fuer zwei Verbraucher: build-zip.py baut das Release danach, und
+# die CI raeumt danach auf, bevor der Plugin Check laeuft. Ohne das pruefte die
+# CI das Repository und der Kunde bekaeme etwas anderes — genau die Luecke, in
+# der ein Fehler bis zur Einreichung unentdeckt bleibt.
+#
+# Ein Eintrag ist ein Pfad relativ zur Plugin-Wurzel. Verzeichnisse mit Schraegstrich.
+
+.git/
+.github/
+.wordpress-org/
+node_modules/
+vendor/
+dist/
+__pycache__/
+
+.gitignore
+.distignore
+phpcs.xml.dist
+composer.json
+composer.lock
+.DS_Store
+Thumbs.db

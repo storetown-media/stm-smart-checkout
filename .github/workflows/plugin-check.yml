@@ -65,6 +65,21 @@ jobs:
           composer require --dev --no-interaction --no-progress \
             wp-coding-standards/wpcs:^3.1 \
             phpcompatibility/phpcompatibility-wp:^2.1
+      - name: Verify PHPCS actually inspected the plugin
+        # A run over zero files passes just as green as a clean one. Count what
+        # was inspected and compare it against the PHP files on disk, so a
+        # broken path or an over-eager exclude-pattern fails loudly instead of
+        # quietly reporting success.
+        run: |
+          set -e
+          erwartet=$(find . -name '*.php' -not -path './vendor/*' -not -path './.git/*' | wc -l)
+          geprueft=$(vendor/bin/phpcs --report=json 2>/dev/null | jq '.files | length' || echo 0)
+          echo "PHP-Dateien im Baum: $erwartet — von PHPCS geprüft: $geprueft"
+          if [ "$geprueft" -lt "$erwartet" ]; then
+            echo "::error::PHPCS inspected $geprueft of $erwartet PHP files — the ruleset is not reaching the code."
+            exit 1
+          fi
+
       - name: Run PHPCS
         # Config lives in phpcs.xml.dist: WordPress.Security, WordPress.DB,
         # I18n, and PHPCompatibility against the 7.4 floor the header promises.

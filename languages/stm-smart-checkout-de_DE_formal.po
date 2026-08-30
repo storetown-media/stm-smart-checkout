@@ -840,3 +840,33 @@ msgstr "Ich habe die {terms}Allgemeinen Geschäftsbedingungen{/terms} und die {r
 
 msgid "Please accept the terms and conditions and the cancellation policy to place your order."
 msgstr "Bitte akzeptiere die AGB und die Widerrufsbelehrung, um deine Bestellung abzuschließen."
+
+msgid "Automatic — only when no legal plugin delivers one"
+msgstr "Automatisch — nur wenn kein Rechts-Plugin eine liefert"
+
+msgid "Never"
+msgstr "Nie"
+
+msgid "Not detected yet — open the checkout once and this line will report what was found."
+msgstr "Noch nichts erkannt — öffnen Sie die Kasse einmal, dann steht hier der Befund."
+
+msgid "Germanized is delivering the consent boxes, so the own box stands down."
+msgstr "Germanized liefert die Einwilligungs-Kästchen, die eigene Box hält sich zurück."
+
+msgid "%s is delivering the consent boxes, so the own box stands down."
+msgstr "%s liefert die Einwilligungs-Kästchen, die eigene Box hält sich zurück."
+
+msgid "No legal plugin is delivering consent boxes on this checkout."
+msgstr "Kein Rechts-Plugin liefert auf dieser Kasse Einwilligungs-Kästchen."
+
+msgid "The own consent box is rendering."
+msgstr "Die eigene Einwilligungs-Box wird angezeigt."
+
+msgid "The own consent box is not rendering."
+msgstr "Die eigene Einwilligungs-Box wird nicht angezeigt."
+
+msgid "Detected on the checkout"
+msgstr "An der Kasse erkannt"
+
+msgid "The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts."
+msgstr "Die Einwilligungs-Box für AGB und Widerrufsbelehrung, gerendert von diesem Plugin: ein Pflicht-Kästchen zwischen Gesamtsumme und Kaufknopf, serverseitig geprüft und samt des exakten Wortlauts, den der Kunde gesehen hat, auf die Bestellung geschrieben. Automatisch ist die vernünftige Einstellung — sie fragt die Kasse selbst, ob ein Rechts-Plugin tatsächlich Kästchen DRUCKT, und springt nur ein, wenn keines das tut. Nicht, ob so ein Plugin installiert ist: ein Rechts-Plugin kann aktiv und fertig konfiguriert dasitzen und trotzdem nichts rendern (genau so endet eine Live-Kasse ohne jede Einwilligung), und eine Anwesenheitsprüfung würde dazu höflich schweigen. Immer erzwingt die Box auch neben einer fremden; Nie schaltet sie ab. Das ist eine Layout- und Technik-Funktion, keine Rechtsberatung: welche Einwilligung Ihr Shop braucht, beantwortet, wer Ihre Rechtstexte schreibt."

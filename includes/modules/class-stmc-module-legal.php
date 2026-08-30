@@ -78,6 +78,7 @@ class STMC_Module_Legal extends STMC_Module {
 	}
 
 	const CONSENT_NAME = 'stmc_consent';
+	const DETECT_OPT   = 'stmc_consent_detection';
 
 	/**
 	 * Is the shop's own consent box in charge?
@@ -94,13 +95,104 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @return bool
 	 */
 	private function consent_enabled() {
-		if ( ! STMC_Settings::get( 'legal.consent' ) ) {
-			return false;
+		static $decision = null;
+		if ( null !== $decision ) {
+			return $decision;
 		}
-		if ( has_action( 'woocommerce_review_order_after_payment', 'woocommerce_gzd_template_render_checkout_checkboxes' ) ) {
-			return false;
+
+		$mode = (string) STMC_Settings::get( 'legal.consent' );
+		if ( 'off' === $mode ) {
+			$decision = false;
+			return $decision;
 		}
-		return true;
+
+		$foreign  = $this->legal_plugin_renders_consent();
+		$decision = ( 'on' === $mode ) ? true : ( '' === $foreign );
+
+		self::remember_detection( $foreign, $decision, $mode );
+		return $decision;
+	}
+
+	/**
+	 * Which legal plugin is actually DELIVERING consent boxes on this checkout?
+	 *
+	 * Asked by hook, never by "is the plugin installed". The difference is the
+	 * whole point: on a live shop Germanized sat there active and configured,
+	 * with its terms checkbox enabled, and still rendered nothing — its Pro
+	 * edition never fired `woocommerce_gzdp_loaded`, so Germanized's entire
+	 * frontend hook file was never included. A presence check would have seen
+	 * "Germanized is running" and stayed silent, leaving the checkout with no
+	 * consent at all. A hook check sees the truth: nothing is registered, so
+	 * nothing will be printed.
+	 *
+	 * @return string Identifier of the delivering plugin, '' when none is.
+	 */
+	private function legal_plugin_renders_consent() {
+		// Germanized renders the checkout boxes here, and carries them inside
+		// its own submit block when its checkout templates are in charge.
+		if ( has_action( 'woocommerce_review_order_after_payment', 'woocommerce_gzd_template_render_checkout_checkboxes' )
+			|| has_action( 'woocommerce_checkout_order_review', 'woocommerce_gzd_template_order_submit' ) ) {
+			return 'germanized';
+		}
+
+		/**
+		 * Another plugin already prints consent boxes in this checkout.
+		 *
+		 * Return a short identifier to make the own consent box stand down.
+		 * Only Germanized is recognised out of the box — it is the one this
+		 * plugin has been measured against. Answer by hook, not by presence:
+		 * an installed plugin that renders nothing must not silence the box.
+		 *
+		 * @param string $plugin Identifier, '' when none delivers consent.
+		 */
+		return (string) apply_filters( 'stmc_legal_plugin_renders_consent', '' );
+	}
+
+	/**
+	 * Keeps the last decision readable in the backend.
+	 *
+	 * Automatic behaviour that nobody can inspect is how a checkout ends up
+	 * legally naked without anyone noticing — the very failure this detection
+	 * exists for. Written only when it changes, so a checkout hit does not
+	 * carry an option write.
+	 *
+	 * @param string $foreign  Detected legal plugin, '' when none.
+	 * @param bool   $decision Whether the own box renders.
+	 * @param string $mode     The configured mode.
+	 */
+	private static function remember_detection( $foreign, $decision, $mode ) {
+		if ( ! STMC_Checkout_Context::is_checkout_surface() || wp_doing_ajax() ) {
+			return;
+		}
+		$note = array(
+			'plugin' => $foreign,
+			'own'    => (bool) $decision,
+			'mode'   => $mode,
+			'time'   => time(),
+		);
+		$known = get_option( self::DETECT_OPT );
+		if ( is_array( $known )
+			&& isset( $known['plugin'], $known['own'], $known['mode'] )
+			&& $known['plugin'] === $note['plugin']
+			&& $known['own'] === $note['own']
+			&& $known['mode'] === $note['mode'] ) {
+			return;
+		}
+		update_option( self::DETECT_OPT, $note, false );
+	}
+
+	/**
+	 * What the checkout last detected, for the settings screen.
+	 *
+	 * The admin cannot ask has_action() itself: Germanized registers its
+	 * frontend hooks only on the frontend, so every check in wp-admin would
+	 * report "no legal plugin" and lie confidently.
+	 *
+	 * @return array{plugin:string,own:bool,mode:string,time:int}|null
+	 */
+	public static function detection_note() {
+		$note = get_option( self::DETECT_OPT );
+		return is_array( $note ) && isset( $note['plugin'], $note['own'] ) ? $note : null;
 	}
 
 	/**

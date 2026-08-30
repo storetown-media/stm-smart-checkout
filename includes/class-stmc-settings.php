@@ -42,12 +42,13 @@ class STMC_Settings {
 			'legal.guarantee_text'      => array( 'type' => 'textarea', 'default' => '' ),
 
 			/*
-			 * Own consent box. Default OFF on purpose: a shop that still runs a
-			 * legal plugin already prints one, and two consent boxes are worse
-			 * than none. The renderer additionally steps aside when it sees
-			 * Germanized's own checkbox hook registered.
+			 * Own consent box. "auto" asks the checkout itself whether a legal
+			 * plugin is delivering consent and only steps in when none is —
+			 * the safe default in both directions, because two consent boxes
+			 * are as bad as none and a shop should not have to notice that its
+			 * legal plugin stopped rendering.
 			 */
-			'legal.consent'          => array( 'type' => 'bool', 'default' => false ),
+			'legal.consent'          => array( 'type' => 'choice', 'default' => 'auto', 'choices' => array( 'auto', 'on', 'off' ) ),
 			'legal.consent_text'     => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.consent_error'    => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.terms_page'       => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),

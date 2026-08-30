@@ -139,7 +139,8 @@ class STMC_Admin {
 						<?php self::row_number( 'withdrawal.period_days', __( 'Withdrawal period (days)', 'stm-smart-checkout' ), 0, 365 ); ?>
 						<?php self::row_checkbox( 'withdrawal.account_limit', __( 'Hide the account button after the period ends', 'stm-smart-checkout' ), __( 'The public form stays available either way — a submission is never blocked.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'withdrawal.success_link', __( 'Show a withdrawal link on the order confirmation', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'legal.consent', __( 'Own consent box: terms and cancellation policy to tick', 'stm-smart-checkout' ), __( 'Renders a required checkbox above the buy button. Stays out of the way while a legal plugin still prints its own box.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_select( 'legal.consent', __( 'Own consent box: terms and cancellation policy to tick', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — only when no legal plugin delivers one', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never', 'stm-smart-checkout' ) ) ); ?>
+						<?php self::row_consent_detection(); ?>
 						<?php self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'legal.consent_error', __( 'Consent error message', 'stm-smart-checkout' ), __( 'Shown when the box is left unticked. Empty = the built-in message.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_page( 'legal.terms_page', __( 'Terms and conditions page', 'stm-smart-checkout' ), __( 'Empty = the page WooCommerce already knows.', 'stm-smart-checkout' ) ); ?>
@@ -330,7 +331,7 @@ class STMC_Admin {
 				'withdrawal.period_days'            => __( 'Controls the "Withdraw this order" button in My Account: it shows for this many days after the order. The legal period itself comes from your terms — 14 days is the EU minimum for consumers; a voluntary longer promise (e.g. 30 days) goes here.', 'stm-smart-checkout' ),
 				'withdrawal.account_limit'          => __( 'On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject.', 'stm-smart-checkout' ),
 				'withdrawal.success_link'           => __( 'Shows a short "you can withdraw this order online at any time" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text.', 'stm-smart-checkout' ),
-				'legal.consent'                     => __( 'The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Meant for shops without a legal plugin — it switches itself off as long as WooCommerce or Germanized still print their own box, because two consent boxes leave nobody knowing which one binds. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts.', 'stm-smart-checkout' ),
+				'legal.consent'                     => __( 'The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts.', 'stm-smart-checkout' ),
 				'legal.consent_text'                => __( 'The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link.', 'stm-smart-checkout' ),
 				'legal.consent_error'               => __( 'The error shown when someone tries to order without ticking. Empty = the built-in message. Name the missing step plainly; customers read this at the very moment they wanted to be finished.', 'stm-smart-checkout' ),
 				'legal.terms_page'                  => __( 'The page the {terms} link opens. Empty = the terms page WooCommerce already has in its settings.', 'stm-smart-checkout' ),
@@ -491,6 +492,37 @@ class STMC_Admin {
 	 * itself is returned and run through wp_kses at the echo point. Same
 	 * lesson that cost v0.1.18: escape where you echo, not before.
 	 */
+	/**
+	 * What the checkout last detected. Read-only, and deliberately phrased as a
+	 * memory ("last seen on the checkout") rather than a live check: Germanized
+	 * registers its frontend hooks only on the frontend, so asking here would
+	 * report "no legal plugin" on every shop and sound certain doing it.
+	 */
+	private static function row_consent_detection() {
+		$note = STMC_Module_Legal::detection_note();
+
+		if ( ! $note ) {
+			$text = __( 'Not detected yet — open the checkout once and this line will report what was found.', 'stm-smart-checkout' );
+		} elseif ( 'germanized' === $note['plugin'] ) {
+			$text = __( 'Germanized is delivering the consent boxes, so the own box stands down.', 'stm-smart-checkout' );
+		} elseif ( '' !== $note['plugin'] ) {
+			/* translators: %s: identifier of the plugin that renders the consent boxes. */
+			$text = sprintf( __( '%s is delivering the consent boxes, so the own box stands down.', 'stm-smart-checkout' ), $note['plugin'] );
+		} else {
+			$text = __( 'No legal plugin is delivering consent boxes on this checkout.', 'stm-smart-checkout' );
+		}
+
+		$state = ! $note
+			? ''
+			: ( $note['own']
+				? __( 'The own consent box is rendering.', 'stm-smart-checkout' )
+				: __( 'The own consent box is not rendering.', 'stm-smart-checkout' ) );
+
+		echo '<tr><th scope="row">' . esc_html__( 'Detected on the checkout', 'stm-smart-checkout' ) . '</th><td><p class="description">'
+			. esc_html( $text ) . ( '' === $state ? '' : ' <strong>' . esc_html( $state ) . '</strong>' )
+			. '</p></td></tr>';
+	}
+
 	private static function row_page( $key, $label, $desc = '' ) {
 		self::row_open( $key, $label );
 		$dropdown = wp_dropdown_pages(

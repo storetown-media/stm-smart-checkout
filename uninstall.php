@@ -16,4 +16,5 @@ $stmc_remove = is_array( $stmc_settings )
 if ( $stmc_remove ) {
 	delete_option( 'stmc_settings' );
 	delete_option( 'stmc_version' );
+	delete_option( 'stmc_consent_detection' );
 }

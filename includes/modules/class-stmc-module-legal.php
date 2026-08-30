@@ -54,6 +54,26 @@ class STMC_Module_Legal extends STMC_Module {
 		 * seats it between the grand total and the buy button — the place a
 		 * legal plugin would have used.
 		 */
+		/*
+		 * The buy button carries a legal duty of its own (BGB 312j: the label
+		 * must say that ordering costs money; "Bestellung abschicken" does
+		 * not). WooCommerce ships no such label, so a shop running this
+		 * checkout WITHOUT a legal plugin was one filter away from a
+		 * non-compliant button — and this plugin promises the opposite.
+		 * Priority 5 leaves the last word to anything hooking later.
+		 */
+		if ( $this->button_owner() ) {
+			add_filter( 'woocommerce_order_button_text', array( $this, 'button_text' ), 5 );
+		}
+
+		// Essential information directly above the button, where the law wants
+		// it (BGH; LG Berlin 2024). Inside the place-order row, so it travels
+		// with the button wherever the layout moves it.
+		if ( '' !== trim( (string) STMC_Settings::get( 'legal.button_notice' ) ) ) {
+			add_action( 'woocommerce_review_order_before_submit', array( $this, 'button_notice' ), 20 );
+			add_action( 'woocommerce_gzd_review_order_before_submit', array( $this, 'button_notice' ), 20 );
+		}
+
 		if ( $this->consent_enabled() ) {
 			add_action( 'woocommerce_review_order_after_payment', array( $this, 'consent_box' ), 8 );
 			/*
@@ -193,6 +213,52 @@ class STMC_Module_Legal extends STMC_Module {
 	public static function detection_note() {
 		$note = get_option( self::DETECT_OPT );
 		return is_array( $note ) && isset( $note['plugin'], $note['own'] ) ? $note : null;
+	}
+
+	/**
+	 * Does this plugin own the buy button label?
+	 *
+	 * Only where no legal plugin is delivering one. Germanized and German
+	 * Market both set the label themselves, and a shop that configured it
+	 * there must keep that setting — we fill a hole, we do not take over.
+	 *
+	 * @return bool
+	 */
+	private function button_owner() {
+		return '' === $this->legal_plugin_renders_consent();
+	}
+
+	/**
+	 * The compliant label. A shop may word it differently (§312j allows an
+	 * "entsprechend eindeutige" formulation), so it is a setting — but the
+	 * default is the wording courts have not argued about.
+	 *
+	 * @param string $text WooCommerce's label.
+	 * @return string
+	 */
+	public function button_text( $text ) {
+		$own = trim( (string) STMC_Settings::get( 'legal.button_text' ) );
+		return '' !== $own ? $own : __( 'Order with obligation to pay', 'stm-smart-checkout' );
+	}
+
+	/**
+	 * Essential information immediately above the button.
+	 */
+	public function button_notice() {
+		$text = trim( (string) STMC_Settings::get( 'legal.button_notice' ) );
+		if ( '' === $text ) {
+			return;
+		}
+		echo '<p class="stmc-button-notice">' . wp_kses(
+			wpautop( $text ),
+			array(
+				'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
+				'strong' => array(),
+				'em'     => array(),
+				'br'     => array(),
+				'p'      => array(),
+			)
+		) . '</p>';
 	}
 
 	/**

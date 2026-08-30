@@ -1567,6 +1567,24 @@ body.stmc-checkout .form-row.place-order .wc-ppcp-checkout-container {
 	margin-top: 10px;
 }
 
+/* Essential information immediately above the buy button — quiet by design.
+   It is a legal duty, not a sales message: it must be readable and close to
+   the button, and it must not compete with it for attention. */
+body.stmc-checkout .stmc-button-notice {
+	margin: 0 0 10px;
+	font-size: var(--stmc-fs-xs);
+	line-height: 1.5;
+	color: var(--stmc-muted);
+}
+
+body.stmc-checkout .stmc-button-notice p {
+	margin: 0 0 4px;
+}
+
+body.stmc-checkout .stmc-button-notice p:last-child {
+	margin: 0;
+}
+
 /* Reassurance note under the consent boxes (shop-configured, opt-in).
    Deliberately a different, friendlier shell than the grey consent cards —
    it must never read as one more condition to agree to. */

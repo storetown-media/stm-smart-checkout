@@ -877,3 +877,24 @@ msgstr "Basis-Schriftgröße (px)"
 
 msgid "The size of the checkout body text in pixels; every other step — fine print, labels, controls, section titles — is a fixed ratio of it, so the rhythm holds at any value. 15 is the default. Pixels rather than a percentage: a percentage was measured against the root font size of the theme, which made the same setting render differently on two shops. 16-17 suits an older audience; 13-14 packs more onto one screen."
 msgstr "Die Größe des Fließtexts in der Kasse in Pixeln; jede andere Stufe — Kleingedrucktes, Beschriftungen, Bedienelemente, Abschnittsüberschriften — ist ein festes Verhältnis davon, der Rhythmus hält also bei jedem Wert. 15 ist der Standard. Pixel statt Prozent: ein Prozentwert wurde an der Grund-Schriftgröße des Themes gemessen, wodurch dieselbe Einstellung auf zwei Shops unterschiedlich aussah. 16–17 passt für älteres Publikum; 13–14 bringt mehr auf einen Bildschirm."
+
+msgid "Buy button label"
+msgstr "Beschriftung des Kaufknopfes"
+
+msgid "Empty = \"Order with obligation to pay\". Only used while no legal plugin sets the label itself."
+msgstr "Leer = „Zahlungspflichtig bestellen“. Wird nur verwendet, solange kein Rechts-Plugin die Beschriftung selbst setzt."
+
+msgid "Information directly above the button"
+msgstr "Angaben direkt über dem Knopf"
+
+msgid "Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed."
+msgstr "Lieferzeit, wesentliche Merkmale — alles, was im selben Blick wie der Knopf lesbar sein muss. Leer = es wird nichts ausgegeben."
+
+msgid "The label on the buy button. German law (BGB 312j) requires it to say that ordering costs money — WooCommerce ships \"Place order\", which does not, and courts have rejected softer wordings. This plugin therefore sets a compliant default wherever no legal plugin sets the label itself; where Germanized or German Market do, theirs wins and this field is ignored. Change it only for a wording you know is equivalent."
+msgstr "Die Beschriftung des Kaufknopfes. § 312j BGB verlangt, dass sie die Zahlungspflicht ausspricht — WooCommerce liefert „Bestellung abschicken“, was das nicht tut, und Gerichte haben weichere Formulierungen verworfen. Dieses Plugin setzt deshalb überall dort eine konforme Vorgabe, wo kein Rechts-Plugin die Beschriftung selbst setzt; wo Germanized oder German Market das tun, gewinnt deren Einstellung und dieses Feld bleibt wirkungslos. Ändern Sie es nur für eine Formulierung, von der Sie wissen, dass sie gleichwertig ist."
+
+msgid "A short text printed immediately above the buy button, where the essential information about the order has to be readable (BGH; LG Berlin 2024): delivery time, the essential characteristics of what is being bought. Keep it to the duty — this is the last thing a customer reads before deciding, and every extra sentence here costs orders. Empty prints nothing."
+msgstr "Ein kurzer Text unmittelbar über dem Kaufknopf, wo die wesentlichen Angaben zur Bestellung lesbar sein müssen (BGH; LG Berlin 2024): Lieferzeit, wesentliche Merkmale der Ware. Beschränken Sie sich auf die Pflicht — das ist das Letzte, was ein Kunde vor der Entscheidung liest, und jeder zusätzliche Satz hier kostet Bestellungen. Leer gibt nichts aus."
+
+msgid "This plugin then covers the checkout itself — consent, button label, the information above the button. It does not cover what lives outside the checkout: unit prices, delivery times on product pages, or sending the cancellation policy with the order email. If your shop needs those, keep a legal plugin such as Germanized alongside."
+msgstr "Dieses Plugin deckt dann die Kasse selbst ab — Einwilligung, Knopfbeschriftung, die Angaben über dem Knopf. Es deckt nicht ab, was außerhalb der Kasse liegt: Grundpreise, Lieferzeiten auf Produktseiten oder den Versand der Widerrufsbelehrung mit der Bestellmail. Wenn Ihr Shop das braucht, behalten Sie daneben ein Rechts-Plugin wie Germanized."

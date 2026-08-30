@@ -143,6 +143,8 @@ class STMC_Admin {
 						<?php self::row_consent_detection(); ?>
 						<?php self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_textarea( 'legal.consent_error', __( 'Consent error message', 'stm-smart-checkout' ), __( 'Shown when the box is left unticked. Empty = the built-in message.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_text( 'legal.button_text', __( 'Buy button label', 'stm-smart-checkout' ), __( 'Empty = "Order with obligation to pay". Only used while no legal plugin sets the label itself.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_textarea( 'legal.button_notice', __( 'Information directly above the button', 'stm-smart-checkout' ), __( 'Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_page( 'legal.terms_page', __( 'Terms and conditions page', 'stm-smart-checkout' ), __( 'Empty = the page WooCommerce already knows.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_page( 'legal.revocation_page', __( 'Cancellation policy page', 'stm-smart-checkout' ), __( 'Empty = the page your legal plugin registered, otherwise the revocation page this plugin creates.', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_checkbox( 'legal.validate_checkboxes', __( 'Verify required consent boxes on the server', 'stm-smart-checkout' ), __( 'Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box.', 'stm-smart-checkout' ) ); ?>
@@ -248,6 +250,7 @@ class STMC_Admin {
 				'withdrawal.period_days', 'withdrawal.account_limit', 'withdrawal.success_link',
 				'legal.validate_checkboxes', 'legal.guarantee_title', 'legal.guarantee_text',
 				'legal.consent', 'legal.consent_text', 'legal.consent_error', 'legal.terms_page', 'legal.revocation_page',
+				'legal.button_text', 'legal.button_notice',
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.text', 'design.muted',
@@ -332,6 +335,8 @@ class STMC_Admin {
 				'withdrawal.account_limit'          => __( 'On = the My Account button disappears once the period is over. The public form stays reachable either way — a withdrawal must never fail on a technicality, and late requests are for you to assess, not for the software to reject.', 'stm-smart-checkout' ),
 				'withdrawal.success_link'           => __( 'Shows a short "you can withdraw this order online at any time" note with the form link on the order confirmation page. Transparency that customers reward — and fewer withdrawal emails in free text.', 'stm-smart-checkout' ),
 				'legal.consent'                     => __( 'The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts.', 'stm-smart-checkout' ),
+				'legal.button_text'                 => __( 'The label on the buy button. German law (BGB 312j) requires it to say that ordering costs money — WooCommerce ships "Place order", which does not, and courts have rejected softer wordings. This plugin therefore sets a compliant default wherever no legal plugin sets the label itself; where Germanized or German Market do, theirs wins and this field is ignored. Change it only for a wording you know is equivalent.', 'stm-smart-checkout' ),
+				'legal.button_notice'                => __( 'A short text printed immediately above the buy button, where the essential information about the order has to be readable (BGH; LG Berlin 2024): delivery time, the essential characteristics of what is being bought. Keep it to the duty — this is the last thing a customer reads before deciding, and every extra sentence here costs orders. Empty prints nothing.', 'stm-smart-checkout' ),
 				'legal.consent_text'                => __( 'The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link.', 'stm-smart-checkout' ),
 				'legal.consent_error'               => __( 'The error shown when someone tries to order without ticking. Empty = the built-in message. Name the missing step plainly; customers read this at the very moment they wanted to be finished.', 'stm-smart-checkout' ),
 				'legal.terms_page'                  => __( 'The page the {terms} link opens. Empty = the terms page WooCommerce already has in its settings.', 'stm-smart-checkout' ),
@@ -509,7 +514,8 @@ class STMC_Admin {
 			/* translators: %s: identifier of the plugin that renders the consent boxes. */
 			$text = sprintf( __( '%s is delivering the consent boxes, so the own box stands down.', 'stm-smart-checkout' ), $note['plugin'] );
 		} else {
-			$text = __( 'No legal plugin is delivering consent boxes on this checkout.', 'stm-smart-checkout' );
+			$text = __( 'No legal plugin is delivering consent boxes on this checkout.', 'stm-smart-checkout' )
+				. ' ' . __( 'This plugin then covers the checkout itself — consent, button label, the information above the button. It does not cover what lives outside the checkout: unit prices, delivery times on product pages, or sending the cancellation policy with the order email. If your shop needs those, keep a legal plugin such as Germanized alongside.', 'stm-smart-checkout' );
 		}
 
 		$state = ! $note

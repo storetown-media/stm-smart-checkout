@@ -51,6 +51,8 @@ class STMC_Settings {
 			'legal.consent'          => array( 'type' => 'choice', 'default' => 'auto', 'choices' => array( 'auto', 'on', 'off' ) ),
 			'legal.consent_text'     => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.consent_error'    => array( 'type' => 'textarea', 'default' => '' ),
+			'legal.button_text'      => array( 'type' => 'text', 'default' => '' ),
+			'legal.button_notice'    => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.terms_page'       => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
 			'legal.revocation_page'  => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => PHP_INT_MAX ),
 

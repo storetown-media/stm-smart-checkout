@@ -27,7 +27,7 @@ STM Smart Checkout turns the standard WooCommerce checkout into a focused, trust
 
 **Philosophy:** your gateways keep rendering their own express buttons, your legal plugin keeps owning its legal texts, your theme keeps its typography. This plugin arranges everything into a checkout that converts.
 
-The Pro version adds the express payment zone, payment-method customizer, payment-dependent required fields, EU VAT ID validation (VIES) with reverse charge, order bumps, an online withdrawal form module and a safe mode with automatic fallback. Pro is distributed separately at storetown-media.de.
+A separate Pro add-on adds three things: the online withdrawal form required across the EU since 19 June 2026 (with its own management screen), a mobile sticky order bar, and an ultra-compact checkout layout. Pro is distributed from storetown-media.de. Everything described above is in this free plugin and stays there.
 
 **Auf Deutsch**
 

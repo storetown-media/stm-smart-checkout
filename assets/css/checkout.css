@@ -1295,6 +1295,17 @@ body.stmc-checkout .stmc-continue:hover {
 	color: var(--stmc-ink);
 }
 
+/* One invitation to log in, not two. WooCommerce prints its own "already a
+   customer?" notice above the form, and the band already carries that
+   invitation as a button — measured on hairdoshop: two prompts for the same
+   action, 160px apart. The button reveals that very same login form (verified
+   by clicking it), so the notice adds nothing but doubt about which one to
+   use. Keyed on our toggle actually being present, so switching the band
+   login off brings WooCommerce's own prompt straight back. */
+body.stmc-checkout:has(.stmc-login-toggle) .woocommerce-form-login-toggle {
+	display: none;
+}
+
 /* ---------- 13. Login form (revealed by the band toggle) ---------- */
 
 body.stmc-checkout form.woocommerce-form-login .form-row {

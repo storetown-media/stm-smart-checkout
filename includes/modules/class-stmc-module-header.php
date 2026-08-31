@@ -68,6 +68,45 @@ class STMC_Module_Header extends STMC_Module {
 		return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">' . $paths[ $name ] . '</svg>';
 	}
 
+	/**
+	 * The tags and attributes the bundled icon set uses.
+	 *
+	 * Every echo of icon() runs through wp_kses() with this list. The markup is
+	 * static and built here, but "trust me, it is static" is a comment, not an
+	 * escape — and a filter added later would not know that promise existed.
+	 *
+	 * @return array Allowed HTML in the shape wp_kses() expects.
+	 */
+	public static function icon_tags() {
+		$shared = array(
+			'fill'            => true,
+			'stroke'          => true,
+			'stroke-width'    => true,
+			'stroke-linecap'  => true,
+			'stroke-linejoin' => true,
+			'class'           => true,
+		);
+		return array(
+			'svg'    => array_merge(
+				$shared,
+				array(
+					'viewbox'     => true,
+					'viewBox'     => true,
+					'xmlns'       => true,
+					'width'       => true,
+					'height'      => true,
+					'aria-hidden' => true,
+					'focusable'   => true,
+				)
+			),
+			'g'      => $shared,
+			'path'   => array_merge( $shared, array( 'd' => true ) ),
+			'rect'   => array_merge( $shared, array( 'x' => true, 'y' => true, 'width' => true, 'height' => true, 'rx' => true, 'ry' => true ) ),
+			'circle' => array_merge( $shared, array( 'cx' => true, 'cy' => true, 'r' => true ) ),
+			'line'   => array_merge( $shared, array( 'x1' => true, 'y1' => true, 'x2' => true, 'y2' => true ) ),
+		);
+	}
+
 	public function render() {
 		$step   = self::step();
 		$titles = array(
@@ -105,7 +144,7 @@ class STMC_Module_Header extends STMC_Module {
 
 				<p class="stmc-band__trust">
 					<?php foreach ( self::trust_items() as $item ) : ?>
-						<span><?php echo self::icon( $item[0] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?><?php echo esc_html( $item[1] ); ?></span>
+						<span><?php echo wp_kses( self::icon( $item[0] ), self::icon_tags() ); ?><?php echo esc_html( $item[1] ); ?></span>
 					<?php endforeach; ?>
 				</p>
 
@@ -140,14 +179,14 @@ class STMC_Module_Header extends STMC_Module {
 						$content = (string) $nr;
 						if ( $nr < $step ) {
 							$class   = 'is-done';
-							$content = '&#10003;';
+							$content = '✓';
 						}
 						if ( $nr === $step ) {
 							$class = 'is-current';
 						}
 						?>
 						<li<?php echo $class ? ' class="' . esc_attr( $class ) . '"' : ''; ?><?php echo $nr === $step ? ' aria-current="step"' : ''; ?>>
-							<span class="stmc-steps__n" aria-hidden="true"><?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- digit or checkmark entity. ?></span><?php echo esc_html( $name ); ?>
+							<span class="stmc-steps__n" aria-hidden="true"><?php echo esc_html( $content ); ?></span><?php echo esc_html( $name ); ?>
 						</li>
 					<?php endforeach; ?>
 				</ol>

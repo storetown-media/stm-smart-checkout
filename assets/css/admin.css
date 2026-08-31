@@ -1,0 +1,67 @@
+/*
+ * Settings screen (WooCommerce → Smart Checkout).
+ *
+ * Lives in a file rather than a <style> block in the page: wp.org guideline
+ * "use wp_enqueue" — and a file is cached, versioned and overridable from a
+ * child theme, which an inline block never is.
+ */
+
+.stmc-settings .form-table th {
+	position: relative;
+}
+
+.stmc-help {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	margin-left: 6px;
+	padding: 0;
+	vertical-align: text-bottom;
+	background: #fff;
+	border: 1.5px solid #a7aaad;
+	border-radius: 50%;
+	color: #646970;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1;
+	cursor: help;
+}
+
+.stmc-help:hover,
+.stmc-help:focus,
+.stmc-help.is-open {
+	border-color: #2271b1;
+	color: #2271b1;
+	outline: none;
+}
+
+.stmc-help.is-open {
+	background: #2271b1;
+	color: #fff;
+}
+
+.stmc-help__pop {
+	display: none;
+	position: absolute;
+	z-index: 20;
+	top: calc(100% - 8px);
+	left: 0;
+	width: 340px;
+	max-width: 70vw;
+	padding: 12px 15px;
+	background: #1d2327;
+	border-radius: 8px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+	color: #f0f0f1;
+	font-size: 12.5px;
+	font-weight: 400;
+	line-height: 1.55;
+}
+
+.stmc-help:hover + .stmc-help__pop,
+.stmc-help:focus + .stmc-help__pop,
+.stmc-help.is-open + .stmc-help__pop {
+	display: block;
+}

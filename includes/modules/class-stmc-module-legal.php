@@ -638,7 +638,7 @@ class STMC_Module_Legal extends STMC_Module {
 		$title = trim( (string) STMC_Settings::get( 'legal.guarantee_title' ) );
 
 		echo '<div class="stmc-guarantee">'
-			. STMC_Module_Header::icon( 'shield' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+			. wp_kses( STMC_Module_Header::icon( 'shield' ), STMC_Module_Header::icon_tags() )
 			. '<p>'
 			. ( '' !== $title ? '<strong>' . esc_html( $title ) . '</strong> ' : '' )
 			. esc_html( $text )

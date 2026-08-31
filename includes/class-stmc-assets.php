@@ -65,12 +65,20 @@ class STMC_Assets {
 	 * Cache-safe asset version: plugin version + file mtime. Every deployed
 	 * change busts browser and page caches without a manual version bump.
 	 */
-	private static function asset_version( $rel_path ) {
+	public static function asset_version( $rel_path ) {
 		$mtime = @filemtime( STMC_DIR . $rel_path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		return $mtime ? STMC_VERSION . '.' . $mtime : STMC_VERSION;
 	}
 
-	/** Build the :root custom-property block from settings. */
+	/**
+	 * Build the :root custom-property block from settings.
+	 *
+	 * Everything returned here ends up inside a style element that WordPress
+	 * prints for us, so every value goes through css_value() at the point it is
+	 * written into the CSS. A translation or a filtered setting carrying a
+	 * closing style tag would otherwise end that element and turn what follows
+	 * it into markup.
+	 */
 	private static function tokens_css() {
 		$map = array(
 			'--stmc-accent'       => STMC_Settings::get( 'design.accent' ),
@@ -89,13 +97,28 @@ class STMC_Assets {
 
 		$css = ':root{';
 		foreach ( $map as $prop => $value ) {
-			// Values are sanitized on save (hex colors, int, whitelisted choice).
-			$css .= $prop . ':' . $value . ';';
+			// Sanitized on save as well (hex colors, int, whitelisted choice);
+			// this is the late pass, at the point of output, where it belongs.
+			$css .= $prop . ':' . self::css_value( $value ) . ';';
 		}
-		// The express divider word, translatable ("OR" → "ODER"). Quotes and
-		// backslashes are stripped so the string can never escape the literal.
-		$css .= "--stmc-divider-label:'" . str_replace( array( "'", '"', '\\' ), '', __( 'OR', 'stm-smart-checkout' ) ) . "';";
+		// The express divider word, translatable ("OR" → "ODER"), written as a
+		// quoted CSS string literal.
+		$css .= "--stmc-divider-label:'" . self::css_value( __( 'OR', 'stm-smart-checkout' ) ) . "';";
 		$css .= '}';
 		return $css;
+	}
+
+	/**
+	 * Make a value safe to write into a CSS declaration inside a style element.
+	 *
+	 * Removed is whatever could end the element ("<", ">"), end the declaration
+	 * or its block (";", "{", "}"), escape out of a quoted string literal
+	 * (quotes, backslash) or start a construct of its own ("@", parentheses).
+	 * The usual escaping functions are no help in this context: esc_html()
+	 * writes entities, which a stylesheet reads as literal characters.
+	 */
+	private static function css_value( $value ) {
+		$strip = array( '<', '>', '{', '}', ';', '@', '(', ')', '"', "'", '\\' );
+		return trim( str_replace( $strip, '', wp_strip_all_tags( (string) $value ) ) );
 	}
 }

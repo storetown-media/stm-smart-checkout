@@ -15,6 +15,13 @@ vendor/
 dist/
 __pycache__/
 
+# Uebersetzungen gehoeren nicht ins Paket: WordPress liefert sie seit 4.6 selbst
+# nach wp-content/languages/plugins/ und laedt sie ohne load_plugin_textdomain().
+# Die .po bleibt die gepflegte Quelle im Repository und geht auf
+# translate.wordpress.org; die .mo bauen die Deploy-Skripte fuer die eigenen
+# Shops an genau jene Stelle.
+languages/
+
 .gitignore
 .distignore
 phpcs.xml.dist

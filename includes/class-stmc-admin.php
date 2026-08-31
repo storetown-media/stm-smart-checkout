@@ -15,6 +15,9 @@ class STMC_Admin {
 
 	const PAGE = 'stmc-settings';
 
+	/** Screen hook of our settings page; set when the menu entry is added. */
+	private static $hook = '';
+
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		// Product-level delivery time, in the tab where shipping data belongs.
@@ -22,6 +25,7 @@ class STMC_Admin {
 		add_action( 'woocommerce_process_product_meta', array( __CLASS__, 'save_product_delivery_field' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( STMC_FILE ), array( __CLASS__, 'action_links' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
 	}
 
 	/**
@@ -62,13 +66,42 @@ class STMC_Admin {
 	}
 
 	public static function menu() {
-		add_submenu_page(
+		self::$hook = add_submenu_page(
 			'woocommerce',
 			__( 'Smart Checkout', 'stm-smart-checkout' ),
 			__( 'Smart Checkout', 'stm-smart-checkout' ),
 			'manage_woocommerce',
 			self::PAGE,
 			array( __CLASS__, 'render' )
+		);
+	}
+
+	/**
+	 * Stylesheet and script of this screen, as files.
+	 *
+	 * Both used to be printed into the page as a style and a script block.
+	 * Enqueuing them costs one hook and buys what WordPress does around an
+	 * asset: a version for the caches, one place from which a site can dequeue
+	 * or replace them, and no markup sitting in the middle of the form.
+	 *
+	 * @param string $hook Screen hook of the page being rendered.
+	 */
+	public static function assets( $hook ) {
+		if ( $hook !== self::$hook ) {
+			return;
+		}
+		wp_enqueue_style(
+			'stmc-admin',
+			STMC_URL . 'assets/css/admin.css',
+			array(),
+			STMC_Assets::asset_version( 'assets/css/admin.css' )
+		);
+		wp_enqueue_script(
+			'stmc-admin',
+			STMC_URL . 'assets/js/admin.js',
+			array(),
+			STMC_Assets::asset_version( 'assets/js/admin.js' ),
+			array( 'in_footer' => true )
 		);
 	}
 
@@ -125,31 +158,6 @@ class STMC_Admin {
 		$forced_on = ! STMC_Settings::get( 'general.enabled' ) && STMC_Checkout_Context::is_active();
 		?>
 		<div class="wrap stmc-settings">
-			<style>
-				.stmc-settings .form-table th { position: relative; }
-				.stmc-help {
-					display: inline-flex; align-items: center; justify-content: center;
-					width: 18px; height: 18px; margin-left: 6px; padding: 0;
-					vertical-align: text-bottom;
-					background: #fff; border: 1.5px solid #a7aaad; border-radius: 50%;
-					color: #646970; font-size: 11px; font-weight: 700; line-height: 1;
-					cursor: help;
-				}
-				.stmc-help:hover, .stmc-help:focus, .stmc-help.is-open {
-					border-color: #2271b1; color: #2271b1; outline: none;
-				}
-				.stmc-help.is-open { background: #2271b1; color: #fff; }
-				.stmc-help__pop {
-					display: none; position: absolute; z-index: 20;
-					top: calc(100% - 8px); left: 0; width: 340px; max-width: 70vw;
-					padding: 12px 15px; background: #1d2327; border-radius: 8px;
-					box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
-					color: #f0f0f1; font-size: 12.5px; font-weight: 400; line-height: 1.55;
-				}
-				.stmc-help:hover + .stmc-help__pop,
-				.stmc-help:focus + .stmc-help__pop,
-				.stmc-help.is-open + .stmc-help__pop { display: block; }
-			</style>
 			<h1><?php esc_html_e( 'STM Smart Checkout', 'stm-smart-checkout' ); ?></h1>
 			<p>
 				<?php esc_html_e( 'Configure the checkout, then use preview mode to review it on the live site before enabling it for customers.', 'stm-smart-checkout' ); ?>
@@ -271,36 +279,6 @@ class STMC_Admin {
 				</table>
 				<?php submit_button(); ?>
 			</form>
-			<script>
-				( function () {
-					// Tap/click pins a help bubble open (hover/focus alone is lost on
-					// touch); Escape or a click anywhere else closes it again.
-					function closeAll() {
-						document.querySelectorAll( '.stmc-help.is-open' ).forEach( function ( b ) {
-							b.classList.remove( 'is-open' );
-							b.setAttribute( 'aria-expanded', 'false' );
-						} );
-					}
-					document.addEventListener( 'click', function ( e ) {
-						var btn = e.target.closest( '.stmc-help' );
-						if ( ! btn ) {
-							closeAll();
-							return;
-						}
-						var open = btn.classList.contains( 'is-open' );
-						closeAll();
-						if ( ! open ) {
-							btn.classList.add( 'is-open' );
-							btn.setAttribute( 'aria-expanded', 'true' );
-						}
-					} );
-					document.addEventListener( 'keydown', function ( e ) {
-						if ( 'Escape' === e.key ) {
-							closeAll();
-						}
-					} );
-				} )();
-			</script>
 		</div>
 		<?php
 	}

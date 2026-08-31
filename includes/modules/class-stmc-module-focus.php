@@ -44,8 +44,10 @@ class STMC_Module_Focus extends STMC_Module {
 			add_filter( 'template_include', array( $this, 'fullpage_template' ), 999 );
 		}
 
-		// Owner-defined extra selectors (advanced, default empty).
-		add_action( 'wp_head', array( $this, 'extra_hide_css' ), 110 );
+		// Owner-defined extra selectors (advanced, default empty). Attached to
+		// the checkout stylesheet rather than printed into wp_head — the same
+		// rule every other asset here follows.
+		add_action( 'wp_enqueue_scripts', array( $this, 'extra_hide_css' ), 20 );
 	}
 
 	/** Does the active theme have one of our server-side adapters? */
@@ -159,9 +161,11 @@ class STMC_Module_Focus extends STMC_Module {
 			return;
 		}
 		// One selector per line; strip anything that could escape the rule block.
+		// ">" stays: it is the child combinator, and with "<" gone no tag can
+		// form around it. Quotes stay too, or attribute selectors would break.
 		$selectors = array();
 		foreach ( preg_split( '~[\r\n,]+~', $raw ) as $sel ) {
-			$sel = trim( str_replace( array( '{', '}', '<', '>', ';', '@' ), '', $sel ) );
+			$sel = trim( str_replace( array( '{', '}', '<', ';', '@' ), '', $sel ) );
 			if ( '' !== $sel ) {
 				$selectors[] = 'body.stmc-focus ' . $sel;
 			}
@@ -169,8 +173,6 @@ class STMC_Module_Focus extends STMC_Module {
 		if ( ! $selectors ) {
 			return;
 		}
-		// Selectors are stripped of {}<>;@ above — no way to close the style block
-		// or open a tag; esc_html() would mangle quotes in attribute selectors.
-		echo '<style id="stmc-focus-extra">' . wp_strip_all_tags( implode( ',', $selectors ) ) . '{display:none}</style>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wp_add_inline_style( 'stmc-checkout', implode( ',', $selectors ) . '{display:none}' );
 	}
 }

@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.38
+Stable tag: 0.1.39
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,11 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.39 =
+* The settings screen loads its stylesheet and its script as files. Both were printed into the page as a style and a script block, which renders the same but skips everything WordPress does around an asset: a version the caches can see, one place from which a site can dequeue or replace them, and markup that stays out of the middle of the form. The distraction-free module's extra hide rules take the same route and hang off the checkout stylesheet now instead of being written into the page head — and the child combinator survives their sanitizer, so "header > .bar" hides that bar rather than everything below the header.
+* Values written into a style element are stripped of the characters that could leave it. The word between the express buttons and the form is translatable, and a translation is a string from outside the code: one carrying a closing style tag would have ended the element and turned the rest of the declaration into markup. The colour and size tokens pass the same filter, applied late, where the value is written into the CSS rather than where it was read.
+* Translations come from WordPress rather than from the package. The plugin no longer calls load_plugin_textdomain and no longer ships compiled .mo files: for a plugin in the directory, WordPress delivers translations into wp-content/languages/plugins/ and loads them on the first translated string without being asked, so a bundled copy would only give one language two sources — of which the packaged one is always the older. The German translation stays maintained in the source repository and goes to translate.wordpress.org, where anyone who finds a better word can correct it.
 
 = 0.1.38 =
 * The shipping-address switch speaks in the checkout's voice. Its label carries the text, so a theme's label rules land there rather than on the heading around it — Basel sets 22px and uppercase on `.woocommerce-form__label`, and that one line shouted at 66px while the rest of the checkout spoke normally. Font size, weight, letter spacing and casing now inherit from the row, stated on the label and on the span inside it, because which of the two a theme targets differs.

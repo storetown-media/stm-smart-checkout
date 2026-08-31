@@ -32,7 +32,7 @@ class STMC_Module_Trust extends STMC_Module {
 		echo '<div class="stmc-trust-row" aria-hidden="false">';
 		foreach ( $items as $item ) {
 			echo '<span class="stmc-trust-row__item">'
-				. STMC_Module_Header::icon( $item[0] ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+				. wp_kses( STMC_Module_Header::icon( $item[0] ), STMC_Module_Header::icon_tags() )
 				. esc_html( $item[1] )
 				. '</span>';
 		}

@@ -10,11 +10,11 @@
 [![PHP](https://img.shields.io/badge/PHP-7.4%E2%80%938.4-777BB4?style=flat-square&logo=php)](#kompatibilität)
 [![Preis](https://img.shields.io/badge/Preis-kostenlos-brightgreen?style=flat-square)](#pricing)
 
-[🖥️ **Live-Demo**](https://www.storetown-media.de/kasse/?add-to-cart=56628) · [📦 **Download & Hub**](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/) · [⭐ **Pro-Version**](#pro-version)
+[🖥️ **Live-Demo**](https://www.storetown-media.de/kasse/?add-to-cart=56628) · [📦 **Kostenlos laden**](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/) · [📚 **Hub**](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/) · [⭐ **Pro-Version**](#pro-version)
 
 </div>
 
-> ✅ **Freie Software, GPLv2 oder später.** Dieses Repository enthält den vollständigen Quellcode. Das Plugin ist beim WordPress-Plugin-Verzeichnis eingereicht; bis zur Freigabe erhalten Sie es als ZIP über den [Download-Hub](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/).
+> ✅ **Freie Software, GPLv2 oder später.** Dieses Repository enthält den vollständigen Quellcode. Das Plugin ist beim WordPress-Plugin-Verzeichnis eingereicht; bis zur Freigabe erhalten Sie es als ZIP über die [Produktseite](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/).
 
 ---
 
@@ -64,7 +64,7 @@ Dieses Plugin gestaltet den **klassischen** Warenkorb und die klassische Kasse. 
 | | Für | Preis |
 |---|---|---|
 | **Smart Checkout** | alle oben genannten Funktionen | **kostenlos** (GPLv2+) |
-| **Smart Checkout Pro** | zusätzlich Widerrufsformular, Sticky-Bestellleiste, Ultra-kompakt | **99,00 €** |
+| **[Smart Checkout Pro](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)** | zusätzlich Widerrufsformular, Sticky-Bestellleiste, Ultra-kompakt | **99,00 €** |
 
 Alles, was auf dieser Seite beschrieben ist, steckt in der kostenlosen Version und bleibt dort.
 
@@ -83,7 +83,7 @@ Alles, was auf dieser Seite beschrieben ist, steckt in der kostenlosen Version u
 
 **Per ZIP (heute):**
 
-1. ZIP über den [Download-Hub](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/) laden
+1. ZIP über die [Produktseite](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/) laden (kostenlos, Konto genügt)
 2. **Plugins → Installieren → Plugin hochladen**
 3. Aktivieren — die Einstellungen liegen unter **WooCommerce → Smart Checkout**
 4. Erst ansehen: Vorschau-Modus benutzen. Erst dann **Smart Checkout aktivieren** einschalten
@@ -95,7 +95,8 @@ Alles, was auf dieser Seite beschrieben ist, steckt in der kostenlosen Version u
 | | |
 |---|---|
 | **Frontend-Demo** | [Kasse mit gefülltem Warenkorb öffnen](https://www.storetown-media.de/kasse/?add-to-cart=56628) |
-| **Download-Hub** | [storetown-media.de → WordPress-Plugins](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/) |
+| **Produktseite** | [Smart Checkout for WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/) |
+| **Pro-Version** | [Smart Checkout Pro](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/) |
 
 ## Pro-Version
 

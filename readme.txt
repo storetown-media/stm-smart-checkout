@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.35
+Stable tag: 0.1.36
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ STM Smart Checkout turns the standard WooCommerce checkout into a focused, trust
 * Legal texts (terms, right of withdrawal) readable in an overlay without leaving the checkout, plus a server-side safety net that verifies required consent boxes again after submit
 * Trust badges with a curated icon set
 * Works with WooCommerce Germanized and German Market instead of fighting them
-* Compatible with the classic (shortcode) checkout today; block-checkout compatible by design
+* Styles the classic (shortcode) cart and checkout. If your store uses the Cart and Checkout blocks, the plugin says so on its settings screen and offers a reversible one-click switch — it never changes your pages on its own
 
 **Philosophy:** your gateways keep rendering their own express buttons, your legal plugin keeps owning its legal texts, your theme keeps its typography. This plugin arranges everything into a checkout that converts.
 
@@ -47,7 +47,7 @@ STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte
 
 = Does this work with the block-based checkout? =
 
-The plugin declares compatibility with the cart/checkout blocks and does not interfere with them. The full visual layer targets the classic checkout first; block-native layouts are on the public roadmap.
+Not yet — and the plugin now tells you so instead of quietly doing nothing. Its visual layer is built on the classic (shortcode) cart and checkout, and none of its hooks run inside the Cart and Checkout blocks. When your store uses those blocks, the settings screen names the affected pages, states plainly that the settings below will not change what your customers see, and offers to switch those pages to the classic cart and checkout in one click. The block markup is saved, so the way back is one click as well. Nothing is changed without that click. Block-native layouts are on the public roadmap.
 
 = Does it work with WooCommerce Germanized / German Market? =
 
@@ -75,7 +75,7 @@ It is built to. Themes with a server-side adapter (The7, Storefront) use their n
 
 = Is it compatible with HPOS? =
 
-Yes — HPOS (High-Performance Order Storage) and the cart/checkout blocks are both declared compatible.
+Yes, HPOS (High-Performance Order Storage) is fully supported. Compatibility with the cart/checkout blocks is declared in the sense that this plugin does not interfere with them — it does not style them either; see the block-checkout question above.
 
 = Does it load external fonts or call external services? =
 
@@ -97,6 +97,9 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.36 =
+* The plugin now says it when your cart and checkout are built from blocks. A stock WooCommerce install renders both pages from the Cart and Checkout blocks; this plugin extends the classic cart and checkout, and none of its hooks fire inside the blocks. Until now that combination was silent in every direction: the settings screen offered its full set of options, the checkout kept looking exactly as before, and WooCommerce said nothing either — because the plugin declares block compatibility, which is true (it breaks nothing) and which switches off Woo's own warning. The settings screen now names the affected pages above the tabs, states plainly that nothing below will change what customers see, and offers to switch those pages to the classic cart and checkout in one click. The block markup is kept in the page's meta, so the way back is one click as well and stays visible for as long as the switch is in place. The same note appears once on the plugins list, where it can be dismissed.
 
 = 0.1.35 =
 * Preview mode can be left again. Once a shop manager had opened the preview, every later visit showed the Smart Checkout while the settings screen kept saying "off" — which reads like a broken switch. `?stmc_preview=0` (also "off", "no") clears the cookie and takes effect in the same request, and the settings screen now says out loud whenever the cookie is set: preview is on for you, this is why the checkout looks switched on, customers still see the standard checkout — with the link that ends it. Customers were never affected.

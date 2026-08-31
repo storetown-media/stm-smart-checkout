@@ -172,6 +172,15 @@ class STMC_Admin {
 				</div>
 			<?php endif; ?>
 
+			<?php
+			/*
+			 * Above the tabs on purpose: while the checkout is a block, every
+			 * setting underneath is without effect, and a shop owner who is
+			 * not told that reads the whole screen as broken.
+			 */
+			STMC_Block_Checkout::panel();
+			?>
+
 			<nav class="nav-tab-wrapper">
 				<?php foreach ( $tabs as $slug => $label ) : ?>
 					<a class="nav-tab <?php echo $slug === $current ? 'nav-tab-active' : ''; ?>"

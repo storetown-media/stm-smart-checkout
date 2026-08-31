@@ -33,6 +33,7 @@ final class STMC_Plugin {
 		STMC_Assets::init();
 		if ( is_admin() && class_exists( 'STMC_Admin' ) ) {
 			STMC_Admin::init();
+			STMC_Block_Checkout::init();
 		}
 
 		add_filter( 'stmc_modules', array( $this, 'register_core_modules' ), 5 );

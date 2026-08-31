@@ -646,3 +646,35 @@ msgstr "Der Vorschau-Modus ist für Sie aktiv. Deshalb zeigt die Kasse den Smart
 msgid "End preview"
 msgstr "Vorschau beenden"
 
+msgid "Your cart and checkout are built from blocks"
+msgstr "Ihr Warenkorb und Ihre Kasse bestehen aus Blöcken"
+
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. Smart Checkout builds on the classic cart and checkout, so on those pages its settings have no effect."
+msgstr "Diese Seiten stellen die Warenkorb- und Kasse-Blöcke von WooCommerce dar: %s. Smart Checkout baut auf dem klassischen Warenkorb und der klassischen Kasse auf — auf diesen Seiten bleiben seine Einstellungen deshalb ohne Wirkung."
+
+msgid "That includes your checkout page, so nothing on this screen will change what your customers see there."
+msgstr "Darunter ist Ihre Kassenseite: Nichts auf diesem Bildschirm ändert also etwas an dem, was Ihre Kunden dort sehen."
+
+msgid "WooCommerce ships both variants and supports both. Switching these pages to the classic cart and checkout takes one click — the block markup is kept, so you can put it back just as quickly."
+msgstr "WooCommerce liefert beide Varianten aus und unterstützt beide. Diese Seiten auf den klassischen Warenkorb und die klassische Kasse umzustellen, ist ein Klick — das Block-Markup bleibt gesichert, der Rückweg ist ebenso schnell."
+
+msgid "Switch these pages to the classic checkout"
+msgstr "Diese Seiten auf die klassische Kasse umstellen"
+
+msgid "Switched to the classic cart and checkout by this plugin: %s. The block version is saved and can be restored."
+msgstr "Von diesem Plugin auf den klassischen Warenkorb und die klassische Kasse umgestellt: %s. Die Block-Fassung ist gesichert und wiederherstellbar."
+
+msgid "Restore the blocks"
+msgstr "Blöcke wiederherstellen"
+
+msgid "your cart and checkout are built from WooCommerce blocks, which this plugin does not style. It can switch those pages to the classic version for you — reversibly."
+msgstr "Ihr Warenkorb und Ihre Kasse bestehen aus WooCommerce-Blöcken, die dieses Plugin nicht gestaltet. Es kann diese Seiten für Sie auf die klassische Fassung umstellen — umkehrbar."
+
+msgid "Show me"
+msgstr "Ansehen"
+
+msgid "Hide this notice"
+msgstr "Diesen Hinweis ausblenden"
+
+msgid "You are not allowed to change the checkout pages."
+msgstr "Sie dürfen die Kassenseiten nicht ändern."

@@ -309,11 +309,57 @@ body.stmc-checkout form.checkout .wc-order-review #order_review {
    The :not() matters: our own titles render as direct children of the same
    wrappers, so a bare "> h3" would hide them too (it did — 28.08.2026).
    #order_review_heading is handled in the payment section: Germanized's JS
-   moves it and re-shows it inline, which a plain rule cannot counter. */
+   moves it and re-shows it inline, which a plain rule cannot counter.
+
+   The shipping block is DELIBERATELY not in this list. Its h3 is not a
+   heading: WooCommerce puts the "ship to a different address?" checkbox
+   INSIDE it (checkout/form-shipping.php). Hiding it removed the only control
+   that opens the shipping address and left an empty card — reported from a
+   live shop, 31.08.2026. We render no title of our own for that section
+   either, so there was nothing to take its place. It is styled as the control
+   row it is, further down. */
 body.stmc-checkout form.checkout .woocommerce-billing-fields > h3:not(.stmc-section-title),
-body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3:not(.stmc-section-title),
 body.stmc-checkout form.checkout .woocommerce-additional-fields > h3:not(.stmc-section-title) {
 	display: none;
+}
+
+/* "Lieferung an eine andere Adresse?" — a switch wearing an h3, so the
+   heading typography has to come off before it reads as one. 44px of tap
+   target because it is the one control on this card. */
+body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3#ship-to-different-address {
+	margin: 0;
+	padding: 0;
+	font-family: inherit;
+	font-size: var(--stmc-fs-s);
+	font-weight: 600;
+	line-height: 1.5;
+	letter-spacing: 0;
+	color: var(--stmc-text);
+	text-transform: none;
+}
+
+body.stmc-checkout form.checkout #ship-to-different-address label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 44px;
+	margin: 0;
+	cursor: pointer;
+	font-weight: inherit;
+}
+
+body.stmc-checkout form.checkout #ship-to-different-address input[type="checkbox"] {
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+	cursor: pointer;
+}
+
+/* Once ticked, the address block below needs the same breathing room the
+   billing fields have — without it the two run into each other. */
+body.stmc-checkout form.checkout .woocommerce-shipping-fields .shipping_address {
+	margin-top: 14px;
 }
 
 body.stmc-checkout form.checkout {

@@ -338,6 +338,22 @@ body.stmc-checkout form.checkout .woocommerce-shipping-fields > h3#ship-to-diffe
 	text-transform: none;
 }
 
+/* The label carries the text, so the theme's label rules land here, not on
+   the h3: Basel sets 22px and uppercase on .woocommerce-form__label, which
+   made this one line shout at 66px while the rest of the checkout spoke
+   normally (measured on the live shop, 31.08.2026). Inheriting from the h3 is
+   what "the theme keeps its typography, we keep the checkout coherent" means
+   in practice — stated on the label AND the span, because the span inherits
+   from whichever of the two a theme happened to target. */
+body.stmc-checkout form.checkout #ship-to-different-address label,
+body.stmc-checkout form.checkout #ship-to-different-address label span {
+	font-size: inherit;
+	font-weight: inherit;
+	text-transform: none;
+	letter-spacing: inherit;
+	color: inherit;
+}
+
 body.stmc-checkout form.checkout #ship-to-different-address label {
 	display: flex;
 	align-items: center;
@@ -345,7 +361,6 @@ body.stmc-checkout form.checkout #ship-to-different-address label {
 	min-height: 44px;
 	margin: 0;
 	cursor: pointer;
-	font-weight: inherit;
 }
 
 body.stmc-checkout form.checkout #ship-to-different-address input[type="checkbox"] {

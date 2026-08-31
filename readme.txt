@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.37
+Stable tag: 0.1.38
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,9 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.38 =
+* The shipping-address switch speaks in the checkout's voice. Its label carries the text, so a theme's label rules land there rather than on the heading around it — Basel sets 22px and uppercase on `.woocommerce-form__label`, and that one line shouted at 66px while the rest of the checkout spoke normally. Font size, weight, letter spacing and casing now inherit from the row, stated on the label and on the span inside it, because which of the two a theme targets differs.
 
 = 0.1.37 =
 * Customers can enter a different shipping address again. The rule that steps the theme's own section headings aside — so the plugin's numbered titles can take their place — also caught the shipping block, and WooCommerce does not put a heading there: it puts the "Ship to a different address?" checkbox inside that h3. Hiding it removed the only control that opens the shipping address and left an empty card in its place, on every shop that offers shipping. The shipping block is now excluded from that rule and its heading is styled as what it actually is: a switch, in the body font, with a 44px tap target. Reported from a live shop; the two test shops had never rendered the section, one forcing shipping to the billing address and the other selling a virtual article.

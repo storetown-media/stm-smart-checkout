@@ -1,0 +1,68 @@
+name: Deploy to WordPress.org
+
+# wp.org is an SVN release system, not a Git remote: a commit there means
+# "this is now the version every store downloads". So the trigger is not a
+# push but a tag — one deliberate act per release.
+#
+# What this deploys comes from the same two files the package is built from:
+#   .distignore      — what NOT to ship (build-zip.py reads the same file)
+#   .wordpress-org/  — banner, icon and screenshots, into SVN assets/
+# That is the 10up action's own convention, so trunk cannot drift away from
+# the ZIP built locally.
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Publish tag to the plugin directory
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: The tag, the plugin header and the stable tag must agree
+        # SVN has no undo: a tag directory, once committed, stays. And the
+        # readme's "Stable tag" is what WordPress actually serves — a release
+        # tagged 0.1.40 with "Stable tag: 0.1.39" in the readme ships the old
+        # version to every store and looks like a broken update. Cheaper to
+        # fail here than to explain it afterwards.
+        run: |
+          set -e
+          tag="${GITHUB_REF_NAME}"
+          header=$(sed -n 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*//p' stm-smart-checkout.php | head -1 | tr -d '\r')
+          stable=$(sed -n 's/^Stable tag:[[:space:]]*//p' readme.txt | head -1 | tr -d '\r')
+          echo "tag=$tag  header=$header  stable tag=$stable"
+          [ "$tag" = "$header" ] || { echo "::error::plugin header says $header, tag says $tag"; exit 1; }
+          [ "$tag" = "$stable" ] || { echo "::error::readme stable tag says $stable, tag says $tag"; exit 1; }
+          grep -q "^= ${tag} =$" readme.txt || { echo "::error::readme.txt has no changelog entry for $tag"; exit 1; }
+
+      - name: The directory assets must all be there
+        # Missing assets do not fail the deploy, they just leave the public
+        # page without a banner — visible to everyone, and only noticed later.
+        run: |
+          set -e
+          for datei in banner-1544x500.png banner-772x250.png icon-128x128.png icon-256x256.png; do
+            test -f ".wordpress-org/$datei" || { echo "::error::.wordpress-org/$datei missing"; exit 1; }
+          done
+          anzahl=$(ls .wordpress-org/screenshot-*.png 2>/dev/null | wc -l)
+          beschriftet=$(sed -n '/^== Screenshots ==/,/^== /p' readme.txt | grep -c '^[0-9]\+\. ' || true)
+          echo "screenshots: $anzahl files, $beschriftet captions in readme.txt"
+          [ "$anzahl" -eq "$beschriftet" ] || { echo "::error::$anzahl screenshot files but $beschriftet captions"; exit 1; }
+
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: stm-smart-checkout
+
+      - name: Keep the deployed ZIP with the run
+        uses: actions/upload-artifact@v4
+        with:
+          name: stm-smart-checkout-${{ github.ref_name }}
+          path: ${{ github.workspace }}/${{ github.event.repository.name }}.zip

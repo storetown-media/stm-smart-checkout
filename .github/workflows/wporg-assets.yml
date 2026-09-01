@@ -1,0 +1,59 @@
+name: Update WordPress.org assets
+
+# Banner, Icons und Screenshots liegen in SVN unter assets/ — AUSSERHALB der
+# Versionen. Ein neues Banner braucht deshalb kein Release, und eine
+# Versionsnummer fuer eine Bilddatei zu verbrennen hiesse ausserdem, jeder
+# Installation ein Update anzubieten, das nichts an ihr aendert.
+#
+# Der Deploy-Workflow daneben haengt am Versions-Tag und kann das nicht. Dieser
+# hier laeuft auf Knopfdruck in der Actions-Oberflaeche und spielt NUR
+# .wordpress-org/ nach assets/ (und die readme in trunk mit, was die Action von
+# sich aus tut). Bewusst kein Push-Ausloeser: ein Push veroeffentlicht in diesem
+# Repository nichts.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  assets:
+    name: Push .wordpress-org to the SVN assets directory
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: The assets must all be there and match the readme
+        # Dieselben Zaehlungen wie im Deploy-Workflow. Fehlende Bilder lassen
+        # einen Asset-Push nicht scheitern, sie leeren nur die oeffentliche
+        # Seite — sichtbar fuer alle, bemerkt zuletzt.
+        run: |
+          set -e
+          for datei in banner-1544x500.png banner-772x250.png icon-128x128.png icon-256x256.png; do
+            test -f ".wordpress-org/$datei" || { echo "::error::.wordpress-org/$datei missing"; exit 1; }
+          done
+          anzahl=$(ls .wordpress-org/screenshot-*.png 2>/dev/null | wc -l)
+          beschriftet=$(sed -n '/^== Screenshots ==/,/^== /p' readme.txt | grep -c '^[0-9]\+\. ' || true)
+          echo "screenshots: $anzahl files, $beschriftet captions in readme.txt"
+          [ "$anzahl" -eq "$beschriftet" ] || { echo "::error::$anzahl screenshot files but $beschriftet captions"; exit 1; }
+
+      - name: Every image must have the size its filename promises
+        # wp.org prueft das nicht und zeigt eine Datei mit falschen Massen
+        # einfach verzerrt oder gar nicht. Der Dateiname IST hier die Zusage.
+        run: |
+          set -e
+          sudo apt-get install -y --no-install-recommends imagemagick >/dev/null
+          fehler=0
+          for f in .wordpress-org/banner-*.png .wordpress-org/icon-*.png; do
+            name=$(basename "$f" .png)
+            soll=${name##*-}
+            ist=$(identify -format '%wx%h' "$f")
+            echo "$name: $ist"
+            [ "$ist" = "$soll" ] || { echo "::error::$f is $ist but its name promises $soll"; fehler=1; }
+          done
+          exit $fehler
+
+      - name: WordPress.org Plugin Asset Update
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: stm-smart-checkout

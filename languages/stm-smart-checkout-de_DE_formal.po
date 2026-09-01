@@ -53,7 +53,7 @@ msgid "Close"
 msgstr "Schließen"
 
 msgid "Configure the checkout, then use preview mode to review it on the live site before enabling it for customers."
-msgstr "Konfigurieren Sie die Kasse und prüfen Sie sie im Vorschau-Modus auf der Live-Site, bevor Sie sie für Kunden aktivieren."
+msgstr "Konfigurieren Sie die Kasse und prüfen Sie sie im Vorschau-Modus auf der Live-Website, bevor Sie sie für Kunden aktivieren."
 
 msgid "Confirmation"
 msgstr "Bestätigung"
@@ -143,7 +143,7 @@ msgid "Two columns (order summary right)"
 msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
 msgid "One selector per line. Hidden only on cart/checkout. Never hide your footer legal links."
-msgstr "Ein Selektor pro Zeile. Wirkt nur auf Warenkorb/Kasse. Blenden Sie nie Ihre Rechtslinks im Fußbereich aus."
+msgstr "Ein Selektor pro Zeile. Wirkt nur auf Warenkorb/Kasse. Blenden Sie nie Ihre Rechtslinks im Footer aus."
 
 msgid "Only claims that are actually true for your shop."
 msgstr "Nur Zusagen, die für Ihren Shop wirklich gelten."
@@ -182,7 +182,7 @@ msgid "Postcode autofill for Germany, Austria, Switzerland"
 msgstr "PLZ-Autofill für Deutschland, Österreich, Schweiz"
 
 msgid "Reassurance note under the consent boxes"
-msgstr "Beruhigender Hinweis unter den Pflicht-Kästchen"
+msgstr "Beruhigender Hinweis unter den Pflicht-Checkboxen"
 
 msgid "Reassurance note: lead-in"
 msgstr "Beruhigender Hinweis: Einleitung"
@@ -194,7 +194,7 @@ msgid "Render a screen-reader page title"
 msgstr "Seitentitel für Screenreader ausgeben"
 
 msgid "Repeat trust items under the order button"
-msgstr "Vertrauens-Bausteine unter dem Bestellknopf wiederholen"
+msgstr "Vertrauens-Bausteine unter dem Bestell-Button wiederholen"
 
 msgid "STM Smart Checkout"
 msgstr "STM Smart Checkout"
@@ -209,7 +209,7 @@ msgid "STM Smart Checkout requires WooCommerce to be installed and active."
 msgstr "STM Smart Checkout benötigt ein installiertes und aktives WooCommerce."
 
 msgid "Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box."
-msgstr "Sicherheitsnetz: Eine Bestellung ohne gesetztes Pflicht-Häkchen wird auch dann abgelehnt, wenn die Browser-Prüfung umgangen wurde. Bleibt still, wenn WooCommerce oder Germanized dasselbe Kästchen bereits gemeldet hat."
+msgstr "Sicherheitsnetz: Eine Bestellung ohne gesetztes Pflicht-Häkchen wird auch dann abgelehnt, wenn die Browser-Prüfung umgangen wurde. Bleibt still, wenn WooCommerce oder Germanized dieselbe Checkbox bereits gemeldet hat."
 
 msgid "Secondary text color"
 msgstr "Sekundäre Textfarbe"
@@ -226,8 +226,8 @@ msgstr "„Bereits Kunde?“-Anmeldeknopf anzeigen"
 msgid "Show progress bar (cart → checkout → confirmation)"
 msgstr "Fortschrittsleiste anzeigen (Warenkorb → Kasse → Bestätigung)"
 
-msgid "Shown in the checkout header. Leave empty to use the site logo."
-msgstr "Erscheint im Kassen-Kopf. Leer lassen = Seitenname als Text."
+msgid "Shown in the checkout header. Leave empty to show your site title as text instead."
+msgstr "Erscheint im Kassen-Kopf. Leer lassen = der Name Ihrer Website erscheint stattdessen als Text."
 
 msgid "Smart Checkout"
 msgstr "Smart Checkout"
@@ -269,7 +269,7 @@ msgid "Two columns (order summary right)"
 msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
 msgid "Verify required consent boxes on the server"
-msgstr "Pflicht-Kästchen serverseitig prüfen"
+msgstr "Pflicht-Checkboxen serverseitig prüfen"
 
 msgid "What happens when I create an account?"
 msgstr "Was passiert beim Erstellen eines Kontos?"
@@ -340,28 +340,28 @@ msgid "Never (CSS fallback only)"
 msgstr "Nie (nur CSS-Fallback)"
 
 msgid "Checkout footer: pages"
-msgstr "Kassen-Fuß: Seiten"
+msgstr "Kassen-Footer: Seiten"
 
 msgid "Hold Ctrl/Cmd to select several. Empty = the menu below, or the legal pages your site already registered."
 msgstr "Strg/Cmd halten für Mehrfachauswahl. Leer = das Menü darunter oder die bereits hinterlegten Rechtsseiten Ihrer Website."
 
 msgid "Checkout footer: menu (alternative)"
-msgstr "Kassen-Fuß: Menü (Alternative)"
+msgstr "Kassen-Footer: Menü (Alternative)"
 
 msgid "Used when no pages are picked above."
 msgstr "Greift, wenn oben keine Seiten gewählt sind."
 
 msgid "The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the pages for the quiet line under the checkout. Left empty, the menu below is used; without either, the line fills itself with the legal pages your site already registered (Germanized, WooCommerce terms, WordPress privacy)."
-msgstr "Die Vollseiten-Kasse ersetzt den Theme-Fußbereich — Impressum, Datenschutz und AGB müssen auf jeder Seite erreichbar bleiben. Wählen Sie die Seiten für die ruhige Zeile unter der Kasse. Bleibt die Auswahl leer, greift das Menü darunter; fehlt beides, füllt sich die Zeile von selbst mit den bereits hinterlegten Rechtsseiten Ihrer Website (Germanized, WooCommerce-AGB, WordPress-Datenschutz)."
+msgstr "Die Vollseiten-Kasse ersetzt den Theme-Footer — Impressum, Datenschutz und AGB müssen auf jeder Seite erreichbar bleiben. Wählen Sie die Seiten für die ruhige Zeile unter der Kasse. Bleibt die Auswahl leer, greift das Menü darunter; fehlt beides, füllt sich die Zeile von selbst mit den bereits hinterlegten Rechtsseiten Ihrer Website (Germanized, WooCommerce-AGB, WordPress-Datenschutz)."
 
 msgid "Alternative to picking single pages: a whole menu (typically your footer legal menu) renders as the legal line. Only used while no pages are selected above."
-msgstr "Alternative zur Einzelauswahl: ein ganzes Menü (typisch Ihr Rechts-Menü im Fußbereich) erscheint als Rechtszeile. Greift nur, solange oben keine Seiten gewählt sind."
+msgstr "Alternative zur Einzelauswahl: ein ganzes Menü (typisch Ihr Rechts-Menü im Footer) erscheint als Rechtszeile. Greift nur, solange oben keine Seiten gewählt sind."
 
 msgid "Legal links"
 msgstr "Rechtslinks"
 
 msgid "The strongest distraction-free level: cart and checkout render through the plugin's own minimal page — the theme's header, menus and footer are never built at all. \"Automatic\" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working."
-msgstr "Die stärkste Ablenkungsfrei-Stufe: Warenkorb und Kasse laufen über die eigene Minimal-Seite des Plugins — Kopfbereich, Menüs und Fußbereich des Themes werden gar nicht erst aufgebaut. „Automatisch“ nutzt sie nur bei Themes ohne eingebauten Adapter (The7 und Storefront haben einen und bleiben auf ihrem nativen Weg). Styles, Analytics, Consent-Tools und Chat-Widgets funktionieren weiter."
+msgstr "Die stärkste Ablenkungsfrei-Stufe: Warenkorb und Kasse laufen über die eigene Minimal-Seite des Plugins — Kopfbereich, Menüs und Footer des Themes werden gar nicht erst aufgebaut. „Automatisch“ nutzt sie nur bei Themes ohne eingebauten Adapter (The7 und Storefront haben einen und bleiben auf ihrem nativen Weg). Styles, Analytics, Consent-Tools und Chat-Widgets funktionieren weiter."
 
 msgid "Order notes field (\"Additional information\")"
 msgstr "Bestellhinweise-Feld („Zusätzliche Informationen“)"
@@ -370,13 +370,13 @@ msgid "The \"order notes\" field under \"Additional information\". Off = the fie
 msgstr "Das Bestellhinweise-Feld unter „Zusätzliche Informationen“. Aus = das Feld und seine ganze Sektion verschwinden aus der Kasse — eine Frage weniger für Shops, die die Hinweise nie lesen. Hinweise, die Kunden auf alten Bestellungen geschrieben haben, bleiben unberührt."
 
 msgid "The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing."
-msgstr "Der Hauptschalter. An = Kunden sehen den Smart Checkout auf Warenkorb und Kasse. Aus = Kunden behalten die Standard-Kasse, während Sie in Ruhe konfigurieren. Der Vorschau-Link oben funktioniert in beiden Zuständen — Sie prüfen jede Änderung auf der Live-Site, ohne dass ein Kunde etwas bemerkt."
+msgstr "Der Hauptschalter. An = Kunden sehen den Smart Checkout auf Warenkorb und Kasse. Aus = Kunden behalten die Standard-Kasse, während Sie in Ruhe konfigurieren. Der Vorschau-Link oben funktioniert in beiden Zuständen — Sie prüfen jede Änderung auf der Live-Website, ohne dass ein Kunde etwas bemerkt."
 
 msgid "The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the \"Already a customer?\" login pill and the cart → checkout → confirmation progress. The individual pieces are configured on the Checkout tab."
 msgstr "Das weiße Kopfband, das an Warenkorb und Kasse den Theme-Header ersetzt: Ihr Logo in der Mitte, die drei Vertrauens-Texte, die „Bereits Kunde?“-Anmelde-Pille und der Fortschritt Warenkorb → Kasse → Bestätigung. Die einzelnen Bestandteile stellen Sie im Tab „Kasse“ ein."
 
 msgid "Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the advanced selector list on the Checkout tab."
-msgstr "Blendet alles aus, was vom Abschluss wegführt: Theme-Kopf und Menü, Siegel, Brotkrumen und dekorative Fußbereich-Teile. Rechtslinks im Fußbereich bleiben immer erreichbar. Site-spezifische Extras verstecken Sie über die erweiterte Selektor-Liste im Tab „Kasse“."
+msgstr "Blendet alles aus, was vom Abschluss wegführt: Theme-Kopf und Menü, Siegel, Brotkrumen und dekorative Footer-Teile. Rechtslinks im Footer bleiben immer erreichbar. Website-spezifische Extras verstecken Sie über die erweiterte Selektor-Liste im Tab „Kasse“."
 
 msgid "The layout machinery: the column arrangement chosen on the Design tab, the numbered section headings and the \"Continue shopping\" link on the cart."
 msgstr "Die Layout-Maschinerie: die im Design-Tab gewählte Spaltenaufteilung, die nummerierten Abschnitts-Überschriften und der „Weiter einkaufen“-Link im Warenkorb."
@@ -385,7 +385,7 @@ msgid "All form-field improvements as a group: tidy field pairs (first/last name
 msgstr "Alle Formularfeld-Verbesserungen als Gruppe: aufgeräumte Feldpaare (Vor-/Nachname, PLZ/Ort), Bundesland-Korrekturen, richtige Handy-Tastaturen, PLZ-Autovervollständigung und der Konto-Hinweis. Jedes Teil hat im Tab „Kasse“ seinen eigenen Schalter."
 
 msgid "The quiet reassurance row under the order button, repeating the three trust items from the header band."
-msgstr "Die dezente Vertrauenszeile unter dem Bestell-Knopf — sie wiederholt die drei Vertrauens-Texte aus dem Kopfband."
+msgstr "Die dezente Vertrauenszeile unter dem Bestell-Button — sie wiederholt die drei Vertrauens-Texte aus dem Kopfband."
 
 msgid "Writes what the checkout scripts are doing to the browser console (F12). Useful only while diagnosing a problem — leave it off in normal operation. Customers never see these messages."
 msgstr "Schreibt in die Browser-Konsole (F12), was die Kassen-Skripte gerade tun. Nur bei der Fehlersuche nützlich — im Normalbetrieb ausgeschaltet lassen. Kunden sehen diese Meldungen nie."
@@ -412,7 +412,7 @@ msgid "Third trust item, shown with the card icon — a good place for your paym
 msgstr "Dritter Vertrauens-Text, mit dem Karten-Symbol — ein guter Platz für Ihre Zahlarten, z. B. „PayPal, Klarna & Rechnung“."
 
 msgid "Repeats the three trust items in small print directly under the buy button — the moment of the last hesitation. Uses the same texts as the header band, so there is only one place to maintain them."
-msgstr "Wiederholt die drei Vertrauens-Texte klein direkt unter dem Kauf-Knopf — dem Moment des letzten Zögerns. Nutzt dieselben Texte wie das Kopfband, es gibt also nur eine Pflegestelle."
+msgstr "Wiederholt die drei Vertrauens-Texte klein direkt unter dem Kauf-Button — dem Moment des letzten Zögerns. Nutzt dieselben Texte wie das Kopfband, es gibt also nur eine Pflegestelle."
 
 msgid "A small back-to-shop link above the cart table. With the theme menu hidden there is otherwise no way back to the products; the checkout page deliberately never gets one."
 msgstr "Ein kleiner Zurück-zum-Shop-Link über der Warenkorbtabelle. Mit verstecktem Theme-Menü gäbe es sonst keinen Weg zurück zu den Produkten; die Kasse selbst bekommt bewusst keinen."
@@ -433,10 +433,10 @@ msgid "Links inside the consent boxes (terms, withdrawal) open the legal text in
 msgstr "Links in den Pflichtkästchen (AGB, Widerruf) öffnen den Rechtstext in einem Overlay, statt die Kasse zu verlassen. Der Text kommt von Ihren bestehenden Seiten — nichts wird doppelt gepflegt. Rechtsklick oder Mittelklick öffnet weiter die normale Seite; schlägt das Laden fehl, verhält sich der Link ganz normal."
 
 msgid "For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page."
-msgstr "Für site-spezifische Elemente, die der ablenkungsfreie Modus nicht kennt: ein CSS-Selektor pro Zeile, versteckt nur auf Warenkorb und Kasse. Beispiel: #mein-chat-widget. Verstecken Sie nie Ihre Rechtslinks im Fußbereich — die sind auf jeder Seite Pflicht."
+msgstr "Für site-spezifische Elemente, die der ablenkungsfreie Modus nicht kennt: ein CSS-Selektor pro Zeile, versteckt nur auf Warenkorb und Kasse. Beispiel: #mein-chat-widget. Verstecken Sie nie Ihre Rechtslinks im Footer — die sind auf jeder Seite Pflicht."
 
 msgid "Browsers enforce required boxes only client-side — a broken script or a manipulated request could order without consent. This re-checks every required box (WooCommerce terms and Germanized) on the server and rejects the order with a normal error message. It stays silent when another plugin already reported the same box, so customers never read the same complaint twice."
-msgstr "Browser prüfen Pflichtkästchen nur clientseitig — ein kaputtes Skript oder eine manipulierte Anfrage könnte ohne Zustimmung bestellen. Diese Prüfung kontrolliert jedes Pflichtkästchen (WooCommerce-AGB und Germanized) noch einmal auf dem Server und lehnt die Bestellung mit normaler Fehlermeldung ab. Sie schweigt, wenn ein anderes Plugin dasselbe Kästchen bereits gemeldet hat — Kunden lesen nie zweimal dieselbe Beschwerde."
+msgstr "Browser prüfen Pflichtkästchen nur clientseitig — ein kaputtes Skript oder eine manipulierte Anfrage könnte ohne Zustimmung bestellen. Diese Prüfung kontrolliert jedes Pflichtkästchen (WooCommerce-AGB und Germanized) noch einmal auf dem Server und lehnt die Bestellung mit normaler Fehlermeldung ab. Sie schweigt, wenn ein anderes Plugin dieselbe Checkbox bereits gemeldet hat — Kunden lesen nie zweimal dieselbe Beschwerde."
 
 msgid "The bold lead-in of the reassurance note, e.g. \"No risk:\". Leave empty for a note without a lead-in."
 msgstr "Der fette Auftakt des Beruhigungs-Hinweises, z. B. „Kein Risiko:“. Leer = Hinweis ohne Auftakt."
@@ -448,10 +448,10 @@ msgid "Three columns: billing left, payment in the middle, order summary right �
 msgstr "Drei Spalten: Rechnung links, Zahlungsart in der Mitte, Bestellung rechts — die bewährte kompakte Desktop-Bühne. Ultra-kompakt: dieselbe Bühne eine Schriftstufe kleiner mit engeren Karten, für alles auf einen Blick. Zwei Spalten: Formular links, Bestellübersicht haftend rechts. Eine Spalte: ein zentrierter vertikaler Fluss. Auf schmalen Bildschirmen stapelt jedes Layout sauber; Handys sind immer einspaltig."
 
 msgid "The action color: buy button, radio/checkbox accents and the underline of the section headings. Use your brand's strongest call-to-action color."
-msgstr "Die Aktionsfarbe: Kauf-Knopf, Radio-/Kästchen-Akzente und die Unterstreichung der Abschnitts-Überschriften. Nehmen Sie die stärkste Handlungsfarbe Ihrer Marke."
+msgstr "Die Aktionsfarbe: Kauf-Button, Radio-/Checkbox-Akzente und die Unterstreichung der Abschnitts-Überschriften. Nehmen Sie die stärkste Handlungsfarbe Ihrer Marke."
 
 msgid "The accent color while hovering a button — usually a slightly darker shade of the accent."
-msgstr "Die Akzentfarbe beim Überfahren eines Knopfes — meist eine etwas dunklere Abstufung des Akzents."
+msgstr "Die Akzentfarbe beim Überfahren eines Buttons — meist eine etwas dunklere Abstufung des Akzents."
 
 msgid "The strong text color: order summary lines, amounts, the grand total and other emphasized text."
 msgstr "Die kräftige Textfarbe: Zeilen der Bestellübersicht, Beträge, die Gesamtsumme und weitere betonte Texte."
@@ -472,10 +472,10 @@ msgid "Borders of cards and fields plus the thin separators between rows."
 msgstr "Ränder von Karten und Feldern sowie die feinen Trennlinien zwischen Zeilen."
 
 msgid "Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default."
-msgstr "Ecken-Rundung der Karten in Pixeln; Felder und Knöpfe skalieren mit. 0 = scharfe Ecken, 12 = der freundliche Standard."
+msgstr "Ecken-Rundung der Karten in Pixeln; Felder und Buttons skalieren mit. 0 = scharfe Ecken, 12 = der freundliche Standard."
 
-msgid "The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height."
-msgstr "Das Logo in der Mitte des Kassen-Kopfbands. Leer = Ihr Site-Logo. Am besten wirkt eine breite, flache Fassung; angezeigt wird sie mit bis zu 46 px Höhe."
+msgid "The logo in the middle of the checkout header band. Empty = your site title as text, not your site logo — WordPress keeps those in different places and this field is the one the band reads. A wide, flat version works best; it is displayed at up to 46px height."
+msgstr "Das Logo in der Mitte des Kassen-Kopfbands. Leer = der Name Ihrer Website als Text, nicht Ihr Website-Logo — WordPress verwahrt beides an verschiedenen Stellen, und dieses Feld ist das, aus dem das Band liest. Am besten wirkt eine breite, flache Fassung; angezeigt wird sie mit bis zu 46 px Höhe."
 
 msgid "Own consent box: terms and cancellation policy to tick"
 msgstr "Eigene Einwilligungs-Box: AGB und Widerrufsbelehrung zum Anklicken"
@@ -490,7 +490,7 @@ msgid "Consent error message"
 msgstr "Fehlermeldung zur Einwilligung"
 
 msgid "Shown when the box is left unticked. Empty = the built-in message."
-msgstr "Wird gezeigt, wenn das Kästchen nicht angehakt ist. Leer = die eingebaute Meldung."
+msgstr "Wird gezeigt, wenn die Checkbox nicht angehakt ist. Leer = die eingebaute Meldung."
 
 msgid "Terms and conditions page"
 msgstr "AGB-Seite"
@@ -508,7 +508,7 @@ msgid "Show order notes as an expandable line"
 msgstr "Bestellhinweise als aufklappbare Zeile zeigen"
 
 msgid "The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link."
-msgstr "Der Satz neben dem Kästchen. Leer lassen für den eingebauten. Wörter in {terms}…{/terms} oder {revocation}…{/revocation} einfassen, um sie in Links auf die Seiten unten zu verwandeln — dieselbe Platzhalter-Schreibweise wie bei Germanized, ein vorhandener Satz lässt sich also direkt einfügen. Ein Platzhalter, dessen Seite unbekannt ist, behält seinen reinen Text, statt einen toten Link zu erzeugen."
+msgstr "Der Satz neben der Checkbox. Leer lassen für den eingebauten. Wörter in {terms}…{/terms} oder {revocation}…{/revocation} einfassen, um sie in Links auf die Seiten unten zu verwandeln — dieselbe Platzhalter-Schreibweise wie bei Germanized, ein vorhandener Satz lässt sich also direkt einfügen. Ein Platzhalter, dessen Seite unbekannt ist, behält seinen reinen Text, statt einen toten Link zu erzeugen."
 
 msgid "The error shown when someone tries to order without ticking. Empty = the built-in message. Name the missing step plainly; customers read this at the very moment they wanted to be finished."
 msgstr "Der Fehler, der erscheint, wenn jemand ohne Häkchen bestellen will. Leer = die eingebaute Meldung. Benennen Sie den fehlenden Schritt klar; Kunden lesen das genau in dem Moment, in dem sie fertig sein wollten."
@@ -544,13 +544,13 @@ msgid "Not detected yet — open the checkout once and this line will report wha
 msgstr "Noch nichts erkannt — öffnen Sie die Kasse einmal, dann steht hier der Befund."
 
 msgid "Germanized is delivering the consent boxes, so the own box stands down."
-msgstr "Germanized liefert die Einwilligungs-Kästchen, die eigene Box hält sich zurück."
+msgstr "Germanized liefert die Einwilligungs-Checkboxen, die eigene Box hält sich zurück."
 
 msgid "%s is delivering the consent boxes, so the own box stands down."
-msgstr "%s liefert die Einwilligungs-Kästchen, die eigene Box hält sich zurück."
+msgstr "%s liefert die Einwilligungs-Checkboxen, die eigene Box hält sich zurück."
 
 msgid "No legal plugin is delivering consent boxes on this checkout."
-msgstr "Kein Rechts-Plugin liefert auf dieser Kasse Einwilligungs-Kästchen."
+msgstr "Kein Rechts-Plugin liefert auf dieser Kasse Einwilligungs-Checkboxen."
 
 msgid "The own consent box is rendering."
 msgstr "Die eigene Einwilligungs-Box wird angezeigt."
@@ -562,7 +562,7 @@ msgid "Detected on the checkout"
 msgstr "An der Kasse erkannt"
 
 msgid "The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts."
-msgstr "Die Einwilligungs-Box für AGB und Widerrufsbelehrung, gerendert von diesem Plugin: ein Pflicht-Kästchen zwischen Gesamtsumme und Kaufknopf, serverseitig geprüft und samt des exakten Wortlauts, den der Kunde gesehen hat, auf die Bestellung geschrieben. Automatisch ist die vernünftige Einstellung — sie fragt die Kasse selbst, ob ein Rechts-Plugin tatsächlich Kästchen DRUCKT, und springt nur ein, wenn keines das tut. Nicht, ob so ein Plugin installiert ist: ein Rechts-Plugin kann aktiv und fertig konfiguriert dasitzen und trotzdem nichts rendern (genau so endet eine Live-Kasse ohne jede Einwilligung), und eine Anwesenheitsprüfung würde dazu höflich schweigen. Immer erzwingt die Box auch neben einer fremden; Nie schaltet sie ab. Das ist eine Layout- und Technik-Funktion, keine Rechtsberatung: welche Einwilligung Ihr Shop braucht, beantwortet, wer Ihre Rechtstexte schreibt."
+msgstr "Die Einwilligungs-Box für AGB und Widerrufsbelehrung, gerendert von diesem Plugin: eine Pflicht-Checkbox zwischen Gesamtsumme und Kauf-Button, serverseitig geprüft und samt des exakten Wortlauts, den der Kunde gesehen hat, auf die Bestellung geschrieben. Automatisch ist die vernünftige Einstellung — sie fragt die Kasse selbst, ob ein Rechts-Plugin tatsächlich Checkboxen DRUCKT, und springt nur ein, wenn keines das tut. Nicht, ob so ein Plugin installiert ist: ein Rechts-Plugin kann aktiv und fertig konfiguriert dasitzen und trotzdem nichts rendern (genau so endet eine Live-Kasse ohne jede Einwilligung), und eine Anwesenheitsprüfung würde dazu höflich schweigen. Immer erzwingt die Box auch neben einer fremden; Nie schaltet sie ab. Das ist eine Layout- und Technik-Funktion, keine Rechtsberatung: welche Einwilligung Ihr Shop braucht, beantwortet, wer Ihre Rechtstexte schreibt."
 
 msgid "Base font size (px)"
 msgstr "Basis-Schriftgröße (px)"
@@ -572,25 +572,25 @@ msgid "The size of the checkout body text in pixels; every other step — fine p
 msgstr "Die Größe des Fließtexts in der Kasse in Pixeln; jede andere Stufe — Kleingedrucktes, Beschriftungen, Bedienelemente, Abschnittsüberschriften — ist ein festes Verhältnis davon, der Rhythmus hält also bei jedem Wert. 15 ist der Standard. Pixel statt Prozent: ein Prozentwert wurde an der Grund-Schriftgröße des Themes gemessen, wodurch dieselbe Einstellung auf zwei Shops unterschiedlich aussah. 16–17 passt für älteres Publikum; 13–14 bringt mehr auf einen Bildschirm."
 
 msgid "Buy button label"
-msgstr "Beschriftung des Kaufknopfes"
+msgstr "Beschriftung des Kauf-Buttones"
 
 msgid "Empty = \"Order with obligation to pay\". Only used while no legal plugin sets the label itself."
 msgstr "Leer = „Zahlungspflichtig bestellen“. Wird nur verwendet, solange kein Rechts-Plugin die Beschriftung selbst setzt."
 
 msgid "Information directly above the button"
-msgstr "Angaben direkt über dem Knopf"
+msgstr "Angaben direkt über dem Button"
 
 msgid "Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed."
-msgstr "Lieferzeit, wesentliche Merkmale — alles, was im selben Blick wie der Knopf lesbar sein muss. Leer = es wird nichts ausgegeben."
+msgstr "Lieferzeit, wesentliche Merkmale — alles, was im selben Blick wie der Button lesbar sein muss. Leer = es wird nichts ausgegeben."
 
 msgid "The label on the buy button. German law (BGB 312j) requires it to say that ordering costs money — WooCommerce ships \"Place order\", which does not, and courts have rejected softer wordings. This plugin therefore sets a compliant default wherever no legal plugin sets the label itself; where Germanized or German Market do, theirs wins and this field is ignored. Change it only for a wording you know is equivalent."
-msgstr "Die Beschriftung des Kaufknopfes. § 312j BGB verlangt, dass sie die Zahlungspflicht ausspricht — WooCommerce liefert „Bestellung abschicken“, was das nicht tut, und Gerichte haben weichere Formulierungen verworfen. Dieses Plugin setzt deshalb überall dort eine konforme Vorgabe, wo kein Rechts-Plugin die Beschriftung selbst setzt; wo Germanized oder German Market das tun, gewinnt deren Einstellung und dieses Feld bleibt wirkungslos. Ändern Sie es nur für eine Formulierung, von der Sie wissen, dass sie gleichwertig ist."
+msgstr "Die Beschriftung des Kauf-Buttones. § 312j BGB verlangt, dass sie die Zahlungspflicht ausspricht — WooCommerce liefert „Bestellung abschicken“, was das nicht tut, und Gerichte haben weichere Formulierungen verworfen. Dieses Plugin setzt deshalb überall dort eine konforme Vorgabe, wo kein Rechts-Plugin die Beschriftung selbst setzt; wo Germanized oder German Market das tun, gewinnt deren Einstellung und dieses Feld bleibt wirkungslos. Ändern Sie es nur für eine Formulierung, von der Sie wissen, dass sie gleichwertig ist."
 
 msgid "A short text printed immediately above the buy button, where the essential information about the order has to be readable (BGH; LG Berlin 2024): delivery time, the essential characteristics of what is being bought. Keep it to the duty — this is the last thing a customer reads before deciding, and every extra sentence here costs orders. Empty prints nothing."
-msgstr "Ein kurzer Text unmittelbar über dem Kaufknopf, wo die wesentlichen Angaben zur Bestellung lesbar sein müssen (BGH; LG Berlin 2024): Lieferzeit, wesentliche Merkmale der Ware. Beschränken Sie sich auf die Pflicht — das ist das Letzte, was ein Kunde vor der Entscheidung liest, und jeder zusätzliche Satz hier kostet Bestellungen. Leer gibt nichts aus."
+msgstr "Ein kurzer Text unmittelbar über dem Kauf-Button, wo die wesentlichen Angaben zur Bestellung lesbar sein müssen (BGH; LG Berlin 2024): Lieferzeit, wesentliche Merkmale der Ware. Beschränken Sie sich auf die Pflicht — das ist das Letzte, was ein Kunde vor der Entscheidung liest, und jeder zusätzliche Satz hier kostet Bestellungen. Leer gibt nichts aus."
 
 msgid "This plugin then covers the checkout itself — consent, button label, the information above the button. It does not cover what lives outside the checkout: unit prices, delivery times on product pages, or sending the cancellation policy with the order email. If your shop needs those, keep a legal plugin such as Germanized alongside."
-msgstr "Dieses Plugin deckt dann die Kasse selbst ab — Einwilligung, Knopfbeschriftung, die Angaben über dem Knopf. Es deckt nicht ab, was außerhalb der Kasse liegt: Grundpreise, Lieferzeiten auf Produktseiten oder den Versand der Widerrufsbelehrung mit der Bestellmail. Wenn Ihr Shop das braucht, behalten Sie daneben ein Rechts-Plugin wie Germanized."
+msgstr "Dieses Plugin deckt dann die Kasse selbst ab — Einwilligung, Button-Beschriftung, die Angaben über dem Button. Es deckt nicht ab, was außerhalb der Kasse liegt: Grundpreise, Lieferzeiten auf Produktseiten oder den Versand der Widerrufsbelehrung mit der Bestellmail. Wenn Ihr Shop das braucht, behalten Sie daneben ein Rechts-Plugin wie Germanized."
 
 msgid "Order with obligation to pay"
 msgstr "Zahlungspflichtig bestellen"

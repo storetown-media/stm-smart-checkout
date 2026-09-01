@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.43
+Stable tag: 0.1.44
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,10 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.44 =
+* The logo field no longer promises something the checkout does not do. Its help text said an empty field falls back to your site logo; the header band actually prints your site title as text, which is what the code has always done. A shop owner who left the field empty expecting a logo got a line of text and no explanation. Both help texts now describe the behaviour, and say out loud that the site logo and this field are different places in WordPress.
+* The German translation follows the WordPress glossary. The German polyglots team pointed at the glossary and the style guide when granting editor rights, and four terms did not match it: Knopf is Button, Kästchen is Checkbox, Fußbereich is Footer, and Site is Website. 38 places in each of the two German catalogues, with the article corrected wherever the gender changed with the word — a Kästchen is neuter, a Checkbox is not, and a blind replacement would have left "das Checkbox" behind in a dozen sentences. Translations are delivered by WordPress.org and are not part of this package.
 
 = 0.1.43 =
 * The links to our own pages sit at the end of the description instead of its second line. A shop owner opening a directory page wants to know what the plugin does; a link to the vendor's shop before the first feature reads as an advertisement, whatever it points at. Both language sections now describe the plugin in full first and name the pages afterwards, where someone who has read that far might actually want them. The first link is now halfway down the description rather than in its opening. No code changed.

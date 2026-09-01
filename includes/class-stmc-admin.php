@@ -262,7 +262,7 @@ class STMC_Admin {
 						<?php self::row_color( 'design.line', __( 'Border color', 'stm-smart-checkout' ) ); ?>
 						<?php self::row_number( 'design.radius', __( 'Card corner radius (px)', 'stm-smart-checkout' ), 0, 32 ); ?>
 						<?php self::row_number( 'design.font_size', __( 'Base font size (px)', 'stm-smart-checkout' ), 11, 24 ); ?>
-						<?php self::row_url( 'design.logo_url', __( 'Checkout logo URL', 'stm-smart-checkout' ), __( 'Shown in the checkout header. Leave empty to use the site logo.', 'stm-smart-checkout' ) ); ?>
+						<?php self::row_url( 'design.logo_url', __( 'Checkout logo URL', 'stm-smart-checkout' ), __( 'Shown in the checkout header. Leave empty to show your site title as text instead.', 'stm-smart-checkout' ) ); ?>
 					<?php endif; ?>
 					<?php
 					/**
@@ -422,7 +422,7 @@ class STMC_Admin {
 				'design.title'                      => __( 'The blue of the numbered step headings — "Billing details", "Payment method". It reads as a second voice beside the body text and is what makes the checkout look like one designed surface rather than a stack of form fields. Keep it darker than the accent color: this is structure, not a call to action.', 'stm-smart-checkout' ),
 				'design.label'                      => __( 'The blue of the field labels above the inputs. A shade of its own on purpose: labels are read while filling in, headings while orienting, and giving them the same color flattens the form into one grey block. Contrast against the card background matters more here than anywhere else — this is the text people read most.', 'stm-smart-checkout' ),
 				'design.font_size'                  => __( 'The size of the checkout body text in pixels; every other step — fine print, labels, controls, section titles — is a fixed ratio of it, so the rhythm holds at any value. 15 is the default. Pixels rather than a percentage: a percentage was measured against the root font size of the theme, which made the same setting render differently on two shops. 16-17 suits an older audience; 13-14 packs more onto one screen.', 'stm-smart-checkout' ),
-				'design.logo_url'                   => __( 'The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height.', 'stm-smart-checkout' ),
+				'design.logo_url'                   => __( 'The logo in the middle of the checkout header band. Empty = your site title as text, not your site logo — WordPress keeps those in different places and this field is the one the band reads. A wide, flat version works best; it is displayed at up to 46px height.', 'stm-smart-checkout' ),
 			);
 		}
 		return isset( $map[ $key ] ) ? $map[ $key ] : '';

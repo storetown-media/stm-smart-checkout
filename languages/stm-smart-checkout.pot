@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: STM Smart Checkout 0.1.36\n"
+"Project-Id-Version: STM Smart Checkout 0.1.43\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-08-30 21:15+0000\n"
+"POT-Creation-Date: 2026-09-01 16:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,685 +15,685 @@ msgstr ""
 "X-Generator: tools/build-pot.py\n"
 "X-Domain: stm-smart-checkout\n"
 
-#: includes/class-stmc-admin.php:40
+#: includes/class-stmc-admin.php:44
 msgid "Delivery time"
 msgstr ""
 
-#: includes/class-stmc-admin.php:41
+#: includes/class-stmc-admin.php:45
 msgid "Shown under this product in cart and checkout. Empty = the shop-wide default."
 msgstr ""
 
-#: includes/class-stmc-admin.php:67
-#: includes/class-stmc-admin.php:68
+#: includes/class-stmc-admin.php:71
+#: includes/class-stmc-admin.php:72
 msgid "Smart Checkout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:88
+#: includes/class-stmc-admin.php:121
 msgid "Settings"
 msgstr ""
 
-#: includes/class-stmc-admin.php:98
+#: includes/class-stmc-admin.php:131
 msgid "General"
 msgstr ""
 
-#: includes/class-stmc-admin.php:99
-#: includes/modules/class-stmc-module-header.php:75
-#: includes/modules/class-stmc-module-header.php:80
+#: includes/class-stmc-admin.php:132
+#: includes/modules/class-stmc-module-header.php:114
+#: includes/modules/class-stmc-module-header.php:119
 msgid "Checkout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:100
+#: includes/class-stmc-admin.php:133
 msgid "Legal"
 msgstr ""
 
-#: includes/class-stmc-admin.php:101
+#: includes/class-stmc-admin.php:134
 msgid "Design"
 msgstr ""
 
-#: includes/class-stmc-admin.php:153
+#: includes/class-stmc-admin.php:161
 #: includes/class-stmc-block-checkout.php:234
 msgid "STM Smart Checkout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:155
+#: includes/class-stmc-admin.php:163
 msgid "Configure the checkout, then use preview mode to review it on the live site before enabling it for customers."
 msgstr ""
 
-#: includes/class-stmc-admin.php:156
+#: includes/class-stmc-admin.php:164
 msgid "Open checkout preview"
 msgstr ""
 
-#: includes/class-stmc-admin.php:169
+#: includes/class-stmc-admin.php:177
 msgid "Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch below is off — customers still see the standard checkout."
 msgstr ""
 
-#: includes/class-stmc-admin.php:170
+#: includes/class-stmc-admin.php:178
 msgid "End preview"
 msgstr ""
 
-#: includes/class-stmc-admin.php:198
+#: includes/class-stmc-admin.php:206
 msgid "Enable Smart Checkout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:198
+#: includes/class-stmc-admin.php:206
 msgid "Off = the standard checkout renders for customers. Preview mode works regardless of this switch."
 msgstr ""
 
-#: includes/class-stmc-admin.php:199
+#: includes/class-stmc-admin.php:207
 msgid "Module: header band & progress"
 msgstr ""
 
-#: includes/class-stmc-admin.php:200
+#: includes/class-stmc-admin.php:208
 msgid "Module: distraction-free mode"
 msgstr ""
 
-#: includes/class-stmc-admin.php:201
+#: includes/class-stmc-admin.php:209
 msgid "Module: layout extras"
 msgstr ""
 
-#: includes/class-stmc-admin.php:202
+#: includes/class-stmc-admin.php:210
 msgid "Module: field improvements"
 msgstr ""
 
-#: includes/class-stmc-admin.php:203
+#: includes/class-stmc-admin.php:211
 msgid "Module: trust elements"
 msgstr ""
 
-#: includes/class-stmc-admin.php:204
+#: includes/class-stmc-admin.php:212
 msgid "Debug logging (browser console)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:205
+#: includes/class-stmc-admin.php:213
 msgid "Remove all settings when the plugin is deleted"
 msgstr ""
 
-#: includes/class-stmc-admin.php:207
+#: includes/class-stmc-admin.php:215
 msgid "Own consent box: terms and cancellation policy to tick"
 msgstr ""
 
-#: includes/class-stmc-admin.php:207
+#: includes/class-stmc-admin.php:215
 msgid "Automatic — only when no legal plugin delivers one"
 msgstr ""
 
-#: includes/class-stmc-admin.php:207
-#: includes/class-stmc-admin.php:239
+#: includes/class-stmc-admin.php:215
+#: includes/class-stmc-admin.php:247
 msgid "Always"
 msgstr ""
 
-#: includes/class-stmc-admin.php:207
+#: includes/class-stmc-admin.php:215
 msgid "Never"
 msgstr ""
 
-#: includes/class-stmc-admin.php:209
+#: includes/class-stmc-admin.php:217
 msgid "Consent wording"
 msgstr ""
 
-#: includes/class-stmc-admin.php:209
+#: includes/class-stmc-admin.php:217
 msgid "Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links."
 msgstr ""
 
-#: includes/class-stmc-admin.php:210
+#: includes/class-stmc-admin.php:218
 msgid "Consent error message"
 msgstr ""
 
-#: includes/class-stmc-admin.php:210
+#: includes/class-stmc-admin.php:218
 msgid "Shown when the box is left unticked. Empty = the built-in message."
 msgstr ""
 
-#: includes/class-stmc-admin.php:211
+#: includes/class-stmc-admin.php:219
 msgid "Delivery time (shop-wide default)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:211
+#: includes/class-stmc-admin.php:219
 msgid "Example: 2-4 working days. Shown under every product; a product with its own value overrides it."
 msgstr ""
 
-#: includes/class-stmc-admin.php:212
+#: includes/class-stmc-admin.php:220
 msgid "Show the VAT included in the order summary"
 msgstr ""
 
-#: includes/class-stmc-admin.php:212
+#: includes/class-stmc-admin.php:220
 msgid "Only with gross prices, and only while no legal plugin already prints it."
 msgstr ""
 
-#: includes/class-stmc-admin.php:213
+#: includes/class-stmc-admin.php:221
 msgid "Buy button label"
 msgstr ""
 
-#: includes/class-stmc-admin.php:213
+#: includes/class-stmc-admin.php:221
 msgid "Empty = \"Order with obligation to pay\". Only used while no legal plugin sets the label itself."
 msgstr ""
 
-#: includes/class-stmc-admin.php:214
+#: includes/class-stmc-admin.php:222
 msgid "Information directly above the button"
 msgstr ""
 
-#: includes/class-stmc-admin.php:214
+#: includes/class-stmc-admin.php:222
 msgid "Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed."
 msgstr ""
 
-#: includes/class-stmc-admin.php:215
+#: includes/class-stmc-admin.php:223
 msgid "Terms and conditions page"
 msgstr ""
 
-#: includes/class-stmc-admin.php:215
+#: includes/class-stmc-admin.php:223
 msgid "Empty = the page WooCommerce already knows."
 msgstr ""
 
-#: includes/class-stmc-admin.php:216
+#: includes/class-stmc-admin.php:224
 msgid "Cancellation policy page"
 msgstr ""
 
-#: includes/class-stmc-admin.php:216
+#: includes/class-stmc-admin.php:224
 msgid "Empty = the page your legal plugin registered, otherwise the revocation page this plugin creates."
 msgstr ""
 
-#: includes/class-stmc-admin.php:217
+#: includes/class-stmc-admin.php:225
 msgid "Verify required consent boxes on the server"
 msgstr ""
 
-#: includes/class-stmc-admin.php:217
+#: includes/class-stmc-admin.php:225
 msgid "Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box."
 msgstr ""
 
-#: includes/class-stmc-admin.php:218
+#: includes/class-stmc-admin.php:226
 msgid "Reassurance note: lead-in"
 msgstr ""
 
-#: includes/class-stmc-admin.php:218
+#: includes/class-stmc-admin.php:226
 msgid "Example: No risk: — shown in bold in front of the text."
 msgstr ""
 
-#: includes/class-stmc-admin.php:219
+#: includes/class-stmc-admin.php:227
 msgid "Reassurance note under the consent boxes"
 msgstr ""
 
-#: includes/class-stmc-admin.php:219
+#: includes/class-stmc-admin.php:227
 msgid "Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text."
 msgstr ""
 
-#: includes/class-stmc-admin.php:221
+#: includes/class-stmc-admin.php:229
 msgid "Show progress bar (cart → checkout → confirmation)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:222
+#: includes/class-stmc-admin.php:230
 msgid "Show \"Already a customer?\" login toggle"
 msgstr ""
 
-#: includes/class-stmc-admin.php:223
+#: includes/class-stmc-admin.php:231
 msgid "Render a screen-reader page title"
 msgstr ""
 
-#: includes/class-stmc-admin.php:223
+#: includes/class-stmc-admin.php:231
 msgid "Both pages usually have no H1 once the theme header is hidden."
 msgstr ""
 
-#: includes/class-stmc-admin.php:224
+#: includes/class-stmc-admin.php:232
 msgid "Trust item 1 (lock icon)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:224
+#: includes/class-stmc-admin.php:232
 msgid "Example: Secure SSL connection. Leave all three empty for the SSL default."
 msgstr ""
 
-#: includes/class-stmc-admin.php:225
+#: includes/class-stmc-admin.php:233
 msgid "Trust item 2 (shield icon)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:225
+#: includes/class-stmc-admin.php:233
 msgid "Only claims that are actually true for your shop."
 msgstr ""
 
-#: includes/class-stmc-admin.php:226
+#: includes/class-stmc-admin.php:234
 msgid "Trust item 3 (card icon)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:227
+#: includes/class-stmc-admin.php:235
 msgid "Repeat trust items under the order button"
 msgstr ""
 
-#: includes/class-stmc-admin.php:228
+#: includes/class-stmc-admin.php:236
 msgid "\"Continue shopping\" link on the cart"
 msgstr ""
 
-#: includes/class-stmc-admin.php:229
+#: includes/class-stmc-admin.php:237
 msgid "State/county field never required, labels untangled"
 msgstr ""
 
-#: includes/class-stmc-admin.php:229
+#: includes/class-stmc-admin.php:237
 msgid "Fixes the duplicate \"Land\" label for IE/GB/HU in German shops."
 msgstr ""
 
-#: includes/class-stmc-admin.php:230
+#: includes/class-stmc-admin.php:238
 msgid "Correct mobile keyboards & autofill attributes"
 msgstr ""
 
-#: includes/class-stmc-admin.php:231
+#: includes/class-stmc-admin.php:239
 msgid "Postcode autofill for Germany, Austria, Switzerland"
 msgstr ""
 
-#: includes/class-stmc-admin.php:231
+#: includes/class-stmc-admin.php:239
 msgid "The city fills in automatically from bundled databases (no external service, GDPR-safe)."
 msgstr ""
 
-#: includes/class-stmc-admin.php:232
+#: includes/class-stmc-admin.php:240
 msgid "Explain \"Create an account?\" with an info tooltip"
 msgstr ""
 
-#: includes/class-stmc-admin.php:232
+#: includes/class-stmc-admin.php:240
 msgid "The text is built from your own registration settings, so it always matches what really happens."
 msgstr ""
 
-#: includes/class-stmc-admin.php:233
+#: includes/class-stmc-admin.php:241
 msgid "Order notes field (\"Additional information\")"
 msgstr ""
 
-#: includes/class-stmc-admin.php:234
+#: includes/class-stmc-admin.php:242
 msgid "Show order notes as an expandable line"
 msgstr ""
 
-#: includes/class-stmc-admin.php:235
+#: includes/class-stmc-admin.php:243
 msgid "Product images in the order summary"
 msgstr ""
 
-#: includes/class-stmc-admin.php:236
+#: includes/class-stmc-admin.php:244
 msgid "Quantity steppers in the order summary"
 msgstr ""
 
-#: includes/class-stmc-admin.php:237
+#: includes/class-stmc-admin.php:245
 msgid "Coupon prompt above the checkout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:238
+#: includes/class-stmc-admin.php:246
 msgid "Open legal texts (terms, withdrawal) in an overlay"
 msgstr ""
 
-#: includes/class-stmc-admin.php:238
+#: includes/class-stmc-admin.php:246
 msgid "Customers read the linked pages without leaving the checkout; right-click still opens the page normally."
 msgstr ""
 
-#: includes/class-stmc-admin.php:239
+#: includes/class-stmc-admin.php:247
 msgid "Distraction-free: full-page template"
 msgstr ""
 
-#: includes/class-stmc-admin.php:239
+#: includes/class-stmc-admin.php:247
 msgid "Automatic — on themes without a built-in adapter"
 msgstr ""
 
-#: includes/class-stmc-admin.php:239
+#: includes/class-stmc-admin.php:247
 msgid "Never (CSS fallback only)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:240
+#: includes/class-stmc-admin.php:248
 msgid "Checkout footer: pages"
 msgstr ""
 
-#: includes/class-stmc-admin.php:240
+#: includes/class-stmc-admin.php:248
 msgid "Hold Ctrl/Cmd to select several. Empty = the menu below, or the legal pages your site already registered."
 msgstr ""
 
-#: includes/class-stmc-admin.php:241
+#: includes/class-stmc-admin.php:249
 msgid "Checkout footer: menu (alternative)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:241
+#: includes/class-stmc-admin.php:249
 msgid "Used when no pages are picked above."
 msgstr ""
 
-#: includes/class-stmc-admin.php:242
+#: includes/class-stmc-admin.php:250
 msgid "Extra CSS selectors to hide (advanced)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:242
+#: includes/class-stmc-admin.php:250
 msgid "One selector per line. Hidden only on cart/checkout. Never hide your footer legal links."
 msgstr ""
 
-#: includes/class-stmc-admin.php:244
+#: includes/class-stmc-admin.php:252
 msgid "Checkout layout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:245
+#: includes/class-stmc-admin.php:253
 msgid "Accent color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:246
+#: includes/class-stmc-admin.php:254
 msgid "Accent hover color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:247
+#: includes/class-stmc-admin.php:255
 msgid "Heading color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:248
+#: includes/class-stmc-admin.php:256
 msgid "Step heading color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:249
+#: includes/class-stmc-admin.php:257
 msgid "Field label color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:250
+#: includes/class-stmc-admin.php:258
 msgid "Text color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:251
+#: includes/class-stmc-admin.php:259
 msgid "Secondary text color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:252
+#: includes/class-stmc-admin.php:260
 msgid "Page background"
 msgstr ""
 
-#: includes/class-stmc-admin.php:253
+#: includes/class-stmc-admin.php:261
 msgid "Card background"
 msgstr ""
 
-#: includes/class-stmc-admin.php:254
+#: includes/class-stmc-admin.php:262
 msgid "Border color"
 msgstr ""
 
-#: includes/class-stmc-admin.php:255
+#: includes/class-stmc-admin.php:263
 msgid "Card corner radius (px)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:256
+#: includes/class-stmc-admin.php:264
 msgid "Base font size (px)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:257
+#: includes/class-stmc-admin.php:265
 msgid "Checkout logo URL"
 msgstr ""
 
-#: includes/class-stmc-admin.php:257
-msgid "Shown in the checkout header. Leave empty to use the site logo."
+#: includes/class-stmc-admin.php:265
+msgid "Shown in the checkout header. Leave empty to show your site title as text instead."
 msgstr ""
 
-#: includes/class-stmc-admin.php:389
+#: includes/class-stmc-admin.php:367
 msgid "The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing."
 msgstr ""
 
-#: includes/class-stmc-admin.php:390
+#: includes/class-stmc-admin.php:368
 msgid "The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the \"Already a customer?\" login pill and the cart → checkout → confirmation progress. The individual pieces are configured on the Checkout tab."
 msgstr ""
 
-#: includes/class-stmc-admin.php:391
+#: includes/class-stmc-admin.php:369
 msgid "Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the advanced selector list on the Checkout tab."
 msgstr ""
 
-#: includes/class-stmc-admin.php:392
+#: includes/class-stmc-admin.php:370
 msgid "The layout machinery: the column arrangement chosen on the Design tab, the numbered section headings and the \"Continue shopping\" link on the cart."
 msgstr ""
 
-#: includes/class-stmc-admin.php:393
+#: includes/class-stmc-admin.php:371
 msgid "All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch on the Checkout tab."
 msgstr ""
 
-#: includes/class-stmc-admin.php:394
+#: includes/class-stmc-admin.php:372
 msgid "The quiet reassurance row under the order button, repeating the three trust items from the header band."
 msgstr ""
 
-#: includes/class-stmc-admin.php:395
+#: includes/class-stmc-admin.php:373
 msgid "Writes what the checkout scripts are doing to the browser console (F12). Useful only while diagnosing a problem — leave it off in normal operation. Customers never see these messages."
 msgstr ""
 
-#: includes/class-stmc-admin.php:396
+#: includes/class-stmc-admin.php:374
 msgid "Only matters when you DELETE the plugin in the plugins list: On = all settings and the withdrawal-requests table are removed for good. Off = everything survives for a later reinstall. Simply deactivating never deletes anything."
 msgstr ""
 
-#: includes/class-stmc-admin.php:398
+#: includes/class-stmc-admin.php:376
 msgid "The three-step line in the header band: cart → checkout → confirmation, with the current step highlighted. Customers see where they are and how little is left."
 msgstr ""
 
-#: includes/class-stmc-admin.php:399
+#: includes/class-stmc-admin.php:377
 msgid "A small \"Already a customer? Log in\" pill in the header band. It unfolds the login form WooCommerce already prints on the checkout — without it, that form has no visible trigger once the theme header is hidden."
 msgstr ""
 
-#: includes/class-stmc-admin.php:400
+#: includes/class-stmc-admin.php:378
 msgid "Adds an invisible page heading for screen readers. With the theme header hidden, cart and checkout usually have no H1 at all — assistive technology would announce a page without a name."
 msgstr ""
 
-#: includes/class-stmc-admin.php:401
+#: includes/class-stmc-admin.php:379
 msgid "The three short claims in the header band, each with its icon (lock, shield, card). Keep them factual and specific to your shop — e.g. your real payment options or guarantee. If all three are empty, a single \"Secure SSL connection\" is shown."
 msgstr ""
 
-#: includes/class-stmc-admin.php:402
+#: includes/class-stmc-admin.php:380
 msgid "Second trust item, shown with the shield icon. Only claims that are actually true for your shop."
 msgstr ""
 
-#: includes/class-stmc-admin.php:403
+#: includes/class-stmc-admin.php:381
 msgid "Third trust item, shown with the card icon — a good place for your payment brands, e.g. \"PayPal, Klarna & invoice\"."
 msgstr ""
 
-#: includes/class-stmc-admin.php:404
+#: includes/class-stmc-admin.php:382
 msgid "Repeats the three trust items in small print directly under the buy button — the moment of the last hesitation. Uses the same texts as the header band, so there is only one place to maintain them."
 msgstr ""
 
-#: includes/class-stmc-admin.php:405
+#: includes/class-stmc-admin.php:383
 msgid "A small back-to-shop link above the cart table. With the theme menu hidden there is otherwise no way back to the products; the checkout page deliberately never gets one."
 msgstr ""
 
-#: includes/class-stmc-admin.php:406
+#: includes/class-stmc-admin.php:384
 msgid "Never marks the state/county field as required and untangles its labels. Background: for countries like Ireland or the United Kingdom, WooCommerce inserts a state field that German shops usually do not need — and its label collided with the country field."
 msgstr ""
 
-#: includes/class-stmc-admin.php:407
+#: includes/class-stmc-admin.php:385
 msgid "Gives every field the correct autocomplete and input attributes: phones show the number pad for postcode and phone, the email keyboard for email, and browser autofill puts the right data into the right fields."
 msgstr ""
 
-#: includes/class-stmc-admin.php:408
+#: includes/class-stmc-admin.php:386
 msgid "Type a postcode and the city fills in by itself, for Germany, Austria and Switzerland. The databases ship with the plugin — no external service is called, no customer data leaves your server (GDPR-safe). Multiple matching cities appear as a native suggestion list."
 msgstr ""
 
-#: includes/class-stmc-admin.php:409
+#: includes/class-stmc-admin.php:387
 msgid "Adds a small \"i\" next to \"Create an account?\" that explains what actually happens — whether a password is chosen or emailed, and what the account is good for. The wording is generated from your real registration settings, so it can never promise something else."
 msgstr ""
 
-#: includes/class-stmc-admin.php:410
+#: includes/class-stmc-admin.php:388
 msgid "The \"order notes\" field under \"Additional information\". Off = the field and its whole section disappear from the checkout — one question less for shops that never read the notes. Notes customers already wrote on old orders stay untouched."
 msgstr ""
 
-#: includes/class-stmc-admin.php:411
+#: includes/class-stmc-admin.php:389
 msgid "Shows each product's image in the order summary — customers confirm at a glance that the right variant is in the cart. Cooperates with legal plugins: when Germanized already renders an image, no second one is added."
 msgstr ""
 
-#: includes/class-stmc-admin.php:412
+#: includes/class-stmc-admin.php:390
 msgid "Plus/minus steppers beside each product in the order summary: customers fix the quantity right at the checkout instead of walking back to the cart. Updates run through WooCommerce's own refresh including all totals; stock limits and sold-individually products are respected."
 msgstr ""
 
-#: includes/class-stmc-admin.php:413
+#: includes/class-stmc-admin.php:391
 msgid "The \"Have a coupon?\" prompt above the checkout. Off = the prompt disappears entirely — recommended when you do not issue coupons, because an empty coupon field makes customers leave to hunt for codes."
 msgstr ""
 
-#: includes/class-stmc-admin.php:414
+#: includes/class-stmc-admin.php:392
 msgid "Links inside the consent boxes (terms, withdrawal) open the legal text in an overlay instead of leaving the checkout. The text is loaded from your existing pages — nothing is duplicated. Right-click or middle-click still opens the normal page; if loading fails, the link falls back to normal behavior."
 msgstr ""
 
-#: includes/class-stmc-admin.php:415
+#: includes/class-stmc-admin.php:393
 msgid "The strongest distraction-free level: cart and checkout render through the plugin's own minimal page — the theme's header, menus and footer are never built at all. \"Automatic\" uses it only on themes without a built-in adapter (The7 and Storefront have one and stay on their native path). Styles, analytics, consent tools and chat widgets keep working."
 msgstr ""
 
-#: includes/class-stmc-admin.php:416
+#: includes/class-stmc-admin.php:394
 msgid "The full-page checkout replaces the theme footer — imprint, privacy and terms must stay reachable on every page. Pick the pages for the quiet line under the checkout. Left empty, the menu below is used; without either, the line fills itself with the legal pages your site already registered (Germanized, WooCommerce terms, WordPress privacy)."
 msgstr ""
 
-#: includes/class-stmc-admin.php:417
+#: includes/class-stmc-admin.php:395
 msgid "Alternative to picking single pages: a whole menu (typically your footer legal menu) renders as the legal line. Only used while no pages are selected above."
 msgstr ""
 
-#: includes/class-stmc-admin.php:418
+#: includes/class-stmc-admin.php:396
 msgid "For site-specific elements the distraction-free mode does not know: one CSS selector per line, hidden on cart and checkout only. Example: #my-chat-widget. Never hide your footer legal links — they are legally required on every page."
 msgstr ""
 
-#: includes/class-stmc-admin.php:420
+#: includes/class-stmc-admin.php:398
 msgid "The consent box for terms and cancellation policy, rendered by this plugin: a required checkbox between the grand total and the buy button, verified on the server and written onto the order together with the exact wording the customer saw. Automatic is the sane setting — it asks the checkout itself whether a legal plugin is actually PRINTING consent boxes and only steps in when none is. Not whether such a plugin is installed: a legal plugin can sit there active and configured and still render nothing (that is exactly how a live checkout can end up with no consent at all), and a presence check would politely stay silent through it. Always forces the box even beside another one; Never switches it off. This is a layout and plumbing feature, not legal advice: which consent your shop needs is a question for whoever writes your legal texts."
 msgstr ""
 
-#: includes/class-stmc-admin.php:421
+#: includes/class-stmc-admin.php:399
 msgid "The delivery time shown under every product in cart and checkout — one of the things a customer has to be told before ordering, and the single most common reason for a \"where is my parcel\" email when it is missing. Write it the way you would say it: \"2-4 working days\", \"ships tomorrow\". A product with its own delivery time overrides this, and where a legal plugin already maintains delivery times this plugin reads THOSE rather than asking you to type them a second time. Empty prints nothing."
 msgstr ""
 
-#: includes/class-stmc-admin.php:422
+#: includes/class-stmc-admin.php:400
 msgid "With gross prices WooCommerce prints no tax row at all — its own template skips them, on the reasoning that the price already contains the tax. German shops still have to state it, which is normally a legal plugin’s job; where none is doing it, this line fills the gap: one row per tax rate, right beside the other money lines. The percentage is read from the tax rate itself, never from its name, because shops name their rates freely and a legal statement must not depend on that. Off with net prices anyway — WooCommerce prints its own rows there and two would state the same amount twice."
 msgstr ""
 
-#: includes/class-stmc-admin.php:423
+#: includes/class-stmc-admin.php:401
 msgid "The label on the buy button. German law (BGB 312j) requires it to say that ordering costs money — WooCommerce ships \"Place order\", which does not, and courts have rejected softer wordings. This plugin therefore sets a compliant default wherever no legal plugin sets the label itself; where Germanized or German Market do, theirs wins and this field is ignored. Change it only for a wording you know is equivalent."
 msgstr ""
 
-#: includes/class-stmc-admin.php:424
+#: includes/class-stmc-admin.php:402
 msgid "A short text printed immediately above the buy button, where the essential information about the order has to be readable (BGH; LG Berlin 2024): delivery time, the essential characteristics of what is being bought. Keep it to the duty — this is the last thing a customer reads before deciding, and every extra sentence here costs orders. Empty prints nothing."
 msgstr ""
 
-#: includes/class-stmc-admin.php:425
+#: includes/class-stmc-admin.php:403
 msgid "The sentence next to the checkbox. Leave empty for the built-in one. Wrap words in {terms}…{/terms} or {revocation}…{/revocation} to turn them into links to the pages below — the same placeholder style Germanized uses, so an existing sentence can be pasted straight in. A placeholder whose page is unknown keeps its plain words instead of producing a dead link."
 msgstr ""
 
-#: includes/class-stmc-admin.php:426
+#: includes/class-stmc-admin.php:404
 msgid "The error shown when someone tries to order without ticking. Empty = the built-in message. Name the missing step plainly; customers read this at the very moment they wanted to be finished."
 msgstr ""
 
-#: includes/class-stmc-admin.php:427
+#: includes/class-stmc-admin.php:405
 msgid "The page the {terms} link opens. Empty = the terms page WooCommerce already has in its settings."
 msgstr ""
 
-#: includes/class-stmc-admin.php:428
+#: includes/class-stmc-admin.php:406
 msgid "The page the {revocation} link opens. Empty = the revocation page a legal plugin registered, otherwise the one this plugin creates and keeps in shape itself."
 msgstr ""
 
-#: includes/class-stmc-admin.php:429
+#: includes/class-stmc-admin.php:407
 msgid "The order notes start as a single line (\"Add a note to your order\") and the field appears on click. Hardly anyone writes a note, yet the open field costs a whole card and a step number in every checkout. A note that is already there — after a validation reload, for instance — opens the field automatically, so typed text is never hidden. Off = the classic open section with its own heading and number."
 msgstr ""
 
-#: includes/class-stmc-admin.php:430
+#: includes/class-stmc-admin.php:408
 msgid "Browsers enforce required boxes only client-side — a broken script or a manipulated request could order without consent. This re-checks every required box (WooCommerce terms and Germanized) on the server and rejects the order with a normal error message. It stays silent when another plugin already reported the same box, so customers never read the same complaint twice."
 msgstr ""
 
-#: includes/class-stmc-admin.php:431
+#: includes/class-stmc-admin.php:409
 msgid "The bold lead-in of the reassurance note, e.g. \"No risk:\". Leave empty for a note without a lead-in."
 msgstr ""
 
-#: includes/class-stmc-admin.php:432
+#: includes/class-stmc-admin.php:410
 msgid "A friendly clarification under the consent boxes — the classic use: the legally required download consent sounds like losing all rights, and this note clarifies that your voluntary money-back guarantee is unaffected. Only promise what you really keep; the note is styled as reassurance, never as one more condition."
 msgstr ""
 
-#: includes/class-stmc-admin.php:434
+#: includes/class-stmc-admin.php:412
 msgid "Three columns: billing left, payment in the middle, order summary right — the proven compact desktop stage. Ultra-compact: the same stage one type step smaller with tighter cards, for everything at a glance. Two columns: form left, order summary sticky on the right. One column: a centered vertical flow. On narrow screens every layout stacks gracefully; phones are always one column."
 msgstr ""
 
-#: includes/class-stmc-admin.php:435
+#: includes/class-stmc-admin.php:413
 msgid "The action color: buy button, radio/checkbox accents and the underline of the section headings. Use your brand's strongest call-to-action color."
 msgstr ""
 
-#: includes/class-stmc-admin.php:436
+#: includes/class-stmc-admin.php:414
 msgid "The accent color while hovering a button — usually a slightly darker shade of the accent."
 msgstr ""
 
-#: includes/class-stmc-admin.php:437
+#: includes/class-stmc-admin.php:415
 msgid "The strong text color: order summary lines, amounts, the grand total and other emphasized text."
 msgstr ""
 
-#: includes/class-stmc-admin.php:438
+#: includes/class-stmc-admin.php:416
 msgid "The normal reading color for regular content text."
 msgstr ""
 
-#: includes/class-stmc-admin.php:439
+#: includes/class-stmc-admin.php:417
 msgid "The quiet color for secondary lines: descriptions, fine print, the consent texts and the tax breakdown."
 msgstr ""
 
-#: includes/class-stmc-admin.php:440
+#: includes/class-stmc-admin.php:418
 msgid "The page surface behind the cards. A very light grey lets the white cards read as cards."
 msgstr ""
 
-#: includes/class-stmc-admin.php:441
+#: includes/class-stmc-admin.php:419
 msgid "The surface of the cards themselves — white on almost every shop."
 msgstr ""
 
-#: includes/class-stmc-admin.php:442
+#: includes/class-stmc-admin.php:420
 msgid "Borders of cards and fields plus the thin separators between rows."
 msgstr ""
 
-#: includes/class-stmc-admin.php:443
+#: includes/class-stmc-admin.php:421
 msgid "Corner rounding of the cards in pixels; fields and buttons scale along. 0 = sharp corners, 12 = the friendly default."
 msgstr ""
 
-#: includes/class-stmc-admin.php:444
+#: includes/class-stmc-admin.php:422
 msgid "The blue of the numbered step headings — \"Billing details\", \"Payment method\". It reads as a second voice beside the body text and is what makes the checkout look like one designed surface rather than a stack of form fields. Keep it darker than the accent color: this is structure, not a call to action."
 msgstr ""
 
-#: includes/class-stmc-admin.php:445
+#: includes/class-stmc-admin.php:423
 msgid "The blue of the field labels above the inputs. A shade of its own on purpose: labels are read while filling in, headings while orienting, and giving them the same color flattens the form into one grey block. Contrast against the card background matters more here than anywhere else — this is the text people read most."
 msgstr ""
 
-#: includes/class-stmc-admin.php:446
+#: includes/class-stmc-admin.php:424
 msgid "The size of the checkout body text in pixels; every other step — fine print, labels, controls, section titles — is a fixed ratio of it, so the rhythm holds at any value. 15 is the default. Pixels rather than a percentage: a percentage was measured against the root font size of the theme, which made the same setting render differently on two shops. 16-17 suits an older audience; 13-14 packs more onto one screen."
 msgstr ""
 
-#: includes/class-stmc-admin.php:447
-msgid "The logo in the middle of the checkout header band. Empty = your site logo. A wide, flat version works best; it is displayed at up to 46px height."
+#: includes/class-stmc-admin.php:425
+msgid "The logo in the middle of the checkout header band. Empty = your site title as text, not your site logo — WordPress keeps those in different places and this field is the one the band reads. A wide, flat version works best; it is displayed at up to 46px height."
 msgstr ""
 
-#: includes/class-stmc-admin.php:458
+#: includes/class-stmc-admin.php:436
 msgid "What does this setting do?"
 msgstr ""
 
-#: includes/class-stmc-admin.php:478
+#: includes/class-stmc-admin.php:456
 msgid "Yes"
 msgstr ""
 
-#: includes/class-stmc-admin.php:547
+#: includes/class-stmc-admin.php:525
 msgid "— Off —"
 msgstr ""
 
-#: includes/class-stmc-admin.php:597
+#: includes/class-stmc-admin.php:575
 msgid "Not detected yet — open the checkout once and this line will report what was found."
 msgstr ""
 
-#: includes/class-stmc-admin.php:599
+#: includes/class-stmc-admin.php:577
 msgid "Germanized is delivering the consent boxes, so the own box stands down."
 msgstr ""
 
 #. translators: %s: identifier of the plugin that renders the consent boxes.
-#: includes/class-stmc-admin.php:602
+#: includes/class-stmc-admin.php:580
 msgid "%s is delivering the consent boxes, so the own box stands down."
 msgstr ""
 
-#: includes/class-stmc-admin.php:604
+#: includes/class-stmc-admin.php:582
 msgid "No legal plugin is delivering consent boxes on this checkout."
 msgstr ""
 
-#: includes/class-stmc-admin.php:605
+#: includes/class-stmc-admin.php:583
 msgid "This plugin then covers the checkout itself — consent, button label, the information above the button. It does not cover what lives outside the checkout: unit prices, delivery times on product pages, or sending the cancellation policy with the order email. If your shop needs those, keep a legal plugin such as Germanized alongside."
 msgstr ""
 
-#: includes/class-stmc-admin.php:611
+#: includes/class-stmc-admin.php:589
 msgid "The own consent box is rendering."
 msgstr ""
 
-#: includes/class-stmc-admin.php:612
+#: includes/class-stmc-admin.php:590
 msgid "The own consent box is not rendering."
 msgstr ""
 
-#: includes/class-stmc-admin.php:614
+#: includes/class-stmc-admin.php:592
 msgid "Detected on the checkout"
 msgstr ""
 
-#: includes/class-stmc-admin.php:629
+#: includes/class-stmc-admin.php:607
 msgid "Three columns (billing / payment / order — most compact)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:630
+#: includes/class-stmc-admin.php:608
 msgid "Two columns (order summary right)"
 msgstr ""
 
-#: includes/class-stmc-admin.php:631
+#: includes/class-stmc-admin.php:609
 msgid "One column"
 msgstr ""
 
-#: includes/class-stmc-admin.php:656
+#: includes/class-stmc-admin.php:634
 msgid "— automatic —"
 msgstr ""
 
-#: includes/class-stmc-assets.php:97
+#: includes/class-stmc-assets.php:106
 msgid "OR"
 msgstr ""
 
@@ -786,7 +786,7 @@ msgstr ""
 msgid "State / Region"
 msgstr ""
 
-#: includes/modules/class-stmc-module-focus.php:112
+#: includes/modules/class-stmc-module-focus.php:114
 msgid "Legal links"
 msgstr ""
 
@@ -794,29 +794,29 @@ msgstr ""
 msgid "Secure SSL connection"
 msgstr ""
 
-#: includes/modules/class-stmc-module-header.php:74
-#: includes/modules/class-stmc-module-header.php:79
+#: includes/modules/class-stmc-module-header.php:113
+#: includes/modules/class-stmc-module-header.php:118
 msgid "Cart"
 msgstr ""
 
-#: includes/modules/class-stmc-module-header.php:76
+#: includes/modules/class-stmc-module-header.php:115
 msgid "Order completed"
 msgstr ""
 
-#: includes/modules/class-stmc-module-header.php:81
+#: includes/modules/class-stmc-module-header.php:120
 msgid "Confirmation"
 msgstr ""
 
 #. translators: %s: "Log in", rendered bold.
-#: includes/modules/class-stmc-module-header.php:125
+#: includes/modules/class-stmc-module-header.php:164
 msgid "Already a customer? %s"
 msgstr ""
 
-#: includes/modules/class-stmc-module-header.php:126
+#: includes/modules/class-stmc-module-header.php:165
 msgid "Log in"
 msgstr ""
 
-#: includes/modules/class-stmc-module-header.php:135
+#: includes/modules/class-stmc-module-header.php:174
 msgid "Order steps"
 msgstr ""
 
@@ -906,15 +906,15 @@ msgid "Open the page instead"
 msgstr ""
 
 #. translators: 1: required PHP version, 2: current PHP version
-#: stm-smart-checkout.php:133
+#: stm-smart-checkout.php:131
 msgid "STM Smart Checkout requires PHP %1$s or newer. Your server runs PHP %2$s."
 msgstr ""
 
-#: stm-smart-checkout.php:143
+#: stm-smart-checkout.php:141
 msgid "STM Smart Checkout requires WooCommerce to be installed and active."
 msgstr ""
 
 #. translators: %s: required WooCommerce version
-#: stm-smart-checkout.php:152
+#: stm-smart-checkout.php:150
 msgid "STM Smart Checkout requires WooCommerce %s or newer. Please update WooCommerce."
 msgstr ""

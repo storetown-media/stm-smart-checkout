@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.39
+Stable tag: 0.1.40
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,9 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.40 =
+* The plugin's own homepage link no longer leads to the paid version. The Plugin URI in the header pointed at a path that redirects to the Pro product page, and WordPress.org publishes that header field as this plugin's homepage — so the free plugin's link led to a sales page for a different product. It now points at this plugin's own page. Both header URLs are the English ones, because the directory listing is written in English; the German product pages are carried by the German translation of those fields, which is what translatable header URLs are for.
 
 = 0.1.39 =
 * The settings screen loads its stylesheet and its script as files. Both were printed into the page as a style and a script block, which renders the same but skips everything WordPress does around an asset: a version the caches can see, one place from which a site can dequeue or replace them, and markup that stays out of the middle of the form. The distraction-free module's extra hide rules take the same route and hang off the checkout stylesheet now instead of being written into the page head — and the child combinator survives their sanitizer, so "header > .bar" hides that bar rather than everything below the header.

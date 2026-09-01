@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.41
+Stable tag: 0.1.42
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Conversion-focused, legally compliant checkout for WooCommerce — works with yo
 
 STM Smart Checkout turns the standard WooCommerce checkout into a focused, trustworthy buying experience — without replacing your payment gateways, your legal plugins or the WooCommerce checkout itself.
 
-Product page: https://en.storetown-media.de/produkt/stm-smart-checkout-woocommerce/
+Product page: [STM Smart Checkout for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 
 **The core plugin, completely free:**
 
@@ -61,11 +61,11 @@ The free plugin above is complete in itself and stays that way. A separate paid 
 * **Safe mode** — a fatal error while the checkout renders no longer costs the shop its orders: the Smart Checkout stands down from the next request on and WooCommerce's standard checkout takes over, visibly and reversibly
 * **Mobile sticky order bar** and an **ultra-compact layout** for dense checkouts on small screens
 
-Pro requires this free plugin and is sold at https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/
+Pro requires this free plugin and is sold here: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
 
 **Auf Deutsch: rechtssichere WooCommerce-Kasse für Shops in Deutschland, Österreich und der Schweiz**
 
-STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte, vertrauenswürdige Kaufstrecke — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder die WooCommerce-Kasse selbst zu ersetzen. Produktseite: https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/
+STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte, vertrauenswürdige Kaufstrecke — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder die WooCommerce-Kasse selbst zu ersetzen. Produktseite: [STM Smart Checkout für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 
 **Kasse gestalten und Kaufabbrüche vermeiden**
 
@@ -109,7 +109,7 @@ Alles oben Beschriebene ist im kostenlosen Plugin und bleibt dort. Das kostenpfl
 * **Safe-Mode** — ein Fatal Error beim Rendern der Kasse kostet den Shop keine Bestellungen mehr: der Smart Checkout zieht sich ab der nächsten Anfrage zurück, die Standard-Kasse übernimmt, sichtbar und umkehrbar
 * **Mobile Sticky-Bestellleiste** und ein **ultra-kompaktes Layout** für dichte Kassen auf kleinen Bildschirmen
 
-Pro setzt dieses kostenlose Plugin voraus: https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/
+Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
 
 == Frequently Asked Questions ==
 
@@ -123,7 +123,7 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 
 = Is there a paid version, and what does it add? =
 
-Yes. STM Smart Checkout Pro is a separate add-on that requires this free plugin. It adds the online withdrawal form and its management screen, the express zone for wallet buttons, payment-dependent required fields, the payment method customizer, safe mode, a mobile sticky order bar and an ultra-compact layout. Everything described in the description above is part of this free plugin and stays that way — Pro adds, it does not unlock. Details and pricing: https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/
+Yes. STM Smart Checkout Pro is a separate add-on that requires this free plugin. It adds the online withdrawal form and its management screen, the express zone for wallet buttons, payment-dependent required fields, the payment method customizer, safe mode, a mobile sticky order bar and an ultra-compact layout. Everything described in the description above is part of this free plugin and stays that way — Pro adds, it does not unlock. Details and pricing: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
 
 = Does the free plugin include the online withdrawal form required since June 2026? =
 
@@ -159,7 +159,7 @@ No. No remote fonts, no tracking, no external requests. The postcode databases f
 
 == Credits ==
 
-The bundled postcode databases for Germany, Austria and Switzerland are derived from the free geographical database GeoNames (https://www.geonames.org/), used under the Creative Commons Attribution 4.0 licence (https://creativecommons.org/licenses/by/4.0/).
+The bundled postcode databases for Germany, Austria and Switzerland are derived from the free geographical database [GeoNames](https://www.geonames.org/), used under the [Creative Commons Attribution 4.0 licence](https://creativecommons.org/licenses/by/4.0/).
 
 They ship as plain JSON inside the plugin and are read locally. Nothing is fetched at runtime, and no address a customer types is sent anywhere.
 
@@ -173,6 +173,9 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.42 =
+* The links in the description are links. WordPress.org renders a readme with a Markdown subset — bold, lists and headings came through, but a bare URL stays plain text, so every address in the description sat there unclickable. They are written as proper links now, with the product's name as the anchor instead of the address, which is also what a search engine reads. The two attribution links in Credits had the same problem and are fixed with them. No code changed.
 
 = 0.1.41 =
 * The description says what the plugin actually does. It listed eight bullets for a checkout that has closer to twenty settings worth naming, and it described the paid add-on as "three things" when it has carried seven since the end of August — an understatement is as inaccurate as a promise, and this readme has been on the wrong side of that before. Both product pages are linked now, in the language of the section that links them, and the German half spells out the legal features under the words a German shop actually searches for: Button-Lösung, § 312j BGB, Widerrufsformular, AGB-Checkbox, MwSt.-Ausweisung, Lieferzeit. Two questions were added to the FAQ, one of them stating plainly that the online withdrawal form required since 19 June 2026 is in Pro and not in this plugin. No code changed.

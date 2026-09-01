@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.42
+Stable tag: 0.1.43
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,8 +13,6 @@ Conversion-focused, legally compliant checkout for WooCommerce — works with yo
 == Description ==
 
 STM Smart Checkout turns the standard WooCommerce checkout into a focused, trustworthy buying experience — without replacing your payment gateways, your legal plugins or the WooCommerce checkout itself.
-
-Product page: [STM Smart Checkout for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 
 **The core plugin, completely free:**
 
@@ -61,11 +59,11 @@ The free plugin above is complete in itself and stays that way. A separate paid 
 * **Safe mode** — a fatal error while the checkout renders no longer costs the shop its orders: the Smart Checkout stands down from the next request on and WooCommerce's standard checkout takes over, visibly and reversibly
 * **Mobile sticky order bar** and an **ultra-compact layout** for dense checkouts on small screens
 
-Pro requires this free plugin and is sold here: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
+Pro requires this free plugin and is sold here: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/). This plugin has a page of its own as well: [STM Smart Checkout for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 
 **Auf Deutsch: rechtssichere WooCommerce-Kasse für Shops in Deutschland, Österreich und der Schweiz**
 
-STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte, vertrauenswürdige Kaufstrecke — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder die WooCommerce-Kasse selbst zu ersetzen. Produktseite: [STM Smart Checkout für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
+STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte, vertrauenswürdige Kaufstrecke — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder die WooCommerce-Kasse selbst zu ersetzen.
 
 **Kasse gestalten und Kaufabbrüche vermeiden**
 
@@ -109,7 +107,7 @@ Alles oben Beschriebene ist im kostenlosen Plugin und bleibt dort. Das kostenpfl
 * **Safe-Mode** — ein Fatal Error beim Rendern der Kasse kostet den Shop keine Bestellungen mehr: der Smart Checkout zieht sich ab der nächsten Anfrage zurück, die Standard-Kasse übernimmt, sichtbar und umkehrbar
 * **Mobile Sticky-Bestellleiste** und ein **ultra-kompaktes Layout** für dichte Kassen auf kleinen Bildschirmen
 
-Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
+Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/). Auch das kostenlose Plugin hat eine eigene Seite: [STM Smart Checkout für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 
 == Frequently Asked Questions ==
 
@@ -173,6 +171,9 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.43 =
+* The links to our own pages sit at the end of the description instead of its second line. A shop owner opening a directory page wants to know what the plugin does; a link to the vendor's shop before the first feature reads as an advertisement, whatever it points at. Both language sections now describe the plugin in full first and name the pages afterwards, where someone who has read that far might actually want them. The first link is now halfway down the description rather than in its opening. No code changed.
 
 = 0.1.42 =
 * The links in the description are links. WordPress.org renders a readme with a Markdown subset — bold, lists and headings came through, but a bare URL stays plain text, so every address in the description sat there unclickable. They are written as proper links now, with the product's name as the anchor instead of the address, which is also what a search engine reads. The two attribution links in Credits had the same problem and are fixed with them. No code changed.

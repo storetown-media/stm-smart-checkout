@@ -10,7 +10,7 @@
 [![PHP](https://img.shields.io/badge/PHP-7.4%E2%80%938.4-777BB4?style=flat-square&logo=php)](#kompatibilität)
 [![Preis](https://img.shields.io/badge/Preis-kostenlos-brightgreen?style=flat-square)](#pricing)
 
-[🖥️ **Live-Demo**](https://www.storetown-media.de/kasse/?add-to-cart=56628) · [📦 **Kostenlos laden**](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/) · [📚 **Hub**](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/) · [⭐ **Pro-Version**](#pro-version)
+[🖥️ **Live-Demo**](https://www.storetown-media.de/kasse/?add-to-cart=57829) · [📦 **Kostenlos laden**](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/) · [📚 **Hub**](https://www.storetown-media.de/produkt-kategorie/downloads/wordpress-plugins/) · [⭐ **Pro-Version**](#pro-version)
 
 </div>
 
@@ -94,7 +94,7 @@ Alles, was auf dieser Seite beschrieben ist, steckt in der kostenlosen Version u
 
 | | |
 |---|---|
-| **Frontend-Demo** | [Kasse mit gefülltem Warenkorb öffnen](https://www.storetown-media.de/kasse/?add-to-cart=56628) |
+| **Frontend-Demo** | [Kasse mit gefülltem Warenkorb öffnen](https://www.storetown-media.de/kasse/?add-to-cart=57829) |
 | **Produktseite** | [Smart Checkout for WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/) |
 | **Pro-Version** | [Smart Checkout Pro](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/) |
 

@@ -319,7 +319,7 @@ msgid "Plus/minus steppers beside each product in the order summary: customers f
 msgstr "Plus/Minus-Regler neben jedem Produkt in der Bestellübersicht: Kunden korrigieren die Menge direkt an der Kasse, statt in den Warenkorb zurückzulaufen. Änderungen laufen über WooCommerces eigene Aktualisierung samt aller Summen; Lagerbestände und Einzelverkaufs-Produkte werden respektiert."
 
 msgid "The \"Have a coupon?\" prompt above the checkout. Off = the prompt disappears entirely — recommended when you do not issue coupons, because an empty coupon field makes customers leave to hunt for codes."
-msgstr "Der „Hast du einen Gutschein?“-Hinweis über der Kasse. Aus = der Hinweis verschwindet komplett — empfohlen, wenn Sie keine Gutscheine ausgeben, denn ein leeres Gutscheinfeld schickt Kunden auf Code-Jagd."
+msgstr "Der „Haben Sie einen Gutschein?“-Hinweis über der Kasse. Aus = der Hinweis verschwindet komplett — empfohlen, wenn Sie keine Gutscheine ausgeben, denn ein leeres Gutscheinfeld schickt Kunden auf Code-Jagd."
 
 msgid "Distraction-free: full-page template"
 msgstr "Ablenkungsfrei: Vollseiten-Vorlage"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: STM Smart Checkout 0.1.45\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-09-02 09:42+0000\n"
+"POT-Creation-Date: 2026-09-02 09:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,6 +16,7 @@ msgstr ""
 "X-Domain: stm-smart-checkout\n"
 
 #: includes/class-stmc-admin.php:44
+#: includes/class-stmc-blocks.php:98
 msgid "Delivery time"
 msgstr ""
 
@@ -703,7 +704,7 @@ msgstr ""
 
 #. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
 #: includes/class-stmc-block-checkout.php:168
-msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the links to the legal texts above the buy button and the buy button label. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, the delivery time per item, and the coupon and order-note controls."
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label and the delivery time under each item. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, and the coupon and order-note controls."
 msgstr ""
 
 #: includes/class-stmc-block-checkout.php:173
@@ -743,7 +744,7 @@ msgstr ""
 msgid "You are not allowed to change the checkout pages."
 msgstr ""
 
-#: includes/class-stmc-blocks.php:111
+#: includes/class-stmc-blocks.php:204
 msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
 msgstr ""
 
@@ -858,54 +859,54 @@ msgid "Continue shopping"
 msgstr ""
 
 #. translators: %s: the shop's delivery time, e.g. "2-4 working days".
-#: includes/modules/class-stmc-module-legal.php:382
+#: includes/modules/class-stmc-module-legal.php:404
 msgid "Delivery time: %s"
 msgstr ""
 
 #. translators: %s: tax rate, e.g. "19 %".
-#: includes/modules/class-stmc-module-legal.php:432
+#: includes/modules/class-stmc-module-legal.php:454
 msgid "incl. %s VAT"
 msgstr ""
 
 #. translators: %s: the shop's own name for the tax rate.
-#: includes/modules/class-stmc-module-legal.php:435
+#: includes/modules/class-stmc-module-legal.php:457
 msgid "incl. %s"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:478
+#: includes/modules/class-stmc-module-legal.php:500
 msgid "Order with obligation to pay"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:543
+#: includes/modules/class-stmc-module-legal.php:565
 msgid "I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:567
+#: includes/modules/class-stmc-module-legal.php:589
 msgid "Please accept the terms and conditions and the cancellation policy to place your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:710
+#: includes/modules/class-stmc-module-legal.php:732
 msgid "Please read and accept the terms and conditions to proceed with your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:767
+#: includes/modules/class-stmc-module-legal.php:789
 msgid "Please tick all required boxes to proceed with your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:860
-#: includes/modules/class-stmc-module-legal.php:867
+#: includes/modules/class-stmc-module-legal.php:882
+#: includes/modules/class-stmc-module-legal.php:889
 msgid "Close"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:863
+#: includes/modules/class-stmc-module-legal.php:885
 msgid "Loading &hellip;"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:864
+#: includes/modules/class-stmc-module-legal.php:886
 msgid "The text could not be loaded here."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:865
+#: includes/modules/class-stmc-module-legal.php:887
 msgid "Open the page instead"
 msgstr ""
 

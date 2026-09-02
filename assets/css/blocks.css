@@ -143,3 +143,28 @@ body.stmc-blocks-consent .wc-block-checkout__terms {
 body.stmc-blocks-consent .wc-block-checkout__terms a {
 	color: var(--stmc-label);
 }
+
+/* The mandatory notice shares the line but not the voice: it is the last thing
+   a customer reads before deciding, so it speaks in body size and body colour,
+   and the links step below it. */
+body.stmc-blocks-consent .wc-block-checkout__terms .stmc-button-notice {
+	display: block;
+	margin-bottom: var(--stmc-sp-2);
+	color: var(--stmc-text);
+	font-size: var(--stmc-fs-base);
+	line-height: 1.5;
+}
+
+body.stmc-blocks-consent .wc-block-checkout__terms .stmc-legal-links {
+	display: block;
+	/* Stated here as well: with the notice in front of it, the line measured
+	   15px on the bench — the block's label styles reach the inner span. */
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+}
+
+/* The delivery time under each item, in the block's own item-data list. */
+body.stmc-checkout .wc-block-components-product-details {
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+}

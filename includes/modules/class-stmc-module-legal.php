@@ -281,7 +281,7 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @param int[] $ids Product and parent id.
 	 * @return bool
 	 */
-	private function delivery_shown_by_legal_plugin( array $ids ) {
+	private static function delivery_shown_by_legal_plugin( array $ids ) {
 		if ( 'germanized' !== self::legal_plugin_renders_consent() || ! taxonomy_exists( 'product_delivery_time' ) ) {
 			return false;
 		}
@@ -298,7 +298,7 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @param WC_Product $product Product or variation.
 	 * @return int[] The product id, and its parent when it has one.
 	 */
-	private function product_ids( $product ) {
+	private static function product_ids( $product ) {
 		$ids = array( (int) $product->get_id() );
 		if ( method_exists( $product, 'get_parent_id' ) && $product->get_parent_id() ) {
 			$ids[] = (int) $product->get_parent_id();
@@ -319,12 +319,12 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @param WC_Product|null $product Product or variation.
 	 * @return string
 	 */
-	private function delivery_time_for( $product ) {
+	private static function delivery_time_for( $product ) {
 		if ( ! is_object( $product ) || ! method_exists( $product, 'get_id' ) ) {
 			return '';
 		}
 
-		$ids = $this->product_ids( $product );
+		$ids = self::product_ids( $product );
 
 		foreach ( $ids as $id ) {
 			$own = trim( (string) get_post_meta( $id, self::DELIVERY_META, true ) );
@@ -358,6 +358,27 @@ class STMC_Module_Legal extends STMC_Module {
 	}
 
 	/**
+	 * The delivery time to show for one cart item — '' when none should be:
+	 * virtual items, items a legal plugin already labels, no source that knows
+	 * one. The one decision, shared by the classic name filter below and the
+	 * block layer's item-data line, so the two can never disagree.
+	 *
+	 * @param array $cart_item Cart item.
+	 * @return string Plain text.
+	 */
+	public static function cart_item_delivery_time( $cart_item ) {
+		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
+		if ( ! $product || ! method_exists( $product, 'get_id' )
+			|| ( method_exists( $product, 'is_virtual' ) && $product->is_virtual() ) ) {
+			return '';
+		}
+		if ( self::delivery_shown_by_legal_plugin( self::product_ids( $product ) ) ) {
+			return '';
+		}
+		return self::delivery_time_for( $product );
+	}
+
+	/**
 	 * Appends the delivery time under the product name in cart and checkout.
 	 *
 	 * @param string $name      Item name HTML.
@@ -365,15 +386,16 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @return string
 	 */
 	public function item_delivery_time( $name, $cart_item ) {
-		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
-		if ( ! $product || ! method_exists( $product, 'get_id' )
-			|| ( method_exists( $product, 'is_virtual' ) && $product->is_virtual() ) ) {
+		/*
+		 * When the block layer delivers the line as item data, the classic
+		 * templates print THAT (WooCommerce's own cart template renders item
+		 * data under the name) — appending it here as well would show it twice
+		 * on a shop whose cart is classic while its checkout is a block.
+		 */
+		if ( class_exists( 'STMC_Blocks' ) && STMC_Blocks::delivers_item_data() ) {
 			return $name;
 		}
-		if ( $this->delivery_shown_by_legal_plugin( $this->product_ids( $product ) ) ) {
-			return $name;
-		}
-		$time = $this->delivery_time_for( $product );
+		$time = self::cart_item_delivery_time( $cart_item );
 		if ( '' === $time ) {
 			return $name;
 		}

@@ -253,9 +253,6 @@ msgstr "Der Text konnte hier nicht geladen werden."
 msgid "The text is built from your own registration settings, so it always matches what really happens."
 msgstr "Der Text entsteht aus Ihren eigenen Registrierungs-Einstellungen und stimmt deshalb immer mit dem überein, was wirklich passiert."
 
-msgid "Three columns (billing / payment / order — most compact)"
-msgstr "Drei Spalten (Rechnung / Zahlungsart / Bestellung — am kompaktesten)"
-
 msgid "Trust item 1 (lock icon)"
 msgstr "Vertrauens-Baustein 1 (Schloss-Symbol)"
 
@@ -264,9 +261,6 @@ msgstr "Vertrauens-Baustein 2 (Schild-Symbol)"
 
 msgid "Trust item 3 (card icon)"
 msgstr "Vertrauens-Baustein 3 (Karten-Symbol)"
-
-msgid "Two columns (order summary right)"
-msgstr "Zwei Spalten (Bestellübersicht rechts)"
 
 msgid "Verify required consent boxes on the server"
 msgstr "Pflicht-Checkboxen serverseitig prüfen"
@@ -670,10 +664,6 @@ msgstr "Sie dürfen die Kassenseiten nicht ändern."
 msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
 msgstr "Die {terms}Allgemeinen Geschäftsbedingungen{/terms} und die {revocation}Widerrufsbelehrung{/revocation} im Wortlaut."
 
-#. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
-msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the links to the legal texts above the buy button and the buy button label. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, the delivery time per item, and the coupon and order-note controls."
-msgstr "Diese Seiten rendern WooCommerce’ Warenkorb- und Kassen-Blöcke: %s. Dort liefert Smart Checkout die Hülle um das Formular, die Design-Tokens, die Pflicht-Checkbox mit serverseitiger Prüfung, die Links zu den Rechtstexten über dem Kauf-Button und die Beschriftung des Kauf-Buttons. Noch nicht auf den Blöcken: die Spalten-Layouts, die Feldverwaltung mit PLZ-Autovervollständigung, die Trust-Reihe, der Beruhigungshinweis, die Lieferzeit je Artikel sowie Gutschein- und Bemerkungsfeld."
-
 msgid "That includes your checkout page: the settings for the pieces listed as not yet on the blocks will not change what your customers see there."
 msgstr "Das schließt Ihre Kassenseite ein: Die Einstellungen der Teile, die noch nicht auf den Blöcken laufen, ändern dort nichts an dem, was Ihre Kunden sehen."
 
@@ -682,3 +672,7 @@ msgstr "WooCommerce liefert beide Varianten und unterstützt beide. Ein Shop, de
 
 msgid "your cart and checkout are built from WooCommerce blocks. The plugin dresses them and adds the required consent box, but its layouts and field manager work on the classic pages only; it can switch those pages over for you — reversibly."
 msgstr "Ihr Warenkorb und Ihre Kasse bestehen aus WooCommerce-Blöcken. Das Plugin kleidet sie ein und ergänzt die Pflicht-Checkbox; seine Layouts und die Feldverwaltung arbeiten nur auf den klassischen Seiten. Es kann diese Seiten für Sie umstellen — umkehrbar."
+
+#. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label and the delivery time under each item. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, and the coupon and order-note controls."
+msgstr "Diese Seiten rendern WooCommerce’ Warenkorb- und Kassen-Blöcke: %s. Dort liefert Smart Checkout die Hülle um das Formular, die Design-Tokens, die Pflicht-Checkbox mit serverseitiger Prüfung, den Hinweis und die Links zu den Rechtstexten über dem Kauf-Button, die Beschriftung des Kauf-Buttons und die Lieferzeit unter jedem Artikel. Noch nicht auf den Blöcken: die Spalten-Layouts, die Feldverwaltung mit PLZ-Autovervollständigung, die Trust-Reihe, der Beruhigungshinweis sowie Gutschein- und Bemerkungsfeld."

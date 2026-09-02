@@ -165,7 +165,7 @@ class STMC_Block_Checkout {
 					<?php
 					printf(
 						/* translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout". */
-						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the links to the legal texts above the buy button and the buy button label. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, the delivery time per item, and the coupon and order-note controls.', 'stm-smart-checkout' ),
+						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label and the delivery time under each item. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, and the coupon and order-note controls.', 'stm-smart-checkout' ),
 						esc_html( self::titles( $blocks ) )
 					);
 					?>

@@ -53,6 +53,52 @@ class STMC_Blocks {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'assets' ), 25 );
 		add_filter( 'body_class', array( __CLASS__, 'body_class' ) );
 		add_filter( 'render_block_woocommerce/checkout-terms-block', array( __CLASS__, 'terms_block' ), 10, 2 );
+		add_filter( 'woocommerce_get_item_data', array( __CLASS__, 'item_data' ), 20, 2 );
+	}
+
+	/**
+	 * Does the block layer deliver the delivery time as item data?
+	 *
+	 * Asked by the classic name filter so it can stand down: WooCommerce's
+	 * classic cart template prints item data under the name as well, and a shop
+	 * with a classic cart in front of a block checkout would otherwise read the
+	 * delivery time twice. One condition, shared, so the two cannot disagree.
+	 */
+	public static function delivers_item_data() {
+		return self::applies();
+	}
+
+	/**
+	 * The delivery time under each line item, as WooCommerce item data.
+	 *
+	 * woocommerce_get_item_data is the filter WooCommerce itself uses to put
+	 * lines under a product name; the Store API's cart item schema applies it
+	 * (measured in CartItemSchema::get_item_data()), the Cart block and the
+	 * checkout's order summary render the result as "name: value". So the
+	 * delivery time travels on WooCommerce's own rails — no script, no slot.
+	 *
+	 * Registered unconditionally and decided here, because the cart is
+	 * hydrated during the page request (Cart.php and Checkout.php call
+	 * hydrate_api_request('/wc/store/v1/cart') while rendering) — a gate on
+	 * "is this a REST request" would leave the first paint without the line.
+	 *
+	 * @param array $data      Item data so far.
+	 * @param array $cart_item Cart item.
+	 * @return array
+	 */
+	public static function item_data( $data, $cart_item ) {
+		if ( ! is_array( $data ) || ! self::applies() ) {
+			return $data;
+		}
+		$time = STMC_Module_Legal::cart_item_delivery_time( $cart_item );
+		if ( '' === $time ) {
+			return $data;
+		}
+		$data[] = array(
+			'key'   => __( 'Delivery time', 'stm-smart-checkout' ),
+			'value' => $time,
+		);
+		return $data;
 	}
 
 	/**
@@ -77,12 +123,35 @@ class STMC_Blocks {
 	 */
 	public static function terms_block( $content, $block ) {
 		if ( ! self::on_block_surface() || ! is_checkout() || ! self::consent_wanted() ) {
+			// Without our consent box WooCommerce's own sentence stays as it is;
+			// its default text is composed in the browser and cannot be
+			// extended from here without losing it.
 			return $content;
 		}
-		$text = self::legal_links_text();
-		if ( '' === $text || false === strpos( $content, 'data-block-name="woocommerce/checkout-terms-block"' ) ) {
+		if ( false === strpos( $content, 'data-block-name="woocommerce/checkout-terms-block"' ) ) {
 			return $content;
 		}
+
+		/*
+		 * Two voices in the one place the block reserves for legal text above
+		 * the button: first the shop's mandatory notice (the essential order
+		 * details the courts want readable right there — BGH; LG Berlin 2024),
+		 * then, quieter, the links to the full texts. Same order as the classic
+		 * checkout, where the notice sits in the place-order row.
+		 */
+		$parts  = array();
+		$notice = self::button_notice_text();
+		if ( '' !== $notice ) {
+			$parts[] = '<span class="stmc-button-notice">' . $notice . '</span>';
+		}
+		$links = self::legal_links_text();
+		if ( '' !== $links ) {
+			$parts[] = '<span class="stmc-legal-links">' . $links . '</span>';
+		}
+		if ( ! $parts ) {
+			return $content;
+		}
+		$text = implode( '', $parts );
 		/*
 		 * Ours replaces whatever the editor stored, so the stored attributes go
 		 * first. data-checkbox is only REMOVED, never written: the frontend reads
@@ -97,6 +166,30 @@ class STMC_Blocks {
 			'data-block-name="woocommerce/checkout-terms-block" data-text="' . esc_attr( $text ) . '"',
 			$content,
 			1
+		);
+	}
+
+	/**
+	 * The shop's own notice for the line above the button — the same setting
+	 * the classic checkout prints there, with the same small set of tags. Line
+	 * breaks survive as <br>; the terms block renders inline, so paragraphs
+	 * are not an option here.
+	 *
+	 * @return string HTML, or ''.
+	 */
+	private static function button_notice_text() {
+		$text = trim( (string) STMC_Settings::get( 'legal.button_notice' ) );
+		if ( '' === $text ) {
+			return '';
+		}
+		return wp_kses(
+			nl2br( $text ),
+			array(
+				'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
+				'strong' => array(),
+				'em'     => array(),
+				'br'     => array(),
+			)
 		);
 	}
 

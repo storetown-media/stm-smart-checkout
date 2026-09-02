@@ -462,6 +462,18 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @return string
 	 */
 	public function button_text( $text ) {
+		return self::button_label();
+	}
+
+	/**
+	 * The label itself, without the filter around it — the block checkout has
+	 * no woocommerce_order_button_text (measured in the installed source: the
+	 * Blocks and StoreApi trees never apply it) and reads this through its own
+	 * placeOrderButtonLabel filter instead, from STMC_Blocks.
+	 *
+	 * @return string
+	 */
+	public static function button_label() {
 		$own = trim( (string) STMC_Settings::get( 'legal.button_text' ) );
 		return '' !== $own ? $own : __( 'Order with obligation to pay', 'stm-smart-checkout' );
 	}
@@ -495,7 +507,7 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @param string $which 'terms' or 'revocation'.
 	 * @return string Permalink, empty when no page is known.
 	 */
-	private function legal_page_url( $which ) {
+	public static function legal_page_url( $which ) {
 		$picked = (int) STMC_Settings::get( 'terms' === $which ? 'legal.terms_page' : 'legal.revocation_page' );
 
 		$candidates = array( $picked );
@@ -525,14 +537,14 @@ class STMC_Module_Legal extends STMC_Module {
 	 *
 	 * @return string HTML.
 	 */
-	private function consent_label() {
+	public static function consent_label() {
 		$text = trim( (string) STMC_Settings::get( 'legal.consent_text' ) );
 		if ( '' === $text ) {
 			$text = __( 'I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}.', 'stm-smart-checkout' );
 		}
 
 		foreach ( array( 'terms', 'revocation' ) as $which ) {
-			$url  = $this->legal_page_url( $which );
+			$url  = self::legal_page_url( $which );
 			$open = '' === $url
 				? ''
 				: '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">';
@@ -548,7 +560,7 @@ class STMC_Module_Legal extends STMC_Module {
 	/**
 	 * @return string Error shown when the box is left unticked.
 	 */
-	private function consent_error() {
+	public static function consent_error() {
 		$own = trim( (string) STMC_Settings::get( 'legal.consent_error' ) );
 		return '' !== $own
 			? $own
@@ -585,7 +597,7 @@ class STMC_Module_Legal extends STMC_Module {
 			checked( $checked, true, false )
 		);
 		echo '<span class="stmc-consent__text">' . wp_kses(
-			$this->consent_label(),
+			self::consent_label(),
 			array(
 				'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
 				'strong' => array(),
@@ -612,7 +624,7 @@ class STMC_Module_Legal extends STMC_Module {
 			return;
 		}
 		$order->update_meta_data( '_stmc_consent_accepted', wc_clean( gmdate( 'c' ) ) );
-		$order->update_meta_data( '_stmc_consent_text', $this->plain_text( $this->consent_label() ) );
+		$order->update_meta_data( '_stmc_consent_text', self::plain_text( self::consent_label() ) );
 	}
 
 	private function guarantee_text() {
@@ -691,7 +703,7 @@ class STMC_Module_Legal extends STMC_Module {
 		$list = array();
 
 		if ( $this->consent_enabled() ) {
-			$list[ self::CONSENT_NAME ] = $this->consent_error();
+			$list[ self::CONSENT_NAME ] = self::consent_error();
 		}
 
 		if ( function_exists( 'wc_terms_and_conditions_checkbox_enabled' ) && wc_terms_and_conditions_checkbox_enabled() ) {
@@ -800,19 +812,19 @@ class STMC_Module_Legal extends STMC_Module {
 			}
 		}
 
-		$needle = $this->plain_text( $message );
+		$needle = self::plain_text( $message );
 		if ( '' === $needle ) {
 			return true; // Nothing sensible to say — stay silent.
 		}
 		foreach ( $errors->get_error_messages() as $existing ) {
-			if ( $this->plain_text( $existing ) === $needle ) {
+			if ( self::plain_text( $existing ) === $needle ) {
 				return true;
 			}
 		}
 		if ( function_exists( 'wc_get_notices' ) ) {
 			foreach ( (array) wc_get_notices( 'error' ) as $notice ) {
 				$text = ( is_array( $notice ) && isset( $notice['notice'] ) ) ? $notice['notice'] : $notice;
-				if ( is_string( $text ) && $this->plain_text( $text ) === $needle ) {
+				if ( is_string( $text ) && self::plain_text( $text ) === $needle ) {
 					return true;
 				}
 			}
@@ -820,7 +832,7 @@ class STMC_Module_Legal extends STMC_Module {
 		return false;
 	}
 
-	private function plain_text( $html ) {
+	public static function plain_text( $html ) {
 		return trim( (string) preg_replace( '~\s+~u', ' ', wp_strip_all_tags( (string) $html ) ) );
 	}
 

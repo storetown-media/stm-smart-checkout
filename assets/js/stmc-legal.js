@@ -13,7 +13,9 @@
 	var opener = null;
 	var cache = {};
 
-	var LINK_SELECTOR = '.wc-gzd-checkbox-placeholder a, .woocommerce-terms-and-conditions-wrapper a, a.stmc-legal-link';
+	// The last entry is the block checkout: our consent field renders its label
+	// inside WooCommerce's checkbox component, links included.
+	var LINK_SELECTOR = '.wc-gzd-checkbox-placeholder a, .woocommerce-terms-and-conditions-wrapper a, a.stmc-legal-link, .wc-block-components-checkbox__label a';
 	var CONTENT_SELECTORS = [ 'main .entry-content', '#main .wf-container-main', '.entry-content', '#main', 'main', 'article' ];
 
 	function el() {

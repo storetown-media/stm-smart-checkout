@@ -1,0 +1,145 @@
+/**
+ * STM Smart Checkout — design tokens on the Cart and Checkout blocks.
+ *
+ * The shell around the blocks (band, steps, full-page template) already wears
+ * the tokens; this file carries them INTO the form. Same contract as
+ * checkout.css: components read only --stmc-* tokens, nothing uses !important,
+ * and the block's own class names are addressed as they are — measured on
+ * WooCommerce 11.0.1, not copied from documentation.
+ *
+ * Scoped to body.stmc-checkout so a shop that switches the plugin off gets the
+ * untouched block back.
+ */
+
+/* ---------- Buy button (§ 312j label comes from stmc-blocks.js) ---------- */
+
+body.stmc-checkout .wc-block-components-checkout-place-order-button,
+body.stmc-checkout .wc-block-cart__submit-button {
+	width: 100%;
+	min-height: 54px;
+	border: 0;
+	border-radius: var(--stmc-radius-s);
+	background: var(--stmc-accent);
+	color: #fff;
+	font-size: var(--stmc-fs-m);
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--stmc-accent) 80%, transparent);
+	transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.stmc-checkout .wc-block-components-checkout-place-order-button:hover,
+body.stmc-checkout .wc-block-cart__submit-button:hover {
+	background: var(--stmc-accent-hover);
+	color: #fff;
+}
+
+body.stmc-checkout .wc-block-components-checkout-place-order-button:focus-visible,
+body.stmc-checkout .wc-block-cart__submit-button:focus-visible {
+	outline: none;
+	box-shadow: var(--stmc-focus-ring);
+}
+
+/* ---------- Fields ---------- */
+
+body.stmc-checkout .wc-block-components-text-input input,
+body.stmc-checkout .wc-block-components-textarea textarea,
+body.stmc-checkout .wc-block-components-combobox .components-combobox-control__input,
+body.stmc-checkout .wc-block-components-select .components-custom-select-control__button,
+body.stmc-checkout .wc-block-components-form .wc-block-components-select select {
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
+	background: var(--stmc-card);
+	color: var(--stmc-text);
+	font-size: var(--stmc-fs-base);
+	transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+body.stmc-checkout .wc-block-components-text-input input:focus,
+body.stmc-checkout .wc-block-components-textarea textarea:focus,
+body.stmc-checkout .wc-block-components-combobox .components-combobox-control__input:focus {
+	border-color: var(--stmc-ink);
+	box-shadow: var(--stmc-focus-ring);
+	outline: none;
+}
+
+/* Floating labels speak in the label blue, like the classic form's labels. */
+body.stmc-checkout .wc-block-components-text-input label,
+body.stmc-checkout .wc-block-components-combobox label,
+body.stmc-checkout .wc-block-components-select label {
+	color: var(--stmc-label);
+}
+
+/* ---------- Section titles ---------- */
+
+body.stmc-checkout .wc-block-components-checkout-step__title,
+body.stmc-checkout .wc-block-components-title,
+body.stmc-checkout .wc-block-cart__totals-title {
+	color: var(--stmc-title);
+	font-size: var(--stmc-fs-xl);
+	font-weight: 600;
+	letter-spacing: 0;
+}
+
+/* ---------- Choice controls: shipping, payment, checkboxes ---------- */
+
+body.stmc-checkout .wc-block-components-radio-control__option,
+body.stmc-checkout .wc-block-components-checkbox {
+	color: var(--stmc-text);
+}
+
+body.stmc-checkout .wc-block-components-radio-control__input,
+body.stmc-checkout .wc-block-components-checkbox__input[type="checkbox"] {
+	accent-color: var(--stmc-accent);
+}
+
+body.stmc-checkout .wc-block-components-radio-control__label,
+body.stmc-checkout .wc-block-components-checkbox__label {
+	color: var(--stmc-text);
+	font-size: var(--stmc-fs-base);
+}
+
+body.stmc-checkout .wc-block-components-checkbox__label a {
+	color: var(--stmc-label);
+	text-decoration: underline;
+}
+
+/* ---------- Order summary as a card ---------- */
+
+body.stmc-checkout .wc-block-checkout__sidebar .wc-block-components-order-summary,
+body.stmc-checkout .wc-block-checkout__sidebar .wc-block-components-totals-wrapper,
+body.stmc-checkout .wc-block-cart__sidebar .wc-block-cart__totals-title,
+body.stmc-checkout .wc-block-cart__sidebar .wc-block-components-totals-wrapper {
+	background: var(--stmc-card);
+}
+
+body.stmc-checkout .wc-block-checkout__sidebar,
+body.stmc-checkout .wc-block-cart__sidebar {
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius);
+	box-shadow: var(--stmc-shadow);
+	padding: var(--stmc-sp-4);
+}
+
+body.stmc-checkout .wc-block-components-totals-footer-item .wc-block-components-totals-item__label,
+body.stmc-checkout .wc-block-components-totals-footer-item .wc-block-components-totals-item__value {
+	color: var(--stmc-ink);
+	font-size: var(--stmc-fs-l);
+	font-weight: 700;
+}
+
+/* ---------- The legal-links line above the button ----------
+ *
+ * With our consent box registered, WooCommerce's terms block carries the links
+ * to the full texts (STMC_Blocks::terms_block()). It is a reference line, not
+ * a second consent — so it speaks quietly, in the secondary size. */
+
+body.stmc-blocks-consent .wc-block-checkout__terms {
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+}
+
+body.stmc-blocks-consent .wc-block-checkout__terms a {
+	color: var(--stmc-label);
+}

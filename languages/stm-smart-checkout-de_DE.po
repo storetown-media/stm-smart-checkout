@@ -649,15 +649,6 @@ msgstr "Vorschau beenden"
 msgid "Your cart and checkout are built from blocks"
 msgstr "Dein Warenkorb und deine Kasse bestehen aus Blöcken"
 
-msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. Smart Checkout builds on the classic cart and checkout, so on those pages its settings have no effect."
-msgstr "Diese Seiten stellen die Warenkorb- und Kasse-Blöcke von WooCommerce dar: %s. Smart Checkout baut auf dem klassischen Warenkorb und der klassischen Kasse auf — auf diesen Seiten bleiben seine Einstellungen deshalb ohne Wirkung."
-
-msgid "That includes your checkout page, so nothing on this screen will change what your customers see there."
-msgstr "Darunter ist deine Kassenseite: Nichts auf diesem Bildschirm ändert also etwas an dem, was deine Kunden dort sehen."
-
-msgid "WooCommerce ships both variants and supports both. Switching these pages to the classic cart and checkout takes one click — the block markup is kept, so you can put it back just as quickly."
-msgstr "WooCommerce liefert beide Varianten aus und unterstützt beide. Diese Seiten auf den klassischen Warenkorb und die klassische Kasse umzustellen, ist ein Klick — das Block-Markup bleibt gesichert, der Rückweg ist ebenso schnell."
-
 msgid "Switch these pages to the classic checkout"
 msgstr "Diese Seiten auf die klassische Kasse umstellen"
 
@@ -667,9 +658,6 @@ msgstr "Von diesem Plugin auf den klassischen Warenkorb und die klassische Kasse
 msgid "Restore the blocks"
 msgstr "Blöcke wiederherstellen"
 
-msgid "your cart and checkout are built from WooCommerce blocks, which this plugin does not style. It can switch those pages to the classic version for you — reversibly."
-msgstr "Dein Warenkorb und deine Kasse bestehen aus WooCommerce-Blöcken, die dieses Plugin nicht gestaltet. Es kann diese Seiten für dich auf die klassische Fassung umstellen — umkehrbar."
-
 msgid "Show me"
 msgstr "Ansehen"
 
@@ -678,3 +666,19 @@ msgstr "Diesen Hinweis ausblenden"
 
 msgid "You are not allowed to change the checkout pages."
 msgstr "Du darfst die Kassenseiten nicht ändern."
+
+msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
+msgstr "Die {terms}Allgemeinen Geschäftsbedingungen{/terms} und die {revocation}Widerrufsbelehrung{/revocation} im Wortlaut."
+
+#. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the links to the legal texts above the buy button and the buy button label. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, the delivery time per item, and the coupon and order-note controls."
+msgstr "Diese Seiten rendern WooCommerce’ Warenkorb- und Kassen-Blöcke: %s. Dort liefert Smart Checkout die Hülle um das Formular, die Design-Tokens, die Pflicht-Checkbox mit serverseitiger Prüfung, die Links zu den Rechtstexten über dem Kauf-Button und die Beschriftung des Kauf-Buttons. Noch nicht auf den Blöcken: die Spalten-Layouts, die Feldverwaltung mit PLZ-Autovervollständigung, die Trust-Reihe, der Beruhigungshinweis, die Lieferzeit je Artikel sowie Gutschein- und Bemerkungsfeld."
+
+msgid "That includes your checkout page: the settings for the pieces listed as not yet on the blocks will not change what your customers see there."
+msgstr "Das schließt deine Kassenseite ein: Die Einstellungen der Teile, die noch nicht auf den Blöcken laufen, ändern dort nichts an dem, was deine Kunden sehen."
+
+msgid "WooCommerce ships both variants and supports both. A shop that wants every feature today switches these pages to the classic cart and checkout in one click — the block markup is kept, so you can put it back just as quickly."
+msgstr "WooCommerce liefert beide Varianten und unterstützt beide. Ein Shop, der heute jede Funktion will, stellt diese Seiten mit einem Klick auf die klassische Kasse um — das Block-Markup bleibt gespeichert, du kannst es ebenso schnell zurückholen."
+
+msgid "your cart and checkout are built from WooCommerce blocks. The plugin dresses them and adds the required consent box, but its layouts and field manager work on the classic pages only; it can switch those pages over for you — reversibly."
+msgstr "Dein Warenkorb und deine Kasse bestehen aus WooCommerce-Blöcken. Das Plugin kleidet sie ein und ergänzt die Pflicht-Checkbox; seine Layouts und die Feldverwaltung arbeiten nur auf den klassischen Seiten. Es kann diese Seiten für dich umstellen — umkehrbar."

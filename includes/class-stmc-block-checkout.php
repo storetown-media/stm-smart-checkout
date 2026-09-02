@@ -3,13 +3,16 @@
  * Block cart/checkout: say so, and offer the one click back.
  *
  * A stock WooCommerce install builds its Cart and Checkout pages from the
- * Cart and Checkout blocks. Every rendering hook this plugin uses belongs to
- * the classic checkout templates (woocommerce_review_order_*,
- * woocommerce_checkout_order_review, template_include …), and none of them
- * fires inside the blocks, which render from the Store API in the browser.
+ * Cart and Checkout blocks. The rendering hooks of the classic checkout
+ * (woocommerce_review_order_*, woocommerce_checkout_order_review …) never
+ * fire inside them, which is why the layouts, the field manager and the
+ * trust row are classic-only. What hangs on page hooks — the full-page
+ * template, the band, the steps — works on both, and STMC_Blocks adds the
+ * consent box, the legal links and the button label through the blocks' own
+ * interfaces (measured on 02.09.2026, see that class).
  *
- * Without this class the shop owner installs the plugin, enables it, sees no
- * change whatsoever and is told nothing — not even by WooCommerce, because
+ * Without this class the shop owner would configure a layout, see the block
+ * checkout unchanged and be told nothing — not even by WooCommerce, because
  * the plugin declares cart_checkout_blocks compatibility (correctly: it does
  * not break the blocks) and that declaration silences Woo's own notice.
  *
@@ -145,9 +148,10 @@ class STMC_Block_Checkout {
 	}
 
 	/**
-	 * The panel on our own settings screen: the full explanation plus the
-	 * button. Printed above the tabs, because on a block checkout every
-	 * setting below it is without effect.
+	 * The panel on our own settings screen: what works on the blocks, what
+	 * does not yet, and the button. Printed above the tabs, because part of
+	 * what the tabs offer is classic-only and a shop owner should read that
+	 * before, not after, configuring it.
 	 */
 	public static function panel() {
 		$blocks = self::block_pages();
@@ -161,16 +165,16 @@ class STMC_Block_Checkout {
 					<?php
 					printf(
 						/* translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout". */
-						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. Smart Checkout builds on the classic cart and checkout, so on those pages its settings have no effect.', 'stm-smart-checkout' ),
+						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the links to the legal texts above the buy button and the buy button label. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, the delivery time per item, and the coupon and order-note controls.', 'stm-smart-checkout' ),
 						esc_html( self::titles( $blocks ) )
 					);
 					?>
 					<?php if ( $checkout_affected ) : ?>
-						<?php esc_html_e( 'That includes your checkout page, so nothing on this screen will change what your customers see there.', 'stm-smart-checkout' ); ?>
+						<?php esc_html_e( 'That includes your checkout page: the settings for the pieces listed as not yet on the blocks will not change what your customers see there.', 'stm-smart-checkout' ); ?>
 					<?php endif; ?>
 				</p>
 				<p>
-					<?php esc_html_e( 'WooCommerce ships both variants and supports both. Switching these pages to the classic cart and checkout takes one click — the block markup is kept, so you can put it back just as quickly.', 'stm-smart-checkout' ); ?>
+					<?php esc_html_e( 'WooCommerce ships both variants and supports both. A shop that wants every feature today switches these pages to the classic cart and checkout in one click — the block markup is kept, so you can put it back just as quickly.', 'stm-smart-checkout' ); ?>
 				</p>
 				<p>
 					<?php self::button( self::ACTION_CLASSIC, __( 'Switch these pages to the classic checkout', 'stm-smart-checkout' ) ); ?>
@@ -232,7 +236,7 @@ class STMC_Block_Checkout {
 		<div class="notice notice-warning">
 			<p>
 				<strong><?php esc_html_e( 'STM Smart Checkout', 'stm-smart-checkout' ); ?>:</strong>
-				<?php esc_html_e( 'your cart and checkout are built from WooCommerce blocks, which this plugin does not style. It can switch those pages to the classic version for you — reversibly.', 'stm-smart-checkout' ); ?>
+				<?php esc_html_e( 'your cart and checkout are built from WooCommerce blocks. The plugin dresses them and adds the required consent box, but its layouts and field manager work on the classic pages only; it can switch those pages over for you — reversibly.', 'stm-smart-checkout' ); ?>
 				<a href="<?php echo esc_url( self::settings_url() ); ?>"><?php esc_html_e( 'Show me', 'stm-smart-checkout' ); ?></a> ·
 				<a href="<?php echo esc_url( $dismiss_url ); ?>"><?php esc_html_e( 'Hide this notice', 'stm-smart-checkout' ); ?></a>
 			</p>

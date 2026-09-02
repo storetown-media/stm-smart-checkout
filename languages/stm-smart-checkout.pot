@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: STM Smart Checkout 0.1.43\n"
+"Project-Id-Version: STM Smart Checkout 0.1.45\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-09-01 16:02+0000\n"
+"POT-Creation-Date: 2026-09-02 09:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,7 +51,7 @@ msgid "Design"
 msgstr ""
 
 #: includes/class-stmc-admin.php:161
-#: includes/class-stmc-block-checkout.php:234
+#: includes/class-stmc-block-checkout.php:238
 msgid "STM Smart Checkout"
 msgstr ""
 
@@ -697,50 +697,54 @@ msgstr ""
 msgid "OR"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:159
+#: includes/class-stmc-block-checkout.php:163
 msgid "Your cart and checkout are built from blocks"
 msgstr ""
 
 #. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
-#: includes/class-stmc-block-checkout.php:164
-msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. Smart Checkout builds on the classic cart and checkout, so on those pages its settings have no effect."
-msgstr ""
-
-#: includes/class-stmc-block-checkout.php:169
-msgid "That includes your checkout page, so nothing on this screen will change what your customers see there."
+#: includes/class-stmc-block-checkout.php:168
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the links to the legal texts above the buy button and the buy button label. Not yet on the blocks: the column layouts, the field manager and postcode autofill, the trust row, the reassurance note, the delivery time per item, and the coupon and order-note controls."
 msgstr ""
 
 #: includes/class-stmc-block-checkout.php:173
-msgid "WooCommerce ships both variants and supports both. Switching these pages to the classic cart and checkout takes one click — the block markup is kept, so you can put it back just as quickly."
+msgid "That includes your checkout page: the settings for the pieces listed as not yet on the blocks will not change what your customers see there."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:176
+#: includes/class-stmc-block-checkout.php:177
+msgid "WooCommerce ships both variants and supports both. A shop that wants every feature today switches these pages to the classic cart and checkout in one click — the block markup is kept, so you can put it back just as quickly."
+msgstr ""
+
+#: includes/class-stmc-block-checkout.php:180
 msgid "Switch these pages to the classic checkout"
 msgstr ""
 
 #. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
-#: includes/class-stmc-block-checkout.php:198
+#: includes/class-stmc-block-checkout.php:202
 msgid "Switched to the classic cart and checkout by this plugin: %s. The block version is saved and can be restored."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:202
+#: includes/class-stmc-block-checkout.php:206
 msgid "Restore the blocks"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:235
-msgid "your cart and checkout are built from WooCommerce blocks, which this plugin does not style. It can switch those pages to the classic version for you — reversibly."
+#: includes/class-stmc-block-checkout.php:239
+msgid "your cart and checkout are built from WooCommerce blocks. The plugin dresses them and adds the required consent box, but its layouts and field manager work on the classic pages only; it can switch those pages over for you — reversibly."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:236
+#: includes/class-stmc-block-checkout.php:240
 msgid "Show me"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:237
+#: includes/class-stmc-block-checkout.php:241
 msgid "Hide this notice"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:308
+#: includes/class-stmc-block-checkout.php:312
 msgid "You are not allowed to change the checkout pages."
+msgstr ""
+
+#: includes/class-stmc-blocks.php:111
+msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
 msgstr ""
 
 #: includes/modules/class-stmc-module-fields.php:68
@@ -868,53 +872,53 @@ msgstr ""
 msgid "incl. %s"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:466
+#: includes/modules/class-stmc-module-legal.php:478
 msgid "Order with obligation to pay"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:531
+#: includes/modules/class-stmc-module-legal.php:543
 msgid "I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:555
+#: includes/modules/class-stmc-module-legal.php:567
 msgid "Please accept the terms and conditions and the cancellation policy to place your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:698
+#: includes/modules/class-stmc-module-legal.php:710
 msgid "Please read and accept the terms and conditions to proceed with your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:755
+#: includes/modules/class-stmc-module-legal.php:767
 msgid "Please tick all required boxes to proceed with your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:848
-#: includes/modules/class-stmc-module-legal.php:855
+#: includes/modules/class-stmc-module-legal.php:860
+#: includes/modules/class-stmc-module-legal.php:867
 msgid "Close"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:851
+#: includes/modules/class-stmc-module-legal.php:863
 msgid "Loading &hellip;"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:852
+#: includes/modules/class-stmc-module-legal.php:864
 msgid "The text could not be loaded here."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:853
+#: includes/modules/class-stmc-module-legal.php:865
 msgid "Open the page instead"
 msgstr ""
 
 #. translators: 1: required PHP version, 2: current PHP version
-#: stm-smart-checkout.php:131
+#: stm-smart-checkout.php:132
 msgid "STM Smart Checkout requires PHP %1$s or newer. Your server runs PHP %2$s."
 msgstr ""
 
-#: stm-smart-checkout.php:141
+#: stm-smart-checkout.php:142
 msgid "STM Smart Checkout requires WooCommerce to be installed and active."
 msgstr ""
 
 #. translators: %s: required WooCommerce version
-#: stm-smart-checkout.php:150
+#: stm-smart-checkout.php:151
 msgid "STM Smart Checkout requires WooCommerce %s or newer. Please update WooCommerce."
 msgstr ""

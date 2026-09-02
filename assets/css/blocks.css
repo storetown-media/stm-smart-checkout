@@ -70,6 +70,37 @@ body.stmc-checkout .wc-block-components-select label {
 	color: var(--stmc-label);
 }
 
+/* ---------- Steps as cards, numbered like the classic checkout ----------
+ *
+ * Every step is a direct child of .wc-block-components-form (measured: contact,
+ * shipping address, shipping options, payment, additional information, order
+ * notes, then terms and actions). Cards and numbers are therefore pure CSS:
+ * the same counter the classic form runs, the same disc in the title blue.
+ * What is NOT attempted here is the classic three-column choreography — the
+ * block offers no wrapper for two independent stacks, and a grid would couple
+ * the address and payment columns row by row (a 203px payment step forcing a
+ * 203px blank beside it). The layout setting stays classic-only, and the
+ * settings screen says so. */
+
+body.stmc-checkout .wc-block-components-form {
+	counter-reset: stmc-step;
+}
+
+body.stmc-checkout .wc-block-components-checkout-step {
+	background: var(--stmc-card);
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius);
+	box-shadow: var(--stmc-shadow);
+	padding: var(--stmc-sp-5);
+	margin-bottom: var(--stmc-sp-4);
+}
+
+@media (max-width: 767px) {
+	body.stmc-checkout .wc-block-components-checkout-step {
+		padding: var(--stmc-sp-4);
+	}
+}
+
 /* ---------- Section titles ---------- */
 
 body.stmc-checkout .wc-block-components-checkout-step__title,
@@ -79,6 +110,52 @@ body.stmc-checkout .wc-block-cart__totals-title {
 	font-size: var(--stmc-fs-xl);
 	font-weight: 600;
 	letter-spacing: 0;
+}
+
+/* The step title as on the classic checkout: number disc, accent rule below.
+   Stated in full (family, size, line-height), because themes size headings
+   freely and a checkout is one dense surface, not three widgets. */
+body.stmc-checkout .wc-block-components-checkout-step__title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 var(--stmc-sp-4);
+	padding: 0 0 14px;
+	border-bottom: 2px solid var(--stmc-accent);
+	font-family: inherit;
+	font-weight: 700;
+	line-height: 1.3;
+	letter-spacing: -0.01em;
+}
+
+body.stmc-checkout .wc-block-components-checkout-step__title::before {
+	counter-increment: stmc-step;
+	content: counter(stmc-step);
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: var(--stmc-title);
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+/* Addenda, not steps: the additional-information block (our consent box lives
+   there) and the order notes keep their card but take no number. */
+body.stmc-checkout #order-fields .wc-block-components-checkout-step__title::before,
+body.stmc-checkout #order-notes .wc-block-components-checkout-step__title::before {
+	display: none;
+	counter-increment: none;
+}
+
+/* The summary heading speaks in the same voice as the step titles. */
+body.stmc-checkout .wc-block-components-checkout-order-summary__title {
+	color: var(--stmc-title);
+	font-weight: 700;
 }
 
 /* ---------- Choice controls: shipping, payment, checkboxes ---------- */

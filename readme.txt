@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.45
+Stable tag: 0.1.46
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,10 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.46 =
+* The block checkout wears the plugin's design. Every step of the Checkout block is a card now — the same background, border, radius and shadow as the classic sections — with the classic numbered title: a disc in the title blue counting contact, address, shipping and payment, and the accent rule beneath. The additional-information block and the order notes keep the card and skip the number; they are addenda, not steps. The order summary heading speaks in the same voice. All of it is stylesheet only, hung on the block's own class names as measured on WooCommerce 11, and switched off with the plugin.
+* Not attempted, and said so: the three-column choreography of the classic checkout. The block offers no wrapper for two independent columns of steps, and a grid would couple the address and payment columns row by row — a tall payment step forcing an equally tall blank beside it. The layout setting keeps applying to the classic checkout only, as the settings screen states.
 
 = 0.1.45 =
 * The legal core works on the Cart and Checkout blocks. A required consent box for terms and cancellation policy is registered through WooCommerce's additional checkout fields, so the Store API validates it on the server — a checkout request without the tick, or with it set to false, is refused before an order exists — and the order carries the moment of consent and the exact sentence agreed to, as it does on the classic checkout. The links to both texts stand one line above the buy button, in the place WooCommerce reserved for legal text, and open in the plugin's overlay. The buy button carries the label from your settings; the blocks never read the classic filter, and what looked compliant on German shops so far was WooCommerce's translation of "Place order" and nothing more.

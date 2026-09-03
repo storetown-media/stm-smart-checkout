@@ -165,7 +165,7 @@ class STMC_Block_Checkout {
 					<?php
 					printf(
 						/* translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout". */
-						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label, the delivery time under each item, the trust row under the buy button and the reassurance note under the consent box. Not yet on the blocks: the column layouts, the field manager with its postcode autofill, and the coupon and order-note controls.', 'stm-smart-checkout' ),
+						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label, the delivery time under each item, the trust row under the buy button, the reassurance note under the consent box, and the two switches for the coupon prompt and the order-notes field. The block checkout folds both away behind a single line on its own, so the separate "expandable line" setting for the notes changes nothing here. Not yet on the blocks: the column layouts and the field manager with its postcode autofill.', 'stm-smart-checkout' ),
 						esc_html( self::titles( $blocks ) )
 					);
 					?>

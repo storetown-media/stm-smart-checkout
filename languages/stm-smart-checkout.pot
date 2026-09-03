@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: STM Smart Checkout 0.1.47\n"
+"Project-Id-Version: STM Smart Checkout 0.1.48\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-09-03 09:46+0000\n"
+"POT-Creation-Date: 2026-09-03 15:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Domain: stm-smart-checkout\n"
 
 #: includes/class-stmc-admin.php:44
-#: includes/class-stmc-blocks.php:100
+#: includes/class-stmc-blocks.php:102
 msgid "Delivery time"
 msgstr ""
 
@@ -704,7 +704,7 @@ msgstr ""
 
 #. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
 #: includes/class-stmc-block-checkout.php:168
-msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label, the delivery time under each item, the trust row under the buy button and the reassurance note under the consent box. Not yet on the blocks: the column layouts, the field manager with its postcode autofill, and the coupon and order-note controls."
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label, the delivery time under each item, the trust row under the buy button, the reassurance note under the consent box, and the two switches for the coupon prompt and the order-notes field. The block checkout folds both away behind a single line on its own, so the separate \"expandable line\" setting for the notes changes nothing here. Not yet on the blocks: the column layouts and the field manager with its postcode autofill."
 msgstr ""
 
 #: includes/class-stmc-block-checkout.php:173
@@ -744,7 +744,7 @@ msgstr ""
 msgid "You are not allowed to change the checkout pages."
 msgstr ""
 
-#: includes/class-stmc-blocks.php:262
+#: includes/class-stmc-blocks.php:335
 msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
 msgstr ""
 

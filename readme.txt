@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.47
+Stable tag: 0.1.48
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,7 +113,7 @@ Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooComme
 
 = Does this work with the block-based checkout? =
 
-In part, and the plugin says exactly which part. Everything around the form works on the Cart and Checkout blocks: the full-page template, the trust header band, the step indicator, the legal footer line and the design tokens on the button, the fields and the order summary. Inside the form, the pieces that matter under German law are there as well: a required consent box for terms and cancellation policy that WooCommerce validates on the server — a request without the tick is refused — and writes onto the order together with the exact wording; the mandatory notice from your settings and the links to both texts one line above the buy button, the links opening in the same overlay as on the classic checkout; the buy button label from your settings; and the delivery time under each line item, in the cart block and in the order summary, resolved from the same sources as on the classic checkout. Also on the blocks since 0.1.47: the trust row under the buy button and the reassurance note under the consent box, in the same markup and the same stylesheet the classic checkout uses. Not yet on the blocks: the column layouts, the field manager with its postcode autofill, and the coupon and order-note controls. The settings screen lists this, and the one-click switch to the classic cart and checkout remains for shops that want all of it today — the block markup is kept, so the way back is one click as well.
+In part, and the plugin says exactly which part. Everything around the form works on the Cart and Checkout blocks: the full-page template, the trust header band, the step indicator, the legal footer line and the design tokens on the button, the fields and the order summary. Inside the form, the pieces that matter under German law are there as well: a required consent box for terms and cancellation policy that WooCommerce validates on the server — a request without the tick is refused — and writes onto the order together with the exact wording; the mandatory notice from your settings and the links to both texts one line above the buy button, the links opening in the same overlay as on the classic checkout; the buy button label from your settings; and the delivery time under each line item, in the cart block and in the order summary, resolved from the same sources as on the classic checkout. Also on the blocks since 0.1.47: the trust row under the buy button and the reassurance note under the consent box, in the same markup and the same stylesheet the classic checkout uses. Also on the blocks since 0.1.48: the switches for the coupon prompt and the order-notes field — the block checkout already folds both away behind a single line, so the separate "expandable line" setting for the notes has nothing left to do there. Not yet on the blocks: the column layouts and the field manager with its postcode autofill. The settings screen lists this, and the one-click switch to the classic cart and checkout remains for shops that want all of it today — the block markup is kept, so the way back is one click as well.
 
 = Does it work with WooCommerce Germanized / German Market? =
 
@@ -171,6 +171,12 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.48 =
+* The coupon prompt and the order-notes field can now be switched off on the block checkout too — the same two settings that already governed them on the classic pages, so a shop configures once and both surfaces agree.
+* Measured before it was promised, and the measurement moved the answer: WooCommerce hands the block app a couponsEnabled flag and offers a filter behind it, but that flag is global for the request — the Store API checks the same function, so using it would not hide a prompt, it would refuse coupons the shop still issues by link. The narrow lever is the block wrapper itself.
+* The order-notes filter the classic checkout uses does not exist in the block path at all; the block that draws the field carries no logic to hook into. What works is that the Checkout block renders server-side as a tree of empty wrappers and the app mounts into them — no wrapper, nothing to mount. Verified through first paint, through a re-render, and on the way back.
+* Said plainly rather than sold: the block checkout already folds the notes and the coupon behind a single line by itself, so the separate "expandable line" setting for the notes changes nothing there. The settings screen says so.
 
 = 0.1.47 =
 * The trust row and the reassurance note reach the block checkout. The row of small trust items sits under the buy button, where the last doubt happens, and the reassurance note under the consent box it comments on — the same markup, the same settings and the same stylesheet the classic checkout uses, read from one place so the two can never drift apart.

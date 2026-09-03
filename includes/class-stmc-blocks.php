@@ -55,6 +55,8 @@ class STMC_Blocks {
 		add_filter( 'render_block_woocommerce/checkout-terms-block', array( __CLASS__, 'terms_block' ), 10, 2 );
 		add_filter( 'render_block_woocommerce/checkout-actions-block', array( __CLASS__, 'actions_block' ), 10, 2 );
 		add_filter( 'render_block_woocommerce/checkout-additional-information-block', array( __CLASS__, 'additional_information_block' ), 10, 2 );
+		add_filter( 'render_block_woocommerce/checkout-order-note-block', array( __CLASS__, 'order_note_block' ), 10, 2 );
+		add_filter( 'render_block_woocommerce/checkout-order-summary-coupon-form-block', array( __CLASS__, 'coupon_form_block' ), 10, 2 );
 		add_filter( 'woocommerce_get_item_data', array( __CLASS__, 'item_data' ), 20, 2 );
 	}
 
@@ -225,6 +227,83 @@ class STMC_Blocks {
 		}
 		$note = STMC_Module_Legal::guarantee_html();
 		return '' === $note ? $content : $content . $note;
+	}
+
+	/**
+	 * The order-notes switch, on the blocks.
+	 *
+	 * The classic side gets this for free: WooCommerce's own
+	 * woocommerce_enable_order_notes_field removes the field. That filter does
+	 * not exist in the block path — a grep over the installed
+	 * src/ directory finds it nowhere, and CheckoutOrderNoteBlock is a bare
+	 * AbstractInnerBlock with no logic to hook into. So the lever here is the
+	 * block wrapper itself.
+	 *
+	 * Why removing it is enough, and why that is not obvious: the Checkout
+	 * block renders server-side as a tree of EMPTY wrapper divs — the whole
+	 * checkout page came to 3250 bytes on the bench — and the React app mounts
+	 * its components into those wrappers. No wrapper, nothing to mount into.
+	 * That is the mirror image of the trust row above, which survives BECAUSE
+	 * it is not a mount point. Both halves are measured, not assumed.
+	 *
+	 * A shop that took the block out of its checkout page in the editor loses
+	 * the field already; this switch does not fight that, it agrees with it.
+	 *
+	 * @param string $content Rendered wrapper of the order-note block.
+	 * @param array  $block   Parsed block.
+	 * @return string
+	 */
+	public static function order_note_block( $content, $block ) {
+		if ( ! self::on_block_surface() || ! is_checkout() || ! self::layout_module_on() ) {
+			return $content;
+		}
+		return STMC_Settings::get( 'checkout.order_notes' ) ? $content : '';
+	}
+
+	/**
+	 * The coupon prompt, on the blocks.
+	 *
+	 * WooCommerce hands the block app a couponsEnabled flag from
+	 * wc_coupons_enabled() (Checkout.php), and woocommerce_coupons_enabled is
+	 * a filter — so that looks like the documented route and is the wrong one.
+	 * It is global for the request: the Store API's coupon endpoints check the
+	 * same function, so answering "no" there would not hide a prompt, it would
+	 * refuse coupons the shop still issues by link or by hand. This setting
+	 * says "do not ask for a code here", not "we have no coupons".
+	 *
+	 * Removing the wrapper is the narrow lever, and it leaves every other way
+	 * of applying a coupon intact.
+	 *
+	 * Checkout only, and deliberately: the classic switch removes
+	 * woocommerce_checkout_coupon_form from the checkout and never touches the
+	 * cart page's own coupon form. The cart block has a coupon wrapper of its
+	 * own; leaving it alone is what keeps the two surfaces saying the same
+	 * thing, and is_checkout() above is what draws that line.
+	 *
+	 * @param string $content Rendered wrapper of the coupon form block.
+	 * @param array  $block   Parsed block.
+	 * @return string
+	 */
+	public static function coupon_form_block( $content, $block ) {
+		if ( ! self::on_block_surface() || ! is_checkout() || ! self::layout_module_on() ) {
+			return $content;
+		}
+		return STMC_Settings::get( 'checkout.coupon_field' ) ? $content : '';
+	}
+
+	/**
+	 * Both switches above belong to the layout module, the same one that owns
+	 * them on the classic checkout — so switching that module off restores
+	 * WooCommerce's own behaviour on both surfaces at once. Null-tolerant for
+	 * the same reason the trust row is: an installation whose settings predate
+	 * the key should read as "on", not as "off".
+	 */
+	private static function layout_module_on() {
+		if ( ! self::context_applies() ) {
+			return false;
+		}
+		$module = STMC_Settings::get( 'modules.layout' );
+		return null === $module || (bool) $module;
 	}
 
 	/**

@@ -25,17 +25,38 @@ class STMC_Module_Trust extends STMC_Module {
 	}
 
 	public function row_under_button() {
-		$items = STMC_Module_Header::trust_items();
-		if ( ! $items ) {
+		$html = self::row_html();
+		if ( '' === $html ) {
 			return;
 		}
-		echo '<div class="stmc-trust-row" aria-hidden="false">';
+		// Assembled and escaped piece by piece in row_html(); nothing unescaped reaches here.
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * The row itself, as markup — one source for both render paths.
+	 *
+	 * The classic checkout echoes it on woocommerce_review_order_after_submit.
+	 * The block checkout has no hook under its buy button at all, so the block
+	 * layer appends this string after the actions block instead
+	 * (STMC_Blocks::actions_block()). A second, separately written row is
+	 * exactly the maintenance trap this module was created to end — so the
+	 * markup exists once, here, and both paths read it.
+	 *
+	 * @return string HTML, or '' when no trust items are configured.
+	 */
+	public static function row_html() {
+		$items = STMC_Module_Header::trust_items();
+		if ( ! $items ) {
+			return '';
+		}
+		$out = '<div class="stmc-trust-row" aria-hidden="false">';
 		foreach ( $items as $item ) {
-			echo '<span class="stmc-trust-row__item">'
+			$out .= '<span class="stmc-trust-row__item">'
 				. wp_kses( STMC_Module_Header::icon( $item[0] ), STMC_Module_Header::icon_tags() )
 				. esc_html( $item[1] )
 				. '</span>';
 		}
-		echo '</div>';
+		return $out . '</div>';
 	}
 }

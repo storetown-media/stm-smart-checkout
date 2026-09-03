@@ -665,13 +665,34 @@ class STMC_Module_Legal extends STMC_Module {
 			// fragment; the note rendered on page load stays where it is.
 			return;
 		}
-		$text = $this->guarantee_text();
-		if ( '' === $text ) {
+		$html = self::guarantee_html();
+		if ( '' === $html ) {
 			return;
+		}
+		// Assembled and escaped piece by piece in guarantee_html().
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * The reassurance note as markup — one source for both render paths.
+	 *
+	 * Classic prints it under the consent boxes on
+	 * woocommerce_review_order_after_payment; the block checkout has no such
+	 * hook, so the block layer appends it after the additional-information
+	 * block, which is where the consent box lives there
+	 * (STMC_Blocks::additional_information_block()). Same sentence, same
+	 * shield, same settings — read from one place so the two cannot drift.
+	 *
+	 * @return string HTML, or '' when no note is configured.
+	 */
+	public static function guarantee_html() {
+		$text = trim( (string) STMC_Settings::get( 'legal.guarantee_text' ) );
+		if ( '' === $text ) {
+			return '';
 		}
 		$title = trim( (string) STMC_Settings::get( 'legal.guarantee_title' ) );
 
-		echo '<div class="stmc-guarantee">'
+		return '<div class="stmc-guarantee">'
 			. wp_kses( STMC_Module_Header::icon( 'shield' ), STMC_Module_Header::icon_tags() )
 			. '<p>'
 			. ( '' !== $title ? '<strong>' . esc_html( $title ) . '</strong> ' : '' )

@@ -1327,6 +1327,14 @@ body.stmc-checkout .stmc-trust-row {
 	align-items: center;
 	justify-content: center;
 	gap: 7px 14px;
+	/* Stated, not left to the cascade: measured on the test bench (Twenty
+	   Twenty-Five, classic checkout) this row computed 0px wide inside a 338px
+	   block parent, with no other rule matching it — and a wrapping flex box of
+	   zero width puts every item on a line of its own, so three trust items
+	   stacked into three lines instead of forming one row. On the block
+	   checkout the same row measured its full 714px. Whatever the cascade did
+	   there, the row is meant to span its container, and now it says so. */
+	width: 100%;
 	margin-top: 14px;
 	padding-top: 16px;
 	border-top: 1px solid var(--stmc-line-soft);

@@ -53,6 +53,8 @@ class STMC_Blocks {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'assets' ), 25 );
 		add_filter( 'body_class', array( __CLASS__, 'body_class' ) );
 		add_filter( 'render_block_woocommerce/checkout-terms-block', array( __CLASS__, 'terms_block' ), 10, 2 );
+		add_filter( 'render_block_woocommerce/checkout-actions-block', array( __CLASS__, 'actions_block' ), 10, 2 );
+		add_filter( 'render_block_woocommerce/checkout-additional-information-block', array( __CLASS__, 'additional_information_block' ), 10, 2 );
 		add_filter( 'woocommerce_get_item_data', array( __CLASS__, 'item_data' ), 20, 2 );
 	}
 
@@ -170,6 +172,62 @@ class STMC_Blocks {
 	}
 
 	/**
+	 * The trust row under the buy button.
+	 *
+	 * The block checkout offers no hook there and no slot either: the installed
+	 * WooCommerce exposes exactly four Slot/Fill points (OrderMeta,
+	 * DiscountsMeta, OrderShippingPackages, OrderLocalPickupPackages, read in
+	 * its own source) and every one of them sits in the order summary, not
+	 * under the button. What does work — measured on the bench, because the
+	 * opposite was the reasonable guess — is appending markup after the actions
+	 * block: the checkout's React tree hydrates the empty block wrappers it
+	 * knows and leaves unknown siblings alone, through the first paint and
+	 * through re-renders (typed into a field, watched the row stay).
+	 *
+	 * Measured at 1440px: button 1535–1589, this row at 1625, same 714px column.
+	 * The row is a direct child of the checkout form, like every step block, but
+	 * the card and the step number hang on .wc-block-components-checkout-step
+	 * (blocks.css), which it does not carry — so it stays a quiet line.
+	 *
+	 * @param string $content Rendered wrapper of the actions block.
+	 * @param array  $block   Parsed block.
+	 * @return string
+	 */
+	public static function actions_block( $content, $block ) {
+		if ( ! self::on_block_surface() || ! is_checkout() || ! self::trust_row_wanted() ) {
+			return $content;
+		}
+		$row = STMC_Module_Trust::row_html();
+		return '' === $row ? $content : $content . $row;
+	}
+
+	/**
+	 * The reassurance note, under the consent box.
+	 *
+	 * The additional-information block is where WooCommerce renders additional
+	 * checkout fields with location "order" — our consent box among them, which
+	 * is why the classic rule "the note comments on the consent right above it"
+	 * survives the move: classic hangs it on
+	 * woocommerce_review_order_after_payment right after the box, the block
+	 * layer appends it to the block that holds the box.
+	 *
+	 * A shop that removed that block from its checkout page loses the note, the
+	 * same way it would lose the fields inside it. Nothing is invented here to
+	 * work around an editor decision.
+	 *
+	 * @param string $content Rendered wrapper of the additional-information block.
+	 * @param array  $block   Parsed block.
+	 * @return string
+	 */
+	public static function additional_information_block( $content, $block ) {
+		if ( ! self::on_block_surface() || ! is_checkout() || ! self::applies() ) {
+			return $content;
+		}
+		$note = STMC_Module_Legal::guarantee_html();
+		return '' === $note ? $content : $content . $note;
+	}
+
+	/**
 	 * The shop's own notice for the line above the button — the same setting
 	 * the classic checkout prints there, with the same small set of tags. Line
 	 * breaks survive as <br>; the terms block renders inline, so paragraphs
@@ -221,15 +279,41 @@ class STMC_Blocks {
 	}
 
 	/**
-	 * Does this layer apply at all: plugin switched on (or previewed), the
-	 * legal module enabled, and the shop's checkout page built from the block.
+	 * Is this shop a case for the block layer at all: plugin switched on (or
+	 * previewed) and the checkout page built from the block. Nothing about
+	 * which module wants to render — that is each feature's own question.
+	 */
+	private static function context_applies() {
+		return STMC_Checkout_Context::is_active() && STMC_Checkout_Context::uses_block_checkout();
+	}
+
+	/**
+	 * The legal module's parts of this layer: consent field, terms line, button
+	 * label, delivery time. Everything that stands or falls with
+	 * `modules.legal`, the same switch the classic renderer obeys.
 	 */
 	private static function applies() {
-		if ( ! STMC_Checkout_Context::is_active() || ! STMC_Checkout_Context::uses_block_checkout() ) {
+		if ( ! self::context_applies() ) {
 			return false;
 		}
 		$legal = STMC_Settings::get( 'modules.legal' );
 		return null === $legal || (bool) $legal;
+	}
+
+	/**
+	 * Does the trust row belong under the buy button here?
+	 *
+	 * Two switches, the same two the classic module reads: the module itself
+	 * and the row's own setting. Deliberately independent of the legal module —
+	 * a shop that lets a legal plugin do the paperwork still wants its trust
+	 * row.
+	 */
+	private static function trust_row_wanted() {
+		$module = STMC_Settings::get( 'modules.trust' );
+		if ( null !== $module && ! $module ) {
+			return false;
+		}
+		return (bool) STMC_Settings::get( 'trust.under_button' );
 	}
 
 	/**
@@ -327,7 +411,7 @@ class STMC_Blocks {
 	 * template on both variants and already gets the classic treatment.
 	 */
 	private static function on_block_surface() {
-		if ( is_admin() || ! function_exists( 'is_checkout' ) || ! self::applies() ) {
+		if ( is_admin() || ! function_exists( 'is_checkout' ) || ! self::context_applies() ) {
 			return false;
 		}
 		if ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) {
@@ -360,9 +444,14 @@ class STMC_Blocks {
 			STMC_Assets::asset_version( 'assets/css/blocks.css' )
 		);
 
-		// The label belongs to a legal plugin when one delivers consent — the
-		// same rule the classic button follows.
-		if ( ! is_checkout() || '' !== STMC_Module_Legal::legal_plugin_renders_consent() ) {
+		/*
+		 * The stylesheet above is the plugin's design and travels with the
+		 * plugin, not with the legal module. The button label below does not:
+		 * it is the legal module's setting, so it stands down where that module
+		 * is off — and where a legal plugin delivers consent, the same rule the
+		 * classic button follows.
+		 */
+		if ( ! is_checkout() || ! self::applies() || '' !== STMC_Module_Legal::legal_plugin_renders_consent() ) {
 			return;
 		}
 		wp_enqueue_script(

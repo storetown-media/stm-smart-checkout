@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.46
+Stable tag: 0.1.47
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,7 +45,7 @@ It works **with** WooCommerce Germanized and German Market rather than against t
 
 Your gateways keep rendering their own express buttons. Your legal plugin keeps owning its legal texts. Your theme keeps its typography. This plugin arranges what is already there into a checkout that converts — deactivate it and you get the standard WooCommerce checkout back, unchanged.
 
-It styles the classic (shortcode) cart and checkout in full. On the Cart and Checkout blocks it delivers the shell around the form, the design tokens inside it, a required consent box that WooCommerce validates on the server, the mandatory notice and the links to the legal texts above the button, the § 312j button label and the delivery time under each item; the column layouts, the field manager and the trust row are classic-only for now, and the settings screen says which is which. A reversible one-click switch to the classic pages remains — the plugin never changes your pages on its own.
+It styles the classic (shortcode) cart and checkout in full. On the Cart and Checkout blocks it delivers the shell around the form, the design tokens inside it, a required consent box that WooCommerce validates on the server, the mandatory notice and the links to the legal texts above the button, the § 312j button label, the delivery time under each item, the trust row under the button and the reassurance note under the consent box; the column layouts and the field manager are classic-only for now, and the settings screen says which is which. A reversible one-click switch to the classic pages remains — the plugin never changes your pages on its own.
 
 **STM Smart Checkout Pro**
 
@@ -113,7 +113,7 @@ Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooComme
 
 = Does this work with the block-based checkout? =
 
-In part, and the plugin says exactly which part. Everything around the form works on the Cart and Checkout blocks: the full-page template, the trust header band, the step indicator, the legal footer line and the design tokens on the button, the fields and the order summary. Inside the form, the pieces that matter under German law are there as well: a required consent box for terms and cancellation policy that WooCommerce validates on the server — a request without the tick is refused — and writes onto the order together with the exact wording; the mandatory notice from your settings and the links to both texts one line above the buy button, the links opening in the same overlay as on the classic checkout; the buy button label from your settings; and the delivery time under each line item, in the cart block and in the order summary, resolved from the same sources as on the classic checkout. Not yet on the blocks: the column layouts, the field manager with its postcode autofill, the trust row under the button, the reassurance note, and the coupon and order-note controls. The settings screen lists this, and the one-click switch to the classic cart and checkout remains for shops that want all of it today — the block markup is kept, so the way back is one click as well.
+In part, and the plugin says exactly which part. Everything around the form works on the Cart and Checkout blocks: the full-page template, the trust header band, the step indicator, the legal footer line and the design tokens on the button, the fields and the order summary. Inside the form, the pieces that matter under German law are there as well: a required consent box for terms and cancellation policy that WooCommerce validates on the server — a request without the tick is refused — and writes onto the order together with the exact wording; the mandatory notice from your settings and the links to both texts one line above the buy button, the links opening in the same overlay as on the classic checkout; the buy button label from your settings; and the delivery time under each line item, in the cart block and in the order summary, resolved from the same sources as on the classic checkout. Also on the blocks since 0.1.47: the trust row under the buy button and the reassurance note under the consent box, in the same markup and the same stylesheet the classic checkout uses. Not yet on the blocks: the column layouts, the field manager with its postcode autofill, and the coupon and order-note controls. The settings screen lists this, and the one-click switch to the classic cart and checkout remains for shops that want all of it today — the block markup is kept, so the way back is one click as well.
 
 = Does it work with WooCommerce Germanized / German Market? =
 
@@ -171,6 +171,11 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
 
 == Changelog ==
+
+= 0.1.47 =
+* The trust row and the reassurance note reach the block checkout. The row of small trust items sits under the buy button, where the last doubt happens, and the reassurance note under the consent box it comments on — the same markup, the same settings and the same stylesheet the classic checkout uses, read from one place so the two can never drift apart.
+* Measured first, because the reasonable guess was wrong: the block checkout offers no hook under its button and no slot either — the four Slot/Fill points WooCommerce exposes all sit in the order summary. What does work is appending markup after a block, and the checkout's React tree leaves it alone: through the first paint, and through re-renders while a customer types.
+* The block stylesheet no longer depends on the legal module. A shop that lets a legal plugin handle consent kept its buy button, fields and cards unstyled on the blocks, because the whole layer hung on one switch. The design travels with the plugin now; the button label, the consent box and the legal line still stand down with the module they belong to.
 
 = 0.1.46 =
 * The block checkout wears the plugin's design. Every step of the Checkout block is a card now — the same background, border, radius and shadow as the classic sections — with the classic numbered title: a disc in the title blue counting contact, address, shipping and payment, and the accent rule beneath. The additional-information block and the order notes keep the card and skip the number; they are addenda, not steps. The order summary heading speaks in the same voice. All of it is stylesheet only, hung on the block's own class names as measured on WooCommerce 11, and switched off with the plugin.

@@ -1,0 +1,99 @@
+STM Smart Checkout for WooCommerce - changelog archive
+======================================================
+
+The releases from 0.1.0 to 0.1.28. They were moved out of readme.txt because
+WordPress.org truncates the Changelog section at 5,000 words and would have cut
+them off without saying which ones.
+
+Nothing here is lost from the shop: tools/build-lite-changelog.py reads this file
+together with readme.txt, so the product page at storetown-media.de keeps the full
+history. This file is listed in .distignore and never ships inside the plugin.
+
+== Changelog ==
+
+= 0.1.28 =
+* The consent box detects the legal plugin itself. The switch becomes a three-way choice with Automatic as the default: the box asks the checkout whether a legal plugin is actually printing consent boxes, and only steps in when none is. Asked by hook, never by "is the plugin installed" — that distinction is the whole feature: a legal plugin can sit there active and configured and still render nothing, and a presence check would leave such a checkout with no consent at all. The decision is recorded and shown on the settings screen, because automatic behaviour nobody can inspect is how a checkout ends up legally naked without anyone noticing.
+
+= 0.1.27 =
+* The checkout can carry its own legal consent — one required checkbox for terms and cancellation policy, seated between the grand total and the buy button, rendered with WooCommerce's own terms-wrapper class names so the existing card chrome, switch and invalid state apply. Links fill themselves from the pages the shop already registered; a placeholder whose page is unknown keeps its plain words instead of producing a dead link. Server-side validation reuses the existing required-checkbox path, and the acceptance is written onto the order together with the exact wording shown — a stored "yes" pointing at today's text proves nothing about last year's order. Order notes become a one-line disclosure at the end of the address column, so the field that hardly anyone fills stops costing a card and a step number.
+
+= 0.1.26 =
+* DHL preferred services join the payment column, right under the methods — the integration only re-prioritizes their hook, so everything Shiptastic built (its script, refresh behavior, conditions) keeps working untouched. And a new default makes the totals block third-party-proof: any unknown row a plugin prints into the totals now lands after the grand total automatically — extras can never interrupt the money story again.
+
+= 0.1.25 =
+* First member of the integrations family: Shiptastic (+ DHL). The pickup-location offer ("Not at home?") no longer interrupts the address fields mid-flow — it closes the address block as a quiet card. DHL's preferred services (delivery-day tiles, drop-off location, neighbor) speak the checkout's design language now and settle after the grand total, where delivery fine-tuning belongs. The adapter is guarded (no-op without Shiptastic) and never forks the plugin's behavior — the pattern every future integration follows.
+
+= 0.1.24 =
+* Order-summary thumbnails survive theme lazy-loaders. Basel's lazy filter swapped the image source for its placeholder and lost the original along the way — the thumbnail rendered briefly, then stayed empty. The markup is now hand-built from the attachment URL, untouched by the attachment-image filter pipeline any lazy plugin hooks into; browser-native lazy loading still defers offscreen images, variations fall back to the parent image, missing images to the WooCommerce placeholder.
+
+= 0.1.23 =
+* The full-page checkout footer configures itself and bends to your will: pick the exact pages in the backend (multi-select), or a whole menu — and without any choice the line now fills itself with the legal pages your site already registered (Germanized's imprint, privacy and withdrawal pages, WooCommerce's terms page, WordPress' privacy page), published pages only, in reading order.
+
+= 0.1.22 =
+* Order summary round from the second-shop review. Product images now render reliably in the summary regardless of the legal plugin (when Germanized already provides one, no second image is added). Quantity steppers beside each product let customers fix amounts right at the checkout — changes run through WooCommerce's own refresh with all totals, stock limits and sold-individually respected; a setting turns them off. The coupon prompt is owner-switchable too: shops that never issue codes can retire the field that sends customers code-hunting.
+
+= 0.1.21 =
+* Distraction-free works on every theme now: on themes without a built-in adapter, cart and checkout render through the plugin's own minimal full page (template_include) — the theme's header, menus and footer are never built at all, while styles, analytics, consent tools and chat widgets keep working. A configurable legal-links line under the checkout keeps imprint, privacy and terms reachable (pick your legal menu in the backend; the WordPress privacy page is the minimum fallback). Adapter themes (The7, Storefront) stay on their native path; owners can force the template on or off.
+
+= 0.1.20 =
+* Theme-proof layout round, measured on a second shop (Basel theme, Bootstrap checkout template). Theme templates that wrap the billing and order anchors in their own grid markup (a .col-sm-6 gave the billing column 50% of its 50%) become layout-transparent — the checkout grid now always places the anchors themselves, whatever the template wraps them in. The default template's "Product / Subtotal" table head is retired (our column title already labels the area; as a re-flowed line its two cells overlapped). Gateway description boxes with intrinsically sized badges (Klarna) can no longer push past the card edge. Themes without a server-side adapter get a narrow distraction-free CSS fallback: the page-title hero banner and the breadcrumb step aside while the screen-reader heading keeps the page named.
+
+= 0.1.19 =
+* Context translations restored: the rebuilt language files had silently lost every msgctxt entry (the page slug and the state-field labels fell back to English) — found on the first install on a second shop, where the withdrawal page appeared with a German title but an English slug. The build tool now writes GNU context keys correctly, and the page self-heal treats title and slug independently, so existing installs fix their slug on the next upgrade (WordPress keeps the old-slug redirect).
+
+= 0.1.18 =
+* Plugin Check green again: the help-icon markup escapes its id at the exact output spot (a pre-escaped variable is invisible to the reviewer's static analysis), and reading WooCommerce's order-notes switch carries its documented justification.
+
+= 0.1.17 =
+* Withdrawal round from the live review. The form pre-fills with the customer's data — logged-in customers get their billing details plus their most recent order suggested (number, date, address), everything editable. The address is entered as single fields exactly like the checkout (street, postcode, city) instead of one big blob. The form speaks the checkout's design language now: white card, label blue, 46px controls, choice cards for the scope, a full-width call-to-action. Fixed: German shops got a page literally titled "Withdrawal" — the textdomain loaded after the page was created; the priority is corrected and existing untouched pages heal themselves (title and slug, WordPress keeps the old-slug redirect). The last untranslated strings are gone. New: the order-notes field ("Additional information") can be switched off in the backend.
+
+= 0.1.16 =
+* Every setting now explains itself: a "?" icon beside each label opens a plain-language help bubble — what the option does, the background, and when to use it. Hover, focus or tap; Escape closes. The help texts live in one map, so the short inline hints under the fields stay untouched. Fully translated.
+
+= 0.1.15 =
+* The one-column layout is actually one column now. Without its own rules the theme decided — The7 turns the checkout form into its own two-column flexbox, so "one column" silently rendered like "two columns". The layout is a centered 760px flex column: express buttons keep their order, then billing, then the order block, everything stacked.
+
+= 0.1.14 =
+* Compact review round: on shipping-free carts the "Additional information" section (order notes) moves under the payment methods instead of dangling as a lone card below the address — the numbering follows the story (payment becomes step 2, the notes read as a quiet sub-block). First/last name (and postcode/city) now sit on exactly the same line: WooCommerce's float-era `margin-top` on `.form-row-last` tilted the grid pair by 6px.
+
+= 0.1.13 =
+* Parity round with the live shop's proven checkout, plus a new layout. Step numbering now follows the form flow (1 billing details, 2 additional information, 3 payment — the order summary is the unnumbered constant); step heads grow to the measured 1.15rem in the title blue with the number in a matching disc. Field and payment-method labels speak in the label blue at content size. Consent boxes and "Create an account?" become modern switches on individual white cards. In the order column the totals table now leads, consents and the buy button follow, and the money lines re-order so the grand total closes the column with zebra rhythm on the quiet lines. Payment and order share ONE wide card split by a soft center line (three-column stage now starts at 1160px). The express area gets its measured title size and a translated "OR" divider. New: an ultra-compact layout — the three-column stage one type step down with tight cards and fields, modeled on the Magento edition; on touch screens density yields to reachability (16px field text, full-height targets).
+
+= 0.1.12 =
+* Plugin Check housekeeping — the remaining review warnings are resolved: request values in the withdrawal form and the postcode lookup are unslashed and sanitized before use, withdrawal table queries use the %i identifier placeholder (WordPress 6.2+), and the deliberate direct calls to the plugin's own table carry documented justifications. No functional change.
+
+= 0.1.11 =
+* One typographic system across all three checkout columns. Section titles now run in the body font instead of the theme display face (a checkout is one surface, not three widgets), payment method names drop from the theme reading size to content size so the middle column stops shouting, brand icons follow the type down, and the scale is down to five deliberate steps driven by tokens: fine print, secondary, content, controls, emphasis. Adds a --stmc-fs-xs token and raises content size to 15px.
+
+= 0.1.10 =
+* Consistent typography in the order summary. WooCommerce wraps every amount in its own price elements and themes style those wrappers directly, bypassing the cell — on The7 that meant a 13px tax label beside an 18px amount, three different blues in one column, and a grand total rendered in a completely different font family. The price wrappers now inherit from their cell, so each amount matches its label in family, size and color, with weight alone marking the value and the grand total as the only emphasized line.
+
+= 0.1.9 =
+* Payment method rows are flex rows: a gateway with a wide brand icon strip (credit card) no longer pushes its label onto a second line, stranding the radio button above it — an inline-flex label is atomic and cannot break, so it dropped as a whole. Radio buttons now match the consent checkboxes at 18px. Order summary: rows get horizontal padding so labels and amounts no longer touch the card edge, the theme's grey table background is dropped in favor of the card surface, and row separators are drawn on the row instead of the cells (as flex items the cells were split by the column gap, breaking each line into two segments).
+
+= 0.1.8 =
+* Design round on the three-column layout: fixed column numbering 1 address / 2 payment / 3 order (the CSS counter told the story backwards because WooCommerce renders the order markup before the payment markup); the address and additional-information titles were accidentally hidden by our own heading rule. Consent boxes: consecutive cards merge into one quiet group, text flows as a normal block with hanging indent (WooCommerce core's inline label + line-height 2 tore it apart). Order summary: rows rebuilt as label-left/amount-right lines against The7's stacked block cells, product names wrap instead of truncating, tidy 44px thumbnails; Germanized's relocated duplicate "Your order" heading hidden.
+
+= 0.1.7 =
+* Legal round: server-side safety net for required consent boxes (an order without a required tick is rejected even when the browser check was bypassed — and stays silent when WooCommerce or Germanized already reported the same box, extendable via the `stmc_required_checkboxes` filter). Optional reassurance note under the consent boxes. "Create an account?" info tooltip whose wording is derived from your own registration settings.
+
+= 0.1.6 =
+* Postcode autofill for DE/AT/CH from bundled databases (no external service) — the city fills in automatically, multiple matches feed a native suggestion list. Mobile sticky order bar: total + buy button pinned while the real button is out of view; the proxy click runs every native validation.
+
+= 0.1.5 =
+* Three-column checkout layout (billing / payment / order) — the most compact arrangement, selectable under Design. Express area polish: WooPayments' English separator hidden, gateway description rhythm, theme content padding removed on checkout surfaces.
+
+= 0.1.4 =
+* Consumer rights: online withdrawal form (EU withdrawal function) — auto-created form page for guests and customers, automatic menu placement from the backend, "Withdraw this order" in My Account, soft order matching that never blocks a submission, merchant notification + customer receipt emails, and a management screen with status workflow under WooCommerce → Withdrawals.
+
+= 0.1.3 =
+* Legal module: terms and withdrawal texts open in an accessible overlay without leaving the checkout (native link behavior as fallback). Styled legal checkboxes, order table refinements, cart page round: tidy table columns, checkout button before wallet buttons, quiet update button.
+
+= 0.1.2 =
+* Design round on live The7 + Germanized shop: express payment areas stack tidily above the columns, theme percentage-width traps neutralized in the grid, field pair raster (name, postcode/city), payment method rows with contained brand icons, empty section shells lose their card chrome.
+
+= 0.1.1 =
+* Core checkout modules: header band with progress and login toggle, distraction-free mode with theme adapters, numbered section titles, two-column layout, field improvements (state handling, mobile input attributes), trust elements. German (formal and informal) translations.
+
+= 0.1.0 =
+* Initial foundation: settings framework, design token system, checkout context detection, module registry, HPOS and cart/checkout blocks compatibility declarations.

@@ -22,6 +22,12 @@ __pycache__/
 # Shops an genau jene Stelle.
 languages/
 
+# Die Changelog-Historie vor 0.1.29. Sie gehoert ins Repository (und der
+# Shop-Changelog liest sie mit), aber nicht ins Paket beim Kunden: wp.org
+# kuerzt den readme-Changelog bei 5.000 Woertern, deshalb steht sie ueberhaupt
+# in einer eigenen Datei.
+CHANGELOG-ARCHIVE.txt
+
 .gitignore
 .distignore
 phpcs.xml.dist

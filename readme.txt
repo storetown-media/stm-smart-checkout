@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.48
+Stable tag: 0.1.49
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,12 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.49 =
+* On the block checkout the own consent box now stands down for a legal plugin that renders its own — until now a shop running Germanized read two consent texts on one page, ours as a required checkbox and Germanized's below it, with the setting on "automatic".
+* Why it took a different answer than the classic checkout: the block field has to be registered at woocommerce_init, because the Store API needs it registered to validate and store it, and at that moment no legal plugin has hooked the checkout yet. Measured in a real request — the detection answers "nobody" there and "Germanized" a few hooks later, too late to matter.
+* So on the blocks, and only there, the question is answered by presence rather than by hook, and as narrowly as possible: not "is Germanized installed" but "is its block integration loaded". Registering the field and declining to render it later would have been better, but WooCommerce offers no filter for that.
+* The settings screen says what was found, because a decision made on presence can be wrong and must not be wrong silently. A shop whose legal plugin is installed but not showing a consent box switches the setting to "on".
 
 = 0.1.48 =
 * The coupon prompt and the order-notes field can now be switched off on the block checkout too — the same two settings that already governed them on the classic pages, so a shop configures once and both surfaces agree.

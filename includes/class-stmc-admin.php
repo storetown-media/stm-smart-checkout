@@ -589,9 +589,34 @@ class STMC_Admin {
 				? __( 'The own consent box is rendering.', 'stm-smart-checkout' )
 				: __( 'The own consent box is not rendering.', 'stm-smart-checkout' ) );
 
+		/*
+		 * Die zweite Erkennung, und der Grund, warum sie hier steht.
+		 *
+		 * Auf der Block-Kasse muss ueber die eigene Box entschieden werden,
+		 * bevor irgendein Rechts-Plugin seine Hooks gesetzt hat — dort zaehlt
+		 * deshalb Anwesenheit statt Verhalten (STMC_Module_Legal::
+		 * block_legal_plugin()). Eine Entscheidung nach Anwesenheit kann
+		 * danebenliegen; sie darf dann aber nicht STILL danebenliegen. Diese
+		 * Zeile ist die Sicherung: sie sagt, was erkannt wurde, und nennt den
+		 * Filter, mit dem ein Shop widerspricht.
+		 */
+		$block_plugin = class_exists( 'STMC_Module_Legal' ) && method_exists( 'STMC_Module_Legal', 'block_legal_plugin' )
+			? STMC_Module_Legal::block_legal_plugin()
+			: '';
+		$block_text   = '';
+		if ( '' !== $block_plugin && class_exists( 'STMC_Checkout_Context' ) && STMC_Checkout_Context::uses_block_checkout() ) {
+			$block_text = sprintf(
+				/* translators: %s: identifier of the legal plugin found, e.g. "germanized". */
+				__( 'On the block checkout: %s is installed with its block integration, so the own consent box stands down there. Recognised by presence, because the block has to decide before any plugin has registered its hooks — if that plugin is not actually showing a consent box, no box appears at all. Switch the setting above to "on" in that case, or use the stmc_legal_plugin_renders_consent filter.', 'stm-smart-checkout' ),
+				$block_plugin
+			);
+		}
+
 		echo '<tr><th scope="row">' . esc_html__( 'Detected on the checkout', 'stm-smart-checkout' ) . '</th><td><p class="description">'
 			. esc_html( $text ) . ( '' === $state ? '' : ' <strong>' . esc_html( $state ) . '</strong>' )
-			. '</p></td></tr>';
+			. '</p>'
+			. ( '' === $block_text ? '' : '<p class="description"><strong>' . esc_html( $block_text ) . '</strong></p>' )
+			. '</td></tr>';
 	}
 
 	/**

@@ -411,7 +411,17 @@ class STMC_Blocks {
 		if ( 'on' === $mode ) {
 			return true;
 		}
-		return '' === STMC_Module_Legal::legal_plugin_renders_consent();
+		/*
+		 * Zwei Fragen, weil eine allein hier nicht reicht. Die Hook-Frage ist
+		 * die genauere und bleibt die erste — sie beantwortet spaetere Aufrufe
+		 * richtig. Die Anwesenheitsfrage ist die einzige, die an
+		 * `woocommerce_init` ueberhaupt eine Antwort hat, und dort faellt die
+		 * Entscheidung ueber die Registrierung (siehe block_legal_plugin()).
+		 */
+		if ( '' !== STMC_Module_Legal::legal_plugin_renders_consent() ) {
+			return false;
+		}
+		return '' === STMC_Module_Legal::block_legal_plugin();
 	}
 
 	/**

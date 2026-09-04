@@ -262,6 +262,58 @@ class STMC_Module_Legal extends STMC_Module {
 		return is_array( $note ) && isset( $note['plugin'], $note['own'] ) ? $note : null;
 	}
 
+	/**
+	 * Does a legal plugin render consent INSIDE the Checkout block?
+	 *
+	 * Answered by PRESENCE, and that is a deliberate exception to the rule one
+	 * function above — which asks by hook precisely so an installed plugin
+	 * that renders nothing cannot silence our box.
+	 *
+	 * The exception exists because on the blocks the hook question cannot be
+	 * asked in time. Measured on 04.09.2026 in a real request: the block
+	 * consent field must be registered at `woocommerce_init`, because the
+	 * Store API needs it registered to validate and store it — and at that
+	 * moment legal_plugin_renders_consent() answers '' while by `wp` it
+	 * answers 'germanized'. Germanized hooks the checkout after we have
+	 * already had to decide. The result was two consent texts on one block
+	 * checkout, with the setting on "auto", whose entire purpose is not to
+	 * double up.
+	 *
+	 * WooCommerce offers no way out: CheckoutFields.php has filters for
+	 * sanitizing, for defaults and for the order confirmation, but none for
+	 * "should this field appear at all" — so registering and later declining
+	 * to render is not available.
+	 *
+	 * The check is therefore as narrow as it can be. Not "is Germanized
+	 * installed" but "is its BLOCK integration loaded" — the class that draws
+	 * checkboxes inside the Checkout block. A Germanized without it changes
+	 * nothing here.
+	 *
+	 * ⚠ The residual risk is named rather than hidden: a shop that runs
+	 * Germanized with its terms checkbox switched OFF gets a consent box from
+	 * neither side. The settings screen says what was detected so this is
+	 * visible, and `stmc_legal_plugin_renders_consent` overrides it.
+	 *
+	 * @return string Identifier, or '' when nobody does.
+	 */
+	public static function block_legal_plugin() {
+		if ( class_exists( '\Vendidero\Germanized\Blocks\Checkout' ) ) {
+			return 'germanized';
+		}
+
+		/**
+		 * A legal plugin that renders consent inside the Checkout block.
+		 *
+		 * Separate from stmc_legal_plugin_renders_consent because it is asked
+		 * far earlier — at woocommerce_init — where hooks are not yet a
+		 * witness. Answer with presence here; anything else is not knowable
+		 * that early.
+		 *
+		 * @param string $plugin Identifier, '' when none.
+		 */
+		return (string) apply_filters( 'stmc_block_legal_plugin', '' );
+	}
+
 	const DELIVERY_META = '_stmc_delivery_time';
 
 	/**

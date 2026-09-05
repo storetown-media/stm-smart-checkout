@@ -65,3 +65,53 @@
 .stmc-help.is-open + .stmc-help__pop {
 	display: block;
 }
+
+/* ---------------------------------------------------------------------------
+ * Upgrade-Reiter.
+ *
+ * Hier und nicht inline: ein <style>-Element im Einstellungsbildschirm war
+ * Befund 1 der wp.org-Pruefung vom 31.08.2026. Diese Datei haengt ohnehin
+ * schon an admin_enqueue_scripts und nur am eigenen Hook-Suffix.
+ *
+ * Bewusst ohne eigene Farben, Verlaeufe oder Rahmenfarben: der Bildschirm soll
+ * wie WordPress aussehen und nicht wie eine Anzeige. Nur Raster und Abstand.
+ * ------------------------------------------------------------------------ */
+
+.stmc-pro {
+	max-width: 62rem;
+}
+
+.stmc-pro__lead {
+	font-size: 14px;
+	margin: 1.2em 0 1.6em;
+	max-width: 46rem;
+}
+
+.stmc-pro__grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+.stmc-pro__item {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 1rem 1.1rem;
+}
+
+.stmc-pro__item h3 {
+	font-size: 13.5px;
+	margin: 0 0 .4em;
+}
+
+.stmc-pro__item p {
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.5;
+	margin: 0;
+}
+
+.stmc-pro__cta {
+	margin: 1.8em 0 .6em;
+}

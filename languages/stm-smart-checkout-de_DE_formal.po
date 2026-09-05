@@ -679,3 +679,69 @@ msgstr "Diese Seiten rendern WooCommerce’ Warenkorb- und Kassen-Blöcke: %s. D
 
 msgid "On the block checkout: %s is installed with its block integration, so the own consent box stands down there. Recognised by presence, because the block has to decide before any plugin has registered its hooks — if that plugin is not actually showing a consent box, no box appears at all. Switch the setting above to \"on\" in that case, or use the stmc_legal_plugin_renders_consent filter."
 msgstr "Auf der Block-Kasse: %s ist mit seiner Block-Integration installiert, deshalb tritt die eigene Einwilligungs-Box dort zurück. Erkannt an der Anwesenheit, weil auf den Blöcken entschieden werden muss, bevor irgendein Plugin seine Hooks gesetzt hat — zeigt jenes Plugin gar keine Einwilligungs-Box, erscheint dann gar keine. Stellen Sie die Einstellung darüber in dem Fall auf „ein“, oder nehmen Sie den Filter stmc_legal_plugin_renders_consent."
+
+msgid "Upgrade to Pro"
+msgstr "Pro-Version holen"
+
+msgid "Everything on the other tabs is free and stays free. The paid add-on is for shops that want the checkout to sell more and cost less work."
+msgstr "Alles auf den anderen Reitern ist kostenlos und bleibt es. Das kostenpflichtige Zusatzmodul ist für Shops, deren Kasse mehr verkaufen und weniger Arbeit machen soll."
+
+msgid "See STM Smart Checkout Pro"
+msgstr "STM Smart Checkout Pro ansehen"
+
+msgid "Online withdrawal form"
+msgstr "Online-Widerrufsformular"
+
+msgid "The withdrawal function required EU-wide since 19 June 2026: a public page reachable for guests, pre-filled for logged-in customers, with merchant notification, customer receipt and a full management screen under WooCommerce."
+msgstr "Die seit dem 19. Juni 2026 EU-weit vorgeschriebene Widerrufsfunktion: eine öffentliche Seite, auch für Gäste erreichbar, für angemeldete Kundschaft vorbefüllt, mit Händler-Benachrichtigung, Kundenbeleg und vollständiger Verwaltung unter WooCommerce."
+
+msgid "Bundle discounts"
+msgstr "Bundle-Rabatte"
+
+msgid "A percentage off the cart once it holds enough different products. Needs no coupon form, reaches PayPal as a real discount, and tells customers how close they are to the next step."
+msgstr "Ein Prozentsatz auf den Warenkorb, sobald genug verschiedene Produkte darin liegen. Braucht kein Gutscheinformular, erreicht PayPal als echten Rabatt und sagt der Kundschaft, wie nah sie an der nächsten Stufe ist."
+
+msgid "Checkout offers"
+msgstr "Angebote an der Kasse"
+
+msgid "A card above the buy button that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily."
+msgstr "Eine Karte über dem Kaufknopf, die mit einem Klick ein weiteres Produkt in die Bestellung legt — mit eigener Steuerklasse, eigenem Bestand und eigener Lieferzeit, und ebenso leicht wieder heraus."
+
+msgid "VAT ID with live VIES check"
+msgstr "USt-IdNr. mit VIES-Live-Prüfung"
+
+msgid "Business customers from another EU country enter their VAT ID; a confirmed one takes the tax off the order. An unreachable EU service never grants an exemption — the order goes through with VAT and says why."
+msgstr "Geschäftskunden aus einem anderen EU-Land tragen ihre USt-IdNr. ein; eine bestätigte Nummer nimmt die Umsatzsteuer aus der Bestellung. Eine nicht erreichbare EU-Schnittstelle gewährt niemals eine Befreiung — die Bestellung geht dann mit Steuer durch und sagt warum."
+
+msgid "Express zone for wallet buttons"
+msgstr "Express-Zone für Wallet-Knöpfe"
+
+msgid "One defined band above the form for PayPal, Apple Pay and Google Pay, instead of one button under the payment methods and another somewhere else. Steered there through the providers' own filters, never rebuilt."
+msgstr "Ein definiertes Band über dem Formular für PayPal, Apple Pay und Google Pay, statt eines Knopfes unter den Zahlarten und eines zweiten irgendwo sonst. Über die Filter der Anbieter dorthin gesteuert, nie nachgebaut."
+
+msgid "Payment-dependent required fields"
+msgstr "Zahlartabhängige Pflichtfelder"
+
+msgid "Invoice purchase may ask for a phone number where prepayment does not. Checked again on the server, so the rule holds even if the browser is lied to."
+msgstr "Kauf auf Rechnung darf nach der Telefonnummer fragen, wo Vorkasse es nicht darf. Serverseitig nachgeprüft, damit die Regel auch dann hält, wenn der Browser belogen wird."
+
+msgid "Payment method customizer"
+msgstr "Methoden-Customizer"
+
+msgid "Your own name, a note, a symbol and a sort position per payment method — through documented WooCommerce filters, with 33 bundled symbols."
+msgstr "Eigener Name, Zusatztext, Symbol und Reihenfolge je Zahlart — über dokumentierte WooCommerce-Filter, mit 33 mitgelieferten Symbolen."
+
+msgid "Safe mode"
+msgstr "Safe-Mode"
+
+msgid "A fatal error while the checkout renders no longer costs you orders: the Smart Checkout steps aside from the next request on and the standard checkout takes over, visibly and reversibly."
+msgstr "Ein Fatal Error beim Rendern der Kasse kostet keine Bestellungen mehr: der Smart Checkout tritt ab der nächsten Anfrage zurück, die Standard-Kasse übernimmt — sichtbar und umkehrbar."
+
+msgid "Mobile sticky order bar"
+msgstr "Mobile Sticky-Bestellleiste"
+
+msgid "Total and buy button stay reachable while the real button is off screen, plus an ultra-compact layout for dense checkouts on small displays."
+msgstr "Summe und Kaufknopf bleiben erreichbar, solange der echte Knopf außerhalb des Sichtbereichs liegt — dazu ein ultra-kompaktes Layout für dichte Kassen auf kleinen Bildschirmen."
+
+msgid "The add-on requires this free plugin and installs alongside it. Nothing you have configured here changes."
+msgstr "Das Zusatzmodul setzt dieses kostenlose Plugin voraus und wird daneben installiert. An Ihren Einstellungen hier ändert sich nichts."

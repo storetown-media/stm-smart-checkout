@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.50
+Stable tag: 0.1.51
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,6 +179,13 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.51 =
+* A tab of its own now describes what the paid add-on adds, and the plugin's row on the Plugins page carries one link to it. Both disappear the moment the add-on is installed — nobody should be sold what they already own.
+* Deliberately nowhere else. The directory permits upselling but binds it to guideline 11, which is explicit about the shape: prompts and notices "must be limited in scope and used sparingly, be that contextually or only on the plugin's setting page". So there is no admin notice, dismissible or not, anywhere in this plugin.
+* The tab describes the add-on rather than showing switches that do nothing. Shipping locked functionality and selling the key is what guideline 5 forbids, and a settings screen full of dead controls is a poor way to explain a product anyway.
+* No banner is fetched, no image loaded, no counter pinged: the panel is static markup and local strings. The listing promises this plugin never phones home, and an upgrade page is no reason to start.
+* Every claim on the tab names a module that exists. The readme once promised features that did not, and this list is checked against the shipped classes rather than against a roadmap.
 
 = 0.1.50 =
 * No code changes. This release exists so the plugin directory serves a rewritten description — WordPress.org reads it from the stable tag, so a new text needs a new version.

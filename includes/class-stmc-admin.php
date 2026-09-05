@@ -2,9 +2,34 @@
 /**
  * Settings page under WooCommerce → Smart Checkout.
  *
- * Deliberately minimal for P0: Settings API, two tabs, native inputs,
- * no upsell noise (wp.org guideline 11). The design tab will grow a live
- * preview in P1.
+ * Deliberately minimal: Settings API, native inputs, and — since 05.09.2026 —
+ * exactly ONE place that mentions the paid add-on.
+ *
+ * WHERE THE UPSELL MAY LIVE, and why it lives only there. Guideline 5 permits
+ * upselling in as many words ("Attempting to upsell the user on ad-hoc products
+ * and features IS acceptable"), but binds it to guideline 11, which is just as
+ * explicit about the shape: "Upgrade prompts, notices, alerts, and the like
+ * must be limited in scope and used sparingly, be that contextually or only on
+ * the plugin's setting page." So:
+ *
+ * - A tab on THIS screen, which nobody reaches without opening our settings.
+ * - One link in the plugin's own row on the Plugins page — the conventional
+ *   spot, and the user is managing plugins when they read it.
+ * - NOT ONE admin notice. Not dismissible, not once, not anywhere. When wp.org
+ *   raised guideline 11 during the review (31.08.2026, §3.23) the answer was
+ *   "Lite has no upsell notice" — that sentence has to stay true.
+ *
+ * Two more lines the directory draws, and both happen to be lines this plugin
+ * would draw anyway:
+ *
+ * - NO LOCKED FUNCTIONALITY. Guideline 5: "Plugins may not contain
+ *   functionality that is restricted or locked, only to be made available by
+ *   payment." The tab therefore DESCRIBES what the add-on does; it does not
+ *   render dead switches whose code is sitting right here behind a paywall.
+ * - NOTHING LOADED FROM OUTSIDE. Guideline 7 forbids contacting external
+ *   servers without consent, and the directory listing promises in so many
+ *   words that this plugin never phones home. The panel is static markup and
+ *   local strings — no remote banner, no image from a CDN, no counter.
  *
  * @package STM_Smart_Checkout
  */
@@ -119,7 +144,145 @@ class STMC_Admin {
 	public static function action_links( $links ) {
 		$url = admin_url( 'admin.php?page=' . self::PAGE );
 		array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'stm-smart-checkout' ) . '</a>' );
+
+		/*
+		 * The second sanctioned spot, and the last one. A row on the Plugins
+		 * page is read by somebody who is managing plugins at that moment —
+		 * contextual in the sense guideline 11 means, and gone the moment the
+		 * add-on is installed.
+		 */
+		if ( ! self::has_pro() ) {
+			$links[] = '<a href="' . esc_url( self::pro_url() ) . '" target="_blank" rel="noopener">'
+				. esc_html__( 'Upgrade to Pro', 'stm-smart-checkout' ) . '</a>';
+		}
 		return $links;
+	}
+
+	/**
+	 * Is the paid add-on installed and running?
+	 *
+	 * By its version constant, not by a file path or a plugin slug: the
+	 * constant is defined by the add-on itself as it boots, so a copy that is
+	 * present but deactivated correctly answers "no", and a copy installed
+	 * under a renamed folder correctly answers "yes".
+	 *
+	 * @return bool
+	 */
+	public static function has_pro() {
+		return defined( 'STMCP_VERSION' );
+	}
+
+	/**
+	 * Where to send someone who wants the add-on.
+	 *
+	 * German-speaking admins get the German shop, everyone else the English
+	 * one. Decided on the ADMIN language, not the site language: this link is
+	 * only ever rendered on an admin screen, and the person reading it is the
+	 * person who set that preference.
+	 *
+	 * @return string
+	 */
+	public static function pro_url() {
+		$deutsch = 0 === strpos( get_user_locale(), 'de' );
+		$url     = $deutsch
+			? 'https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/'
+			: 'https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/';
+
+		/**
+		 * Filter the destination of the upgrade links.
+		 *
+		 * For resellers and for anyone who would rather point at their own
+		 * page than at ours.
+		 *
+		 * @param string $url     Product page.
+		 * @param bool   $deutsch Whether the admin reads German.
+		 */
+		return (string) apply_filters( 'stmc_pro_url', $url, $deutsch );
+	}
+
+	/**
+	 * What the paid add-on adds, in the order shops ask for it.
+	 *
+	 * Every entry names a module that exists — the readme once promised six
+	 * Pro features that did not, and that mistake was expensive enough to be
+	 * worth a rule: nothing goes on this list until the class behind it ships.
+	 *
+	 * @return array[] Each: title, text.
+	 */
+	private static function pro_features() {
+		return array(
+			array(
+				'title' => __( 'Online withdrawal form', 'stm-smart-checkout' ),
+				'text'  => __( 'The withdrawal function required EU-wide since 19 June 2026: a public page reachable for guests, pre-filled for logged-in customers, with merchant notification, customer receipt and a full management screen under WooCommerce.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Bundle discounts', 'stm-smart-checkout' ),
+				'text'  => __( 'A percentage off the cart once it holds enough different products. Needs no coupon form, reaches PayPal as a real discount, and tells customers how close they are to the next step.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Checkout offers', 'stm-smart-checkout' ),
+				'text'  => __( 'A card above the buy button that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'VAT ID with live VIES check', 'stm-smart-checkout' ),
+				'text'  => __( 'Business customers from another EU country enter their VAT ID; a confirmed one takes the tax off the order. An unreachable EU service never grants an exemption — the order goes through with VAT and says why.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Express zone for wallet buttons', 'stm-smart-checkout' ),
+				'text'  => __( 'One defined band above the form for PayPal, Apple Pay and Google Pay, instead of one button under the payment methods and another somewhere else. Steered there through the providers\' own filters, never rebuilt.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Payment-dependent required fields', 'stm-smart-checkout' ),
+				'text'  => __( 'Invoice purchase may ask for a phone number where prepayment does not. Checked again on the server, so the rule holds even if the browser is lied to.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Payment method customizer', 'stm-smart-checkout' ),
+				'text'  => __( 'Your own name, a note, a symbol and a sort position per payment method — through documented WooCommerce filters, with 33 bundled symbols.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Safe mode', 'stm-smart-checkout' ),
+				'text'  => __( 'A fatal error while the checkout renders no longer costs you orders: the Smart Checkout steps aside from the next request on and the standard checkout takes over, visibly and reversibly.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Mobile sticky order bar', 'stm-smart-checkout' ),
+				'text'  => __( 'Total and buy button stay reachable while the real button is off screen, plus an ultra-compact layout for dense checkouts on small displays.', 'stm-smart-checkout' ),
+			),
+		);
+	}
+
+	/**
+	 * The upgrade tab.
+	 *
+	 * Static markup, local strings, two links. See the note at the top of this
+	 * class for why it may exist here and nowhere else.
+	 */
+	private static function pro_panel() {
+		$url = self::pro_url();
+		?>
+		<div class="stmc-pro">
+			<p class="stmc-pro__lead">
+				<?php esc_html_e( 'Everything on the other tabs is free and stays free. The paid add-on is for shops that want the checkout to sell more and cost less work.', 'stm-smart-checkout' ); ?>
+			</p>
+
+			<div class="stmc-pro__grid">
+				<?php foreach ( self::pro_features() as $feature ) : ?>
+					<div class="stmc-pro__item">
+						<h3><?php echo esc_html( $feature['title'] ); ?></h3>
+						<p><?php echo esc_html( $feature['text'] ); ?></p>
+					</div>
+				<?php endforeach; ?>
+			</div>
+
+			<p class="stmc-pro__cta">
+				<a class="button button-primary button-hero" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener">
+					<?php esc_html_e( 'See STM Smart Checkout Pro', 'stm-smart-checkout' ); ?>
+				</a>
+			</p>
+			<p class="description">
+				<?php esc_html_e( 'The add-on requires this free plugin and installs alongside it. Nothing you have configured here changes.', 'stm-smart-checkout' ); ?>
+			</p>
+		</div>
+		<?php
 	}
 
 	public static function render() {
@@ -133,6 +296,15 @@ class STMC_Admin {
 			'legal'    => __( 'Legal', 'stm-smart-checkout' ),
 			'design'   => __( 'Design', 'stm-smart-checkout' ),
 		);
+
+		/*
+		 * The upgrade tab exists only while the add-on does not. Selling
+		 * somebody what they already bought is the fastest way to make a
+		 * settings screen feel like advertising.
+		 */
+		if ( ! self::has_pro() ) {
+			$tabs['pro'] = __( 'Upgrade to Pro', 'stm-smart-checkout' );
+		}
 		$current = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $tabs[ $current ] ) ) {
 			$current = 'general';
@@ -197,6 +369,21 @@ class STMC_Admin {
 					</a>
 				<?php endforeach; ?>
 			</nav>
+
+			<?php
+			/*
+			 * The upgrade tab is not a settings form and must not pretend to be
+			 * one. Rendering it inside the form would put a "Save changes"
+			 * button under a page with nothing to save — and, worse, would let
+			 * the hidden-field round trip below run for a tab that owns no
+			 * fields at all.
+			 */
+			if ( 'pro' === $current ) {
+				self::pro_panel();
+				echo '</div>';
+				return;
+			}
+			?>
 
 			<form method="post" action="options.php">
 				<?php settings_fields( 'stmc_settings_group' ); ?>

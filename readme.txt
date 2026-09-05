@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.49
+Stable tag: 0.1.50
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,6 +179,13 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.50 =
+* No code changes. This release exists so the plugin directory serves a rewritten description — WordPress.org reads it from the stable tag, so a new text needs a new version.
+* The description now leads with what actually sets this plugin apart instead of listing twelve features: that it asks the rendered checkout whether another plugin already prints a consent box, a button label or a VAT line before printing its own; that the German and EU legal essentials work with no legal plugin at all; that the postcode databases for Germany, Austria and Switzerland sit inside the plugin so no customer address leaves your server; and that nothing phones home.
+* Preview mode moved from the eleventh bullet to the second sentence. Trying the plugin on your own live site while customers keep seeing the standard checkout is the most useful thing a shop can do with it, and it was buried.
+* The Pro section was incomplete and is now correct: bundle discounts and checkout offers had been shipping since 0.6.0 and 0.7.0 without ever being described, and the VAT ID field with its live VIES check and reverse charge has been added.
+* The tag "one page checkout" has been replaced with "checkout fields" — this plugin is not a one page checkout, and the field manager it does have is free.
 
 = 0.1.49 =
 * On the block checkout the own consent box now stands down for a legal plugin that renders its own — until now a shop running Germanized read two consent texts on one page, ours as a required checkbox and Germanized's below it, with the setting on "automatic".

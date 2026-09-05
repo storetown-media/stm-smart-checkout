@@ -1,6 +1,6 @@
 === STM Smart Checkout for WooCommerce ===
 Contributors: jobhunter99
-Tags: checkout, woocommerce checkout, conversion, germanized, one page checkout
+Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,104 +8,107 @@ Stable tag: 0.1.49
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Conversion-focused, legally compliant checkout for WooCommerce — works with your gateways, your theme and Germanized instead of replacing them.
+Distraction-free WooCommerce checkout with the German and EU legal essentials built in. Works with your gateways, theme and Germanized.
 
 == Description ==
 
-STM Smart Checkout turns the standard WooCommerce checkout into a focused, trustworthy buying experience — without replacing your payment gateways, your legal plugins or the WooCommerce checkout itself.
+**Your checkout is the most expensive page in your shop. This plugin makes it earn its keep — without replacing your gateways, your legal plugin or WooCommerce itself.**
 
-**The core plugin, completely free:**
+Install it, switch on preview mode, and look at your own checkout the way a customer does. Your customers keep seeing the standard checkout while you do. If you do not like it, deactivate the plugin and everything is exactly as it was — no pages changed, no data locked in.
 
-* Distraction-free checkout layouts — three columns, two columns or a single column, with a progress indicator through cart, checkout and confirmation
-* A trust header band that replaces the theme header on cart and checkout: your logo, three short trust claims with their icons, and an "Already a customer?" login pill that opens the login form WooCommerce prints anyway
-* Card-based design driven by design tokens: accent colour, hover colour, heading colour, the step and label blues, font size and corner radius — all from the settings screen, no `!important` battles with your theme
-* Field manager with real-time validation, tidied field pairs (first and last name, postcode and city), state corrections and the correct touch keyboard on phones
-* Postcode autofill for Germany, Austria and Switzerland — type the postcode, the city fills itself. The databases ship inside the plugin: no external service, no customer address leaves your server
-* Legal texts (terms, cancellation policy) open in an overlay without leaving the checkout, and a server-side safety net checks every required consent box again after submit
-* Trust badges with a curated icon set, and a reassurance note between the consent boxes and the buy button
-* Optional control over the coupon notice and the "Additional information" order notes field — two of the most common reasons customers leave a checkout to go looking for something
-* Delivery time under every product in cart and checkout, resolved from the most specific source that knows one
-* A legal footer row under the checkout, filled from pages you pick, from a menu, or automatically from the legal pages your site already registers
-* Preview mode: try the whole thing on your live site while customers keep seeing the standard checkout
-* HPOS (High-Performance Order Storage) supported, no external fonts, no tracking, no remote requests
+= Four things that set it apart =
 
-**Built for stores selling under EU and German law (DACH-ready)**
+* **It stands down instead of fighting.** Before it prints a consent box, a button label or a VAT line, it asks the *rendered* checkout whether another plugin is already printing one — not whether one happens to be installed. That is why it can run alongside WooCommerce Germanized and German Market without the duplicate texts shops usually get.
+* **The German and EU legal essentials are built in.** Run it with no legal plugin at all and the checkout is still complete: § 312j BGB button wording, consent with the exact text stored on the order, VAT statement, delivery time per item, the mandatory notice above the buy button.
+* **Postcode autofill for Germany, Austria and Switzerland — with the databases inside the plugin.** Type the postcode, the city fills itself. No external service, no API key, no customer address ever leaves your server.
+* **Nothing phones home.** No external fonts, no tracking, no remote requests. HPOS compatible.
 
-If no legal plugin is present, the checkout supplies the mandatory pieces itself — each one only when no other plugin is actually rendering it, so nothing ever appears twice:
+= Turn a form into a buying experience =
 
-* The consent box for terms and cancellation policy, with the exact wording the customer saw written onto the order
-* A buy button label that states the obligation to pay, as § 312j BGB requires — WooCommerce's own "Place order" does not
-* The VAT statement in the order summary
-* Delivery time per line item
-* The short mandatory notice directly above the buy button, where the essential order details have to be readable
+* **Distraction-free layouts** — three columns, two or one, with a progress indicator across cart, checkout and confirmation. Theme header, menu, breadcrumbs and seals disappear where they only cost you orders.
+* **A trust header band** with your logo, three short trust claims with icons, and an "Already a customer?" login pill that opens the login form WooCommerce prints anyway.
+* **Design tokens, not `!important`** — accent colour, heading colour, font size, corner radius, all from the settings screen. It adapts to your theme instead of overruling it.
+* **Trust badges and a reassurance note** exactly where the hesitation happens: between the consent boxes and the buy button.
+* **Switch off the two classic leak points** — the coupon prompt that sends customers hunting for a code, and the "Additional information" notes field nobody reads.
 
-It works **with** WooCommerce Germanized and German Market rather than against them: the plugin asks the rendered checkout whether a legal plugin is actually printing a checkbox — not whether one happens to be installed — and stands down where it is. Unit prices (PAngV) and sending the cancellation policy with the order mail stay with a dedicated legal plugin, and the settings screen says so in plain language instead of leaving you to find out later.
+= Fewer mistakes, fewer abandoned carts =
 
-**What it deliberately leaves alone**
+* **Field manager with instant validation**, tidied field pairs (first and last name, postcode and city), state corrections, and the right touch keyboard on every mobile field.
+* **Legal texts open in an overlay** — customers read your terms without leaving the checkout.
+* **A server-side safety net** re-checks every required consent box after submit. A request without the tick is refused, not merely hidden.
+* **Delivery time under every product**, in cart and checkout, taken from the most specific source that knows one.
 
-Your gateways keep rendering their own express buttons. Your legal plugin keeps owning its legal texts. Your theme keeps its typography. This plugin arranges what is already there into a checkout that converts — deactivate it and you get the standard WooCommerce checkout back, unchanged.
+= Works with your stack, not around it =
 
-It styles the classic (shortcode) cart and checkout in full. On the Cart and Checkout blocks it delivers the shell around the form, the design tokens inside it, a required consent box that WooCommerce validates on the server, the mandatory notice and the links to the legal texts above the button, the § 312j button label, the delivery time under each item, the trust row under the button and the reassurance note under the consent box; the column layouts and the field manager are classic-only for now, and the settings screen says which is which. A reversible one-click switch to the classic pages remains — the plugin never changes your pages on its own.
+Your gateways keep rendering their own express buttons. Your legal plugin keeps owning its legal texts. Your theme keeps its typography. This plugin arranges what is already there into a checkout that converts.
 
-**STM Smart Checkout Pro**
+Classic cart and checkout are styled in full; the Cart and Checkout blocks get everything except the column layouts and the field manager. The settings screen says exactly which is which — no surprises — and a reversible one-click switch to the classic pages is built in. The plugin never changes your pages on its own.
 
-The free plugin above is complete in itself and stays that way. A separate paid add-on adds seven things, in order of how often shops ask for them:
+= STM Smart Checkout Pro =
 
-* **Online withdrawal form** — the withdrawal function required across the EU since 19 June 2026 (directive 2023/2673): a public form on its own page, reachable for guests, pre-filled for logged-in customers with their most recent order, with merchant notification and customer receipt
-* **Withdrawals management screen** under WooCommerce with a status workflow, its own table and a counter badge — plus a "Withdraw this order" button in My Account for a period you choose
-* **Express zone** — one defined band above the checkout form for wallet buttons, instead of PayPal under the payment methods and another button somewhere else. The buttons are steered into place through the providers' own filters, never rebuilt or moved in the DOM
-* **Payment-dependent required fields** — a matrix that makes "required" depend on the chosen payment method, so invoice purchase can ask for a phone number while prepayment does not. Checked again on the server
-* **Method customizer** — your own name, a note, a symbol and a sort position per payment method, all through documented WooCommerce filters, with 33 bundled symbols
-* **Safe mode** — a fatal error while the checkout renders no longer costs the shop its orders: the Smart Checkout stands down from the next request on and WooCommerce's standard checkout takes over, visibly and reversibly
-* **Mobile sticky order bar** and an **ultra-compact layout** for dense checkouts on small screens
+The free plugin is complete in itself and stays that way. The paid add-on is for shops that want the checkout to sell more and cost less work:
 
-Pro requires this free plugin and is sold here: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/). This plugin has a page of its own as well: [STM Smart Checkout for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
+* **Online withdrawal form** — the withdrawal function required EU-wide since 19 June 2026 (directive 2023/2673): a public page reachable for guests, pre-filled for logged-in customers, with merchant notification, customer receipt and a full management screen under WooCommerce.
+* **Bundle discounts** — a percentage off the cart once it holds enough different products, needs no coupon form and reaches PayPal as a real discount instead of an unexplained total, with a progress hint that tells customers how close they are.
+* **Checkout offers** — a card above the buy button that adds one more product to the order in a single click, with its own tax class, stock and delivery time.
+* **VAT ID field with live VIES check and reverse charge** — a confirmed EU VAT ID takes the tax off the order. An unreachable EU service never grants an exemption; the order goes through with VAT and says why.
+* **Express zone** — one defined band above the form for PayPal, Apple Pay and Google Pay, steered there through the providers' own filters, never rebuilt and never moved in the DOM.
+* **Payment-dependent required fields** — invoice purchase may ask for a phone number, prepayment need not. Re-checked on the server.
+* **Method customizer** — your own name, note, symbol and sort order per payment method, through documented WooCommerce filters, with 33 bundled symbols.
+* **Safe mode** — a fatal error while the checkout renders no longer costs you orders: the Smart Checkout steps aside and WooCommerce's standard checkout takes over, visibly and reversibly.
+* **Mobile sticky order bar** and an **ultra-compact layout** for dense checkouts on small screens.
 
-**Auf Deutsch: rechtssichere WooCommerce-Kasse für Shops in Deutschland, Österreich und der Schweiz**
+Pro requires this free plugin: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/). This plugin has a page of its own as well: [STM Smart Checkout for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 
-STM Smart Checkout macht aus der Standard-Kasse von WooCommerce eine fokussierte, vertrauenswürdige Kaufstrecke — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder die WooCommerce-Kasse selbst zu ersetzen.
+---
 
-**Kasse gestalten und Kaufabbrüche vermeiden**
+**Auf Deutsch: die rechtssichere WooCommerce-Kasse für Shops in Deutschland, Österreich und der Schweiz**
 
-* Ablenkungsfreier Checkout: Theme-Kopf, Menü, Siegel und Brotkrumen verschwinden auf Warenkorb und Kasse — als Ein-, Zwei- oder Dreispalter mit Fortschrittsanzeige über Warenkorb, Kasse und Bestätigung
-* Trust-Kopfband mit Ihrem Logo, drei kurzen Vertrauens-Aussagen mit Symbolen und einer „Bereits Kunde?"-Anmelde-Pille
-* Kartenbasiertes Design über Design-Tokens: Akzentfarbe, Überschriftenfarbe, Schriftgröße und Eckenradius aus dem Backend — ohne `!important`-Kämpfe mit dem Theme
-* Vertrauenselemente und Trust-Badges mit kuratiertem Symbolsatz, dazu ein Beruhigungshinweis direkt über dem Kaufknopf
-* Gutschein-Hinweis und das Bemerkungsfeld „Zusätzliche Informationen" abschaltbar — zwei der häufigsten Gründe, warum Kunden die Kasse verlassen
-* Vorschau-Modus: alles auf der Live-Site ausprobieren, während Kunden weiter die Standard-Kasse sehen
+**Ihre Kasse ist die teuerste Seite im Shop. Dieses Plugin sorgt dafür, dass sie sich lohnt — ohne Ihre Zahlungsarten, Ihr Rechts-Plugin oder WooCommerce zu ersetzen.**
 
-**Formularfelder und Adresseingabe**
+Installieren, Vorschau-Modus einschalten und die eigene Kasse einmal mit Kundenaugen ansehen. Ihre Kundschaft sieht währenddessen weiter die Standard-Kasse. Gefällt es nicht, deaktivieren Sie das Plugin und alles ist wie zuvor — keine Seite verändert, nichts eingesperrt.
 
-* Feldverwaltung mit Sofortprüfung, aufgeräumten Feldpaaren (Vor-/Nachname, PLZ/Ort) und den richtigen Tastaturen auf dem Handy
-* PLZ-Autovervollständigung für Deutschland, Österreich und die Schweiz — Postleitzahl eintippen, der Ort füllt sich selbst. Die Datenbanken liegen im Plugin: kein externer Dienst, keine Kundenadresse verlässt Ihren Server (DSGVO-konform)
+= Vier Dinge, die es auszeichnen =
 
-**Pflichtangaben nach deutschem und EU-Recht — auch ganz ohne Rechts-Plugin**
+* **Es tritt zurück, statt zu streiten.** Bevor es ein Pflichthäkchen, eine Button-Beschriftung oder eine MwSt.-Zeile ausgibt, fragt es die *gerenderte* Kasse, ob ein anderes Plugin das bereits tut — nicht, ob eines installiert ist. Deshalb läuft es neben WooCommerce Germanized und German Market, ohne die doppelten Texte, die Shops sonst bekommen.
+* **Die deutschen und EU-Pflichtangaben sind eingebaut.** Auch ganz ohne Rechts-Plugin ist die Kasse vollständig: Button-Lösung nach § 312j BGB, Einwilligung mit dem exakten Wortlaut auf der Bestellung, MwSt.-Ausweisung, Lieferzeit je Artikel, Pflichthinweis über dem Kaufknopf.
+* **PLZ-Autovervollständigung für D, A und CH — mit den Datenbanken im Plugin.** Postleitzahl eintippen, der Ort füllt sich selbst. Kein externer Dienst, kein API-Schlüssel, keine Kundenadresse verlässt Ihren Server. DSGVO-konform, ohne Nachfrage beim Datenschutzbeauftragten.
+* **Nichts funkt nach Hause.** Keine externen Schriften, kein Tracking, keine entfernten Anfragen. HPOS-kompatibel.
 
-Ist kein Rechts-Plugin vorhanden, liefert die Kasse die Pflichtangaben selbst. Jede davon nur dann, wenn kein anderes Plugin sie bereits ausgibt — nichts erscheint doppelt:
+= Aus einem Formular eine Kaufstrecke machen =
 
-* Einwilligung zu AGB und Widerrufsbelehrung als Pflicht-Häkchen, mit dem exakten Wortlaut auf der Bestellung
-* Button-Lösung nach § 312j BGB: eine Beschriftung des Kaufknopfes, die die Zahlungspflicht ausspricht — WooCommerce' „Bestellung abschicken" tut das nicht
-* MwSt.-Ausweisung in der Bestellübersicht
-* Lieferzeit je Artikel in Warenkorb und Kasse
-* Der kurze Pflichthinweis unmittelbar über dem Kaufknopf, wo die wesentlichen Angaben lesbar sein müssen
-* AGB und Widerrufsbelehrung im Overlay lesbar, ohne die Kasse zu verlassen — plus serverseitige Absicherung, die die Pflichthäkchen nach dem Absenden erneut prüft
-* Rechtszeile unter der Kasse mit Impressum, Datenschutz und AGB, aus gewählten Seiten, einem Menü oder automatisch aus den bereits hinterlegten Rechtsseiten
+* **Ablenkungsfreie Layouts** — Drei-, Zwei- oder Einspalter mit Fortschrittsanzeige über Warenkorb, Kasse und Bestätigung. Theme-Kopf, Menü, Brotkrumen und Siegel verschwinden dort, wo sie nur Bestellungen kosten.
+* **Trust-Kopfband** mit Ihrem Logo, drei kurzen Vertrauens-Aussagen mit Symbolen und einer „Bereits Kunde?"-Anmelde-Pille, die das Anmeldeformular öffnet, das WooCommerce ohnehin ausgibt.
+* **Design-Tokens statt `!important`** — Akzentfarbe, Überschriftenfarbe, Schriftgröße, Eckenradius, alles aus dem Backend. Es fügt sich in Ihr Theme, statt es zu überstimmen.
+* **Trust-Badges und ein Beruhigungshinweis** genau dort, wo gezögert wird: zwischen den Pflichthäkchen und dem Kaufknopf.
+* **Die zwei klassischen Leckstellen abschaltbar** — der Gutschein-Hinweis, der Kunden auf Code-Jagd schickt, und das Bemerkungsfeld, das niemand liest.
 
-**Arbeitet mit Germanized und German Market zusammen, nicht gegen sie.** Das Plugin fragt die gerenderte Kasse, ob ein Rechts-Plugin tatsächlich ein Kästchen druckt — nicht, ob eines installiert ist — und zieht sich dort zurück. Grundpreise (PAngV) und der Versand der Widerrufsbelehrung mit der Bestellmail bleiben beim Rechts-Plugin; der Einstellungsbildschirm sagt das klar, statt es Sie später herausfinden zu lassen.
+= Weniger Fehler, weniger Abbrüche =
 
-**Grundsatz:** Ihre Zahlungsarten rendern weiter ihre eigenen Express-Knöpfe, Ihr Rechts-Plugin behält seine Rechtstexte, Ihr Theme behält seine Typografie. Dieses Plugin ordnet alles zu einer Kasse, die verkauft. Deaktivieren Sie es, steht die Standard-Kasse unverändert wieder da.
+* **Feldverwaltung mit Sofortprüfung**, aufgeräumten Feldpaaren (Vor-/Nachname, PLZ/Ort), Bundesland-Korrekturen und der richtigen Handy-Tastatur in jedem Feld.
+* **Rechtstexte im Overlay** — Kundschaft liest Ihre AGB, ohne die Kasse zu verlassen.
+* **Serverseitige Absicherung**: Jedes Pflichthäkchen wird nach dem Absenden erneut geprüft. Eine Anfrage ohne Haken wird abgewiesen, nicht bloß ausgeblendet.
+* **Lieferzeit unter jedem Produkt**, in Warenkorb und Kasse, aus der jeweils genauesten Quelle.
 
-**STM Smart Checkout Pro**
+= Arbeitet mit Ihrem Bestand, nicht daran vorbei =
 
-Alles oben Beschriebene ist im kostenlosen Plugin und bleibt dort. Das kostenpflichtige Zusatzmodul ergänzt sieben Dinge:
+Ihre Zahlungsarten rendern weiter ihre eigenen Express-Knöpfe. Ihr Rechts-Plugin behält seine Rechtstexte. Ihr Theme behält seine Typografie. Dieses Plugin ordnet, was schon da ist, zu einer Kasse, die verkauft.
 
-* **Online-Widerrufsformular** — die seit dem 19. Juni 2026 EU-weit vorgeschriebene Widerrufsfunktion (Richtlinie 2023/2673): öffentliches Formular auf eigener Seite, auch für Gäste erreichbar, für angemeldete Kunden mit der letzten Bestellung vorbefüllt, mit Händler-Benachrichtigung und Kundenbeleg
-* **Widerrufs-Verwaltung** unter WooCommerce mit Status-Workflow, eigener Tabelle und Zähler-Badge — dazu ein „Diese Bestellung widerrufen"-Knopf im Kundenkonto für einen von Ihnen gewählten Zeitraum
-* **Express-Zone** — ein definiertes Band über dem Kassenformular für PayPal, Apple Pay und Google Pay, statt eines Knopfes unter den Zahlarten und eines zweiten irgendwo sonst. Die Knöpfe werden über die Filter der Anbieter dorthin gesteuert, nie nachgebaut und nie im DOM verschoben
-* **Zahlartabhängige Pflichtfelder** — eine Matrix, die „Pflicht" von der gewählten Zahlart abhängig macht: Kauf auf Rechnung darf nach der Telefonnummer fragen, Vorkasse nicht. Serverseitig nachgeprüft
-* **Methoden-Customizer** — eigener Name, Zusatztext, Symbol und Reihenfolge je Zahlart, alles über dokumentierte WooCommerce-Filter, mit 33 mitgelieferten Symbolen
-* **Safe-Mode** — ein Fatal Error beim Rendern der Kasse kostet den Shop keine Bestellungen mehr: der Smart Checkout zieht sich ab der nächsten Anfrage zurück, die Standard-Kasse übernimmt, sichtbar und umkehrbar
-* **Mobile Sticky-Bestellleiste** und ein **ultra-kompaktes Layout** für dichte Kassen auf kleinen Bildschirmen
+Die klassische Kasse gestaltet es vollständig; die Cart- und Checkout-Blöcke bekommen alles außer Spaltenlayouts und Feldverwaltung. Der Einstellungsbildschirm sagt genau, was wo gilt — keine Überraschungen — und ein umkehrbarer Ein-Klick-Wechsel auf die klassischen Seiten ist eingebaut. Das Plugin ändert Ihre Seiten nie von selbst.
+
+= STM Smart Checkout Pro =
+
+Das kostenlose Plugin ist in sich vollständig und bleibt es. Das kostenpflichtige Zusatzmodul ist für Shops, deren Kasse mehr verkaufen und weniger Arbeit machen soll:
+
+* **Online-Widerrufsformular** — die seit dem 19. Juni 2026 EU-weit vorgeschriebene Widerrufsfunktion (Richtlinie 2023/2673): öffentliche Seite, auch für Gäste erreichbar, für angemeldete Kundschaft vorbefüllt, mit Händler-Benachrichtigung, Kundenbeleg und vollständiger Verwaltung unter WooCommerce.
+* **Bundle-Rabatte** — ein Prozentsatz auf den Warenkorb, sobald genug verschiedene Produkte darin liegen, braucht kein Gutscheinformular und erreicht PayPal als echten Rabatt statt als unerklärte Differenz, mit Fortschritts-Hinweis, wie nah die Kundschaft dran ist.
+* **Angebote an der Kasse** — eine Karte über dem Kaufknopf, die mit einem Klick ein weiteres Produkt in die Bestellung legt, mit eigener Steuerklasse, eigenem Bestand und eigener Lieferzeit.
+* **USt-IdNr.-Feld mit VIES-Live-Prüfung und Reverse Charge** — eine bestätigte EU-USt-IdNr. nimmt die Umsatzsteuer aus der Bestellung. Eine nicht erreichbare EU-Schnittstelle gewährt niemals eine Befreiung; die Bestellung geht mit Steuer durch und sagt warum.
+* **Express-Zone** — ein definiertes Band über dem Formular für PayPal, Apple Pay und Google Pay, über die Filter der Anbieter dorthin gesteuert, nie nachgebaut und nie im DOM verschoben.
+* **Zahlartabhängige Pflichtfelder** — Kauf auf Rechnung darf nach der Telefonnummer fragen, Vorkasse nicht. Serverseitig nachgeprüft.
+* **Methoden-Customizer** — eigener Name, Zusatztext, Symbol und Reihenfolge je Zahlart, über dokumentierte WooCommerce-Filter, mit 33 mitgelieferten Symbolen.
+* **Safe-Mode** — ein Fatal Error beim Rendern der Kasse kostet Sie keine Bestellungen mehr: der Smart Checkout tritt zurück, die Standard-Kasse übernimmt, sichtbar und umkehrbar.
+* **Mobile Sticky-Bestellleiste** und ein **ultra-kompaktes Layout** für dichte Kassen auf kleinen Bildschirmen.
 
 Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/). Auch das kostenlose Plugin hat eine eigene Seite: [STM Smart Checkout für WooCommerce](https://www.storetown-media.de/produkt/stm-smart-checkout-woocommerce/)
 

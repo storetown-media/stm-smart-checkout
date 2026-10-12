@@ -181,6 +181,7 @@ They are left out here because WordPress.org truncates this section at 5,000 wor
 which would drop them silently instead of on purpose.
 
 = 0.1.51 =
+* Fixed: in the two-column layout the order summary hung below the address column instead of beside it, with the column empty above it and only the "Your order" heading in place. That heading rendered next to the summary rather than in it, and a second item in the right column has nowhere to go but the next grid row — which starts below the full height of the address column. The heading now sits inside the summary card, where the billing and additional-information headings sit as well.
 * A tab of its own now describes what the paid add-on adds, and the plugin's row on the Plugins page carries one link to it. Both disappear the moment the add-on is installed — nobody should be sold what they already own.
 * Deliberately nowhere else. The directory permits upselling but binds it to guideline 11, which is explicit about the shape: prompts and notices "must be limited in scope and used sparingly, be that contextually or only on the plugin's setting page". So there is no admin notice, dismissible or not, anywhere in this plugin.
 * The tab describes the add-on rather than showing switches that do nothing. Shipping locked functionality and selling the key is what guideline 5 forbids, and a settings screen full of dead controls is a poor way to explain a product anyway.

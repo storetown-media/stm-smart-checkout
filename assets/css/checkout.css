@@ -828,12 +828,19 @@ body.stmc-checkout form.checkout #order_review {
 		grid-column: 1;
 	}
 
-	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review_heading,
-	body.stmc-checkout.stmc-layout-three-column form.checkout .stmc-section-title--order,
+	/*
+	 * EXACTLY ONE item may sit in the right column. Grid's sparse auto-flow
+	 * has nowhere to put a second column-2 item but the next row, and that row
+	 * starts below the whole address column — the order summary then hangs at
+	 * the bottom of the page with the column empty above it (measured
+	 * 06.09.2026: our own "Your order" title as a sibling of #order_review put
+	 * the summary at y=1773 under a 1482px #customer_details). Hence the title
+	 * renders INSIDE the card (STMC_Module_Layout::title_order) and is
+	 * deliberately not listed here. #order_review_heading is a hidden item
+	 * (display:none in the payment section), so it takes no cell either.
+	 */
 	body.stmc-checkout.stmc-layout-three-column form.checkout #order_review,
 	body.stmc-checkout.stmc-layout-three-column form.checkout .wc-order-review,
-	body.stmc-checkout.stmc-layout-two-column form.checkout #order_review_heading,
-	body.stmc-checkout.stmc-layout-two-column form.checkout .stmc-section-title--order,
 	body.stmc-checkout.stmc-layout-two-column form.checkout #order_review,
 	body.stmc-checkout.stmc-layout-two-column form.checkout .wc-order-review {
 		grid-column: 2;

@@ -96,7 +96,17 @@ class STMC_Module_Layout extends STMC_Module {
 				add_action( 'woocommerce_review_order_after_payment', array( WC()->checkout(), 'checkout_form_shipping' ), 3 );
 			}
 		} else {
-			add_action( 'woocommerce_checkout_before_order_review', array( $this, 'title_order' ), 5 );
+			/*
+			 * INSIDE #order_review, not before it. woocommerce_checkout_before_order_review
+			 * would print the title as a SIBLING of #order_review — a second item in the
+			 * right grid column, and grid's sparse auto-flow then has no choice but to put
+			 * #order_review in the next row: the whole order summary drops below the address
+			 * column, leaving the title alone at the top (measured on the test shop,
+			 * 06.09.2026: #order_review at y=1773 under a 1482px #customer_details, the
+			 * column empty in between). Inside the card the title also matches every other
+			 * section — billing and additional information carry theirs inside their card too.
+			 */
+			add_action( 'woocommerce_checkout_order_review', array( $this, 'title_order' ), 1 );
 		}
 	}
 
@@ -159,6 +169,11 @@ class STMC_Module_Layout extends STMC_Module {
 	}
 
 	public function title_order() {
+		// Full page loads only, like the three-column wrappers above: whatever
+		// re-runs this hook for an AJAX fragment would print a second title.
+		if ( wp_doing_ajax() ) {
+			return;
+		}
 		echo '<h3 class="stmc-section-title stmc-section-title--order">' . esc_html__( 'Your order', 'stm-smart-checkout' ) . '</h3>';
 	}
 

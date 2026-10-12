@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: STM Smart Checkout 0.1.51\n"
+"Project-Id-Version: STM Smart Checkout 0.1.52\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-09-05 15:53+0000\n"
+"POT-Creation-Date: 2026-10-12 11:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -919,36 +919,36 @@ msgstr ""
 msgid "Order steps"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:109
-#: includes/modules/class-stmc-module-layout.php:162
+#: includes/modules/class-stmc-module-layout.php:119
+#: includes/modules/class-stmc-module-layout.php:177
 msgid "Your order"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:116
+#: includes/modules/class-stmc-module-layout.php:126
 msgid "Payment method"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:134
+#: includes/modules/class-stmc-module-layout.php:144
 msgid "Billing details"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:153
+#: includes/modules/class-stmc-module-layout.php:163
 msgid "Add a note to your order"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:158
+#: includes/modules/class-stmc-module-layout.php:168
 msgid "Additional information"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:236
+#: includes/modules/class-stmc-module-layout.php:251
 msgid "Decrease quantity"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:239
+#: includes/modules/class-stmc-module-layout.php:254
 msgid "Increase quantity"
 msgstr ""
 
-#: includes/modules/class-stmc-module-layout.php:281
+#: includes/modules/class-stmc-module-layout.php:296
 msgid "Continue shopping"
 msgstr ""
 
@@ -979,28 +979,28 @@ msgstr ""
 msgid "Please accept the terms and conditions and the cancellation policy to place your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:805
+#: includes/modules/class-stmc-module-legal.php:814
 msgid "Please read and accept the terms and conditions to proceed with your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:862
+#: includes/modules/class-stmc-module-legal.php:871
 msgid "Please tick all required boxes to proceed with your order."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:955
-#: includes/modules/class-stmc-module-legal.php:962
+#: includes/modules/class-stmc-module-legal.php:964
+#: includes/modules/class-stmc-module-legal.php:971
 msgid "Close"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:958
+#: includes/modules/class-stmc-module-legal.php:967
 msgid "Loading &hellip;"
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:959
+#: includes/modules/class-stmc-module-legal.php:968
 msgid "The text could not be loaded here."
 msgstr ""
 
-#: includes/modules/class-stmc-module-legal.php:960
+#: includes/modules/class-stmc-module-legal.php:969
 msgid "Open the page instead"
 msgstr ""
 

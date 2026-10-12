@@ -801,7 +801,16 @@ class STMC_Module_Legal extends STMC_Module {
 			$list[ self::CONSENT_NAME ] = self::consent_error();
 		}
 
-		if ( function_exists( 'wc_terms_and_conditions_checkbox_enabled' ) && wc_terms_and_conditions_checkbox_enabled() ) {
+		/*
+		 * Only demanded when WooCommerce's box was actually on the page — its
+		 * terms template posts a "terms-field" companion with it. Asking
+		 * wc_terms_and_conditions_checkbox_enabled() instead meant "a terms page
+		 * is set", and our own consent box hides Woo's box via
+		 * woocommerce_checkout_show_terms: a box nobody could tick was demanded,
+		 * and every order failed (customer report, hairdoshop.de, 12.10.2026).
+		 * Same rule as germanized_checkboxes() below and WooCommerce core.
+		 */
+		if ( '' !== $this->posted_value( 'terms-field' ) ) {
 			$list['terms'] = __( 'Please read and accept the terms and conditions to proceed with your order.', 'stm-smart-checkout' );
 		}
 

@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.51
+Stable tag: 0.1.52
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,6 +179,10 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.52 =
+* Fixed: with the plugin's own consent box in charge, every order was rejected with "Please read and accept the terms and conditions to proceed with your order" as soon as a WooCommerce terms page was set — no matter what the customer ticked. The consent box takes the place of WooCommerce's own terms checkbox, but the server-side check still demanded that checkbox, which was never on the page. Reported by a customer of a live shop on 12.10.2026.
+* WooCommerce's terms checkbox is now demanded only when it was actually rendered, recognised by the "terms-field" companion WooCommerce posts with it. That is the rule WooCommerce core applies, and the one this plugin already used for Germanized's checkboxes.
 
 = 0.1.51 =
 * Fixed: in the two-column layout the order summary hung below the address column instead of beside it, with the column empty above it and only the "Your order" heading in place. That heading rendered next to the summary rather than in it, and a second item in the right column has nowhere to go but the next grid row — which starts below the full height of the address column. The heading now sits inside the summary card, where the billing and additional-information headings sit as well.

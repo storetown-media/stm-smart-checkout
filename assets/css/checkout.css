@@ -665,6 +665,21 @@ body.stmc-checkout .woocommerce form .form-row small {
 	line-height: 1.5;
 	color: var(--stmc-muted);
 	letter-spacing: 0;
+	/* WooCommerce draws descriptions as a blue tooltip (background #1e85be,
+	   white text, padding, arrow). Setting only the colour above left grey
+	   text on that blue — unreadable, measured on woo-shop.de with
+	   Twenty Twenty-Five, 31.10.2026. The quiet note needs the box gone too. */
+	background: none;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+body.stmc-checkout .woocommerce form .form-row .description::before,
+body.stmc-checkout .woocommerce form .form-row span.description::before {
+	content: none;
+	display: none;
 }
 
 /* Empty section shells (e.g. shipping fields on digital-only carts) get no

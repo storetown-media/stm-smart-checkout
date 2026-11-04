@@ -19,6 +19,7 @@
 	var note = root.querySelector( '.stmc-saved' );
 	var noResult = root.querySelector( '.stmc-noresult' );
 	var dirty = false;
+	var cssEditor = null;
 
 	function open( slug, push ) {
 		var found = false;
@@ -32,6 +33,10 @@
 				note.hidden = saveButton.hidden;
 			}
 		} );
+		// CodeMirror cannot measure itself while its panel is hidden.
+		if ( cssEditor && 'css' === slug ) {
+			cssEditor.codemirror.refresh();
+		}
 		if ( ! found ) {
 			return false;
 		}
@@ -163,6 +168,15 @@
 				event.preventDefault();
 				event.returnValue = '';
 			}
+		} );
+	}
+
+	var cssField = document.getElementById( 'stmc-design-custom_css' );
+	if ( cssField && window.stmcCssEditor && window.wp && window.wp.codeEditor ) {
+		cssEditor = window.wp.codeEditor.initialize( cssField, window.stmcCssEditor );
+		cssEditor.codemirror.on( 'change', function () {
+			cssEditor.codemirror.save();
+			form.dispatchEvent( new Event( 'input' ) );
 		} );
 	}
 

@@ -463,6 +463,38 @@ details.stmc-card:not([open]) > summary {
 	font-size: 11px;
 }
 
+/* Own CSS */
+
+.stmc-rows textarea.stmc-code {
+	font-family: Consolas, Menlo, monospace;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.stmc-rows .CodeMirror {
+	height: 340px;
+	border: 1px solid #c3cad8;
+	border-radius: 3px;
+	font-size: 12px;
+}
+
+.stmc-rows td[colspan] p {
+	margin: 0 0 8px;
+	font-size: 13px;
+}
+
+.stmc-example {
+	margin: 0;
+	padding: 10px 12px;
+	overflow-x: auto;
+	border-radius: 3px;
+	background: var(--stmc-a-soft);
+	color: var(--stmc-a-ink);
+	font-family: Consolas, Menlo, monospace;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
 /* Layout picker */
 
 .stmc-layouts {

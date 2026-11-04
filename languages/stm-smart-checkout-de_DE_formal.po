@@ -901,3 +901,24 @@ msgstr "Text"
 
 msgid "Surfaces"
 msgstr "Flächen"
+
+msgid "Own CSS"
+msgstr "Eigenes CSS"
+
+msgid "For individual themes: your own rules for cart and checkout, loaded after everything else."
+msgstr "Für individuelle Themes: Ihre eigenen Regeln für Warenkorb und Kasse, geladen nach allem anderen."
+
+msgid "CSS for cart and checkout"
+msgstr "CSS für Warenkorb und Kasse"
+
+msgid "Good to know"
+msgstr "Gut zu wissen"
+
+msgid "Start every rule with body.stmc-checkout. That class is only present on cart and checkout, so the rest of the shop stays untouched, and it beats most theme rules."
+msgstr "Beginnen Sie jede Regel mit body.stmc-checkout. Diese Klasse gibt es nur auf Warenkorb und Kasse, der Rest des Shops bleibt also unberührt, und sie schlägt die meisten Theme-Regeln."
+
+msgid "Colours and sizes are variables. Changing one changes every place that uses it:"
+msgstr "Farben und Größen sind Variablen. Ändern Sie eine, ändert sich jede Stelle, die sie nutzt:"
+
+msgid "Your own stylesheet for cart and checkout. It is printed after the styles of this plugin and of the add-on, so a rule with the same weight wins. Use it when a theme needs a nudge this screen has no switch for. HTML is removed on saving; nothing here reaches the rest of the shop."
+msgstr "Ihr eigenes Stylesheet für Warenkorb und Kasse. Es wird nach den Styles dieses Plugins und des Zusatzmoduls ausgegeben, eine Regel mit gleichem Gewicht gewinnt also. Nutzen Sie es, wenn ein Theme einen Schubs braucht, für den es hier keinen Schalter gibt. HTML wird beim Speichern entfernt; der Rest des Shops bleibt unberührt."

@@ -16,6 +16,24 @@ class STMC_Assets {
 
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_custom_css' ), 100 );
+	}
+
+	/**
+	 * The shop's own CSS, after everything else this plugin and its add-on
+	 * load: on equal specificity the owner's rule wins, on any theme.
+	 */
+	public static function enqueue_custom_css() {
+		if ( ! STMC_Checkout_Context::is_checkout_surface() || ! STMC_Checkout_Context::is_active() ) {
+			return;
+		}
+		$css = (string) STMC_Settings::get( 'design.custom_css' );
+		if ( '' === $css ) {
+			return;
+		}
+		wp_register_style( 'stmc-custom', false, array( 'stmc-checkout' ), STMC_VERSION );
+		wp_enqueue_style( 'stmc-custom' );
+		wp_add_inline_style( 'stmc-custom', $css );
 	}
 
 	public static function enqueue() {

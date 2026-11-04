@@ -103,6 +103,7 @@ class STMC_Settings {
 			'design.radius'       => array( 'type' => 'int', 'default' => 12, 'min' => 0, 'max' => 32 ),
 			'design.font_size'    => array( 'type' => 'int', 'default' => 15, 'min' => 11, 'max' => 24 ),
 			'design.logo_url'     => array( 'type' => 'url', 'default' => '' ),
+			'design.custom_css'   => array( 'type' => 'css', 'default' => '' ),
 
 			// Advanced.
 			'advanced.debug' => array( 'type' => 'bool', 'default' => false ),
@@ -244,6 +245,13 @@ class STMC_Settings {
 				return array_values( array_unique( array_filter( array_map( 'absint', $value ) ) ) );
 			case 'textarea':
 				return sanitize_textarea_field( is_string( $value ) ? $value : '' );
+			case 'css':
+				/*
+				 * Printed into a style element, so nothing may close it. An
+				 * angle bracket opening a tag has no use in a stylesheet; ">"
+				 * stays, it is the child combinator.
+				 */
+				return trim( substr( str_replace( '<', '', wp_strip_all_tags( is_string( $value ) ? $value : '' ) ), 0, 50000 ) );
 			default:
 				return sanitize_text_field( is_string( $value ) ? $value : '' );
 		}

@@ -128,6 +128,16 @@ class STMC_Admin {
 			STMC_Assets::asset_version( 'assets/js/admin.js' ),
 			array( 'in_footer' => true )
 		);
+
+		/*
+		 * WordPress's own code editor for the CSS panel. It answers false for a
+		 * user who switched syntax highlighting off; the plain textarea then
+		 * simply stays.
+		 */
+		$editor = function_exists( 'wp_enqueue_code_editor' ) ? wp_enqueue_code_editor( array( 'type' => 'text/css' ) ) : false;
+		if ( $editor ) {
+			wp_add_inline_script( 'stmc-admin', 'window.stmcCssEditor = ' . wp_json_encode( $editor ) . ';', 'before' );
+		}
 	}
 
 	public static function register() {
@@ -368,6 +378,13 @@ class STMC_Admin {
 				'label'  => __( 'Logo and type', 'stm-smart-checkout' ),
 				'intro'  => __( 'The logo in the header band, the size of the text and the corners of the cards.', 'stm-smart-checkout' ),
 				'render' => array( __CLASS__, 'section_shape' ),
+			),
+			'css'       => array(
+				'group'  => 'design',
+				'order'  => 30,
+				'label'  => __( 'Own CSS', 'stm-smart-checkout' ),
+				'intro'  => __( 'For individual themes: your own rules for cart and checkout, loaded after everything else.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_css' ),
 			),
 			'advanced'  => array(
 				'group'  => 'system',
@@ -879,6 +896,34 @@ class STMC_Admin {
 		self::card_close();
 	}
 
+	public static function section_css() {
+		self::card_open();
+		$key = 'design.custom_css';
+		self::row_open( $key, __( 'CSS for cart and checkout', 'stm-smart-checkout' ), '', 'stmc-row--stack' );
+		printf(
+			'<textarea class="stmc-code" rows="16" spellcheck="false" id="stmc-design-custom_css" name="%1$s">%2$s</textarea>',
+			esc_attr( self::name( $key ) ),
+			esc_textarea( (string) STMC_Settings::get( $key ) )
+		);
+		self::row_close();
+		self::card_close();
+
+		self::card_open( __( 'Good to know', 'stm-smart-checkout' ) );
+		echo '<tr class="stmc-row--stack"><td colspan="2">';
+		echo '<p>' . esc_html__( 'Start every rule with body.stmc-checkout. That class is only present on cart and checkout, so the rest of the shop stays untouched, and it beats most theme rules.', 'stm-smart-checkout' ) . '</p>';
+		echo '<p>' . esc_html__( 'Colours and sizes are variables. Changing one changes every place that uses it:', 'stm-smart-checkout' ) . '</p>';
+		echo '<pre class="stmc-example">body.stmc-checkout {
+	--stmc-radius: 4px;
+	--stmc-sp-5: 20px;
+}
+
+body.stmc-checkout .stmc-steps {
+	margin-top: 32px;
+}</pre>';
+		echo '</td></tr>';
+		self::card_close();
+	}
+
 	public static function section_advanced() {
 		self::card_open();
 		self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) );
@@ -929,7 +974,7 @@ class STMC_Admin {
 			),
 			'design'   => array(
 				'design.layout', 'design.accent', 'design.accent_hover', 'design.ink', 'design.title', 'design.label', 'design.text', 'design.muted',
-				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_size', 'design.logo_url',
+				'design.bg', 'design.card', 'design.line', 'design.radius', 'design.font_size', 'design.logo_url', 'design.custom_css',
 			),
 		);
 		/**
@@ -1045,6 +1090,7 @@ class STMC_Admin {
 				'design.title'                      => __( 'The blue of the numbered step headings — "Billing details", "Payment method". It reads as a second voice beside the body text and is what makes the checkout look like one designed surface rather than a stack of form fields. Keep it darker than the accent color: this is structure, not a call to action.', 'stm-smart-checkout' ),
 				'design.label'                      => __( 'The blue of the field labels above the inputs. A shade of its own on purpose: labels are read while filling in, headings while orienting, and giving them the same color flattens the form into one grey block. Contrast against the card background matters more here than anywhere else — this is the text people read most.', 'stm-smart-checkout' ),
 				'design.font_size'                  => __( 'The size of the checkout body text in pixels; every other step — fine print, labels, controls, section titles — is a fixed ratio of it, so the rhythm holds at any value. 15 is the default. Pixels rather than a percentage: a percentage was measured against the root font size of the theme, which made the same setting render differently on two shops. 16-17 suits an older audience; 13-14 packs more onto one screen.', 'stm-smart-checkout' ),
+				'design.custom_css'                 => __( 'Your own stylesheet for cart and checkout. It is printed after the styles of this plugin and of the add-on, so a rule with the same weight wins. Use it when a theme needs a nudge this screen has no switch for. HTML is removed on saving; nothing here reaches the rest of the shop.', 'stm-smart-checkout' ),
 				'design.logo_url'                   => __( 'The logo in the middle of the checkout header band. Empty = your site title as text, not your site logo — WordPress keeps those in different places and this field is the one the band reads. A wide, flat version works best; it is displayed at up to 46px height.', 'stm-smart-checkout' ),
 			);
 		}

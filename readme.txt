@@ -184,6 +184,9 @@ which would drop them silently instead of on purpose.
 * New settings screen: one navigation with clearly named sections instead of four tabs, compact cards, switches, and a search across every setting. One save covers the whole screen; old links with ?tab= keep working.
 * The layout is picked from small drawings, the colours are grouped by what they colour, and an overview shows the state of the checkout at a glance.
 * Add-ons can bring their own sections through the new filter stmc_admin_sections. Rows of an add-on written for the tabs stay available under Add-on settings.
+* New: your own CSS for cart and checkout, under Design, with WordPress's code editor. It loads after everything else, for themes that need a nudge.
+* Fixed: a fixed header from a theme or another plugin no longer covers the header band and the step indicator. The plugin measures it and starts the page below it.
+* Fixed on block themes: WooCommerce notices, the country field, the line above order items and the height of first and last name are consistent now.
 
 = 0.1.53 =
 * Fixed: on the Checkout block with WooCommerce older than 9.8, the consent box was optional. WooCommerce has no required checkboxes in its additional checkout fields before 9.8, so it showed the box as "(optional)" and accepted orders without the tick. The box now appears on the block from WooCommerce 9.8; the classic checkout is unchanged and still works from WooCommerce 8.3.

@@ -445,5 +445,84 @@
 	}
 	expressDivider();
 
+	/*
+	 * A fixed bar from outside the plugin.
+	 *
+	 * The full-page template keeps wp_body_open, so a site or plugin can still
+	 * print a fixed header into the page. It lies over whatever comes first, on
+	 * woo-shop.de it covered the whole band and cut into the step circles
+	 * (measured 04.11.2026: header bottom 132, steps top 122). Nothing in CSS
+	 * can know the height of a foreign element, so it is measured here.
+	 *
+	 * The room is taken from the actual overlap, not the bar's height: a theme
+	 * that already reserves space for its own header needs nothing from us. The
+	 * bar stays; hiding what a shop put there is the owner's call, through the
+	 * selector list under Advanced.
+	 */
+	function clearForeignBars() {
+		var body = document.body;
+		var first = document.querySelector( '.stmc-band, .stmc-steps' );
+		if ( ! first ) {
+			return;
+		}
+		var admin = document.getElementById( 'wpadminbar' );
+		var start = admin && 'fixed' === getComputedStyle( admin ).position ? admin.offsetHeight : 0;
+		var watched = [];
+		var bottom = start;
+
+		document.querySelectorAll( 'body > *, body > * > *, body > * > * > *' ).forEach( function ( el ) {
+			// Consent tools put their class on <body> too: that is no match.
+			var skip = el.closest( '#wpadminbar, .stmc-band, .stmc-steps, form, [class*="cookie"], [id*="cookie"], [class*="cmplz"]' );
+			if ( skip && skip !== body ) {
+				return;
+			}
+			var style = getComputedStyle( el );
+			if ( 'fixed' !== style.position || 'hidden' === style.visibility || '0' === style.opacity ) {
+				return;
+			}
+			var box = el.getBoundingClientRect();
+			// Parked off screen is not a bar: slide-in carts and search overlays wait there.
+			if ( box.bottom <= start + 1 || box.left >= window.innerWidth || box.right <= 0 ) {
+				return;
+			}
+			if ( box.top <= start + 1 && box.width >= window.innerWidth * 0.6 && box.height >= 30 && box.height <= window.innerHeight * 0.4 ) {
+				watched.push( el );
+				bottom = Math.max( bottom, box.bottom );
+			}
+		} );
+
+		function apply() {
+			var root = document.documentElement;
+			root.style.setProperty( '--stmc-foreign-top', '0px' );
+			body.classList.toggle( 'stmc-has-foreign-top', watched.length > 0 );
+			if ( ! watched.length ) {
+				return;
+			}
+			var edge = start;
+			watched.forEach( function ( el ) {
+				edge = Math.max( edge, el.getBoundingClientRect().bottom );
+			} );
+			var own = document.querySelector( '.stmc-band, .stmc-steps' );
+			var top = own.getBoundingClientRect().top + window.scrollY;
+			// The band is a surface of its own; bare steps need air above them.
+			var air = own.classList.contains( 'stmc-band' ) ? 0 : 16;
+			root.style.setProperty( '--stmc-foreign-top', Math.max( 0, Math.ceil( edge + air - top ) ) + 'px' );
+		}
+
+		apply();
+		window.addEventListener( 'resize', apply );
+		if ( window.ResizeObserver ) {
+			var seen = new ResizeObserver( apply );
+			watched.forEach( function ( el ) {
+				seen.observe( el );
+			} );
+		}
+	}
+	if ( 'complete' === document.readyState ) {
+		clearForeignBars();
+	} else {
+		window.addEventListener( 'load', clearForeignBars );
+	}
+
 	S.log( 'core ready', { blockCheckout: S.isBlockCheckout } );
 } )();

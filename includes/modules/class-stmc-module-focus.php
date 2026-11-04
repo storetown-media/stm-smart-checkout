@@ -152,6 +152,18 @@ class STMC_Module_Focus extends STMC_Module {
 			return;
 		}
 		remove_all_actions( 'storefront_header' );
+		// The sidebar and the page title lead away just like the header does,
+		// and with the sidebar the form sat in 70% of the width.
+		remove_action( 'storefront_sidebar', 'storefront_get_sidebar', 10 );
+		remove_action( 'storefront_page', 'storefront_page_header', 10 );
+		add_filter(
+			'body_class',
+			static function ( $classes ) {
+				$classes[] = 'storefront-full-width-content';
+				return array_values( array_diff( $classes, array( 'right-sidebar', 'left-sidebar' ) ) );
+			},
+			20
+		);
 		remove_action( 'storefront_before_content', 'storefront_header_widget_region', 10 );
 	}
 

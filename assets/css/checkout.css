@@ -45,6 +45,7 @@ body.stmc-focus.stmc-checkout .woocommerce-breadcrumb {
 /* Fullpage template (themes without a server-side adapter): its own quiet
    stage and the legal line that keeps imprint & privacy reachable. */
 body.stmc-fullpage {
+	margin: 0;
 	background: var(--stmc-bg);
 }
 
@@ -84,6 +85,30 @@ body.stmc-fullpage {
 body.stmc-checkout .stmc-band {
 	background: var(--stmc-card);
 	border-bottom: 1px solid var(--stmc-line);
+}
+
+/* A fixed header from outside the plugin (see clearForeignBars() in
+   stmc-checkout.js): the page starts below it, and the band gives up the logo
+   that bar already shows, keeping trust line and login. */
+body.stmc-checkout.stmc-has-foreign-top .stmc-band {
+	margin-top: var(--stmc-foreign-top, 0);
+}
+
+/* On our own element and not on body: such a header usually comes with a script
+   that sets the body's padding itself (measured: ours stayed at 0px). */
+body.stmc-checkout.stmc-has-foreign-top:not(:has(.stmc-band)) .stmc-steps {
+	margin-top: calc(20px + var(--stmc-foreign-top, 0px));
+}
+
+body.stmc-checkout.stmc-has-foreign-top .stmc-band__logo,
+body.stmc-checkout.stmc-has-foreign-top .stmc-band__sitename {
+	display: none;
+}
+
+body.stmc-checkout.stmc-has-foreign-top .stmc-band__in {
+	justify-content: center;
+	padding-top: 7px;
+	padding-bottom: 7px;
 }
 
 /* One line, not three. The band is a header: logo left, the trust signals in
@@ -717,6 +742,11 @@ body.stmc-checkout .select2-container .select2-selection--single {
    which a search for `font-size` declarations will not turn up. */
 body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection__rendered,
 body.stmc-checkout .select2-container .select2-selection__rendered {
+	/* Block themes pad this span as if it were a text input: the value then
+	   sat at the bottom edge of the field, half out of it. */
+	height: 44px;
+	padding-top: 0;
+	padding-bottom: 0;
 	font-size: var(--stmc-fs-base);
 	color: var(--stmc-text);
 	line-height: 44px;
@@ -2538,5 +2568,168 @@ body.stmc-checkout .dhl-preferred-service-item input[type="text"] {
 }
 
 body.stmc-checkout .dhl-hidden {
+	display: none;
+}
+
+/* ---------- Against the theme: rows, notices, the order table ---------- */
+
+/* Block themes give .form-row-first a top padding and .form-row-last a top
+   margin of their own, so first and last name sat 3px apart. Stronger than the
+   grid rules above on purpose; one rhythm for every row of every section. */
+body.stmc-checkout form.checkout .woocommerce-billing-fields__field-wrapper > .form-row,
+body.stmc-checkout form.checkout .woocommerce-shipping-fields__field-wrapper > .form-row,
+body.stmc-checkout form.checkout .woocommerce-additional-fields__field-wrapper > .form-row {
+	margin: 0 0 10px;
+	padding: 0;
+}
+
+/* Some themes fix the select2 box at their own height while the value keeps
+   its 44px: on OceanWP it hung out of a 40px box. */
+body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection--single {
+	height: 46px;
+	padding: 0;
+}
+
+body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection__arrow {
+	top: 0;
+	height: 44px;
+}
+
+/* The left inset belongs to the value, not the box: themes put it on either
+   one, and without it the country sat flush against the border on Basel. */
+body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection--single .select2-selection__rendered {
+	padding-right: 28px;
+	padding-left: 14px;
+}
+
+/* WooCommerce's notices rely on its own stylesheet, which block themes do not
+   load the same way: the icon stood on a line of its own above the text, the
+   added-to-cart notice in a black frame. One quiet form on every theme. */
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-message,
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-info,
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-error,
+body.stmc-checkout .woocommerce-NoticeGroup > .woocommerce-error,
+body.stmc-checkout .woocommerce-form-coupon-toggle > .woocommerce-info {
+	position: relative;
+	display: block;
+	margin: 0 0 12px;
+	padding: 10px 14px 10px 40px;
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius-s);
+	outline: 0;
+	background: var(--stmc-card);
+	box-shadow: none;
+	color: var(--stmc-text);
+	font-size: var(--stmc-fs-s);
+	line-height: 1.5;
+	list-style: none;
+}
+
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-message::before,
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-info::before,
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-error::before,
+body.stmc-checkout .woocommerce-NoticeGroup > .woocommerce-error::before,
+body.stmc-checkout .woocommerce-form-coupon-toggle > .woocommerce-info::before {
+	position: absolute;
+	top: 10px;
+	left: 14px;
+	display: block;
+	width: 18px;
+	height: 20px;
+	margin: 0;
+	color: var(--stmc-muted);
+	font-size: 16px;
+	line-height: 20px;
+}
+
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-error,
+body.stmc-checkout .woocommerce-NoticeGroup > .woocommerce-error {
+	border-color: var(--stmc-danger);
+}
+
+body.stmc-checkout .woocommerce-notices-wrapper > .woocommerce-error li,
+body.stmc-checkout .woocommerce-NoticeGroup > .woocommerce-error li {
+	margin: 0 0 2px;
+	padding: 0;
+	list-style: none;
+}
+
+body.stmc-checkout .woocommerce-notices-wrapper a,
+body.stmc-checkout .woocommerce-form-coupon-toggle a {
+	color: var(--stmc-title);
+}
+
+/* On block themes WooCommerce prints the same notices as block banners, even
+   on the classic checkout, while the stylesheet for them stays away: the icon
+   took a line of its own and the focused banner got a black frame. */
+body.stmc-checkout .wc-block-components-notice-banner {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	margin: 0 0 12px;
+	padding: 10px 14px;
+	border: 1px solid var(--stmc-line);
+	border-radius: var(--stmc-radius-s);
+	outline: 0;
+	background: var(--stmc-card);
+	box-shadow: none;
+	color: var(--stmc-text);
+	font-size: var(--stmc-fs-s);
+	line-height: 1.5;
+}
+
+body.stmc-checkout .wc-block-components-notice-banner > svg {
+	flex: none;
+	width: 18px;
+	height: 18px;
+	margin: 1px 0 0;
+	color: var(--stmc-muted);
+	fill: currentColor;
+}
+
+body.stmc-checkout .wc-block-components-notice-banner.is-success > svg {
+	color: var(--stmc-good);
+}
+
+body.stmc-checkout .wc-block-components-notice-banner.is-error {
+	border-color: var(--stmc-danger);
+}
+
+body.stmc-checkout .wc-block-components-notice-banner.is-error > svg {
+	color: var(--stmc-danger);
+}
+
+body.stmc-checkout .wc-block-components-notice-banner__content {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+body.stmc-checkout .wc-block-components-notice-banner ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body.stmc-checkout .wc-block-components-notice-banner a {
+	color: var(--stmc-title);
+}
+
+/* Germanized prints its asterisk as the last child of a flex label: it ended up
+   alone at the far right. The box is required either way, and says so when
+   left unticked. */
+body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label > .required,
+body.stmc-checkout .wc-gzd-checkbox-placeholder label > .required {
+	display: none;
+}
+
+/* The line above each item belongs to the row. On the cells it broke in two
+   wherever the row has a gap between them. */
+body.stmc-checkout .woocommerce-checkout-review-order-table .cart_item > td {
+	border-top: 0;
+}
+
+/* Storefront keeps the empty header element once its actions are gone: a white
+   strip with a margin between the steps and the form. */
+body.stmc-checkout.theme-storefront #masthead {
 	display: none;
 }

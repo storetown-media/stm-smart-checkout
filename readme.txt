@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.52
+Stable tag: 0.1.53
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,7 @@ Install it, switch on preview mode, and look at your own checkout the way a cust
 = Four things that set it apart =
 
 * **It stands down instead of fighting.** Before it prints a consent box, a button label or a VAT line, it asks the *rendered* checkout whether another plugin is already printing one — not whether one happens to be installed. That is why it can run alongside WooCommerce Germanized and German Market without the duplicate texts shops usually get.
-* **The German and EU legal essentials are built in.** Run it with no legal plugin at all and the checkout is still complete: § 312j BGB button wording, consent with the exact text stored on the order, VAT statement, delivery time per item, the mandatory notice above the buy button.
+* **The German and EU legal essentials are built in.** Run it with no legal plugin at all and the checkout is still complete (on the Checkout block with WooCommerce 9.8 or newer): § 312j BGB button wording, consent with the exact text stored on the order, VAT statement, delivery time per item, the mandatory notice above the buy button.
 * **Postcode autofill for Germany, Austria and Switzerland — with the databases inside the plugin.** Type the postcode, the city fills itself. No external service, no API key, no customer address ever leaves your server.
 * **Nothing phones home.** No external fonts, no tracking, no remote requests. HPOS compatible.
 
@@ -35,7 +35,7 @@ Install it, switch on preview mode, and look at your own checkout the way a cust
 
 * **Field manager with instant validation**, tidied field pairs (first and last name, postcode and city), state corrections, and the right touch keyboard on every mobile field.
 * **Legal texts open in an overlay** — customers read your terms without leaving the checkout.
-* **A server-side safety net** re-checks every required consent box after submit. A request without the tick is refused, not merely hidden.
+* **A server-side safety net** re-checks every required consent box after submit. A request without the tick is refused, not merely hidden. On the Checkout block this needs WooCommerce 9.8 or newer.
 * **Delivery time under every product**, in cart and checkout, taken from the most specific source that knows one.
 
 = Works with your stack, not around it =
@@ -116,7 +116,7 @@ Pro setzt dieses kostenlose Plugin voraus: [STM Smart Checkout Pro für WooComme
 
 = Does this work with the block-based checkout? =
 
-In part, and the plugin says exactly which part. Everything around the form works on the Cart and Checkout blocks: the full-page template, the trust header band, the step indicator, the legal footer line and the design tokens on the button, the fields and the order summary. Inside the form, the pieces that matter under German law are there as well: a required consent box for terms and cancellation policy that WooCommerce validates on the server — a request without the tick is refused — and writes onto the order together with the exact wording; the mandatory notice from your settings and the links to both texts one line above the buy button, the links opening in the same overlay as on the classic checkout; the buy button label from your settings; and the delivery time under each line item, in the cart block and in the order summary, resolved from the same sources as on the classic checkout. Also on the blocks since 0.1.47: the trust row under the buy button and the reassurance note under the consent box, in the same markup and the same stylesheet the classic checkout uses. Also on the blocks since 0.1.48: the switches for the coupon prompt and the order-notes field — the block checkout already folds both away behind a single line, so the separate "expandable line" setting for the notes has nothing left to do there. Not yet on the blocks: the column layouts and the field manager with its postcode autofill. The settings screen lists this, and the one-click switch to the classic cart and checkout remains for shops that want all of it today — the block markup is kept, so the way back is one click as well.
+In part, and the plugin says exactly which part. Everything around the form works on the Cart and Checkout blocks: the full-page template, the trust header band, the step indicator, the legal footer line and the design tokens on the button, the fields and the order summary. Inside the form, the pieces that matter under German law are there as well: a required consent box for terms and cancellation policy that WooCommerce validates on the server — a request without the tick is refused — and writes onto the order together with the exact wording; on the block checkout this consent box needs WooCommerce 9.8 or newer, the first version with required checkboxes in its additional checkout fields. On older versions the plugin leaves WooCommerce's own terms text or checkbox in place, in place of its notice and links above the buy button; the server does not check it, and the settings screen says so; the mandatory notice from your settings and the links to both texts one line above the buy button, the links opening in the same overlay as on the classic checkout; the buy button label from your settings; and the delivery time under each line item, in the cart block and in the order summary, resolved from the same sources as on the classic checkout. Also on the blocks since 0.1.47: the trust row under the buy button and the reassurance note under the consent box, in the same markup and the same stylesheet the classic checkout uses. Also on the blocks since 0.1.48: the switches for the coupon prompt and the order-notes field — the block checkout already folds both away behind a single line, so the separate "expandable line" setting for the notes has nothing left to do there. Not yet on the blocks: the column layouts and the field manager with its postcode autofill. The settings screen lists this, and the one-click switch to the classic cart and checkout remains for shops that want all of it today — the block markup is kept, so the way back is one click as well.
 
 = Does it work with WooCommerce Germanized / German Market? =
 
@@ -179,6 +179,11 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.53 =
+* Fixed: on the Checkout block with WooCommerce older than 9.8, the consent box was optional. WooCommerce has no required checkboxes in its additional checkout fields before 9.8, so it showed the box as "(optional)" and accepted orders without the tick. The box now appears on the block from WooCommerce 9.8; the classic checkout is unchanged and still works from WooCommerce 8.3.
+* Fixed: on those older versions the plugin also took away WooCommerce's own terms text and checkbox. They now stay in place, instead of the plugin's notice and links above the buy button. The server does not check them there, and the settings screen says so and names the options: update WooCommerce, or switch to the classic checkout.
+* Fixed: field hints at the checkout are readable again. On themes that keep WooCommerce's blue tooltip style, grey text sat on a blue box.
 
 = 0.1.52 =
 * Fixed: with the plugin's own consent box in charge, every order was rejected with "Please read and accept the terms and conditions to proceed with your order" as soon as a WooCommerce terms page was set — no matter what the customer ticked. The consent box takes the place of WooCommerce's own terms checkbox, but the server-side check still demanded that checkbox, which was never on the page. Reported by a customer of a live shop on 12.10.2026.

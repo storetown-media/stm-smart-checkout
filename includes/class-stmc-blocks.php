@@ -33,9 +33,12 @@
  * through the Store API — a REST request where is_checkout() is false and the
  * field must already be registered for the order to validate and persist.
  *
- * On WooCommerce older than the additional-fields API this class does nothing
- * and the classic checkout keeps working unchanged; the plugin's minimum
- * WooCommerce version stays where it is.
+ * The consent box needs WooCommerce 9.8: older versions have no required
+ * checkboxes in the additional-fields API, turn ours into an optional one and
+ * let the order through without the tick (measured on 8.9.0 and 9.7.3). Below
+ * that version this class leaves WooCommerce's own terms text or checkbox in
+ * place, and the settings screen says so. The classic checkout keeps working
+ * unchanged; the plugin's minimum WooCommerce version stays where it is.
  *
  * @package STM_Smart_Checkout
  */
@@ -46,6 +49,9 @@ class STMC_Blocks {
 
 	/** The additional checkout field carrying the consent tick. */
 	const CONSENT_FIELD = 'stm-smart-checkout/consent';
+
+	/** First WooCommerce with required checkboxes in its additional checkout fields. */
+	const CONSENT_MIN_WC = '9.8';
 
 	public static function init() {
 		add_action( 'woocommerce_init', array( __CLASS__, 'register_fields' ) );
@@ -396,6 +402,15 @@ class STMC_Blocks {
 	}
 
 	/**
+	 * Whether this WooCommerce can require a checkbox on the Checkout block.
+	 *
+	 * @return bool
+	 */
+	public static function consent_supported() {
+		return defined( 'WC_VERSION' ) && version_compare( WC_VERSION, self::CONSENT_MIN_WC, '>=' );
+	}
+
+	/**
 	 * Same three-way switch as the classic consent box: off, on, or automatic.
 	 * Automatic asks whether a legal plugin delivers consent — by hook, never
 	 * by presence (see STMC_Module_Legal::legal_plugin_renders_consent()). On a
@@ -404,6 +419,9 @@ class STMC_Blocks {
 	 * filter names a plugin that draws its own box inside the block.
 	 */
 	private static function consent_wanted() {
+		if ( ! self::consent_supported() ) {
+			return false;
+		}
 		$mode = (string) STMC_Settings::get( 'legal.consent' );
 		if ( 'off' === $mode ) {
 			return false;

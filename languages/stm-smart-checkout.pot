@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: STM Smart Checkout 0.1.52\n"
+"Project-Id-Version: STM Smart Checkout 0.1.53\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-10-12 11:55+0000\n"
+"POT-Creation-Date: 2026-11-04 12:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Domain: stm-smart-checkout\n"
 
 #: includes/class-stmc-admin.php:69
-#: includes/class-stmc-blocks.php:102
+#: includes/class-stmc-blocks.php:108
 msgid "Delivery time"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgid "Design"
 msgstr ""
 
 #: includes/class-stmc-admin.php:333
-#: includes/class-stmc-block-checkout.php:238
+#: includes/class-stmc-block-checkout.php:253
 msgid "STM Smart Checkout"
 msgstr ""
 
@@ -798,47 +798,56 @@ msgstr ""
 
 #. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
 #: includes/class-stmc-block-checkout.php:168
-msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label, the delivery time under each item, the trust row under the buy button, the reassurance note under the consent box, and the two switches for the coupon prompt and the order-notes field. The block checkout folds both away behind a single line on its own, so the separate \"expandable line\" setting for the notes changes nothing here. Not yet on the blocks: the column layouts and the field manager with its postcode autofill."
+msgid "These pages render WooCommerce's Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation and the notice and the links to the legal texts above the buy button (both WooCommerce 9.8 or newer), the buy button label, the delivery time under each item, the trust row under the buy button, the reassurance note under the consent box, and the two switches for the coupon prompt and the order-notes field. The block checkout folds both away behind a single line on its own, so the separate \"expandable line\" setting for the notes changes nothing here. Not yet on the blocks: the column layouts and the field manager with its postcode autofill."
 msgstr ""
 
 #: includes/class-stmc-block-checkout.php:173
 msgid "That includes your checkout page: the settings for the pieces listed as not yet on the blocks will not change what your customers see there."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:177
+#. translators: 1: installed WooCommerce version, 2: required WooCommerce version.
+#: includes/class-stmc-block-checkout.php:182
+msgid "No required consent box on your Checkout block: WooCommerce %1$s cannot require a checkbox there, this needs WooCommerce %2$s or newer."
+msgstr ""
+
+#: includes/class-stmc-block-checkout.php:188
+msgid "Until then, WooCommerce's own terms text or checkbox stays in place of the notice and the links, and the server does not check it. Update WooCommerce, or switch to the classic checkout."
+msgstr ""
+
+#: includes/class-stmc-block-checkout.php:192
 msgid "WooCommerce ships both variants and supports both. A shop that wants every feature today switches these pages to the classic cart and checkout in one click — the block markup is kept, so you can put it back just as quickly."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:180
+#: includes/class-stmc-block-checkout.php:195
 msgid "Switch these pages to the classic checkout"
 msgstr ""
 
 #. translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout".
-#: includes/class-stmc-block-checkout.php:202
+#: includes/class-stmc-block-checkout.php:217
 msgid "Switched to the classic cart and checkout by this plugin: %s. The block version is saved and can be restored."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:206
+#: includes/class-stmc-block-checkout.php:221
 msgid "Restore the blocks"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:239
+#: includes/class-stmc-block-checkout.php:254
 msgid "your cart and checkout are built from WooCommerce blocks. The plugin dresses them and adds the required consent box, but its layouts and field manager work on the classic pages only; it can switch those pages over for you — reversibly."
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:240
+#: includes/class-stmc-block-checkout.php:255
 msgid "Show me"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:241
+#: includes/class-stmc-block-checkout.php:256
 msgid "Hide this notice"
 msgstr ""
 
-#: includes/class-stmc-block-checkout.php:312
+#: includes/class-stmc-block-checkout.php:327
 msgid "You are not allowed to change the checkout pages."
 msgstr ""
 
-#: includes/class-stmc-blocks.php:341
+#: includes/class-stmc-blocks.php:347
 msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
 msgstr ""
 

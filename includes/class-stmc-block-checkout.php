@@ -165,7 +165,7 @@ class STMC_Block_Checkout {
 					<?php
 					printf(
 						/* translators: %s: comma-separated list of page titles, e.g. "Cart, Checkout". */
-						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation, the notice and the links to the legal texts above the buy button, the buy button label, the delivery time under each item, the trust row under the buy button, the reassurance note under the consent box, and the two switches for the coupon prompt and the order-notes field. The block checkout folds both away behind a single line on its own, so the separate "expandable line" setting for the notes changes nothing here. Not yet on the blocks: the column layouts and the field manager with its postcode autofill.', 'stm-smart-checkout' ),
+						esc_html__( 'These pages render WooCommerce\'s Cart and Checkout blocks: %s. On them, Smart Checkout delivers the shell around the form, the design tokens, the required consent box with server-side validation and the notice and the links to the legal texts above the buy button (both WooCommerce 9.8 or newer), the buy button label, the delivery time under each item, the trust row under the buy button, the reassurance note under the consent box, and the two switches for the coupon prompt and the order-notes field. The block checkout folds both away behind a single line on its own, so the separate "expandable line" setting for the notes changes nothing here. Not yet on the blocks: the column layouts and the field manager with its postcode autofill.', 'stm-smart-checkout' ),
 						esc_html( self::titles( $blocks ) )
 					);
 					?>
@@ -173,6 +173,21 @@ class STMC_Block_Checkout {
 						<?php esc_html_e( 'That includes your checkout page: the settings for the pieces listed as not yet on the blocks will not change what your customers see there.', 'stm-smart-checkout' ); ?>
 					<?php endif; ?>
 				</p>
+				<?php if ( $checkout_affected && ! STMC_Blocks::consent_supported() && 'off' !== STMC_Settings::get( 'legal.consent' ) ) : ?>
+					<p>
+						<strong>
+							<?php
+							printf(
+								/* translators: 1: installed WooCommerce version, 2: required WooCommerce version. */
+								esc_html__( 'No required consent box on your Checkout block: WooCommerce %1$s cannot require a checkbox there, this needs WooCommerce %2$s or newer.', 'stm-smart-checkout' ),
+								esc_html( WC_VERSION ),
+								esc_html( STMC_Blocks::CONSENT_MIN_WC )
+							);
+							?>
+						</strong>
+						<?php esc_html_e( 'Until then, WooCommerce\'s own terms text or checkbox stays in place of the notice and the links, and the server does not check it. Update WooCommerce, or switch to the classic checkout.', 'stm-smart-checkout' ); ?>
+					</p>
+				<?php endif; ?>
 				<p>
 					<?php esc_html_e( 'WooCommerce ships both variants and supports both. A shop that wants every feature today switches these pages to the classic cart and checkout in one click — the block markup is kept, so you can put it back just as quickly.', 'stm-smart-checkout' ); ?>
 				</p>

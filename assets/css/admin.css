@@ -4,27 +4,541 @@
  * Lives in a file rather than a <style> block in the page: wp.org guideline
  * "use wp_enqueue" — and a file is cached, versioned and overridable from a
  * child theme, which an inline block never is.
+ *
+ * A working tool, not a landing page: flat surfaces, hairlines, one strong
+ * colour for "you are here", and the type doing the rest.
  */
 
-.stmc-settings .form-table th {
-	position: relative;
+.stmc-settings {
+	--stmc-a-ink: #16265c;
+	--stmc-a-text: #2b3550;
+	--stmc-a-muted: #5b6474;
+	--stmc-a-line: #dde2ec;
+	--stmc-a-soft: #f4f6fa;
+	--stmc-a-accent: #1d4ed8;
+	margin: 0 20px 0 0;
+	color: var(--stmc-a-text);
 }
+
+.stmc-settings *,
+.stmc-settings *::before,
+.stmc-settings *::after {
+	box-sizing: border-box;
+}
+
+.stmc-settings [hidden] {
+	display: none;
+}
+
+/* Top bar */
+
+.stmc-top {
+	position: sticky;
+	top: 32px;
+	z-index: 30;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px 24px;
+	margin: 0 -20px 16px;
+	padding: 12px 20px;
+	border-bottom: 1px solid var(--stmc-a-line);
+	background: #f0f0f1;
+}
+
+.stmc-top h1 {
+	margin: 0;
+	padding: 0;
+	color: var(--stmc-a-ink);
+	font-size: 21px;
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.stmc-state {
+	margin: 2px 0 0;
+	color: var(--stmc-a-muted);
+	font-size: 12px;
+}
+
+.stmc-state::before {
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	margin-right: 6px;
+	border-radius: 50%;
+	background: #9aa3b5;
+	content: "";
+	vertical-align: 1px;
+}
+
+.stmc-state.is-on::before {
+	background: #1a7f37;
+}
+
+.stmc-top__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.stmc-saved {
+	margin-right: 6px;
+	color: var(--stmc-a-muted);
+	font-size: 12px;
+}
+
+.stmc-saved:empty {
+	display: none;
+}
+
+.stmc-saved.is-dirty {
+	color: #8a5a00;
+}
+
+.stmc-settings > .notice {
+	margin: 0 0 14px;
+}
+
+/* Navigation and panels */
+
+.stmc-shell {
+	display: grid;
+	grid-template-columns: 208px minmax(0, 1fr);
+	gap: 28px;
+	align-items: start;
+}
+
+.stmc-nav {
+	position: sticky;
+	top: 104px;
+	max-height: calc(100vh - 120px);
+	overflow-y: auto;
+}
+
+.stmc-search {
+	width: 100%;
+	min-height: 32px;
+	margin: 0 0 10px;
+	padding: 4px 8px;
+	border: 1px solid #c3cad8;
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+.stmc-nav h2 {
+	margin: 16px 0 3px;
+	padding: 0 10px;
+	color: var(--stmc-a-muted);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	line-height: 1.5;
+	text-transform: uppercase;
+}
+
+.stmc-nav ul {
+	margin: 0;
+}
+
+.stmc-nav li {
+	margin: 0;
+}
+
+.stmc-nav a {
+	display: block;
+	padding: 5px 10px;
+	border-left: 2px solid transparent;
+	color: var(--stmc-a-text);
+	font-size: 13px;
+	line-height: 1.4;
+	text-decoration: none;
+}
+
+.stmc-nav a:hover {
+	color: var(--stmc-a-ink);
+	background: #e6e9ef;
+}
+
+.stmc-nav a:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.stmc-nav a:focus-visible {
+	outline: 2px solid var(--stmc-a-accent);
+	outline-offset: -2px;
+}
+
+.stmc-nav a.is-current {
+	border-left-color: var(--stmc-a-accent);
+	color: var(--stmc-a-ink);
+	font-weight: 600;
+}
+
+.stmc-panels {
+	min-width: 0;
+	max-width: 920px;
+}
+
+/* The field editor needs the room. */
+.stmc-panels:has(#stmc-panel-editor:not([hidden])) {
+	max-width: none;
+}
+
+.stmc-panel__title {
+	margin: 2px 0 2px;
+	padding: 0;
+	color: var(--stmc-a-ink);
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.stmc-panel__intro {
+	margin: 0 0 14px;
+	color: var(--stmc-a-muted);
+	font-size: 13px;
+}
+
+.stmc-noresult {
+	color: var(--stmc-a-muted);
+	font-size: 13px;
+}
+
+.stmc-settings.is-searching .stmc-panel {
+	margin-bottom: 24px;
+}
+
+.stmc-settings.is-searching .stmc-panel__intro {
+	display: none;
+}
+
+/* Cards */
+
+.stmc-card {
+	margin: 0 0 14px;
+	border: 1px solid var(--stmc-a-line);
+	border-radius: 3px;
+	background: #fff;
+}
+
+.stmc-card > header,
+.stmc-card > summary {
+	padding: 10px 16px;
+	border-bottom: 1px solid var(--stmc-a-line);
+}
+
+.stmc-card > summary {
+	cursor: pointer;
+}
+
+details.stmc-card:not([open]) > summary {
+	border-bottom: 0;
+}
+
+.stmc-card__title {
+	margin: 0;
+	color: var(--stmc-a-ink);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.stmc-card__desc {
+	display: block;
+	margin: 1px 0 0;
+	color: var(--stmc-a-muted);
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.45;
+}
+
+.stmc-rows,
+.stmc-rows > tbody {
+	display: block;
+	width: 100%;
+}
+
+.stmc-rows > tbody > tr {
+	display: grid;
+	grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+	gap: 6px 24px;
+	align-items: start;
+	padding: 10px 16px;
+	border-top: 1px solid var(--stmc-a-soft);
+}
+
+.stmc-rows > tbody > tr:first-child {
+	border-top: 0;
+}
+
+.stmc-rows > tbody > tr[hidden] {
+	display: none;
+}
+
+.stmc-rows > tbody > tr > th,
+.stmc-rows > tbody > tr > td {
+	display: block;
+	position: relative;
+	width: auto;
+	padding: 0;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.45;
+	text-align: left;
+}
+
+.stmc-rows > tbody > tr > th {
+	color: var(--stmc-a-ink);
+	font-weight: 500;
+}
+
+.stmc-rows > tbody > tr > th[colspan],
+.stmc-rows > tbody > tr > td[colspan] {
+	grid-column: 1 / -1;
+}
+
+.stmc-rows .description {
+	margin: 2px 0 0;
+	color: var(--stmc-a-muted);
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.45;
+}
+
+.stmc-rows input[type="text"],
+.stmc-rows input[type="url"],
+.stmc-rows input[type="email"],
+.stmc-rows textarea,
+.stmc-rows > tbody > tr > td > select {
+	width: 100%;
+	max-width: 100%;
+	min-height: 32px;
+	padding: 4px 8px;
+	border: 1px solid #c3cad8;
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+.stmc-rows select[multiple] {
+	padding: 2px;
+}
+
+.stmc-rows input[type="number"] {
+	width: 90px;
+	min-height: 32px;
+	border: 1px solid #c3cad8;
+	border-radius: 3px;
+}
+
+.stmc-rows input:focus,
+.stmc-rows textarea:focus,
+.stmc-rows select:focus {
+	border-color: var(--stmc-a-accent);
+	outline: 1px solid var(--stmc-a-accent);
+	box-shadow: none;
+}
+
+/* A row with a switch: text left, switch at the far right. */
+
+.stmc-rows > tbody > tr.stmc-row--switch {
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+/* Tables and pickers need the whole width. */
+
+.stmc-rows > tbody > tr.stmc-row--stack,
+.stmc-rows > tbody > tr:has(table.widefat) {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.stmc-rows table.widefat {
+	max-width: none;
+	border-color: var(--stmc-a-line);
+	box-shadow: none;
+}
+
+.stmc-switch {
+	position: relative;
+	display: inline-block;
+	width: 34px;
+	height: 18px;
+	margin-top: 1px;
+}
+
+.stmc-switch input {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	background: none;
+	box-shadow: none;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.stmc-switch span {
+	position: absolute;
+	inset: 0;
+	border-radius: 3px;
+	background: #c3cad8;
+	pointer-events: none;
+	transition: background-color 0.12s linear;
+}
+
+.stmc-switch span::after {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 14px;
+	height: 14px;
+	border-radius: 2px;
+	background: #fff;
+	content: "";
+	transition: transform 0.12s linear;
+}
+
+.stmc-switch input:checked + span {
+	background: var(--stmc-a-ink);
+}
+
+.stmc-switch input:checked + span::after {
+	transform: translateX(16px);
+}
+
+.stmc-switch input:focus-visible + span {
+	outline: 2px solid var(--stmc-a-accent);
+	outline-offset: 2px;
+}
+
+/* Overview */
+
+.stmc-rows > tbody > tr.stmc-row--glance > td {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+/* Colours: two to a row. */
+
+.stmc-rows--colors > tbody {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.stmc-rows--colors > tbody > tr {
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	border-top: 0;
+	border-bottom: 1px solid var(--stmc-a-soft);
+}
+
+.stmc-rows--colors > tbody > tr > td {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.stmc-rows input[type="color"] {
+	width: 30px;
+	height: 24px;
+	padding: 1px;
+	border: 1px solid #c3cad8;
+	border-radius: 3px;
+	background: #fff;
+	cursor: pointer;
+}
+
+.stmc-rows--colors code {
+	padding: 0;
+	background: none;
+	color: var(--stmc-a-muted);
+	font-size: 11px;
+}
+
+/* Layout picker */
+
+.stmc-layouts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 10px;
+}
+
+.stmc-layout {
+	display: block;
+	padding: 10px;
+	border: 1px solid var(--stmc-a-line);
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.stmc-layout:hover {
+	border-color: #9aa3b5;
+}
+
+.stmc-layout:has(input:checked) {
+	border-color: var(--stmc-a-accent);
+	box-shadow: inset 0 0 0 1px var(--stmc-a-accent);
+}
+
+.stmc-layout:has(input:focus-visible) {
+	outline: 2px solid var(--stmc-a-accent);
+	outline-offset: 1px;
+}
+
+.stmc-layout input {
+	position: absolute;
+	opacity: 0;
+}
+
+.stmc-layout__art {
+	display: flex;
+	gap: 4px;
+	height: 44px;
+	margin-bottom: 7px;
+}
+
+.stmc-layout__art i {
+	flex: 1 1 0;
+	border-radius: 2px;
+	background: var(--stmc-a-line);
+}
+
+.stmc-layout:has(input:checked) .stmc-layout__art i {
+	background: #b7c6ee;
+}
+
+.stmc-layout__name {
+	display: block;
+	color: var(--stmc-a-text);
+	font-size: 12px;
+	line-height: 1.35;
+}
+
+/* Help bubbles */
 
 .stmc-help {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 18px;
-	height: 18px;
-	margin-left: 6px;
+	width: 15px;
+	height: 15px;
+	margin-left: 4px;
 	padding: 0;
-	vertical-align: text-bottom;
+	vertical-align: 0;
 	background: #fff;
-	border: 1.5px solid #a7aaad;
+	border: 1px solid #b4bccb;
 	border-radius: 50%;
-	color: #646970;
-	font-size: 11px;
-	font-weight: 700;
+	color: var(--stmc-a-muted);
+	font-size: 10px;
+	font-weight: 600;
 	line-height: 1;
 	cursor: help;
 }
@@ -32,32 +546,31 @@
 .stmc-help:hover,
 .stmc-help:focus,
 .stmc-help.is-open {
-	border-color: #2271b1;
-	color: #2271b1;
+	border-color: var(--stmc-a-accent);
+	color: var(--stmc-a-accent);
 	outline: none;
 }
 
 .stmc-help.is-open {
-	background: #2271b1;
+	background: var(--stmc-a-accent);
 	color: #fff;
 }
 
 .stmc-help__pop {
 	display: none;
 	position: absolute;
-	z-index: 20;
-	top: calc(100% - 8px);
+	z-index: 40;
+	top: 22px;
 	left: 0;
 	width: 340px;
 	max-width: 70vw;
-	padding: 12px 15px;
-	background: #1d2327;
-	border-radius: 8px;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
-	color: #f0f0f1;
-	font-size: 12.5px;
+	padding: 10px 13px;
+	background: var(--stmc-a-ink);
+	border-radius: 3px;
+	color: #f0f2f7;
+	font-size: 12px;
 	font-weight: 400;
-	line-height: 1.55;
+	line-height: 1.5;
 }
 
 .stmc-help:hover + .stmc-help__pop,
@@ -66,8 +579,18 @@
 	display: block;
 }
 
+/* Panels of the add-on that bring their own markup. */
+
+.stmc-panel .wrap {
+	margin: 0;
+}
+
+.stmc-panel .wrap > h1 {
+	display: none;
+}
+
 /* ---------------------------------------------------------------------------
- * Upgrade-Reiter.
+ * Upgrade-Bereich.
  *
  * Hier und nicht inline: ein <style>-Element im Einstellungsbildschirm war
  * Befund 1 der wp.org-Pruefung vom 31.08.2026. Diese Datei haengt ohnehin
@@ -77,13 +600,9 @@
  * wie WordPress aussehen und nicht wie eine Anzeige. Nur Raster und Abstand.
  * ------------------------------------------------------------------------ */
 
-.stmc-pro {
-	max-width: 62rem;
-}
-
 .stmc-pro__lead {
 	font-size: 14px;
-	margin: 1.2em 0 1.6em;
+	margin: 0 0 1.4em;
 	max-width: 46rem;
 }
 
@@ -96,7 +615,7 @@
 .stmc-pro__item {
 	background: #fff;
 	border: 1px solid #dcdcde;
-	border-radius: 4px;
+	border-radius: 3px;
 	padding: 1rem 1.1rem;
 }
 
@@ -114,4 +633,65 @@
 
 .stmc-pro__cta {
 	margin: 1.8em 0 .6em;
+}
+
+/* Narrow screens */
+
+@media (max-width: 960px) {
+	.stmc-shell {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 14px;
+	}
+
+	.stmc-nav {
+		position: static;
+		max-height: none;
+		padding: 10px;
+		border: 1px solid var(--stmc-a-line);
+		border-radius: 3px;
+		background: #fff;
+	}
+
+	.stmc-nav ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px 4px;
+	}
+
+	.stmc-nav h2 {
+		margin-top: 10px;
+	}
+
+	.stmc-nav a {
+		border-left: 0;
+		border-bottom: 2px solid transparent;
+	}
+
+	.stmc-nav a.is-current {
+		border-bottom-color: var(--stmc-a-accent);
+	}
+}
+
+@media (max-width: 782px) {
+	.stmc-settings {
+		margin-right: 10px;
+	}
+
+	.stmc-top {
+		position: static;
+		margin: 0 -10px 12px;
+		padding: 12px 10px;
+	}
+
+	.stmc-rows > tbody > tr:not(.stmc-row--switch) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.stmc-rows--colors > tbody {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.stmc-rows--colors > tbody > tr:not(.stmc-row--switch) {
+		grid-template-columns: minmax(0, 1fr) auto;
+	}
 }

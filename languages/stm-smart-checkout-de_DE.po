@@ -52,9 +52,6 @@ msgstr "Logo-URL für die Kasse"
 msgid "Close"
 msgstr "Schließen"
 
-msgid "Configure the checkout, then use preview mode to review it on the live site before enabling it for customers."
-msgstr "Konfiguriere die Kasse und prüfe sie im Vorschau-Modus auf der Live-Website, bevor du sie für Kunden aktivierst."
-
 msgid "Confirmation"
 msgstr "Bestätigung"
 
@@ -91,9 +88,6 @@ msgstr "Zusätzlich auszublendende CSS-Selektoren (fortgeschritten)"
 msgid "Fixes the duplicate \"Land\" label for IE/GB/HU in German shops."
 msgstr "Behebt die doppelte Beschriftung „Land“ bei IE/GB/HU in deutschen Shops."
 
-msgid "General"
-msgstr "Allgemein"
-
 msgid "Heading color"
 msgstr "Überschriftfarbe"
 
@@ -111,21 +105,6 @@ msgstr "Wird geladen &hellip;"
 
 msgid "Log in"
 msgstr "Anmelden"
-
-msgid "Module: distraction-free mode"
-msgstr "Modul: Ablenkungsfreier Modus"
-
-msgid "Module: field improvements"
-msgstr "Modul: Feld-Verbesserungen"
-
-msgid "Module: header band & progress"
-msgstr "Modul: Kopfband & Fortschritt"
-
-msgid "Module: layout extras"
-msgstr "Modul: Layout-Extras"
-
-msgid "Module: trust elements"
-msgstr "Modul: Vertrauens-Elemente"
 
 msgid "Off = the standard checkout renders for customers. Preview mode works regardless of this switch."
 msgstr "Aus = Kunden sehen die Standard-Kasse. Der Vorschau-Modus funktioniert unabhängig von diesem Schalter."
@@ -268,9 +247,6 @@ msgstr "Pflicht-Checkboxen serverseitig prüfen"
 msgid "What happens when I create an account?"
 msgstr "Was passiert beim Erstellen eines Kontos?"
 
-msgid "Yes"
-msgstr "Ja"
-
 msgid "You will receive a link to set your password by email."
 msgstr "Den Link zum Festlegen deines Passworts erhältst du per E-Mail."
 
@@ -321,9 +297,6 @@ msgstr "Plus/Minus-Regler neben jedem Produkt in der Bestellübersicht: Kunden k
 msgid "The \"Have a coupon?\" prompt above the checkout. Off = the prompt disappears entirely — recommended when you do not issue coupons, because an empty coupon field makes customers leave to hunt for codes."
 msgstr "Der „Hast du einen Gutschein?“-Hinweis über der Kasse. Aus = der Hinweis verschwindet komplett — empfohlen, wenn du keine Gutscheine ausgibst, denn ein leeres Gutscheinfeld schickt Kunden auf Code-Jagd."
 
-msgid "Distraction-free: full-page template"
-msgstr "Ablenkungsfrei: Vollseiten-Vorlage"
-
 msgid "Automatic — on themes without a built-in adapter"
 msgstr "Automatisch — bei Themes ohne eingebauten Adapter"
 
@@ -366,17 +339,17 @@ msgstr "Das Bestellhinweise-Feld unter „Zusätzliche Informationen“. Aus = d
 msgid "The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing."
 msgstr "Der Hauptschalter. An = Kunden sehen den Smart Checkout auf Warenkorb und Kasse. Aus = Kunden behalten die Standard-Kasse, während du in Ruhe konfigurierst. Der Vorschau-Link oben funktioniert in beiden Zuständen — du prüfst jede Änderung auf der Live-Website, ohne dass ein Kunde etwas bemerkt."
 
-msgid "The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the \"Already a customer?\" login pill and the cart → checkout → confirmation progress. The individual pieces are configured on the Checkout tab."
-msgstr "Das weiße Kopfband, das an Warenkorb und Kasse den Theme-Header ersetzt: dein Logo in der Mitte, die drei Vertrauens-Texte, die „Bereits Kunde?“-Anmelde-Pille und der Fortschritt Warenkorb → Kasse → Bestätigung. Die einzelnen Bestandteile stellst du im Tab „Kasse“ ein."
+msgid "The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the \"Already a customer?\" login pill and the cart → checkout → confirmation progress. The individual pieces are configured under Structure and Trust."
+msgstr "Das weiße Kopfband, das an Warenkorb und Kasse den Theme-Header ersetzt: dein Logo in der Mitte, die drei Vertrauens-Texte, die „Bereits Kunde?“-Anmelde-Pille und der Fortschritt Warenkorb → Kasse → Bestätigung. Die einzelnen Bestandteile stellst du unter Aufbau und Vertrauen ein."
 
-msgid "Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the advanced selector list on the Checkout tab."
-msgstr "Blendet alles aus, was vom Abschluss wegführt: Theme-Kopf und Menü, Siegel, Brotkrumen und dekorative Footer-Teile. Rechtslinks im Footer bleiben immer erreichbar. Website-spezifische Extras versteckst du über die erweiterte Selektor-Liste im Tab „Kasse“."
+msgid "Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the selector list under Advanced."
+msgstr "Blendet alles aus, was vom Abschluss wegführt: Theme-Kopf und Menü, Siegel, Brotkrumen und dekorative Footer-Teile. Rechtslinks im Footer bleiben immer erreichbar. Website-spezifische Extras versteckst du über die Selektor-Liste unter Erweitert."
 
-msgid "The layout machinery: the column arrangement chosen on the Design tab, the numbered section headings and the \"Continue shopping\" link on the cart."
-msgstr "Die Layout-Maschinerie: die im Design-Tab gewählte Spaltenaufteilung, die nummerierten Abschnitts-Überschriften und der „Weiter einkaufen“-Link im Warenkorb."
+msgid "The layout machinery: the column arrangement chosen under Structure, the numbered section headings and the \"Continue shopping\" link on the cart."
+msgstr "Die Layout-Maschinerie: die unter Aufbau gewählte Spaltenaufteilung, die nummerierten Abschnitts-Überschriften und der „Weiter einkaufen“-Link im Warenkorb."
 
-msgid "All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch on the Checkout tab."
-msgstr "Alle Formularfeld-Verbesserungen als Gruppe: aufgeräumte Feldpaare (Vor-/Nachname, PLZ/Ort), Bundesland-Korrekturen, richtige Handy-Tastaturen, PLZ-Autovervollständigung und der Konto-Hinweis. Jedes Teil hat im Tab „Kasse“ seinen eigenen Schalter."
+msgid "All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch under Input help."
+msgstr "Alle Formularfeld-Verbesserungen als Gruppe: aufgeräumte Feldpaare (Vor-/Nachname, PLZ/Ort), Bundesland-Korrekturen, richtige Handy-Tastaturen, PLZ-Autovervollständigung und der Konto-Hinweis. Jedes Teil hat unter Eingabehilfen seinen eigenen Schalter."
 
 msgid "The quiet reassurance row under the order button, repeating the three trust items from the header band."
 msgstr "Die dezente Vertrauenszeile unter dem Bestell-Button — sie wiederholt die drei Vertrauens-Texte aus dem Kopfband."
@@ -634,8 +607,8 @@ msgstr "Die Lieferzeit unter jedem Produkt in Warenkorb und Kasse — eine der A
 msgid "Delivery time: %s"
 msgstr "Lieferzeit: %s"
 
-msgid "Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch below is off — customers still see the standard checkout."
-msgstr "Der Vorschau-Modus ist für dich aktiv. Deshalb zeigt die Kasse den Smart Checkout, obwohl der Schalter unten aus ist — Kunden sehen weiterhin die Standard-Kasse."
+msgid "Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch is off — customers still see the standard checkout."
+msgstr "Der Vorschau-Modus ist für dich aktiv. Deshalb zeigt die Kasse den Smart Checkout, obwohl der Schalter aus ist — Kunden sehen weiterhin die Standard-Kasse."
 
 msgid "End preview"
 msgstr "Vorschau beenden"
@@ -683,8 +656,8 @@ msgstr "Auf der Block-Kasse: %s ist mit seiner Block-Integration installiert, de
 msgid "Upgrade to Pro"
 msgstr "Pro-Version holen"
 
-msgid "Everything on the other tabs is free and stays free. The paid add-on is for shops that want the checkout to sell more and cost less work."
-msgstr "Alles auf den anderen Reitern ist kostenlos und bleibt es. Das kostenpflichtige Zusatzmodul ist für Shops, deren Kasse mehr verkaufen und weniger Arbeit machen soll."
+msgid "Everything on this screen is free and stays free. The paid add-on is for shops that want the checkout to sell more and cost less work."
+msgstr "Alles auf dieser Seite ist kostenlos und bleibt es. Das kostenpflichtige Zusatzmodul ist für Shops, deren Kasse mehr verkaufen und weniger Arbeit machen soll."
 
 msgid "See STM Smart Checkout Pro"
 msgstr "STM Smart Checkout Pro ansehen"
@@ -751,3 +724,180 @@ msgstr "Keine Pflicht-Checkbox an deinem Kassen-Block: WooCommerce %1$s kann dor
 
 msgid "Until then, WooCommerce's own terms text or checkbox stays in place of the notice and the links, and the server does not check it. Update WooCommerce, or switch to the classic checkout."
 msgstr "Bis dahin steht dort statt Hinweis und Links der AGB-Text oder die Checkbox von WooCommerce, und der Server prüft sie nicht. Aktualisiere WooCommerce oder wechsle zur klassischen Kasse."
+
+msgid "Overview"
+msgstr "Übersicht"
+
+msgid "The state of your checkout at a glance, and the building blocks you can switch on and off."
+msgstr "Der Stand deiner Kasse auf einen Blick und die Bausteine, die du ein- und ausschalten kannst."
+
+msgid "Structure"
+msgstr "Aufbau"
+
+msgid "How the checkout is arranged and what stays out of the customer's way."
+msgstr "Wie die Kasse angeordnet ist und was Kunden nicht ablenkt."
+
+msgid "Input help"
+msgstr "Eingabehilfen"
+
+msgid "Small things that make the form quicker to fill in, above all on a phone."
+msgstr "Kleinigkeiten, mit denen das Formular schneller ausgefüllt ist, vor allem am Handy."
+
+msgid "Order summary"
+msgstr "Bestellübersicht"
+
+msgid "What customers see of their order while they check out."
+msgstr "Was Kunden während des Bezahlens von ihrer Bestellung sehen."
+
+msgid "Trust"
+msgstr "Vertrauen"
+
+msgid "Short claims in the header band and under the buy button. Only write what is true for your shop."
+msgstr "Kurze Aussagen im Kopfband und unter dem Kaufknopf. Schreib nur, was für deinen Shop wirklich gilt."
+
+msgid "Consent"
+msgstr "Einwilligung"
+
+msgid "The tick for terms and cancellation policy, and what happens without it."
+msgstr "Der Haken für AGB und Widerrufsbelehrung und was ohne ihn passiert."
+
+msgid "Buy button and notices"
+msgstr "Kaufknopf und Hinweise"
+
+msgid "What has to stand next to the button, in the same glance."
+msgstr "Was im selben Blick neben dem Knopf stehen muss."
+
+msgid "Legal pages"
+msgstr "Rechtstexte"
+
+msgid "Which pages the checkout links to, and how they open."
+msgstr "Welche Seiten die Kasse verlinkt und wie sie sich öffnen."
+
+msgid "Colours"
+msgstr "Farben"
+
+msgid "Your brand on the checkout. Every colour applies to cart and checkout alike."
+msgstr "Deine Marke an der Kasse. Jede Farbe gilt für Warenkorb und Kasse gleichermaßen."
+
+msgid "Logo and type"
+msgstr "Logo und Schrift"
+
+msgid "The logo in the header band, the size of the text and the corners of the cards."
+msgstr "Das Logo im Kopfband, die Textgröße und die Ecken der Karten."
+
+msgid "Advanced"
+msgstr "Erweitert"
+
+msgid "Rarely needed. Mostly for diagnosing a problem."
+msgstr "Selten nötig, meist zur Fehlersuche."
+
+msgid "Checkout type"
+msgstr "Kassen-Variante"
+
+msgid "Add-on settings"
+msgstr "Zusatz-Einstellungen"
+
+msgid "Sales"
+msgstr "Verkauf"
+
+msgid "System"
+msgstr "System"
+
+msgid "Active for customers"
+msgstr "Aktiv für Kunden"
+
+msgid "Off for customers, preview only"
+msgstr "Für Kunden aus, nur Vorschau"
+
+msgid "Unsaved changes"
+msgstr "Ungespeicherte Änderungen"
+
+msgid "Saved"
+msgstr "Gespeichert"
+
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+msgid "Search settings"
+msgstr "Einstellungen suchen"
+
+msgid "No setting matches this search."
+msgstr "Keine Einstellung passt zu dieser Suche."
+
+msgid "Change"
+msgstr "Ändern"
+
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Own consent box"
+msgstr "Eigene Einwilligungsbox"
+
+msgid "Not set"
+msgstr "Nicht gesetzt"
+
+msgid "At a glance"
+msgstr "Auf einen Blick"
+
+msgid "Building blocks"
+msgstr "Bausteine"
+
+msgid "Each block can be switched off as a whole. Its details are in the sections on the left."
+msgstr "Jeder Baustein lässt sich als Ganzes abschalten. Die Einzelheiten stehen in den Bereichen links."
+
+msgid "Header band and progress"
+msgstr "Kopfband und Fortschritt"
+
+msgid "Distraction-free mode"
+msgstr "Ablenkungsfreier Modus"
+
+msgid "Layout extras"
+msgstr "Layout-Extras"
+
+msgid "Field improvements"
+msgstr "Feld-Verbesserungen"
+
+msgid "Trust elements"
+msgstr "Vertrauenselemente"
+
+msgid "Header band"
+msgstr "Kopfband"
+
+msgid "Distraction-free"
+msgstr "Ablenkungsfrei"
+
+msgid "Full-page template"
+msgstr "Ganzseiten-Vorlage"
+
+msgid "Filling in"
+msgstr "Ausfüllen"
+
+msgid "Order notes"
+msgstr "Bestellnotizen"
+
+msgid "Trust items"
+msgstr "Vertrauens-Bausteine"
+
+msgid "Consent box"
+msgstr "Einwilligungsbox"
+
+msgid "Reassurance note"
+msgstr "Beruhigungshinweis"
+
+msgid "Terms and cancellation"
+msgstr "AGB und Widerruf"
+
+msgid "Checkout footer"
+msgstr "Fußzeile der Kasse"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Surfaces"
+msgstr "Flächen"

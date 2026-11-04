@@ -12,7 +12,7 @@
  * must be limited in scope and used sparingly, be that contextually or only on
  * the plugin's setting page." So:
  *
- * - A tab on THIS screen, which nobody reaches without opening our settings.
+ * - An entry on THIS screen, which nobody reaches without opening our settings.
  * - One link in the plugin's own row on the Plugins page — the conventional
  *   spot, and the user is managing plugins when they read it.
  * - NOT ONE admin notice. Not dismissible, not once, not anywhere. When wp.org
@@ -24,7 +24,7 @@
  *
  * - NO LOCKED FUNCTIONALITY. Guideline 5: "Plugins may not contain
  *   functionality that is restricted or locked, only to be made available by
- *   payment." The tab therefore DESCRIBES what the add-on does; it does not
+ *   payment." The entry therefore DESCRIBES what the add-on does; it does not
  *   render dead switches whose code is sitting right here behind a paywall.
  * - NOTHING LOADED FROM OUTSIDE. Guideline 7 forbids contacting external
  *   servers without consent, and the directory listing promises in so many
@@ -251,17 +251,17 @@ class STMC_Admin {
 	}
 
 	/**
-	 * The upgrade tab.
+	 * The upgrade panel.
 	 *
 	 * Static markup, local strings, two links. See the note at the top of this
 	 * class for why it may exist here and nowhere else.
 	 */
-	private static function pro_panel() {
+	public static function pro_panel() {
 		$url = self::pro_url();
 		?>
 		<div class="stmc-pro">
 			<p class="stmc-pro__lead">
-				<?php esc_html_e( 'Everything on the other tabs is free and stays free. The paid add-on is for shops that want the checkout to sell more and cost less work.', 'stm-smart-checkout' ); ?>
+				<?php esc_html_e( 'Everything on this screen is free and stays free. The paid add-on is for shops that want the checkout to sell more and cost less work.', 'stm-smart-checkout' ); ?>
 			</p>
 
 			<div class="stmc-pro__grid">
@@ -285,30 +285,228 @@ class STMC_Admin {
 		<?php
 	}
 
+	/**
+	 * Everything the settings screen shows, section by section.
+	 *
+	 * One list instead of the four tabs it replaces: a shop owner looks for a
+	 * topic ("the buy button"), not for the tab a developer filed it under, and
+	 * the old Checkout tab had grown into 22 rows with nothing to hold on to.
+	 *
+	 * The Pro plugin adds its own sections through `stmc_admin_sections`, so
+	 * both plugins share one screen and one navigation.
+	 *
+	 * @return array<string,array> slug => group, order, label, intro, render, form.
+	 */
+	public static function sections() {
+		$sections = array(
+			'overview'  => array(
+				'group'  => 'start',
+				'order'  => 10,
+				'label'  => __( 'Overview', 'stm-smart-checkout' ),
+				'intro'  => __( 'The state of your checkout at a glance, and the building blocks you can switch on and off.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_overview' ),
+			),
+			'layout'    => array(
+				'group'  => 'checkout',
+				'order'  => 10,
+				'label'  => __( 'Structure', 'stm-smart-checkout' ),
+				'intro'  => __( 'How the checkout is arranged and what stays out of the customer\'s way.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_layout' ),
+			),
+			'fieldopts' => array(
+				'group'  => 'checkout',
+				'order'  => 30,
+				'label'  => __( 'Input help', 'stm-smart-checkout' ),
+				'intro'  => __( 'Small things that make the form quicker to fill in, above all on a phone.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_fieldopts' ),
+			),
+			'summary'   => array(
+				'group'  => 'checkout',
+				'order'  => 40,
+				'label'  => __( 'Order summary', 'stm-smart-checkout' ),
+				'intro'  => __( 'What customers see of their order while they check out.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_summary' ),
+			),
+			'trust'     => array(
+				'group'  => 'checkout',
+				'order'  => 50,
+				'label'  => __( 'Trust', 'stm-smart-checkout' ),
+				'intro'  => __( 'Short claims in the header band and under the buy button. Only write what is true for your shop.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_trust' ),
+			),
+			'consent'   => array(
+				'group'  => 'legal',
+				'order'  => 10,
+				'label'  => __( 'Consent', 'stm-smart-checkout' ),
+				'intro'  => __( 'The tick for terms and cancellation policy, and what happens without it.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_consent' ),
+			),
+			'buying'    => array(
+				'group'  => 'legal',
+				'order'  => 20,
+				'label'  => __( 'Buy button and notices', 'stm-smart-checkout' ),
+				'intro'  => __( 'What has to stand next to the button, in the same glance.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_buying' ),
+			),
+			'pages'     => array(
+				'group'  => 'legal',
+				'order'  => 30,
+				'label'  => __( 'Legal pages', 'stm-smart-checkout' ),
+				'intro'  => __( 'Which pages the checkout links to, and how they open.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_pages' ),
+			),
+			'colors'    => array(
+				'group'  => 'design',
+				'order'  => 10,
+				'label'  => __( 'Colours', 'stm-smart-checkout' ),
+				'intro'  => __( 'Your brand on the checkout. Every colour applies to cart and checkout alike.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_colors' ),
+			),
+			'shape'     => array(
+				'group'  => 'design',
+				'order'  => 20,
+				'label'  => __( 'Logo and type', 'stm-smart-checkout' ),
+				'intro'  => __( 'The logo in the header band, the size of the text and the corners of the cards.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_shape' ),
+			),
+			'advanced'  => array(
+				'group'  => 'system',
+				'order'  => 10,
+				'label'  => __( 'Advanced', 'stm-smart-checkout' ),
+				'intro'  => __( 'Rarely needed. Mostly for diagnosing a problem.', 'stm-smart-checkout' ),
+				'render' => array( __CLASS__, 'section_advanced' ),
+			),
+		);
+
+		/*
+		 * Its own panel and not a line in Advanced: the way back to the blocks
+		 * is a form, and a form inside the settings form would end that form
+		 * early and leave every field after it out of the save.
+		 */
+		if ( ! STMC_Block_Checkout::block_pages() && STMC_Block_Checkout::restorable_pages() ) {
+			$sections['checkout-type'] = array(
+				'group'  => 'system',
+				'order'  => 15,
+				'label'  => __( 'Checkout type', 'stm-smart-checkout' ),
+				'intro'  => '',
+				'render' => array( 'STMC_Block_Checkout', 'panel' ),
+				'form'   => false,
+			);
+		}
+
+		/*
+		 * The upgrade entry exists only while the add-on does not. Selling
+		 * somebody what they already bought is the fastest way to make a
+		 * settings screen feel like advertising.
+		 */
+		if ( ! self::has_pro() ) {
+			$sections['pro'] = array(
+				'group'  => 'system',
+				'order'  => 90,
+				'label'  => __( 'Upgrade to Pro', 'stm-smart-checkout' ),
+				'intro'  => '',
+				'render' => array( __CLASS__, 'pro_panel' ),
+				'form'   => false,
+			);
+		}
+
+		/*
+		 * An add-on built for the tabs still hooks stmc_admin_tab_*. Those rows
+		 * get a section of their own rather than vanishing, so a Pro that is
+		 * older than this screen keeps all of its settings.
+		 */
+		foreach ( array( 'general', 'checkout', 'legal', 'design' ) as $tab ) {
+			if ( has_action( 'stmc_admin_tab_' . $tab ) ) {
+				$sections['addon'] = array(
+					'group'  => 'system',
+					'order'  => 20,
+					'label'  => __( 'Add-on settings', 'stm-smart-checkout' ),
+					'intro'  => '',
+					'render' => array( __CLASS__, 'section_addon' ),
+				);
+				break;
+			}
+		}
+
+		/**
+		 * Sections of the settings screen.
+		 *
+		 * Each entry: group (start, checkout, sales, legal, design, system),
+		 * order, label, intro, render (callable) and, for a panel that brings
+		 * its own form or saves by itself, form => false.
+		 *
+		 * @param array $sections slug => section.
+		 */
+		$sections = (array) apply_filters( 'stmc_admin_sections', $sections );
+
+		uasort(
+			$sections,
+			static function ( $a, $b ) {
+				return (int) $a['order'] - (int) $b['order'];
+			}
+		);
+		return $sections;
+	}
+
+	/** @return array<string,string> group slug => heading; start has none. */
+	private static function groups() {
+		return array(
+			'start'    => '',
+			'checkout' => __( 'Checkout', 'stm-smart-checkout' ),
+			'sales'    => __( 'Sales', 'stm-smart-checkout' ),
+			'legal'    => __( 'Legal', 'stm-smart-checkout' ),
+			'design'   => __( 'Design', 'stm-smart-checkout' ),
+			'system'   => __( 'System', 'stm-smart-checkout' ),
+		);
+	}
+
+	/**
+	 * Link to a section.
+	 *
+	 * @param string $slug Section slug.
+	 * @return string
+	 */
+	public static function section_url( $slug ) {
+		return add_query_arg(
+			array(
+				'page'    => self::PAGE,
+				'section' => $slug,
+			),
+			admin_url( 'admin.php' )
+		);
+	}
+
+	/**
+	 * The section to open. Old links with ?tab= keep working.
+	 *
+	 * @param array $sections All sections.
+	 * @return string
+	 */
+	private static function current_section( array $sections ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- which panel to show, nothing is changed.
+		$slug = isset( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
+		if ( '' === $slug && isset( $_GET['tab'] ) ) {
+			$tabs = array(
+				'general'  => 'overview',
+				'checkout' => 'layout',
+				'legal'    => 'consent',
+				'design'   => 'colors',
+				'pro'      => 'pro',
+			);
+			$tab  = sanitize_key( wp_unslash( $_GET['tab'] ) );
+			$slug = isset( $tabs[ $tab ] ) ? $tabs[ $tab ] : '';
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		return isset( $sections[ $slug ] ) ? $slug : 'overview';
+	}
+
 	public static function render() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		$tabs = array(
-			'general'  => __( 'General', 'stm-smart-checkout' ),
-			'checkout' => __( 'Checkout', 'stm-smart-checkout' ),
-			'legal'    => __( 'Legal', 'stm-smart-checkout' ),
-			'design'   => __( 'Design', 'stm-smart-checkout' ),
-		);
-
-		/*
-		 * The upgrade tab exists only while the add-on does not. Selling
-		 * somebody what they already bought is the fastest way to make a
-		 * settings screen feel like advertising.
-		 */
-		if ( ! self::has_pro() ) {
-			$tabs['pro'] = __( 'Upgrade to Pro', 'stm-smart-checkout' );
-		}
-		$current = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( ! isset( $tabs[ $current ] ) ) {
-			$current = 'general';
-		}
+		$sections = self::sections();
+		$current  = self::current_section( $sections );
 
 		$checkout_url    = function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/' );
 		$preview_url     = add_query_arg( STMC_Checkout_Context::PREVIEW_PARAM, '1', $checkout_url );
@@ -327,14 +525,31 @@ class STMC_Admin {
 		 * filter, and the question a shop owner has is the same either way:
 		 * the switch says off, so why is it on?
 		 */
-		$forced_on = ! STMC_Settings::get( 'general.enabled' ) && STMC_Checkout_Context::is_active();
+		$live      = (bool) STMC_Settings::get( 'general.enabled' );
+		$forced_on = ! $live && STMC_Checkout_Context::is_active();
+		$saved     = isset( $_GET['settings-updated'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- WordPress's own marker after a save, only decides a message.
 		?>
 		<div class="wrap stmc-settings">
-			<h1><?php esc_html_e( 'STM Smart Checkout', 'stm-smart-checkout' ); ?></h1>
-			<p>
-				<?php esc_html_e( 'Configure the checkout, then use preview mode to review it on the live site before enabling it for customers.', 'stm-smart-checkout' ); ?>
-				<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open checkout preview', 'stm-smart-checkout' ); ?></a>
-			</p>
+			<header class="stmc-top">
+				<div class="stmc-top__title">
+					<h1><?php esc_html_e( 'Smart Checkout', 'stm-smart-checkout' ); ?></h1>
+					<p class="stmc-state <?php echo $live ? 'is-on' : 'is-off'; ?>">
+						<?php
+						echo esc_html(
+							$live
+								? __( 'Active for customers', 'stm-smart-checkout' )
+								: __( 'Off for customers, preview only', 'stm-smart-checkout' )
+						);
+						?>
+					</p>
+				</div>
+				<div class="stmc-top__actions">
+					<span class="stmc-saved" role="status" data-unsaved="<?php esc_attr_e( 'Unsaved changes', 'stm-smart-checkout' ); ?>"><?php echo $saved ? esc_html__( 'Saved', 'stm-smart-checkout' ) : ''; ?></span>
+					<a class="button" href="<?php echo esc_url( $preview_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open checkout preview', 'stm-smart-checkout' ); ?></a>
+					<button type="submit" form="stmc-form" class="button button-primary stmc-save"><?php esc_html_e( 'Save changes', 'stm-smart-checkout' ); ?></button>
+				</div>
+			</header>
+			<hr class="wp-header-end">
 
 			<?php if ( $forced_on ) : ?>
 				<?php
@@ -346,7 +561,7 @@ class STMC_Admin {
 				?>
 				<div class="notice notice-info inline">
 					<p>
-						<?php esc_html_e( 'Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch below is off — customers still see the standard checkout.', 'stm-smart-checkout' ); ?>
+						<?php esc_html_e( 'Preview mode is on for you. That is why the checkout shows the Smart Checkout even while the switch is off — customers still see the standard checkout.', 'stm-smart-checkout' ); ?>
 						<a href="<?php echo esc_url( $preview_off_url ); ?>"><?php esc_html_e( 'End preview', 'stm-smart-checkout' ); ?></a>
 					</p>
 				</div>
@@ -354,128 +569,345 @@ class STMC_Admin {
 
 			<?php
 			/*
-			 * Above the tabs on purpose: while the checkout is a block, every
-			 * setting underneath is without effect, and a shop owner who is
-			 * not told that reads the whole screen as broken.
+			 * Above everything on purpose: while the checkout is a block, part
+			 * of what is configured here has no effect, and a shop owner who is
+			 * not told that reads the whole screen as broken. The quiet "can be
+			 * restored" line of a switched shop has a panel of its own.
 			 */
-			STMC_Block_Checkout::panel();
-			?>
-
-			<nav class="nav-tab-wrapper">
-				<?php foreach ( $tabs as $slug => $label ) : ?>
-					<a class="nav-tab <?php echo $slug === $current ? 'nav-tab-active' : ''; ?>"
-						href="<?php echo esc_url( add_query_arg( array( 'page' => self::PAGE, 'tab' => $slug ), admin_url( 'admin.php' ) ) ); ?>">
-						<?php echo esc_html( $label ); ?>
-					</a>
-				<?php endforeach; ?>
-			</nav>
-
-			<?php
-			/*
-			 * The upgrade tab is not a settings form and must not pretend to be
-			 * one. Rendering it inside the form would put a "Save changes"
-			 * button under a page with nothing to save — and, worse, would let
-			 * the hidden-field round trip below run for a tab that owns no
-			 * fields at all.
-			 */
-			if ( 'pro' === $current ) {
-				self::pro_panel();
-				echo '</div>';
-				return;
+			if ( STMC_Block_Checkout::block_pages() ) {
+				STMC_Block_Checkout::panel();
 			}
 			?>
 
-			<form method="post" action="options.php">
-				<?php settings_fields( 'stmc_settings_group' ); ?>
-				<?php self::hidden_fields_for_other_tabs( $current ); ?>
-				<table class="form-table" role="presentation">
-					<?php if ( 'general' === $current ) : ?>
-						<?php self::row_checkbox( 'general.enabled', __( 'Enable Smart Checkout', 'stm-smart-checkout' ), __( 'Off = the standard checkout renders for customers. Preview mode works regardless of this switch.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'modules.header', __( 'Module: header band & progress', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'modules.focus', __( 'Module: distraction-free mode', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'modules.layout', __( 'Module: layout extras', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'modules.fields', __( 'Module: field improvements', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'modules.trust', __( 'Module: trust elements', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'advanced.debug', __( 'Debug logging (browser console)', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'general.remove_data_on_uninstall', __( 'Remove all settings when the plugin is deleted', 'stm-smart-checkout' ) ); ?>
-					<?php elseif ( 'legal' === $current ) : ?>
-						<?php self::row_select( 'legal.consent', __( 'Own consent box: terms and cancellation policy to tick', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — only when no legal plugin delivers one', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never', 'stm-smart-checkout' ) ) ); ?>
-						<?php self::row_consent_detection(); ?>
-						<?php self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_textarea( 'legal.consent_error', __( 'Consent error message', 'stm-smart-checkout' ), __( 'Shown when the box is left unticked. Empty = the built-in message.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'legal.delivery_time', __( 'Delivery time (shop-wide default)', 'stm-smart-checkout' ), __( 'Example: 2-4 working days. Shown under every product; a product with its own value overrides it.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'legal.vat_note', __( 'Show the VAT included in the order summary', 'stm-smart-checkout' ), __( 'Only with gross prices, and only while no legal plugin already prints it.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'legal.button_text', __( 'Buy button label', 'stm-smart-checkout' ), __( 'Empty = "Order with obligation to pay". Only used while no legal plugin sets the label itself.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_textarea( 'legal.button_notice', __( 'Information directly above the button', 'stm-smart-checkout' ), __( 'Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_page( 'legal.terms_page', __( 'Terms and conditions page', 'stm-smart-checkout' ), __( 'Empty = the page WooCommerce already knows.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_page( 'legal.revocation_page', __( 'Cancellation policy page', 'stm-smart-checkout' ), __( 'Empty = the page your legal plugin registered, otherwise the revocation page this plugin creates.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'legal.validate_checkboxes', __( 'Verify required consent boxes on the server', 'stm-smart-checkout' ), __( 'Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'legal.guarantee_title', __( 'Reassurance note: lead-in', 'stm-smart-checkout' ), __( 'Example: No risk: — shown in bold in front of the text.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_textarea( 'legal.guarantee_text', __( 'Reassurance note under the consent boxes', 'stm-smart-checkout' ), __( 'Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text.', 'stm-smart-checkout' ) ); ?>
-					<?php elseif ( 'checkout' === $current ) : ?>
-						<?php self::row_checkbox( 'header.show_progress', __( 'Show progress bar (cart → checkout → confirmation)', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'header.show_login', __( 'Show "Already a customer?" login toggle', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'header.sr_title', __( 'Render a screen-reader page title', 'stm-smart-checkout' ), __( 'Both pages usually have no H1 once the theme header is hidden.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'header.trust_1', __( 'Trust item 1 (lock icon)', 'stm-smart-checkout' ), __( 'Example: Secure SSL connection. Leave all three empty for the SSL default.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'header.trust_2', __( 'Trust item 2 (shield icon)', 'stm-smart-checkout' ), __( 'Only claims that are actually true for your shop.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_text( 'header.trust_3', __( 'Trust item 3 (card icon)', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'trust.under_button', __( 'Repeat trust items under the order button', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'layout.continue_shopping', __( '"Continue shopping" link on the cart', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'fields.state_optional', __( 'State/county field never required, labels untangled', 'stm-smart-checkout' ), __( 'Fixes the duplicate "Land" label for IE/GB/HU in German shops.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'fields.autofill_attrs', __( 'Correct mobile keyboards & autofill attributes', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'fields.account_hint', __( 'Explain "Create an account?" with an info tooltip', 'stm-smart-checkout' ), __( 'The text is built from your own registration settings, so it always matches what really happens.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'checkout.order_notes', __( 'Order notes field ("Additional information")', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'checkout.notes_collapsed', __( 'Show order notes as an expandable line', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'checkout.product_thumbs', __( 'Product images in the order summary', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'checkout.qty_controls', __( 'Quantity steppers in the order summary', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'checkout.coupon_field', __( 'Coupon prompt above the checkout', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_select( 'focus.fullpage', __( 'Distraction-free: full-page template', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — on themes without a built-in adapter', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never (CSS fallback only)', 'stm-smart-checkout' ) ) ); ?>
-						<?php self::row_pages( 'focus.legal_pages', __( 'Checkout footer: pages', 'stm-smart-checkout' ), __( 'Hold Ctrl/Cmd to select several. Empty = the menu below, or the legal pages your site already registered.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_menu( 'focus.legal_menu', __( 'Checkout footer: menu (alternative)', 'stm-smart-checkout' ), __( 'Used when no pages are picked above.', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) ); ?>
-					<?php else : ?>
-						<?php self::row_select( 'design.layout', __( 'Checkout layout', 'stm-smart-checkout' ), self::layout_choices() ); ?>
-						<?php self::row_color( 'design.accent', __( 'Accent color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.accent_hover', __( 'Accent hover color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.ink', __( 'Heading color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.title', __( 'Step heading color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.label', __( 'Field label color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.text', __( 'Text color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.muted', __( 'Secondary text color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.bg', __( 'Page background', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.card', __( 'Card background', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_color( 'design.line', __( 'Border color', 'stm-smart-checkout' ) ); ?>
-						<?php self::row_number( 'design.radius', __( 'Card corner radius (px)', 'stm-smart-checkout' ), 0, 32 ); ?>
-						<?php self::row_number( 'design.font_size', __( 'Base font size (px)', 'stm-smart-checkout' ), 11, 24 ); ?>
-						<?php self::row_url( 'design.logo_url', __( 'Checkout logo URL', 'stm-smart-checkout' ), __( 'Shown in the checkout header. Leave empty to show your site title as text instead.', 'stm-smart-checkout' ) ); ?>
-					<?php endif; ?>
+			<div class="stmc-shell">
+				<nav class="stmc-nav" aria-label="<?php esc_attr_e( 'Settings', 'stm-smart-checkout' ); ?>">
+					<input type="search" class="stmc-search" placeholder="<?php esc_attr_e( 'Search settings', 'stm-smart-checkout' ); ?>" aria-label="<?php esc_attr_e( 'Search settings', 'stm-smart-checkout' ); ?>">
+					<?php foreach ( self::groups() as $group => $heading ) : ?>
+						<?php
+						$items = wp_list_filter( $sections, array( 'group' => $group ) );
+						if ( ! $items ) {
+							continue;
+						}
+						?>
+						<?php if ( '' !== $heading ) : ?>
+							<h2><?php echo esc_html( $heading ); ?></h2>
+						<?php endif; ?>
+						<ul>
+							<?php foreach ( $items as $slug => $section ) : ?>
+								<li>
+									<a href="<?php echo esc_url( self::section_url( $slug ) ); ?>" data-section="<?php echo esc_attr( $slug ); ?>"<?php echo $slug === $current ? ' class="is-current" aria-current="page"' : ''; ?>><?php echo esc_html( $section['label'] ); ?></a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					<?php endforeach; ?>
+				</nav>
+
+				<div class="stmc-panels">
+					<p class="stmc-noresult" hidden><?php esc_html_e( 'No setting matches this search.', 'stm-smart-checkout' ); ?></p>
+					<form id="stmc-form" method="post" action="options.php">
+						<?php settings_fields( 'stmc_settings_group' ); ?>
+						<?php self::hidden_fields(); ?>
+						<?php
+						foreach ( $sections as $slug => $section ) {
+							if ( ! isset( $section['form'] ) || false !== $section['form'] ) {
+								self::panel( $slug, $section, $current );
+							}
+						}
+						?>
+					</form>
 					<?php
-					/**
-					 * Extra rows for this tab.
-					 *
-					 * The Pro plugin renders its fields here with the same
-					 * row_* helpers, so both plugins speak one visual language
-					 * instead of two settings screens that drift apart.
-					 *
-					 * @param string $current The tab being rendered.
+					/*
+					 * Outside the form on purpose: these panels save by themselves
+					 * or bring a form of their own, and forms cannot nest.
 					 */
-					do_action( 'stmc_admin_tab_' . $current, $current );
+					foreach ( $sections as $slug => $section ) {
+						if ( isset( $section['form'] ) && false === $section['form'] ) {
+							self::panel( $slug, $section, $current );
+						}
+					}
 					?>
-				</table>
-				<?php submit_button(); ?>
-			</form>
+				</div>
+			</div>
 		</div>
 		<?php
 	}
 
 	/**
-	 * The Settings API replaces the whole option on save; re-submit the values
-	 * of fields that are not rendered on the current tab so switching tabs
-	 * never wipes the other tab's configuration.
+	 * One panel. All of them are in the page: switching is instant, the search
+	 * reaches every setting, and a single save covers the whole screen.
+	 *
+	 * @param string $slug    Section slug.
+	 * @param array  $section Section.
+	 * @param string $current Open section.
 	 */
-	private static function hidden_fields_for_other_tabs( $current_tab ) {
+	private static function panel( $slug, array $section, $current ) {
+		$own_save = isset( $section['form'] ) && false === $section['form'];
+		printf(
+			'<section class="stmc-panel" id="stmc-panel-%1$s" data-section="%1$s" data-form="%2$s"%3$s>',
+			esc_attr( $slug ),
+			$own_save ? '0' : '1',
+			$slug === $current ? '' : ' hidden'
+		);
+		echo '<h2 class="stmc-panel__title">' . esc_html( $section['label'] ) . '</h2>';
+		if ( ! empty( $section['intro'] ) ) {
+			echo '<p class="stmc-panel__intro">' . esc_html( $section['intro'] ) . '</p>';
+		}
+		call_user_func( $section['render'] );
+
+		/**
+		 * More cards at the end of a section.
+		 *
+		 * @param string $slug Section slug.
+		 */
+		do_action( 'stmc_admin_section_' . $slug, $slug );
+		echo '</section>';
+	}
+
+	/** @var array<int,bool> Open cards: was this one a fold? */
+	private static $cards = array();
+
+	/**
+	 * A card: one topic with a heading, its settings in rows.
+	 *
+	 * @param string $title   Heading.
+	 * @param string $desc    One sentence under it.
+	 * @param array  $options fold => true makes it collapsible, open => whether it starts open, class => extra class of the row table.
+	 */
+	public static function card_open( $title = '', $desc = '', array $options = array() ) {
+		$fold            = ! empty( $options['fold'] );
+		self::$cards[]   = $fold;
+		$table_class     = 'stmc-rows' . ( empty( $options['class'] ) ? '' : ' ' . $options['class'] );
+
+		if ( $fold ) {
+			printf(
+				'<details class="stmc-card"%1$s><summary><span class="stmc-card__title">%2$s</span>%3$s</summary>',
+				empty( $options['open'] ) ? '' : ' open',
+				esc_html( $title ),
+				'' === $desc ? '' : '<span class="stmc-card__desc">' . esc_html( $desc ) . '</span>'
+			);
+		} else {
+			echo '<div class="stmc-card">';
+			if ( '' !== $title || '' !== $desc ) {
+				echo '<header>';
+				if ( '' !== $title ) {
+					echo '<h3 class="stmc-card__title">' . esc_html( $title ) . '</h3>';
+				}
+				if ( '' !== $desc ) {
+					echo '<p class="stmc-card__desc">' . esc_html( $desc ) . '</p>';
+				}
+				echo '</header>';
+			}
+		}
+		echo '<table class="' . esc_attr( $table_class ) . '" role="presentation"><tbody>';
+	}
+
+	public static function card_close() {
+		$fold = (bool) array_pop( self::$cards );
+		echo '</tbody></table>';
+		echo $fold ? '</details>' : '</div>';
+	}
+
+	/**
+	 * A line of the overview: what is set, and where to change it.
+	 *
+	 * @param string $label   What it is about.
+	 * @param string $value   Current state.
+	 * @param string $section Section that changes it.
+	 */
+	private static function row_glance( $label, $value, $section ) {
+		printf(
+			'<tr class="stmc-row--glance"><th scope="row">%1$s</th><td><span>%2$s</span> <a href="%3$s" data-section="%4$s">%5$s</a></td></tr>',
+			esc_html( $label ),
+			esc_html( $value ),
+			esc_url( self::section_url( $section ) ),
+			esc_attr( $section ),
+			esc_html__( 'Change', 'stm-smart-checkout' )
+		);
+	}
+
+	public static function section_overview() {
+		self::card_open();
+		self::row_checkbox( 'general.enabled', __( 'Enable Smart Checkout', 'stm-smart-checkout' ), __( 'Off = the standard checkout renders for customers. Preview mode works regardless of this switch.', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		$layouts = self::layout_choices();
+		$layout  = STMC_Settings::layout();
+		$consent = array(
+			'auto' => __( 'Automatic', 'stm-smart-checkout' ),
+			'on'   => __( 'Always', 'stm-smart-checkout' ),
+			'off'  => __( 'Never', 'stm-smart-checkout' ),
+		);
+		$mode    = (string) STMC_Settings::get( 'legal.consent' );
+		$rows    = array(
+			array( __( 'Layout', 'stm-smart-checkout' ), isset( $layouts[ $layout ] ) ? $layouts[ $layout ] : $layout, 'layout' ),
+			array( __( 'Own consent box', 'stm-smart-checkout' ), isset( $consent[ $mode ] ) ? $consent[ $mode ] : $mode, 'consent' ),
+			array( __( 'Delivery time', 'stm-smart-checkout' ), '' !== (string) STMC_Settings::get( 'legal.delivery_time' ) ? (string) STMC_Settings::get( 'legal.delivery_time' ) : __( 'Not set', 'stm-smart-checkout' ), 'buying' ),
+		);
+
+		/**
+		 * Lines of the "at a glance" card.
+		 *
+		 * @param array[] $rows Each: label, current value, section slug.
+		 */
+		$rows = (array) apply_filters( 'stmc_admin_overview_rows', $rows );
+
+		self::card_open( __( 'At a glance', 'stm-smart-checkout' ) );
+		foreach ( $rows as $row ) {
+			self::row_glance( $row[0], $row[1], $row[2] );
+		}
+		self::card_close();
+
+		self::card_open( __( 'Building blocks', 'stm-smart-checkout' ), __( 'Each block can be switched off as a whole. Its details are in the sections on the left.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'modules.header', __( 'Header band and progress', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'modules.focus', __( 'Distraction-free mode', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'modules.layout', __( 'Layout extras', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'modules.fields', __( 'Field improvements', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'modules.trust', __( 'Trust elements', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_layout() {
+		self::card_open( __( 'Layout', 'stm-smart-checkout' ) );
+		self::row_layout();
+		self::card_close();
+
+		self::card_open( __( 'Header band', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'header.show_progress', __( 'Show progress bar (cart → checkout → confirmation)', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'header.show_login', __( 'Show "Already a customer?" login toggle', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		self::card_open( __( 'Distraction-free', 'stm-smart-checkout' ) );
+		self::row_select( 'focus.fullpage', __( 'Full-page template', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — on themes without a built-in adapter', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never (CSS fallback only)', 'stm-smart-checkout' ) ) );
+		self::row_checkbox( 'layout.continue_shopping', __( '"Continue shopping" link on the cart', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_fieldopts() {
+		self::card_open( __( 'Filling in', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'fields.postcode_autofill', __( 'Postcode autofill for Germany, Austria, Switzerland', 'stm-smart-checkout' ), __( 'The city fills in automatically from bundled databases (no external service, GDPR-safe).', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'fields.autofill_attrs', __( 'Correct mobile keyboards & autofill attributes', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'fields.state_optional', __( 'State/county field never required, labels untangled', 'stm-smart-checkout' ), __( 'Fixes the duplicate "Land" label for IE/GB/HU in German shops.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'fields.account_hint', __( 'Explain "Create an account?" with an info tooltip', 'stm-smart-checkout' ), __( 'The text is built from your own registration settings, so it always matches what really happens.', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		self::card_open( __( 'Order notes', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'checkout.order_notes', __( 'Order notes field ("Additional information")', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'checkout.notes_collapsed', __( 'Show order notes as an expandable line', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_summary() {
+		self::card_open();
+		self::row_checkbox( 'checkout.product_thumbs', __( 'Product images in the order summary', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'checkout.qty_controls', __( 'Quantity steppers in the order summary', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'checkout.coupon_field', __( 'Coupon prompt above the checkout', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_trust() {
+		self::card_open( __( 'Trust items', 'stm-smart-checkout' ) );
+		self::row_text( 'header.trust_1', __( 'Trust item 1 (lock icon)', 'stm-smart-checkout' ), __( 'Example: Secure SSL connection. Leave all three empty for the SSL default.', 'stm-smart-checkout' ) );
+		self::row_text( 'header.trust_2', __( 'Trust item 2 (shield icon)', 'stm-smart-checkout' ), __( 'Only claims that are actually true for your shop.', 'stm-smart-checkout' ) );
+		self::row_text( 'header.trust_3', __( 'Trust item 3 (card icon)', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'trust.under_button', __( 'Repeat trust items under the order button', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_consent() {
+		self::card_open( __( 'Consent box', 'stm-smart-checkout' ) );
+		self::row_select( 'legal.consent', __( 'Own consent box: terms and cancellation policy to tick', 'stm-smart-checkout' ), array( 'auto' => __( 'Automatic — only when no legal plugin delivers one', 'stm-smart-checkout' ), 'on' => __( 'Always', 'stm-smart-checkout' ), 'off' => __( 'Never', 'stm-smart-checkout' ) ) );
+		self::row_consent_detection();
+		self::row_textarea( 'legal.consent_text', __( 'Consent wording', 'stm-smart-checkout' ), __( 'Empty = the built-in sentence. Put {terms}…{/terms} and {revocation}…{/revocation} around the words that should become links.', 'stm-smart-checkout' ) );
+		self::row_textarea( 'legal.consent_error', __( 'Consent error message', 'stm-smart-checkout' ), __( 'Shown when the box is left unticked. Empty = the built-in message.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'legal.validate_checkboxes', __( 'Verify required consent boxes on the server', 'stm-smart-checkout' ), __( 'Safety net: an order without a required tick is rejected even when the browser check was bypassed. Stays silent when WooCommerce or Germanized already reported the same box.', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		self::card_open( __( 'Reassurance note', 'stm-smart-checkout' ) );
+		self::row_text( 'legal.guarantee_title', __( 'Reassurance note: lead-in', 'stm-smart-checkout' ), __( 'Example: No risk: — shown in bold in front of the text.', 'stm-smart-checkout' ) );
+		self::row_textarea( 'legal.guarantee_text', __( 'Reassurance note under the consent boxes', 'stm-smart-checkout' ), __( 'Optional, empty by default. Use it for a promise you really keep — e.g. that your voluntary money-back guarantee is unaffected by the download consent. Never a condition, never a legal text.', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_buying() {
+		self::card_open();
+		self::row_text( 'legal.button_text', __( 'Buy button label', 'stm-smart-checkout' ), __( 'Empty = "Order with obligation to pay". Only used while no legal plugin sets the label itself.', 'stm-smart-checkout' ) );
+		self::row_textarea( 'legal.button_notice', __( 'Information directly above the button', 'stm-smart-checkout' ), __( 'Delivery time, essential characteristics — whatever must be readable in the same glance as the button. Empty = nothing is printed.', 'stm-smart-checkout' ) );
+		self::row_text( 'legal.delivery_time', __( 'Delivery time (shop-wide default)', 'stm-smart-checkout' ), __( 'Example: 2-4 working days. Shown under every product; a product with its own value overrides it.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'legal.vat_note', __( 'Show the VAT included in the order summary', 'stm-smart-checkout' ), __( 'Only with gross prices, and only while no legal plugin already prints it.', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_pages() {
+		self::card_open( __( 'Terms and cancellation', 'stm-smart-checkout' ) );
+		self::row_page( 'legal.terms_page', __( 'Terms and conditions page', 'stm-smart-checkout' ), __( 'Empty = the page WooCommerce already knows.', 'stm-smart-checkout' ) );
+		self::row_page( 'legal.revocation_page', __( 'Cancellation policy page', 'stm-smart-checkout' ), __( 'Empty = the page your legal plugin registered, otherwise the revocation page this plugin creates.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'legal.popup', __( 'Open legal texts (terms, withdrawal) in an overlay', 'stm-smart-checkout' ), __( 'Customers read the linked pages without leaving the checkout; right-click still opens the page normally.', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		self::card_open( __( 'Checkout footer', 'stm-smart-checkout' ) );
+		self::row_pages( 'focus.legal_pages', __( 'Checkout footer: pages', 'stm-smart-checkout' ), __( 'Hold Ctrl/Cmd to select several. Empty = the menu below, or the legal pages your site already registered.', 'stm-smart-checkout' ) );
+		self::row_menu( 'focus.legal_menu', __( 'Checkout footer: menu (alternative)', 'stm-smart-checkout' ), __( 'Used when no pages are picked above.', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_colors() {
+		self::card_open( __( 'Actions', 'stm-smart-checkout' ), '', array( 'class' => 'stmc-rows--colors' ) );
+		self::row_color( 'design.accent', __( 'Accent color', 'stm-smart-checkout' ) );
+		self::row_color( 'design.accent_hover', __( 'Accent hover color', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		self::card_open( __( 'Text', 'stm-smart-checkout' ), '', array( 'class' => 'stmc-rows--colors' ) );
+		self::row_color( 'design.ink', __( 'Heading color', 'stm-smart-checkout' ) );
+		self::row_color( 'design.title', __( 'Step heading color', 'stm-smart-checkout' ) );
+		self::row_color( 'design.label', __( 'Field label color', 'stm-smart-checkout' ) );
+		self::row_color( 'design.text', __( 'Text color', 'stm-smart-checkout' ) );
+		self::row_color( 'design.muted', __( 'Secondary text color', 'stm-smart-checkout' ) );
+		self::card_close();
+
+		self::card_open( __( 'Surfaces', 'stm-smart-checkout' ), '', array( 'class' => 'stmc-rows--colors' ) );
+		self::row_color( 'design.bg', __( 'Page background', 'stm-smart-checkout' ) );
+		self::row_color( 'design.card', __( 'Card background', 'stm-smart-checkout' ) );
+		self::row_color( 'design.line', __( 'Border color', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	public static function section_shape() {
+		self::card_open();
+		self::row_url( 'design.logo_url', __( 'Checkout logo URL', 'stm-smart-checkout' ), __( 'Shown in the checkout header. Leave empty to show your site title as text instead.', 'stm-smart-checkout' ) );
+		self::row_number( 'design.font_size', __( 'Base font size (px)', 'stm-smart-checkout' ), 11, 24 );
+		self::row_number( 'design.radius', __( 'Card corner radius (px)', 'stm-smart-checkout' ), 0, 32 );
+		self::card_close();
+	}
+
+	public static function section_advanced() {
+		self::card_open();
+		self::row_textarea( 'focus.extra_hide_selectors', __( 'Extra CSS selectors to hide (advanced)', 'stm-smart-checkout' ), __( 'One selector per line. Hidden only on cart/checkout. Never hide your footer legal links.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'header.sr_title', __( 'Render a screen-reader page title', 'stm-smart-checkout' ), __( 'Both pages usually have no H1 once the theme header is hidden.', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'advanced.debug', __( 'Debug logging (browser console)', 'stm-smart-checkout' ) );
+		self::row_checkbox( 'general.remove_data_on_uninstall', __( 'Remove all settings when the plugin is deleted', 'stm-smart-checkout' ) );
+		self::card_close();
+	}
+
+	/** Rows of an add-on that still speaks to the tabs. */
+	public static function section_addon() {
+		self::card_open();
+		foreach ( array( 'general', 'checkout', 'legal', 'design' ) as $tab ) {
+			/**
+			 * Extra rows of an add-on built for the former tabs.
+			 *
+			 * @param string $tab The former tab.
+			 */
+			do_action( 'stmc_admin_tab_' . $tab, $tab );
+		}
+		self::card_close();
+	}
+
+	/**
+	 * The Settings API replaces the whole option on save. Every section is in
+	 * the form, so what is left to carry over is a key with no row of its own
+	 * on this screen, or one of an add-on that is not rendering right now.
+	 */
+	private static function hidden_fields() {
 		$visible = array(
 			'general'  => array(
 				'general.enabled', 'modules.header', 'modules.focus', 'modules.layout', 'modules.fields',
@@ -501,20 +933,24 @@ class STMC_Admin {
 			),
 		);
 		/**
-		 * Which settings keys each tab actually renders.
+		 * Which settings keys the screen renders, grouped as the former tabs.
 		 *
-		 * Everything NOT listed for the current tab is written back as a
-		 * hidden field, because the settings screen saves the whole option at
-		 * once — a Pro key missing from this map would be silently wiped every
-		 * time someone saved a different tab.
+		 * Everything NOT listed is written back as a hidden field, because the
+		 * screen saves the whole option at once: a Pro key missing from this
+		 * map, but rendered, would be sent twice; one listed but not rendered
+		 * would be wiped on save.
 		 *
-		 * @param array  $visible     tab slug => settings keys.
-		 * @param string $current_tab The tab being rendered.
+		 * @param array  $visible group => settings keys.
+		 * @param string $scope   Always "all" since the tabs are gone.
 		 */
-		$visible = (array) apply_filters( 'stmc_admin_tab_fields', $visible, $current_tab );
+		$visible = (array) apply_filters( 'stmc_admin_tab_fields', $visible, 'all' );
+		$shown   = array();
+		foreach ( $visible as $keys ) {
+			$shown = array_merge( $shown, (array) $keys );
+		}
 
 		foreach ( STMC_Settings::fields() as $key => $field ) {
-			if ( in_array( $key, isset( $visible[ $current_tab ] ) ? $visible[ $current_tab ] : array(), true ) ) {
+			if ( in_array( $key, $shown, true ) ) {
 				continue;
 			}
 			$value = STMC_Settings::get( $key );
@@ -552,10 +988,10 @@ class STMC_Admin {
 		if ( null === $map ) {
 			$map = array(
 				'general.enabled'                   => __( 'The master switch. On = customers see the Smart Checkout on cart and checkout. Off = customers keep the standard checkout while you configure in peace. The preview link at the top works in both states, so you can review every change on the live site without any customer noticing.', 'stm-smart-checkout' ),
-				'modules.header'                    => __( 'The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the "Already a customer?" login pill and the cart → checkout → confirmation progress. The individual pieces are configured on the Checkout tab.', 'stm-smart-checkout' ),
-				'modules.focus'                     => __( 'Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the advanced selector list on the Checkout tab.', 'stm-smart-checkout' ),
-				'modules.layout'                    => __( 'The layout machinery: the column arrangement chosen on the Design tab, the numbered section headings and the "Continue shopping" link on the cart.', 'stm-smart-checkout' ),
-				'modules.fields'                    => __( 'All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch on the Checkout tab.', 'stm-smart-checkout' ),
+				'modules.header'                    => __( 'The white header band that replaces the theme header on cart and checkout: your logo in the middle, the three trust items, the "Already a customer?" login pill and the cart → checkout → confirmation progress. The individual pieces are configured under Structure and Trust.', 'stm-smart-checkout' ),
+				'modules.focus'                     => __( 'Hides everything that leads away from completing the order: theme header and menu, seals, breadcrumbs and decorative footer parts. Legal links in the footer always stay reachable. Site-specific extras can be hidden via the selector list under Advanced.', 'stm-smart-checkout' ),
+				'modules.layout'                    => __( 'The layout machinery: the column arrangement chosen under Structure, the numbered section headings and the "Continue shopping" link on the cart.', 'stm-smart-checkout' ),
+				'modules.fields'                    => __( 'All form-field improvements as a group: tidy field pairs (first/last name, postcode/city), state-field fixes, correct mobile keyboards, postcode autofill and the account tooltip. Each piece has its own switch under Input help.', 'stm-smart-checkout' ),
 				'modules.trust'                     => __( 'The quiet reassurance row under the order button, repeating the three trust items from the header band.', 'stm-smart-checkout' ),
 				'advanced.debug'                    => __( 'Writes what the checkout scripts are doing to the browser console (F12). Useful only while diagnosing a problem — leave it off in normal operation. Customers never see these messages.', 'stm-smart-checkout' ),
 				'general.remove_data_on_uninstall'  => __( 'Only matters when you DELETE the plugin in the plugins list: On = all settings and the withdrawal-requests table are removed for good. Off = everything survives for a later reinstall. Simply deactivating never deletes anything.', 'stm-smart-checkout' ),
@@ -615,13 +1051,22 @@ class STMC_Admin {
 		return isset( $map[ $key ] ) ? $map[ $key ] : '';
 	}
 
-	public static function row_open( $key, $label ) {
+	/**
+	 * @param string $key   Setting key.
+	 * @param string $label Row label.
+	 * @param string $desc  Hint under the label; row_close() still takes one for under the control.
+	 * @param string $class Extra class of the row.
+	 */
+	public static function row_open( $key, $label, $desc = '', $class = '' ) {
 		$id   = 'stmc-' . str_replace( '.', '-', $key );
 		$help = self::help_text( $key );
-		echo '<tr><th scope="row"><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
+		echo '<tr' . ( '' === $class ? '' : ' class="' . esc_attr( $class ) . '"' ) . '><th scope="row"><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
 		if ( '' !== $help ) {
 			echo ' <button type="button" class="stmc-help" aria-expanded="false" aria-describedby="' . esc_attr( $id . '-help' ) . '" aria-label="' . esc_attr__( 'What does this setting do?', 'stm-smart-checkout' ) . '">?</button>'
 				. '<span class="stmc-help__pop" role="tooltip" id="' . esc_attr( $id . '-help' ) . '">' . esc_html( $help ) . '</span>';
+		}
+		if ( '' !== $desc ) {
+			echo '<p class="description">' . esc_html( $desc ) . '</p>';
 		}
 		echo '</th><td>';
 	}
@@ -634,21 +1079,20 @@ class STMC_Admin {
 	}
 
 	public static function row_checkbox( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc, 'stmc-row--switch' );
 		printf(
-			'<label><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s> %4$s</label>',
+			'<span class="stmc-switch"><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s><span aria-hidden="true"></span></span>',
 			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
 			esc_attr( self::name( $key ) ),
-			checked( (bool) STMC_Settings::get( $key ), true, false ),
-			esc_html__( 'Yes', 'stm-smart-checkout' )
+			checked( (bool) STMC_Settings::get( $key ), true, false )
 		);
-		self::row_close( $desc );
+		self::row_close();
 	}
 
 	public static function row_color( $key, $label ) {
 		self::row_open( $key, $label );
 		printf(
-			'<input type="color" id="%1$s" name="%2$s" value="%3$s">',
+			'<input type="color" id="%1$s" name="%2$s" value="%3$s"><code>%3$s</code>',
 			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
 			esc_attr( self::name( $key ) ),
 			esc_attr( STMC_Settings::get( $key ) )
@@ -685,29 +1129,29 @@ class STMC_Admin {
 	}
 
 	public static function row_text( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc );
 		printf(
 			'<input type="text" class="regular-text" id="%1$s" name="%2$s" value="%3$s">',
 			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
 			esc_attr( self::name( $key ) ),
 			esc_attr( STMC_Settings::get( $key ) )
 		);
-		self::row_close( $desc );
+		self::row_close();
 	}
 
 	public static function row_textarea( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc );
 		printf(
 			'<textarea class="large-text" rows="3" id="%1$s" name="%2$s">%3$s</textarea>',
 			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
 			esc_attr( self::name( $key ) ),
 			esc_textarea( STMC_Settings::get( $key ) )
 		);
-		self::row_close( $desc );
+		self::row_close();
 	}
 
 	public static function row_menu( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc );
 		printf( '<select id="%1$s" name="%2$s">', esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ), esc_attr( self::name( $key ) ) );
 		printf( '<option value="0" %s>%s</option>', selected( 0, (int) STMC_Settings::get( $key ), false ), esc_html__( '— Off —', 'stm-smart-checkout' ) );
 		foreach ( wp_get_nav_menus() as $menu ) {
@@ -719,14 +1163,14 @@ class STMC_Admin {
 			);
 		}
 		echo '</select>';
-		self::row_close( $desc );
+		self::row_close();
 	}
 
 	public static function row_pages( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc );
 		$selected = array_map( 'intval', (array) STMC_Settings::get( $key ) );
 		printf(
-			'<select id="%1$s" name="%2$s[]" multiple size="8" style="min-width:300px">',
+			'<select id="%1$s" name="%2$s[]" multiple size="6">',
 			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
 			esc_attr( self::name( $key ) )
 		);
@@ -739,7 +1183,7 @@ class STMC_Admin {
 			);
 		}
 		echo '</select>';
-		self::row_close( $desc );
+		self::row_close();
 	}
 
 	/*
@@ -799,11 +1243,36 @@ class STMC_Admin {
 			);
 		}
 
-		echo '<tr><th scope="row">' . esc_html__( 'Detected on the checkout', 'stm-smart-checkout' ) . '</th><td><p class="description">'
+		echo '<tr class="stmc-row--stack"><th scope="row">' . esc_html__( 'Detected on the checkout', 'stm-smart-checkout' ) . '</th><td><p class="description">'
 			. esc_html( $text ) . ( '' === $state ? '' : ' <strong>' . esc_html( $state ) . '</strong>' )
 			. '</p>'
 			. ( '' === $block_text ? '' : '<p class="description"><strong>' . esc_html( $block_text ) . '</strong></p>' )
 			. '</td></tr>';
+	}
+
+	/** The layouts as small drawings: this choice is seen, not read. */
+	private static function row_layout() {
+		$key     = 'design.layout';
+		$current = STMC_Settings::layout();
+		$columns = array(
+			'one-column' => 1,
+			'two-column' => 2,
+		);
+		self::row_open( $key, __( 'Checkout layout', 'stm-smart-checkout' ), '', 'stmc-row--stack' );
+		echo '<div class="stmc-layouts">';
+		foreach ( self::layout_choices() as $value => $label ) {
+			$count = isset( $columns[ $value ] ) ? $columns[ $value ] : 3;
+			printf(
+				'<label class="stmc-layout"><input type="radio" name="%1$s" value="%2$s" %3$s><span class="stmc-layout__art" aria-hidden="true">%4$s</span><span class="stmc-layout__name">%5$s</span></label>',
+				esc_attr( self::name( $key ) ),
+				esc_attr( $value ),
+				checked( $current, $value, false ),
+				str_repeat( '<i></i>', (int) $count ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal markup.
+				esc_html( $label )
+			);
+		}
+		echo '</div>';
+		self::row_close();
 	}
 
 	/**
@@ -837,7 +1306,7 @@ class STMC_Admin {
 	}
 
 	public static function row_page( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc );
 		$dropdown = wp_dropdown_pages(
 			array(
 				'name'              => esc_attr( self::name( $key ) ),
@@ -855,17 +1324,17 @@ class STMC_Admin {
 				'option' => array( 'value' => array(), 'selected' => array(), 'class' => array() ),
 			)
 		);
-		self::row_close( $desc );
+		self::row_close();
 	}
 
 	public static function row_url( $key, $label, $desc = '' ) {
-		self::row_open( $key, $label );
+		self::row_open( $key, $label, $desc );
 		printf(
 			'<input type="url" class="regular-text" id="%1$s" name="%2$s" value="%3$s" placeholder="https://">',
 			esc_attr( 'stmc-' . str_replace( '.', '-', $key ) ),
 			esc_attr( self::name( $key ) ),
 			esc_attr( STMC_Settings::get( $key ) )
 		);
-		self::row_close( $desc );
+		self::row_close();
 	}
 }

@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.53
+Stable tag: 0.1.54
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,6 +179,11 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.54 =
+* New settings screen: one navigation with clearly named sections instead of four tabs, compact cards, switches, and a search across every setting. One save covers the whole screen; old links with ?tab= keep working.
+* The layout is picked from small drawings, the colours are grouped by what they colour, and an overview shows the state of the checkout at a glance.
+* Add-ons can bring their own sections through the new filter stmc_admin_sections. Rows of an add-on written for the tabs stay available under Add-on settings.
 
 = 0.1.53 =
 * Fixed: on the Checkout block with WooCommerce older than 9.8, the consent box was optional. WooCommerce has no required checkboxes in its additional checkout fields before 9.8, so it showed the box as "(optional)" and accepted orders without the tick. The box now appears on the block from WooCommerce 9.8; the classic checkout is unchanged and still works from WooCommerce 8.3.

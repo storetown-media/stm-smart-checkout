@@ -1621,3 +1621,27 @@ msgstr "Einstellungen zurücksetzen"
 
 msgid "File imported. The earlier state is listed below."
 msgstr "Datei eingespielt. Der bisherige Stand steht unten in der Liste."
+
+msgid "Checkout field editor"
+msgstr "Feld-Editor für die Kasse"
+
+msgid "Add your own fields in 22 field types, and move, rename, widen or hide the fields of WooCommerce, with conditions, checks and a preview of your layout."
+msgstr "Eigene Felder in 22 Feldtypen anlegen und die Felder von WooCommerce verschieben, umbenennen, verbreitern oder ausblenden, mit Bedingungen, Prüfungen und Vorschau im Layout."
+
+msgid "Field analysis"
+msgstr "Feld-Analyse"
+
+msgid "Shows at which field and with which payment method orders fail, as daily sums on your own server. No names, no IP addresses, no cookies."
+msgstr "Zeigt, an welchem Feld und mit welcher Zahlart Bestellungen scheitern, als Tagessummen auf dem eigenen Server. Keine Namen, keine IP-Adressen, keine Cookies."
+
+msgid "Layout test"
+msgstr "Layout-Test"
+
+msgid "Two checkout layouts take turns in blocks of hours, without a cookie and without a visitor identifier. A result appears only once enough checkouts are counted."
+msgstr "Zwei Kassen-Layouts wechseln sich in Zeitblöcken ab, ohne Cookie und ohne Besucherkennung. Ein Ergebnis erscheint erst, wenn genug Kassenaufrufe gezählt sind."
+
+msgid "Card testing protection"
+msgstr "Schutz vor Kartentests"
+
+msgid "Limits order attempts and failed payments per connection, adds a hidden trap and a minimum time for bots, and warns you by mail."
+msgstr "Begrenzt Bestellversuche und Fehlzahlungen je Anschluss, stellt Bots eine versteckte Falle und eine Mindestzeit und warnt per Mail."

@@ -253,6 +253,22 @@ class STMC_Admin {
 				'text'  => __( 'Your own name, a note, a symbol and a sort position per payment method — through documented WooCommerce filters, with 33 bundled symbols.', 'stm-smart-checkout' ),
 			),
 			array(
+				'title' => __( 'Checkout field editor', 'stm-smart-checkout' ),
+				'text'  => __( 'Add your own fields in 22 field types, and move, rename, widen or hide the fields of WooCommerce, with conditions, checks and a preview of your layout.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Field analysis', 'stm-smart-checkout' ),
+				'text'  => __( 'Shows at which field and with which payment method orders fail, as daily sums on your own server. No names, no IP addresses, no cookies.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Layout test', 'stm-smart-checkout' ),
+				'text'  => __( 'Two checkout layouts take turns in blocks of hours, without a cookie and without a visitor identifier. A result appears only once enough checkouts are counted.', 'stm-smart-checkout' ),
+			),
+			array(
+				'title' => __( 'Card testing protection', 'stm-smart-checkout' ),
+				'text'  => __( 'Limits order attempts and failed payments per connection, adds a hidden trap and a minimum time for bots, and warns you by mail.', 'stm-smart-checkout' ),
+			),
+			array(
 				'title' => __( 'Safe mode', 'stm-smart-checkout' ),
 				'text'  => __( 'A fatal error while the checkout renders no longer costs you orders: the Smart Checkout steps aside from the next request on and the standard checkout takes over, visibly and reversibly.', 'stm-smart-checkout' ),
 			),

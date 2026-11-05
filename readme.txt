@@ -37,6 +37,8 @@ Install it, switch on preview mode, and look at your own checkout the way a cust
 * **Legal texts open in an overlay** — customers read your terms without leaving the checkout.
 * **A server-side safety net** re-checks every required consent box after submit. A request without the tick is refused, not merely hidden. On the Checkout block this needs WooCommerce 9.8 or newer.
 * **Delivery time under every product**, in cart and checkout, taken from the most specific source that knows one.
+* **Checkout check** — one click tests your legal pages, the wording of the buy button, consent, footer links, payment methods and page cache, and every finding links to where you fix it. A technical check, not legal advice.
+* **Backup and transfer** — download your settings as a file, take them to another shop, and bring back any of the last 15 states with one click. Links to pages, menus and images stay in the shop they belong to.
 
 = Works with your stack, not around it =
 
@@ -55,6 +57,10 @@ The free plugin is complete in itself and stays that way. The paid add-on is for
 * **Express zone** — one defined band above the form for PayPal, Apple Pay and Google Pay, steered there through the providers' own filters, never rebuilt and never moved in the DOM.
 * **Payment-dependent required fields** — invoice purchase may ask for a phone number, prepayment need not. Re-checked on the server.
 * **Method customizer** — your own name, note, symbol and sort order per payment method, through documented WooCommerce filters, with 33 bundled symbols.
+* **Checkout field editor** — add your own fields in 22 field types, and move, rename, widen or hide WooCommerce's fields, with conditions, checks and a live preview of the chosen layout.
+* **Field analysis** — shows at which field and with which payment method orders fail, as daily sums on your own server. No names, no IP addresses, no cookies.
+* **Layout test** — two checkout layouts take turns in blocks of hours, without a cookie and without a visitor identifier. A result appears only once enough checkouts are counted.
+* **Card testing protection** — limits order attempts and failed payments per connection, adds a hidden trap and a minimum time for bots, and warns you by mail. Your own staff are never limited.
 * **Safe mode** — a fatal error while the checkout renders no longer costs you orders: the Smart Checkout steps aside and WooCommerce's standard checkout takes over, visibly and reversibly.
 * **Mobile sticky order bar** and an **ultra-compact layout** for dense checkouts on small screens.
 
@@ -89,6 +95,8 @@ Installieren, Vorschau-Modus einschalten und die eigene Kasse einmal mit Kundena
 * **Rechtstexte im Overlay** — Kundschaft liest Ihre AGB, ohne die Kasse zu verlassen.
 * **Serverseitige Absicherung**: Jedes Pflichthäkchen wird nach dem Absenden erneut geprüft. Eine Anfrage ohne Haken wird abgewiesen, nicht bloß ausgeblendet.
 * **Lieferzeit unter jedem Produkt**, in Warenkorb und Kasse, aus der jeweils genauesten Quelle.
+* **Kassen-Check** — ein Klick prüft Rechtsseiten, den Wortlaut des Kaufknopfs, die Einwilligung, die Links in der Fußzeile, Zahlarten und Seitencache, und jeder Befund führt direkt zur richtigen Einstellung. Eine technische Prüfung, keine Rechtsberatung.
+* **Sichern und Übertragen** — Einstellungen als Datei herunterladen, in einen anderen Shop mitnehmen und jeden der letzten 15 Stände mit einem Klick zurückholen. Verknüpfungen zu Seiten, Menüs und Bildern bleiben in dem Shop, zu dem sie gehören.
 
 = Arbeitet mit Ihrem Bestand, nicht daran vorbei =
 
@@ -107,6 +115,10 @@ Das kostenlose Plugin ist in sich vollständig und bleibt es. Das kostenpflichti
 * **Express-Zone** — ein definiertes Band über dem Formular für PayPal, Apple Pay und Google Pay, über die Filter der Anbieter dorthin gesteuert, nie nachgebaut und nie im DOM verschoben.
 * **Zahlartabhängige Pflichtfelder** — Kauf auf Rechnung darf nach der Telefonnummer fragen, Vorkasse nicht. Serverseitig nachgeprüft.
 * **Methoden-Customizer** — eigener Name, Zusatztext, Symbol und Reihenfolge je Zahlart, über dokumentierte WooCommerce-Filter, mit 33 mitgelieferten Symbolen.
+* **Feld-Editor für die Kasse** — eigene Felder in 22 Feldtypen anlegen, die Felder von WooCommerce verschieben, umbenennen, verbreitern oder ausblenden, mit Bedingungen, Prüfungen und Vorschau im gewählten Layout.
+* **Feld-Analyse** — zeigt, an welchem Feld und mit welcher Zahlart Bestellungen scheitern, als Tagessummen auf dem eigenen Server. Keine Namen, keine IP-Adressen, keine Cookies.
+* **Layout-Test** — zwei Kassen-Layouts wechseln sich in Zeitblöcken ab, ohne Cookie und ohne Besucherkennung. Ein Ergebnis erscheint erst, wenn genug Kassenaufrufe gezählt sind.
+* **Schutz vor Kartentests** — begrenzt Bestellversuche und Fehlzahlungen je Anschluss, stellt Bots eine versteckte Falle und eine Mindestzeit und warnt per Mail. Das eigene Team wird nie begrenzt.
 * **Safe-Mode** — ein Fatal Error beim Rendern der Kasse kostet Sie keine Bestellungen mehr: der Smart Checkout tritt zurück, die Standard-Kasse übernimmt, sichtbar und umkehrbar.
 * **Mobile Sticky-Bestellleiste** und ein **ultra-kompaktes Layout** für dichte Kassen auf kleinen Bildschirmen.
 
@@ -124,7 +136,7 @@ Yes — coexistence with both is a core design goal. The plugin respects their l
 
 = Is there a paid version, and what does it add? =
 
-Yes. STM Smart Checkout Pro is a separate add-on that requires this free plugin. It adds the online withdrawal form and its management screen, the express zone for wallet buttons, payment-dependent required fields, the payment method customizer, safe mode, a mobile sticky order bar and an ultra-compact layout. Everything described in the description above is part of this free plugin and stays that way — Pro adds, it does not unlock. Details and pricing: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
+Yes. STM Smart Checkout Pro is a separate add-on that requires this free plugin. It adds the online withdrawal form and its management screen, the express zone for wallet buttons, payment-dependent required fields, the payment method customizer, a checkout field editor, field analysis, a layout test, card testing protection, safe mode, a mobile sticky order bar and an ultra-compact layout. Everything described in the description above is part of this free plugin and stays that way — Pro adds, it does not unlock. Details and pricing: [STM Smart Checkout Pro for WooCommerce](https://en.storetown-media.de/produkt/stm-smart-checkout-pro-woocommerce/)
 
 = Does the free plugin include the online withdrawal form required since June 2026? =
 
@@ -170,8 +182,8 @@ They ship as plain JSON inside the plugin and are read locally. Nothing is fetch
 2. The buy zone in reading order — totals, required consent, reassurance note, buy button, trust row.
 3. Terms and cancellation policy open in an overlay, without leaving the checkout.
 4. The same checkout on a phone: one column, reachable targets, express buttons kept.
-5. The design tab — layout, the two blues, font size in pixels, every setting with its own plain-language help bubble.
-6. The legal tab with "detected at the checkout": what the automatic detection last found, and which required statements the plugin is standing down from because another plugin delivers them.
+5. Structure: the checkout layouts side by side, with a preview of what each one does.
+6. The checkout check: what is in order at your checkout, what needs attention, and a link to the right setting for each finding.
 
 == Changelog ==
 

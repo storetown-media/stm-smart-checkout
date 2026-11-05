@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: STM Smart Checkout 0.1.54\n"
 "Report-Msgid-Bugs-To: https://www.storetown-media.de/\n"
-"POT-Creation-Date: 2026-11-05 13:05+0000\n"
+"POT-Creation-Date: 2026-11-05 13:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -249,7 +249,7 @@ msgid "Sales"
 msgstr ""
 
 #: includes/class-stmc-admin.php:486
-#: includes/class-stmc-check.php:406
+#: includes/class-stmc-check.php:410
 msgid "Legal"
 msgstr ""
 
@@ -320,13 +320,13 @@ msgstr ""
 
 #: includes/class-stmc-admin.php:766
 #: includes/class-stmc-admin.php:942
-#: includes/class-stmc-check.php:151
+#: includes/class-stmc-check.php:152
 msgid "Notice with links"
 msgstr ""
 
 #: includes/class-stmc-admin.php:766
 #: includes/class-stmc-admin.php:941
-#: includes/class-stmc-check.php:151
+#: includes/class-stmc-check.php:152
 msgid "To tick"
 msgstr ""
 
@@ -1499,384 +1499,384 @@ msgstr ""
 msgid "Read the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation} in full."
 msgstr ""
 
-#: includes/class-stmc-check.php:102
+#: includes/class-stmc-check.php:103
 msgid "Open legal pages"
 msgstr ""
 
-#: includes/class-stmc-check.php:111
+#: includes/class-stmc-check.php:112
 msgid "Terms and conditions"
 msgstr ""
 
-#: includes/class-stmc-check.php:112
+#: includes/class-stmc-check.php:113
 msgid "No terms page is set, so the words at the checkout appear without a link."
 msgstr ""
 
-#: includes/class-stmc-check.php:120
+#: includes/class-stmc-check.php:121
 msgid "Cancellation policy"
 msgstr ""
 
-#: includes/class-stmc-check.php:121
+#: includes/class-stmc-check.php:122
 msgid "No cancellation policy page is set, so the words at the checkout appear without a link."
 msgstr ""
 
-#: includes/class-stmc-check.php:128
+#: includes/class-stmc-check.php:129
 msgid "Privacy policy page found"
 msgstr ""
 
-#: includes/class-stmc-check.php:129
+#: includes/class-stmc-check.php:130
 msgid "No privacy policy page found"
 msgstr ""
 
-#: includes/class-stmc-check.php:129
+#: includes/class-stmc-check.php:130
 msgid "WordPress has no privacy page set, and none was found under the usual addresses."
 msgstr ""
 
-#: includes/class-stmc-check.php:129
+#: includes/class-stmc-check.php:130
 msgid "Open privacy settings"
 msgstr ""
 
-#: includes/class-stmc-check.php:132
+#: includes/class-stmc-check.php:133
 msgid "Imprint page found"
 msgstr ""
 
-#: includes/class-stmc-check.php:133
+#: includes/class-stmc-check.php:134
 msgid "No imprint page found"
 msgstr ""
 
-#: includes/class-stmc-check.php:133
+#: includes/class-stmc-check.php:134
 msgid "None was found under the usual addresses. If yours has another name, this line can be ignored."
 msgstr ""
 
 #. translators: %s: label of the buy button
-#: includes/class-stmc-check.php:138
+#: includes/class-stmc-check.php:139
 msgid "Buy button names the purchase"
 msgstr ""
 
 #. translators: %s: label of the buy button
-#: includes/class-stmc-check.php:138
+#: includes/class-stmc-check.php:139
 msgid "It reads \"%s\"."
 msgstr ""
 
 #. translators: %s: label of the buy button
-#: includes/class-stmc-check.php:140
+#: includes/class-stmc-check.php:141
 msgid "Buy button may not make the cost clear"
 msgstr ""
 
 #. translators: %s: label of the buy button
-#: includes/class-stmc-check.php:140
+#: includes/class-stmc-check.php:141
 msgid "It reads \"%s\". In Germany it has to say plainly that the order costs money (BGB 312j)."
 msgstr ""
 
 #. translators: %s: label of the buy button
-#: includes/class-stmc-check.php:140
+#: includes/class-stmc-check.php:141
 msgid "Change the label"
 msgstr ""
 
-#: includes/class-stmc-check.php:145
+#: includes/class-stmc-check.php:146
 msgid "No consent at the checkout"
 msgstr ""
 
-#: includes/class-stmc-check.php:145
+#: includes/class-stmc-check.php:146
 msgid "Smart Checkout is set to show none, and no legal plugin was detected."
 msgstr ""
 
-#: includes/class-stmc-check.php:145
+#: includes/class-stmc-check.php:146
 msgid "Open consent"
 msgstr ""
 
-#: includes/class-stmc-check.php:150
+#: includes/class-stmc-check.php:151
 msgid "Consent at the checkout is set"
 msgstr ""
 
-#: includes/class-stmc-check.php:156
+#: includes/class-stmc-check.php:157
 msgid "Online withdrawal function"
 msgstr ""
 
-#: includes/class-stmc-check.php:156
+#: includes/class-stmc-check.php:157
 msgid "Shops selling to consumers in the EU need one since 19 June 2026. Check whether another plugin provides it here."
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:177
+#: includes/class-stmc-check.php:178
 msgid "%s: no page"
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:183
+#: includes/class-stmc-check.php:184
 msgid "%s: page with text"
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:186
+#: includes/class-stmc-check.php:187
 msgid "%s: only a form"
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:186
+#: includes/class-stmc-check.php:187
 msgid "The chosen page holds the withdrawal form, not the policy text. Customers do not find the text there."
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:189
+#: includes/class-stmc-check.php:190
 msgid "%s: very little text"
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:189
+#: includes/class-stmc-check.php:190
 msgid "Edit the page"
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:192
+#: includes/class-stmc-check.php:193
 msgid "%s: please look yourself"
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:192
-msgid "A page builder holds the text, which cannot be read from here."
+#: includes/class-stmc-check.php:193
+msgid "The text sits in a template or page builder, which cannot be read from here."
 msgstr ""
 
 #. translators: %s: name of the legal page
-#: includes/class-stmc-check.php:192
+#: includes/class-stmc-check.php:193
 #: includes/modules/class-stmc-module-legal.php:1139
 msgid "Open the page"
 msgstr ""
 
-#: includes/class-stmc-check.php:210
+#: includes/class-stmc-check.php:211
 msgid "Legal pages are in the checkout footer"
 msgstr ""
 
 #. translators: %s: page titles
-#: includes/class-stmc-check.php:213
+#: includes/class-stmc-check.php:214
 msgid "Legal pages missing from the checkout footer"
 msgstr ""
 
 #. translators: %s: page titles
-#: includes/class-stmc-check.php:213
+#: includes/class-stmc-check.php:214
 msgid "Not linked there: %s."
 msgstr ""
 
 #. translators: %s: page titles
-#: includes/class-stmc-check.php:213
+#: includes/class-stmc-check.php:214
 msgid "Set the footer"
 msgstr ""
 
-#: includes/class-stmc-check.php:221
+#: includes/class-stmc-check.php:222
 msgid "Smart Checkout is active for customers"
 msgstr ""
 
-#: includes/class-stmc-check.php:222
+#: includes/class-stmc-check.php:223
 msgid "Smart Checkout is off for customers"
 msgstr ""
 
-#: includes/class-stmc-check.php:222
+#: includes/class-stmc-check.php:223
 msgid "They see the standard checkout. This is the right state while setting up."
 msgstr ""
 
-#: includes/class-stmc-check.php:222
+#: includes/class-stmc-check.php:223
 msgid "Open overview"
 msgstr ""
 
-#: includes/class-stmc-check.php:239
+#: includes/class-stmc-check.php:240
 msgid "Payment methods are active"
 msgstr ""
 
-#: includes/class-stmc-check.php:240
+#: includes/class-stmc-check.php:241
 msgid "No payment method is active"
 msgstr ""
 
-#: includes/class-stmc-check.php:240
+#: includes/class-stmc-check.php:241
 msgid "Without one, nobody can order."
 msgstr ""
 
 #. translators: %s: names of payment methods
-#: includes/class-stmc-check.php:240
-#: includes/class-stmc-check.php:243
+#: includes/class-stmc-check.php:241
+#: includes/class-stmc-check.php:244
 msgid "Open payments"
 msgstr ""
 
 #. translators: %s: names of payment methods
-#: includes/class-stmc-check.php:243
+#: includes/class-stmc-check.php:244
 msgid "A payment method is in test mode"
 msgstr ""
 
 #. translators: %s: names of payment methods
-#: includes/class-stmc-check.php:243
+#: includes/class-stmc-check.php:244
 msgid "No real money arrives through: %s."
 msgstr ""
 
-#: includes/class-stmc-check.php:263
+#: includes/class-stmc-check.php:271
 msgid "Shipping methods are set"
 msgstr ""
 
-#: includes/class-stmc-check.php:264
+#: includes/class-stmc-check.php:272
 msgid "No shipping method is set"
 msgstr ""
 
-#: includes/class-stmc-check.php:264
+#: includes/class-stmc-check.php:272
 msgid "Products that ship cannot be ordered."
 msgstr ""
 
-#: includes/class-stmc-check.php:264
+#: includes/class-stmc-check.php:272
 msgid "Open shipping"
 msgstr ""
 
-#: includes/class-stmc-check.php:267
+#: includes/class-stmc-check.php:275
 msgid "No delivery time is set"
 msgstr ""
 
-#: includes/class-stmc-check.php:267
+#: includes/class-stmc-check.php:275
 msgid "Customers have to be told before ordering when the goods arrive."
 msgstr ""
 
-#: includes/class-stmc-check.php:267
+#: includes/class-stmc-check.php:275
 msgid "Set a delivery time"
 msgstr ""
 
-#: includes/class-stmc-check.php:272
+#: includes/class-stmc-check.php:280
 msgid "Taxes are off in WooCommerce"
 msgstr ""
 
-#: includes/class-stmc-check.php:272
+#: includes/class-stmc-check.php:280
 msgid "Fine for small businesses exempt from VAT, otherwise prices at the checkout show no tax."
 msgstr ""
 
-#: includes/class-stmc-check.php:272
+#: includes/class-stmc-check.php:280
 msgid "Open WooCommerce settings"
 msgstr ""
 
-#: includes/class-stmc-check.php:283
+#: includes/class-stmc-check.php:291
 msgid "Checkout runs over HTTPS"
 msgstr ""
 
-#: includes/class-stmc-check.php:284
+#: includes/class-stmc-check.php:292
 msgid "Checkout runs without HTTPS"
 msgstr ""
 
-#: includes/class-stmc-check.php:284
+#: includes/class-stmc-check.php:292
 msgid "Customer data travels unencrypted, and browsers warn about it."
 msgstr ""
 
-#: includes/class-stmc-check.php:289
+#: includes/class-stmc-check.php:297
 msgid "The checkout page uses the Checkout block"
 msgstr ""
 
-#: includes/class-stmc-check.php:289
+#: includes/class-stmc-check.php:297
 msgid "Column layouts and the field manager work on the classic checkout only."
 msgstr ""
 
-#: includes/class-stmc-check.php:290
+#: includes/class-stmc-check.php:298
 msgid "Classic checkout, all functions available"
 msgstr ""
 
-#: includes/class-stmc-check.php:293
+#: includes/class-stmc-check.php:301
 msgid "PHP messages are shown to visitors"
 msgstr ""
 
-#: includes/class-stmc-check.php:293
+#: includes/class-stmc-check.php:301
 msgid "WP_DEBUG_DISPLAY is on. A notice in the page can break the order request."
 msgstr ""
 
-#: includes/class-stmc-check.php:297
+#: includes/class-stmc-check.php:305
 msgid "The theme brings its own checkout template"
 msgstr ""
 
-#: includes/class-stmc-check.php:297
+#: includes/class-stmc-check.php:305
 msgid "After WooCommerce updates such a copy can be out of date. Look at the status report if something is missing."
 msgstr ""
 
-#: includes/class-stmc-check.php:297
+#: includes/class-stmc-check.php:305
 msgid "Open the status report"
 msgstr ""
 
-#: includes/class-stmc-check.php:306
+#: includes/class-stmc-check.php:310
 msgid "The buy button is hard to read"
 msgstr ""
 
-#: includes/class-stmc-check.php:306
+#: includes/class-stmc-check.php:310
 msgid "Label and background are too close to each other."
 msgstr ""
 
-#: includes/class-stmc-check.php:306
+#: includes/class-stmc-check.php:310
 msgid "Open colours"
 msgstr ""
 
-#: includes/class-stmc-check.php:324
+#: includes/class-stmc-check.php:328
 msgid "Page cache could not be tested"
 msgstr ""
 
-#: includes/class-stmc-check.php:324
+#: includes/class-stmc-check.php:328
 msgid "The server does not answer requests to itself. Cart and checkout must stay out of any page cache."
 msgstr ""
 
-#: includes/class-stmc-check.php:333
+#: includes/class-stmc-check.php:337
 msgid "The cart comes from a page cache"
 msgstr ""
 
-#: includes/class-stmc-check.php:333
+#: includes/class-stmc-check.php:337
 msgid "Customers can see an outdated or even a foreign cart. Exclude cart and checkout from the cache."
 msgstr ""
 
-#: includes/class-stmc-check.php:334
+#: includes/class-stmc-check.php:338
 msgid "Cart is not served from a page cache"
 msgstr ""
 
 #. translators: %d: number of problems
-#: includes/class-stmc-check.php:383
+#: includes/class-stmc-check.php:387
 msgid "Problems: %d"
 msgstr ""
 
 #. translators: %d: number of notes
-#: includes/class-stmc-check.php:387
+#: includes/class-stmc-check.php:391
 msgid "Notes: %d"
 msgstr ""
 
 #. translators: %d: number of points in order
-#: includes/class-stmc-check.php:390
+#: includes/class-stmc-check.php:394
 msgid "In order: %d"
 msgstr ""
 
-#: includes/class-stmc-check.php:407
+#: includes/class-stmc-check.php:411
 msgid "Ordering"
 msgstr ""
 
-#: includes/class-stmc-check.php:408
+#: includes/class-stmc-check.php:412
 msgid "Technology"
 msgstr ""
 
-#: includes/class-stmc-check.php:409
+#: includes/class-stmc-check.php:413
 msgid "Smart Checkout Pro"
 msgstr ""
 
-#: includes/class-stmc-check.php:412
+#: includes/class-stmc-check.php:416
 msgid "Problem"
 msgstr ""
 
-#: includes/class-stmc-check.php:413
+#: includes/class-stmc-check.php:417
 msgid "Note"
 msgstr ""
 
-#: includes/class-stmc-check.php:414
+#: includes/class-stmc-check.php:418
 msgid "For your information"
 msgstr ""
 
-#: includes/class-stmc-check.php:415
+#: includes/class-stmc-check.php:419
 msgid "In order"
 msgstr ""
 
-#: includes/class-stmc-check.php:477
+#: includes/class-stmc-check.php:481
 msgid "Checking …"
 msgstr ""
 
-#: includes/class-stmc-check.php:478
+#: includes/class-stmc-check.php:482
 msgid "The check could not run. Please try again."
 msgstr ""
 
-#: includes/class-stmc-check.php:479
+#: includes/class-stmc-check.php:483
 msgid "A help for looking in the right places. It reads your settings and changes nothing, and it is no legal advice."
 msgstr ""
 
-#: includes/class-stmc-check.php:480
+#: includes/class-stmc-check.php:484
 msgid "Check again"
 msgstr ""
 

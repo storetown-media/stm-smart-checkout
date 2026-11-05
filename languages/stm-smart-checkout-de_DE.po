@@ -1319,8 +1319,8 @@ msgstr "Seite bearbeiten"
 msgid "%s: please look yourself"
 msgstr "%s: bitte selbst ansehen"
 
-msgid "A page builder holds the text, which cannot be read from here."
-msgstr "Der Text steckt in einem Seitenbaukasten und lässt sich von hier nicht lesen."
+msgid "The text sits in a template or page builder, which cannot be read from here."
+msgstr "Der Text steckt in einer Vorlage oder einem Seitenbaukasten und lässt sich von hier nicht lesen."
 
 msgid "Legal pages are in the checkout footer"
 msgstr "Rechtsseiten stehen in der Kassen-Fußzeile"

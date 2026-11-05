@@ -2727,11 +2727,16 @@ body.stmc-checkout form.checkout .woocommerce-additional-fields__field-wrapper >
    its 44px: on OceanWP it hung out of a 40px box. */
 body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection--single {
 	height: 46px;
+	border: 1px solid var(--stmc-line);
+	border-radius: calc(var(--stmc-radius) - 2px);
 	padding: 0;
 }
 
 body.stmc-checkout .woocommerce form .form-row .select2-container .select2-selection__arrow {
 	top: 0;
+	right: 8px;
+	left: auto;
+	width: 20px;
 	height: 44px;
 }
 

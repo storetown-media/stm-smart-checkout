@@ -54,8 +54,8 @@ final class STMC_Check {
 	 * What a page holds.
 	 *
 	 * @param int $id Page ID.
-	 * @return string text, short, form, or unknown when a page builder or a
-	 *                shortcode keeps the text out of reach from here.
+	 * @return string text, short, form, or unknown when a page builder, a
+	 *                shortcode or a theme template keeps the text out of reach.
 	 */
 	private static function page_state( $id ) {
 		$content = (string) get_post_field( 'post_content', $id );
@@ -69,7 +69,8 @@ final class STMC_Check {
 		if ( has_shortcode( $content, 'stmc_withdrawal_form' ) ) {
 			return 'form';
 		}
-		if ( false !== strpos( $content, '[' ) || '' !== (string) get_post_meta( $id, '_elementor_data', true ) ) {
+		// Shortcodes, a page builder or a page template of the theme: the text is there, just not in here.
+		if ( false !== strpos( $content, '[' ) || '' !== (string) get_post_meta( $id, '_elementor_data', true ) || '' !== (string) get_page_template_slug( $id ) ) {
 			return 'unknown';
 		}
 		return 'short';
@@ -189,7 +190,7 @@ final class STMC_Check {
 				return self::line( 'legal', 'warn', sprintf( __( '%s: very little text', 'stm-smart-checkout' ), $name ), $title, (string) get_edit_post_link( $id, 'raw' ), __( 'Edit the page', 'stm-smart-checkout' ) );
 		}
 		/* translators: %s: name of the legal page */
-		return self::line( 'legal', 'info', sprintf( __( '%s: please look yourself', 'stm-smart-checkout' ), $name ), __( 'A page builder holds the text, which cannot be read from here.', 'stm-smart-checkout' ), (string) get_permalink( $id ), __( 'Open the page', 'stm-smart-checkout' ) );
+		return self::line( 'legal', 'info', sprintf( __( '%s: please look yourself', 'stm-smart-checkout' ), $name ), __( 'The text sits in a template or page builder, which cannot be read from here.', 'stm-smart-checkout' ), (string) get_permalink( $id ), __( 'Open the page', 'stm-smart-checkout' ) );
 	}
 
 	/**
@@ -245,19 +246,26 @@ final class STMC_Check {
 
 		$physical = wc_get_products(
 			array(
-				'limit'   => 1,
-				'status'  => 'publish',
-				'virtual' => false,
-				'return'  => 'ids',
+				'limit'        => 1,
+				'status'       => 'publish',
+				'virtual'      => false,
+				'downloadable' => false,
+				'return'       => 'ids',
 			)
 		);
 		if ( $physical && wc_shipping_enabled() ) {
-			$methods = 0;
-			$zones   = WC_Shipping_Zones::get_zones();
-			foreach ( $zones as $zone ) {
-				$methods += count( array_filter( $zone['shipping_methods'], static function ( $method ) {
-					return 'yes' === $method->enabled;
-				} ) );
+			// The catch-all zone does not come with get_zones().
+			$fallback = new WC_Shipping_Zone( 0 );
+			$methods  = count( $fallback->get_shipping_methods( true ) );
+			foreach ( WC_Shipping_Zones::get_zones() as $zone ) {
+				$methods += count(
+					array_filter(
+						$zone['shipping_methods'],
+						static function ( $method ) {
+							return 'yes' === $method->enabled;
+						}
+					)
+				);
 			}
 			$lines[] = $methods > 0
 				? self::line( 'order', 'ok', __( 'Shipping methods are set', 'stm-smart-checkout' ) )

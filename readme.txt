@@ -181,6 +181,19 @@ They are left out here because WordPress.org truncates this section at 5,000 wor
 which would drop them silently instead of on purpose.
 
 = 0.1.54 =
+* New: Checkout check. One screen shows what is in order and what is not: legal pages, buy button, consent, footer, payment, shipping, HTTPS and page cache, each finding with a link to the fix.
+* New: logo from the media library with its height, fonts for text and headings without any outside server, heading size, weight, letter case, line and step numbers, label weight, all with a live preview.
+* New: own colours for the buy button, with a live preview and a contrast warning. They also win over a theme that paints the button itself.
+* Changed: the footer pages are chosen with tick boxes, and the settings show what is in the footer now. Fixed: on the full-page template a footer added by the site itself no longer appears below the legal line.
+* Fixed: a legal page with little text, such as a form page, no longer shows an error in the overlay, and the settings warn when the cancellation link leads to the withdrawal form only.
+* Change: a buy button label entered in the settings now wins, also over Germanized. The settings show the current wording and where it comes from.
+* Fixed: the text above the buy button stays in place. It vanished with the first totals refresh, and it now keeps its styling.
+* New: one clear choice for terms at the checkout: a box to tick or a notice with links, naming terms and cancellation policy or terms only, with a preview. The choice also applies to Germanized's terms box.
+* New: every trust item can use one of ten icons or your own image from the media library, with a live preview on the settings screen. If an image is deleted, the item falls back to its standard icon.
+* Fix: Product names no longer break into single letters in the three-column layout when Germanized is active.
+* Fix: On block themes the checkout uses its full width and sits centred; WooCommerce limited it to 1000px.
+* Change: The three column heads share one size and line, order totals take less height, the quantity control sits under the product name.
+* Change: The layout choice shows a drawing and a short description per layout.
 * New settings screen: one navigation with clearly named sections instead of four tabs, compact cards, switches, and a search across every setting. One save covers the whole screen; old links with ?tab= keep working.
 * The layout is picked from small drawings, the colours are grouped by what they colour, and an overview shows the state of the checkout at a glance.
 * Add-ons can bring their own sections through the new filter stmc_admin_sections. Rows of an add-on written for the tabs stay available under Add-on settings.

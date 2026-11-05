@@ -84,6 +84,7 @@ function stmc_boot() {
 	require_once STMC_DIR . 'includes/class-stmc-plugin.php';
 	if ( is_admin() ) {
 		require_once STMC_DIR . 'includes/class-stmc-admin.php';
+		require_once STMC_DIR . 'includes/class-stmc-check.php';
 		require_once STMC_DIR . 'includes/class-stmc-block-checkout.php';
 	}
 

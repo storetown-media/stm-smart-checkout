@@ -132,7 +132,7 @@ class STMC_Blocks {
 	 * @return string
 	 */
 	public static function terms_block( $content, $block ) {
-		if ( ! self::on_block_surface() || ! is_checkout() || ! self::consent_wanted() ) {
+		if ( ! self::on_block_surface() || ! is_checkout() || ! ( self::consent_active() || self::notice_beside_legal_plugin() ) ) {
 			// Without our consent box WooCommerce's own sentence stays as it is;
 			// its default text is composed in the browser and cannot be
 			// extended from here without losing it.
@@ -154,7 +154,7 @@ class STMC_Blocks {
 		if ( '' !== $notice ) {
 			$parts[] = '<span class="stmc-button-notice">' . $notice . '</span>';
 		}
-		$links = self::legal_links_text();
+		$links = 'notice' === STMC_Module_Legal::consent_style() ? STMC_Module_Legal::consent_label() : self::legal_links_text();
 		if ( '' !== $links ) {
 			$parts[] = '<span class="stmc-legal-links">' . $links . '</span>';
 		}
@@ -419,6 +419,24 @@ class STMC_Blocks {
 	 * filter names a plugin that draws its own box inside the block.
 	 */
 	private static function consent_wanted() {
+		return self::consent_active() && 'tick' === STMC_Module_Legal::consent_style();
+	}
+
+	/**
+	 * A legal plugin in the block with the choice "notice": its box is gone, so
+	 * the sentence the shop chose takes the place of WooCommerce's default.
+	 *
+	 * @return bool
+	 */
+	private static function notice_beside_legal_plugin() {
+		return self::consent_supported()
+			&& 'notice' === STMC_Module_Legal::consent_style()
+			&& 'auto' === STMC_Settings::get( 'legal.consent' )
+			&& '' !== STMC_Module_Legal::block_legal_plugin();
+	}
+
+	/** Is consent this plugin's job here, as a box or as a notice? */
+	private static function consent_active() {
 		if ( ! self::consent_supported() ) {
 			return false;
 		}
@@ -555,10 +573,11 @@ class STMC_Blocks {
 		 * The stylesheet above is the plugin's design and travels with the
 		 * plugin, not with the legal module. The button label below does not:
 		 * it is the legal module's setting, so it stands down where that module
-		 * is off — and where a legal plugin delivers consent, the same rule the
-		 * classic button follows.
+		 * is off — and where a legal plugin delivers consent, unless the shop
+		 * entered its own text. The same rule the classic button follows.
 		 */
-		if ( ! is_checkout() || ! self::applies() || '' !== STMC_Module_Legal::legal_plugin_renders_consent() ) {
+		$own_label = '' !== trim( (string) STMC_Settings::get( 'legal.button_text' ) );
+		if ( ! is_checkout() || ! self::applies() || ( ! $own_label && '' !== STMC_Module_Legal::legal_plugin_renders_consent() ) ) {
 			return;
 		}
 		wp_enqueue_script(

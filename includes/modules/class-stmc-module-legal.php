@@ -62,10 +62,12 @@ class STMC_Module_Legal extends STMC_Module {
 		 */
 		add_filter( 'woocommerce_cart_item_name', array( $this, 'item_delivery_time' ), 60, 2 );
 
-		if ( ! is_checkout() || ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) ) {
-			return;
-		}
-
+		/*
+		 * Label and notice sit in the place-order row, which every totals
+		 * refresh replaces. Registered before the guard like the VAT row: behind
+		 * it, the notice stood there for a moment after loading and was gone
+		 * with the first refresh.
+		 */
 		/*
 		 * The buy button carries a legal duty of its own (BGB 312j: the label
 		 * must say that ordering costs money; "Bestellung abschicken" does not).
@@ -74,7 +76,15 @@ class STMC_Module_Legal extends STMC_Module {
 		 * — and this plugin promises the opposite. Priority 5 leaves the last
 		 * word to anything hooking later.
 		 */
-		if ( $this->button_owner() ) {
+		if ( '' !== trim( (string) STMC_Settings::get( 'legal.button_text' ) ) ) {
+			/*
+			 * A text the shop entered here counts, also against Germanized. Same
+			 * priority as Germanized's filter and added after it, so it runs
+			 * later; a plugin with a reason of its own at a higher priority
+			 * (EuroB2B's "send for approval") keeps the last word.
+			 */
+			add_filter( 'woocommerce_order_button_text', array( $this, 'button_text' ), 9999 );
+		} elseif ( $this->button_owner() ) {
 			add_filter( 'woocommerce_order_button_text', array( $this, 'button_text' ), 5 );
 		}
 
@@ -84,6 +94,10 @@ class STMC_Module_Legal extends STMC_Module {
 		if ( '' !== trim( (string) STMC_Settings::get( 'legal.button_notice' ) ) ) {
 			add_action( 'woocommerce_review_order_before_submit', array( $this, 'button_notice' ), 20 );
 			add_action( 'woocommerce_gzd_review_order_before_submit', array( $this, 'button_notice' ), 20 );
+		}
+
+		if ( ! is_checkout() || ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) ) {
+			return;
 		}
 
 		/*
@@ -125,6 +139,102 @@ class STMC_Module_Legal extends STMC_Module {
 
 	const CONSENT_NAME = 'stmc_consent';
 	const DETECT_OPT   = 'stmc_consent_detection';
+
+	/**
+	 * Germanized reads its boxes long before modules boot on 'wp', so these
+	 * filters go on at plugin start. None of them translates anything
+	 * until the checkout asks for a label.
+	 */
+	public static function early() {
+		add_filter( 'option_woocommerce_gzd_legal_checkboxes_settings', array( __CLASS__, 'germanized_options' ) );
+		add_filter( 'woocommerce_gzd_legal_checkbox_terms_label', array( __CLASS__, 'germanized_label' ) );
+		add_filter( 'woocommerce_gzd_legal_checkbox_terms_error_text', array( __CLASS__, 'germanized_error' ) );
+		add_filter( 'option_woocommerce_gzd_order_submit_btn_text', array( __CLASS__, 'germanized_button' ) );
+	}
+
+	/**
+	 * The shop's own button text, where Germanized reads its own.
+	 *
+	 * One option feeds all of Germanized's paths: the classic filter, the text
+	 * it writes onto every gateway (which WooCommerce's script puts on the
+	 * button when a payment method is chosen) and the Checkout block. Its
+	 * settings screen keeps showing the stored value.
+	 *
+	 * @param mixed $text Germanized's text.
+	 * @return mixed
+	 */
+	public static function germanized_button( $text ) {
+		if ( ( is_admin() && ! wp_doing_ajax() ) || ! STMC_Settings::get( 'general.enabled' ) || false === STMC_Settings::get( 'modules.legal' ) ) {
+			return $text;
+		}
+		$own = trim( (string) STMC_Settings::get( 'legal.button_text' ) );
+		return '' !== $own ? $own : $text;
+	}
+
+	/** @return string "tick" or "notice". */
+	public static function consent_style() {
+		return 'notice' === STMC_Settings::get( 'legal.consent_style' ) ? 'notice' : 'tick';
+	}
+
+	/** @return string "both" or "terms". */
+	public static function consent_links() {
+		return 'terms' === STMC_Settings::get( 'legal.consent_links' ) ? 'terms' : 'both';
+	}
+
+	/**
+	 * Does the choice on the settings screen speak for Germanized's terms box?
+	 *
+	 * Only on "automatic", where that box IS the consent of this checkout, and
+	 * never on Germanized's own screen: the stored settings stay untouched and
+	 * take over again when this plugin is switched off.
+	 *
+	 * @return bool
+	 */
+	private static function steers_germanized() {
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			return false;
+		}
+		return STMC_Settings::get( 'general.enabled' ) && 'auto' === STMC_Settings::get( 'legal.consent' );
+	}
+
+	/**
+	 * Notice with links: Germanized's own "hide input" switch, set at reading
+	 * time. A box without input is not mandatory there, which also takes it
+	 * off required_checkboxes().
+	 *
+	 * @param mixed $options Germanized's checkbox settings.
+	 * @return mixed
+	 */
+	public static function germanized_options( $options ) {
+		if ( is_array( $options ) && isset( $options['terms'] ) && self::steers_germanized() && 'notice' === self::consent_style() ) {
+			$options['terms']['hide_input'] = 'yes';
+		}
+		return $options;
+	}
+
+	/** @return bool Is anything set that differs from what Germanized would say itself? */
+	private static function own_germanized_wording() {
+		return 'tick' !== self::consent_style()
+			|| 'both' !== self::consent_links()
+			|| '' !== trim( (string) STMC_Settings::get( 'legal.consent_text' ) );
+	}
+
+	/**
+	 * @param string $label Germanized's sentence.
+	 * @return string
+	 */
+	public static function germanized_label( $label ) {
+		return self::steers_germanized() && self::own_germanized_wording() ? self::consent_label() : $label;
+	}
+
+	/**
+	 * @param string $text Germanized's message.
+	 * @return string
+	 */
+	public static function germanized_error( $text ) {
+		$own = '' !== trim( (string) STMC_Settings::get( 'legal.consent_error' ) );
+		return self::steers_germanized() && ( $own || self::own_germanized_wording() ) ? self::consent_error() : $text;
+	}
 
 	/**
 	 * Is the shop's own consent box in charge?
@@ -553,6 +663,27 @@ class STMC_Module_Legal extends STMC_Module {
 	}
 
 	/**
+	 * What the button says with the field left empty, and who says it.
+	 * Germanized's option is asked directly: its filter exists on the storefront
+	 * only, and the settings screen wants this answer too.
+	 *
+	 * @return array [ label, "germanized" or "builtin" ]
+	 */
+	public static function default_button_label() {
+		$germanized = class_exists( 'WooCommerce_Germanized' ) ? trim( (string) get_option( 'woocommerce_gzd_order_submit_btn_text', '' ) ) : '';
+		return '' !== $germanized
+			? array( $germanized, 'germanized' )
+			: array( __( 'Order with obligation to pay', 'stm-smart-checkout' ), 'builtin' );
+	}
+
+	/** @return string What customers read on the button. */
+	public static function shown_button_label() {
+		$own     = trim( (string) STMC_Settings::get( 'legal.button_text' ) );
+		$default = self::default_button_label();
+		return '' !== $own ? $own : $default[0];
+	}
+
+	/**
 	 * Essential information immediately above the button.
 	 */
 	public function button_notice() {
@@ -560,7 +691,8 @@ class STMC_Module_Legal extends STMC_Module {
 		if ( '' === $text ) {
 			return;
 		}
-		echo '<p class="stmc-button-notice">' . wp_kses(
+		// A div: wpautop() brings its own paragraphs, and a p around them closes at once and leaves the text outside.
+		echo '<div class="stmc-button-notice">' . wp_kses(
 			wpautop( $text ),
 			array(
 				'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
@@ -569,7 +701,7 @@ class STMC_Module_Legal extends STMC_Module {
 				'br'     => array(),
 				'p'      => array(),
 			)
-		) . '</p>';
+		) . '</div>';
 	}
 
 	/**
@@ -582,6 +714,15 @@ class STMC_Module_Legal extends STMC_Module {
 	 * @return string Permalink, empty when no page is known.
 	 */
 	public static function legal_page_url( $which ) {
+		$id = self::legal_page_id( $which );
+		return $id > 0 ? (string) get_permalink( $id ) : '';
+	}
+
+	/**
+	 * @param string $which 'terms' or 'revocation'.
+	 * @return int Page ID, 0 when no page is known.
+	 */
+	public static function legal_page_id( $which ) {
 		$picked = (int) STMC_Settings::get( 'terms' === $which ? 'legal.terms_page' : 'legal.revocation_page' );
 
 		$candidates = array( $picked );
@@ -594,10 +735,24 @@ class STMC_Module_Legal extends STMC_Module {
 
 		foreach ( $candidates as $id ) {
 			if ( $id > 0 && 'publish' === get_post_status( $id ) ) {
-				return (string) get_permalink( $id );
+				return $id;
 			}
 		}
-		return '';
+		return 0;
+	}
+
+	/**
+	 * The built-in sentences, one per choice on the settings screen.
+	 *
+	 * @return array<string,string> "style-links" => sentence with placeholders.
+	 */
+	public static function consent_texts() {
+		return array(
+			'tick-both'    => __( 'I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}.', 'stm-smart-checkout' ),
+			'tick-terms'   => __( 'I have read and accept the {terms}terms and conditions{/terms}.', 'stm-smart-checkout' ),
+			'notice-both'  => __( 'Our {terms}terms and conditions{/terms} and our {revocation}cancellation policy{/revocation} apply.', 'stm-smart-checkout' ),
+			'notice-terms' => __( 'Our {terms}terms and conditions{/terms} apply.', 'stm-smart-checkout' ),
+		);
 	}
 
 	/**
@@ -614,7 +769,8 @@ class STMC_Module_Legal extends STMC_Module {
 	public static function consent_label() {
 		$text = trim( (string) STMC_Settings::get( 'legal.consent_text' ) );
 		if ( '' === $text ) {
-			$text = __( 'I have read and accept the {terms}terms and conditions{/terms} and the {revocation}cancellation policy{/revocation}.', 'stm-smart-checkout' );
+			$texts = self::consent_texts();
+			$text  = $texts[ self::consent_style() . '-' . self::consent_links() ];
 		}
 
 		foreach ( array( 'terms', 'revocation' ) as $which ) {
@@ -636,8 +792,11 @@ class STMC_Module_Legal extends STMC_Module {
 	 */
 	public static function consent_error() {
 		$own = trim( (string) STMC_Settings::get( 'legal.consent_error' ) );
-		return '' !== $own
-			? $own
+		if ( '' !== $own ) {
+			return $own;
+		}
+		return 'terms' === self::consent_links()
+			? __( 'Please accept the terms and conditions to place your order.', 'stm-smart-checkout' )
 			: __( 'Please accept the terms and conditions and the cancellation policy to place your order.', 'stm-smart-checkout' );
 	}
 
@@ -660,6 +819,19 @@ class STMC_Module_Legal extends STMC_Module {
 		if ( wp_doing_ajax() ) {
 			return;
 		}
+		$tags = array(
+			'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
+			'strong' => array(),
+			'em'     => array(),
+			'br'     => array(),
+		);
+		if ( 'notice' === self::consent_style() ) {
+			// The same wrapper, so the sentence takes the box's place in every layout.
+			echo '<div class="woocommerce-terms-and-conditions-wrapper stmc-consent stmc-consent--notice"><p class="stmc-consent__text">'
+				. wp_kses( self::consent_label(), $tags )
+				. '</p></div>';
+			return;
+		}
 		$checked = '' !== $this->posted_value( self::CONSENT_NAME );
 
 		echo '<div class="woocommerce-terms-and-conditions-wrapper stmc-consent">';
@@ -670,15 +842,7 @@ class STMC_Module_Legal extends STMC_Module {
 			esc_attr( self::CONSENT_NAME ),
 			checked( $checked, true, false )
 		);
-		echo '<span class="stmc-consent__text">' . wp_kses(
-			self::consent_label(),
-			array(
-				'a'      => array( 'href' => array(), 'target' => array(), 'rel' => array() ),
-				'strong' => array(),
-				'em'     => array(),
-				'br'     => array(),
-			)
-		) . '</span>';
+		echo '<span class="stmc-consent__text">' . wp_kses( self::consent_label(), $tags ) . '</span>';
 		echo '<span class="required" aria-hidden="true">*</span>';
 		echo '</label></p></div>';
 	}
@@ -692,6 +856,11 @@ class STMC_Module_Legal extends STMC_Module {
 	 */
 	public function record_consent( $order ) {
 		if ( ! $this->consent_enabled() || ! is_object( $order ) || ! method_exists( $order, 'update_meta_data' ) ) {
+			return;
+		}
+		// No tick to show for, but the sentence the customer was shown still counts.
+		if ( 'notice' === self::consent_style() ) {
+			$order->update_meta_data( '_stmc_consent_notice', self::plain_text( self::consent_label() ) );
 			return;
 		}
 		if ( '' === $this->posted_value( self::CONSENT_NAME ) ) {
@@ -797,7 +966,7 @@ class STMC_Module_Legal extends STMC_Module {
 	private function required_checkboxes() {
 		$list = array();
 
-		if ( $this->consent_enabled() ) {
+		if ( $this->consent_enabled() && 'tick' === self::consent_style() ) {
 			$list[ self::CONSENT_NAME ] = self::consent_error();
 		}
 
@@ -966,7 +1135,8 @@ class STMC_Module_Legal extends STMC_Module {
 				<div class="stmc-modal__body" tabindex="0"
 					data-loading="<?php esc_attr_e( 'Loading &hellip;', 'stm-smart-checkout' ); ?>"
 					data-error="<?php esc_attr_e( 'The text could not be loaded here.', 'stm-smart-checkout' ); ?>"
-					data-open-page="<?php esc_attr_e( 'Open the page instead', 'stm-smart-checkout' ); ?>"></div>
+					data-open-page="<?php esc_attr_e( 'Open the page instead', 'stm-smart-checkout' ); ?>"
+					data-open-short="<?php esc_attr_e( 'Open the page', 'stm-smart-checkout' ); ?>"></div>
 				<div class="stmc-modal__foot">
 					<button type="button" class="stmc-btn" data-stmc-modal-close="1"><?php esc_html_e( 'Close', 'stm-smart-checkout' ); ?></button>
 				</div>

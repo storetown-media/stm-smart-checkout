@@ -50,6 +50,15 @@ class STMC_Module_Focus extends STMC_Module {
 		add_action( 'wp_enqueue_scripts', array( $this, 'extra_hide_css' ), 20 );
 	}
 
+	/** @return bool Do cart and checkout render through the plugin's own page? */
+	public static function fullpage_in_use() {
+		$mode = (string) STMC_Settings::get( 'focus.fullpage' );
+		if ( 'off' === $mode || ! STMC_Settings::get( 'modules.focus' ) ) {
+			return false;
+		}
+		return 'on' === $mode || ! ( defined( 'PRESSCORE_VERSION' ) || function_exists( 'presscore_config' ) || function_exists( 'storefront_site_branding' ) );
+	}
+
 	/** Does the active theme have one of our server-side adapters? */
 	private function theme_has_adapter() {
 		// The7 (presscore) and Storefront — the two adapters above.
@@ -90,7 +99,7 @@ class STMC_Module_Focus extends STMC_Module {
 	 *
 	 * @return int[] Page IDs.
 	 */
-	private static function known_legal_page_ids() {
+	public static function known_legal_page_ids() {
 		$ids = array(
 			(int) get_option( 'woocommerce_imprint_page_id', 0 ),
 			(int) get_option( 'woocommerce_data_security_page_id', 0 ),
@@ -111,33 +120,55 @@ class STMC_Module_Focus extends STMC_Module {
 	 * A checkout must never orphan imprint & privacy.
 	 */
 	public static function legal_footer() {
+		$footer = self::legal_footer_links();
 		echo '<nav class="stmc-legal-line" aria-label="' . esc_attr__( 'Legal links', 'stm-smart-checkout' ) . '">';
+		foreach ( $footer['links'] as $link ) {
+			echo '<a href="' . esc_url( $link[0] ) . '">' . esc_html( $link[1] ) . '</a>';
+		}
+		echo '</nav>';
+	}
 
+	/**
+	 * What the legal line holds, also for the settings screen.
+	 *
+	 * @return array{source:string,links:array[]} source: pages, menu or site; links: [ url, title ].
+	 */
+	public static function legal_footer_links() {
 		$page_ids = (array) STMC_Settings::get( 'focus.legal_pages' );
 		if ( $page_ids ) {
+			$links = array();
 			foreach ( $page_ids as $page_id ) {
 				if ( 'publish' === get_post_status( $page_id ) ) {
-					echo '<a href="' . esc_url( get_permalink( $page_id ) ) . '">' . esc_html( get_the_title( $page_id ) ) . '</a>';
+					$links[] = array( (string) get_permalink( $page_id ), get_the_title( $page_id ) );
 				}
 			}
-			echo '</nav>';
-			return;
+			return array(
+				'source' => 'pages',
+				'links'  => $links,
+			);
 		}
 
 		$menu_id = (int) STMC_Settings::get( 'focus.legal_menu' );
 		$items   = $menu_id ? wp_get_nav_menu_items( $menu_id ) : array();
 		if ( $items ) {
+			$links = array();
 			foreach ( $items as $item ) {
-				echo '<a href="' . esc_url( $item->url ) . '">' . esc_html( $item->title ) . '</a>';
+				$links[] = array( (string) $item->url, (string) $item->title );
 			}
-			echo '</nav>';
-			return;
+			return array(
+				'source' => 'menu',
+				'links'  => $links,
+			);
 		}
 
+		$links = array();
 		foreach ( self::known_legal_page_ids() as $page_id ) {
-			echo '<a href="' . esc_url( get_permalink( $page_id ) ) . '">' . esc_html( get_the_title( $page_id ) ) . '</a>';
+			$links[] = array( (string) get_permalink( $page_id ), get_the_title( $page_id ) );
 		}
-		echo '</nav>';
+		return array(
+			'source' => 'site',
+			'links'  => $links,
+		);
 	}
 
 	public function body_class( $classes ) {

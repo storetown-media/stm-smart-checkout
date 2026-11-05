@@ -47,7 +47,7 @@ class STMC_Assets {
 			array(),
 			self::asset_version( 'assets/css/tokens.css' )
 		);
-		wp_add_inline_style( 'stmc-tokens', self::tokens_css() );
+		wp_add_inline_style( 'stmc-tokens', self::tokens_css() . self::button_css() );
 
 		wp_enqueue_style(
 			'stmc-checkout',
@@ -97,7 +97,7 @@ class STMC_Assets {
 	 * closing style tag would otherwise end that element and turn what follows
 	 * it into markup.
 	 */
-	private static function tokens_css() {
+	public static function tokens_css() {
 		$map = array(
 			'--stmc-accent'       => STMC_Settings::get( 'design.accent' ),
 			'--stmc-accent-hover' => STMC_Settings::get( 'design.accent_hover' ),
@@ -113,6 +113,26 @@ class STMC_Assets {
 			'--stmc-font-base'    => (int) STMC_Settings::get( 'design.font_size' ) . 'px',
 		);
 
+		/*
+		 * Only what differs from the defaults: components fall back to their own
+		 * value, so a shop that changed nothing gets exactly the old stylesheet.
+		 */
+		$font    = self::font_stack( (string) STMC_Settings::get( 'design.font_family' ), (string) STMC_Settings::get( 'design.font_custom' ) );
+		$heading = self::font_stack( (string) STMC_Settings::get( 'design.heading_font' ), (string) STMC_Settings::get( 'design.heading_font_custom' ) );
+		$size    = (int) STMC_Settings::get( 'design.heading_size' );
+		$extra   = array(
+			'--stmc-font'         => $font,
+			'--stmc-h-font'       => '' !== $heading ? $heading : $font,
+			'--stmc-h-size'       => $size > 0 ? $size . 'px' : '',
+			'--stmc-h-weight'     => '700' !== (string) STMC_Settings::get( 'design.heading_weight' ) ? STMC_Settings::get( 'design.heading_weight' ) : '',
+			'--stmc-h-case'       => 'none' !== (string) STMC_Settings::get( 'design.heading_case' ) ? STMC_Settings::get( 'design.heading_case' ) : '',
+			'--stmc-h-line'       => STMC_Settings::get( 'design.heading_line' ) ? '' : '0px',
+			'--stmc-h-num'        => STMC_Settings::get( 'design.step_numbers' ) ? '' : 'none',
+			'--stmc-label-weight' => '600' !== (string) STMC_Settings::get( 'design.label_weight' ) ? STMC_Settings::get( 'design.label_weight' ) : '',
+			'--stmc-logo-h'       => 34 !== (int) STMC_Settings::get( 'design.logo_height' ) ? (int) STMC_Settings::get( 'design.logo_height' ) . 'px' : '',
+		);
+		$map     = array_merge( $map, array_filter( $extra, 'strlen' ) );
+
 		$css = ':root{';
 		foreach ( $map as $prop => $value ) {
 			// Sanitized on save as well (hex colors, int, whitelisted choice);
@@ -124,6 +144,71 @@ class STMC_Assets {
 		$css .= "--stmc-divider-label:'" . self::css_value( __( 'OR', 'stm-smart-checkout' ) ) . "';";
 		$css .= '}';
 		return $css;
+	}
+
+	/**
+	 * Fonts every visitor already has. Nothing here loads from another server:
+	 * a checkout must not hand its customers' addresses to a font host.
+	 *
+	 * @return array<string,string> key => font stack, unquoted so it survives css_value().
+	 */
+	public static function font_stacks() {
+		return array(
+			'system'    => '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
+			'arial'     => 'Arial, Helvetica, sans-serif',
+			'verdana'   => 'Verdana, Geneva, sans-serif',
+			'tahoma'    => 'Tahoma, Geneva, sans-serif',
+			'trebuchet' => 'Trebuchet MS, Helvetica, sans-serif',
+			'georgia'   => 'Georgia, Times New Roman, serif',
+			'times'     => 'Times New Roman, Times, serif',
+		);
+	}
+
+	/**
+	 * @param string $key    Choice from the settings.
+	 * @param string $custom The shop's own family name.
+	 * @return string Font stack, '' for "as the theme" and "same as the text".
+	 */
+	private static function font_stack( $key, $custom ) {
+		if ( 'custom' === $key ) {
+			$name = trim( (string) preg_replace( '/[^\p{L}\p{N} ,\-]/u', '', $custom ) );
+			return '' !== $name ? $name . ', sans-serif' : '';
+		}
+		$stacks = self::font_stacks();
+		return isset( $stacks[ $key ] ) ? $stacks[ $key ] : '';
+	}
+
+	/**
+	 * The shop's own buy button colours.
+	 *
+	 * The one place in this plugin with !important, and on purpose: themes and
+	 * site stylesheets paint this button with !important themselves (measured on
+	 * the test shop: a gradient that no setting could reach). Only written when
+	 * the shop switched its own colours on, so it can only carry out that choice.
+	 *
+	 * @return string CSS, '' while the switch is off.
+	 */
+	private static function button_css() {
+		if ( ! STMC_Settings::get( 'design.button_custom' ) ) {
+			return '';
+		}
+		$bg    = self::css_value( STMC_Settings::get( 'design.button_bg' ) );
+		$hover = self::css_value( STMC_Settings::get( 'design.button_hover' ) );
+		$text  = self::css_value( STMC_Settings::get( 'design.button_text' ) );
+		$list  = array(
+			'body.stmc-checkout #place_order',
+			'body.stmc-checkout .wc-proceed-to-checkout .checkout-button',
+			'body.stmc-checkout .wc-block-components-checkout-place-order-button',
+			'body.stmc-checkout .wc-block-cart__submit-button',
+			'body.stmc-checkout .stmc-sticky-bar__btn',
+		);
+		$hovers = array();
+		foreach ( $list as $selector ) {
+			$hovers[] = $selector . ':hover';
+			$hovers[] = $selector . ':focus';
+		}
+		return implode( ',', $list ) . '{background:' . $bg . ' !important;color:' . $text . ' !important;box-shadow:none !important;}'
+			. implode( ',', $hovers ) . '{background:' . $hover . ' !important;color:' . $text . ' !important;}';
 	}
 
 	/**

@@ -34,24 +34,76 @@ class STMC_Module_Header extends STMC_Module {
 	}
 
 	/**
-	 * Trust line items: up to three configured texts with fixed icons.
-	 * Falls back to the one claim that is always true (SSL) when nothing is set.
+	 * Trust line items: up to three configured texts, each with its icon or
+	 * the shop's own image. Falls back to the one claim that is always true
+	 * (SSL) when nothing is set.
 	 *
-	 * @return array[] [ [ icon, text ], … ]
+	 * @return array[] [ [ icon, text, image ], … ] image: [ url, width, height ] or null.
 	 */
 	public static function trust_items() {
-		$icons = array( 'lock', 'shield', 'card' );
 		$items = array();
-		foreach ( array( 'header.trust_1', 'header.trust_2', 'header.trust_3' ) as $i => $key ) {
-			$text = trim( (string) STMC_Settings::get( $key ) );
+		foreach ( array( 1, 2, 3 ) as $slot ) {
+			$text = trim( (string) STMC_Settings::get( 'header.trust_' . $slot ) );
 			if ( '' !== $text ) {
-				$items[] = array( $icons[ $i ], $text );
+				$symbol  = self::trust_symbol( $slot );
+				$items[] = array( $symbol[0], $text, $symbol[1] );
 			}
 		}
 		if ( ! $items ) {
-			$items[] = array( 'lock', __( 'Secure SSL connection', 'stm-smart-checkout' ) );
+			$symbol  = self::trust_symbol( 1 );
+			$items[] = array( $symbol[0], __( 'Secure SSL connection', 'stm-smart-checkout' ), $symbol[1] );
 		}
 		return $items;
+	}
+
+	/**
+	 * Icon and image of one slot. An image that was deleted from the media
+	 * library leaves the slot's bundled icon, not an empty space.
+	 *
+	 * @param int $slot 1 to 3.
+	 * @return array [ icon name, image or null ]
+	 */
+	private static function trust_symbol( $slot ) {
+		$defaults = array( 1 => 'lock', 2 => 'shield', 3 => 'card' );
+		$icon     = (string) STMC_Settings::get( 'header.trust_' . $slot . '_icon' );
+		if ( 'custom' !== $icon ) {
+			return array( $icon, null );
+		}
+		$image = self::trust_image( (int) STMC_Settings::get( 'header.trust_' . $slot . '_media' ) );
+		return array( $defaults[ $slot ], $image );
+	}
+
+	/**
+	 * @param int $id Attachment ID.
+	 * @return array|null [ url, width, height ]
+	 */
+	public static function trust_image( $id ) {
+		// By mime type: wp_attachment_is_image() does not count an SVG a shop allowed itself.
+		if ( $id < 1 || 0 !== strpos( (string) get_post_mime_type( $id ), 'image/' ) ) {
+			return null;
+		}
+		$image = wp_get_attachment_image_src( $id, 'medium' );
+		return $image ? array( (string) $image[0], (int) $image[1], (int) $image[2] ) : null;
+	}
+
+	/**
+	 * The symbol of a trust item, ready to print.
+	 *
+	 * Decorative: the text beside it says everything, so the alt stays empty.
+	 *
+	 * @param array $item One entry of trust_items().
+	 * @return string Escaped markup.
+	 */
+	public static function trust_symbol_html( array $item ) {
+		if ( empty( $item[2] ) ) {
+			return wp_kses( self::icon( $item[0] ), self::icon_tags() );
+		}
+		return sprintf(
+			'<img class="stmc-trust-img" src="%1$s" alt="" width="%2$d" height="%3$d" decoding="async">',
+			esc_url( $item[2][0] ),
+			(int) $item[2][1],
+			(int) $item[2][2]
+		);
 	}
 
 	/** Small inline icon set (stroke inherits currentColor). */
@@ -61,6 +113,12 @@ class STMC_Module_Header extends STMC_Module {
 			'shield' => '<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/>',
 			'card'   => '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
 			'refresh' => '<path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/>',
+			'truck'   => '<path d="M2 6h12v11H2z"/><path d="M14 10h4l4 4v3h-8z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+			'phone'   => '<path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/>',
+			'star'    => '<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"/>',
+			'check'   => '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+			'clock'   => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+			'invoice' => '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h7"/><path d="M9 17h5"/>',
 		);
 		if ( ! isset( $paths[ $name ] ) ) {
 			return '';
@@ -144,7 +202,7 @@ class STMC_Module_Header extends STMC_Module {
 
 				<p class="stmc-band__trust">
 					<?php foreach ( self::trust_items() as $item ) : ?>
-						<span><?php echo wp_kses( self::icon( $item[0] ), self::icon_tags() ); ?><?php echo esc_html( $item[1] ); ?></span>
+						<span><?php echo self::trust_symbol_html( $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in trust_symbol_html(). ?><?php echo esc_html( $item[1] ); ?></span>
 					<?php endforeach; ?>
 				</p>
 

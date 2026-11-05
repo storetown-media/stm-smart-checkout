@@ -53,7 +53,7 @@ class STMC_Module_Trust extends STMC_Module {
 		$out = '<div class="stmc-trust-row" aria-hidden="false">';
 		foreach ( $items as $item ) {
 			$out .= '<span class="stmc-trust-row__item">'
-				. wp_kses( STMC_Module_Header::icon( $item[0] ), STMC_Module_Header::icon_tags() )
+				. STMC_Module_Header::trust_symbol_html( $item )
 				. esc_html( $item[1] )
 				. '</span>';
 		}

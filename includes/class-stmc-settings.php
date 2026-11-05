@@ -49,6 +49,8 @@ class STMC_Settings {
 			 * legal plugin stopped rendering.
 			 */
 			'legal.consent'          => array( 'type' => 'choice', 'default' => 'auto', 'choices' => array( 'auto', 'on', 'off' ) ),
+			'legal.consent_style'    => array( 'type' => 'choice', 'default' => 'tick', 'choices' => array( 'tick', 'notice' ) ),
+			'legal.consent_links'    => array( 'type' => 'choice', 'default' => 'both', 'choices' => array( 'both', 'terms' ) ),
 			'legal.consent_text'     => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.consent_error'    => array( 'type' => 'textarea', 'default' => '' ),
 			'legal.vat_note'         => array( 'type' => 'bool', 'default' => true ),
@@ -65,6 +67,12 @@ class STMC_Settings {
 			'header.trust_1'       => array( 'type' => 'text', 'default' => '' ),
 			'header.trust_2'       => array( 'type' => 'text', 'default' => '' ),
 			'header.trust_3'       => array( 'type' => 'text', 'default' => '' ),
+			'header.trust_1_icon'  => array( 'type' => 'choice', 'default' => 'lock', 'choices' => self::trust_icons() ),
+			'header.trust_2_icon'  => array( 'type' => 'choice', 'default' => 'shield', 'choices' => self::trust_icons() ),
+			'header.trust_3_icon'  => array( 'type' => 'choice', 'default' => 'card', 'choices' => self::trust_icons() ),
+			'header.trust_1_media' => array( 'type' => 'int', 'default' => 0, 'min' => 0 ),
+			'header.trust_2_media' => array( 'type' => 'int', 'default' => 0, 'min' => 0 ),
+			'header.trust_3_media' => array( 'type' => 'int', 'default' => 0, 'min' => 0 ),
 
 			// Trust & layout extras.
 			'trust.under_button'        => array( 'type' => 'bool', 'default' => true ),
@@ -92,6 +100,10 @@ class STMC_Settings {
 			'design.layout'       => array( 'type' => 'choice', 'default' => 'two-column', 'choices' => self::layouts() ),
 			'design.accent'       => array( 'type' => 'color', 'default' => '#ff6600' ),
 			'design.accent_hover' => array( 'type' => 'color', 'default' => '#e55a00' ),
+			'design.button_custom' => array( 'type' => 'bool', 'default' => false ),
+			'design.button_bg'    => array( 'type' => 'color', 'default' => '#ff6600' ),
+			'design.button_hover' => array( 'type' => 'color', 'default' => '#e55a00' ),
+			'design.button_text'  => array( 'type' => 'color', 'default' => '#ffffff' ),
 			'design.ink'          => array( 'type' => 'color', 'default' => '#16265c' ),
 			'design.title'        => array( 'type' => 'color', 'default' => '#1b3a8c' ),
 			'design.label'        => array( 'type' => 'color', 'default' => '#00178f' ),
@@ -103,6 +115,17 @@ class STMC_Settings {
 			'design.radius'       => array( 'type' => 'int', 'default' => 12, 'min' => 0, 'max' => 32 ),
 			'design.font_size'    => array( 'type' => 'int', 'default' => 15, 'min' => 11, 'max' => 24 ),
 			'design.logo_url'     => array( 'type' => 'url', 'default' => '' ),
+			'design.logo_height'  => array( 'type' => 'int', 'default' => 34, 'min' => 20, 'max' => 100 ),
+			'design.font_family'  => array( 'type' => 'choice', 'default' => 'theme', 'choices' => array( 'theme', 'system', 'arial', 'verdana', 'tahoma', 'trebuchet', 'georgia', 'times', 'custom' ) ),
+			'design.font_custom'  => array( 'type' => 'text', 'default' => '' ),
+			'design.heading_font' => array( 'type' => 'choice', 'default' => 'same', 'choices' => array( 'same', 'system', 'arial', 'verdana', 'tahoma', 'trebuchet', 'georgia', 'times', 'custom' ) ),
+			'design.heading_font_custom' => array( 'type' => 'text', 'default' => '' ),
+			'design.heading_size' => array( 'type' => 'int', 'default' => 0, 'min' => 0, 'max' => 36 ),
+			'design.heading_weight' => array( 'type' => 'choice', 'default' => '700', 'choices' => array( '400', '500', '600', '700', '800' ) ),
+			'design.heading_case' => array( 'type' => 'choice', 'default' => 'none', 'choices' => array( 'none', 'uppercase' ) ),
+			'design.heading_line' => array( 'type' => 'bool', 'default' => true ),
+			'design.step_numbers' => array( 'type' => 'bool', 'default' => true ),
+			'design.label_weight' => array( 'type' => 'choice', 'default' => '600', 'choices' => array( '400', '500', '600', '700' ) ),
 			'design.custom_css'   => array( 'type' => 'css', 'default' => '' ),
 
 			// Advanced.
@@ -145,6 +168,16 @@ class STMC_Settings {
 			$value = $value[ $part ];
 		}
 		return $value;
+	}
+
+	/**
+	 * What a trust item can show: the bundled icons, or "custom" for an image
+	 * from the media library (its attachment ID sits in the _media key).
+	 *
+	 * @return string[]
+	 */
+	public static function trust_icons() {
+		return array( 'lock', 'shield', 'card', 'truck', 'refresh', 'phone', 'star', 'check', 'clock', 'invoice', 'custom' );
 	}
 
 	/**

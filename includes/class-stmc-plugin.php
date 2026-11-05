@@ -34,6 +34,7 @@ final class STMC_Plugin {
 		// The block layer boots here, not with the modules: it must exist on the
 		// Store API request that validates and stores the order (see the class).
 		STMC_Blocks::init();
+		STMC_Module_Legal::early();
 		if ( is_admin() && class_exists( 'STMC_Admin' ) ) {
 			STMC_Admin::init();
 			STMC_Block_Checkout::init();

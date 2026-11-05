@@ -93,8 +93,20 @@
 					source = doc.querySelector( CONTENT_SELECTORS[ i ] );
 				}
 				var clean = sanitize( source || doc.body );
-				if ( ( clean.textContent || '' ).replace( /\s+/g, '' ).length < 200 ) {
+				var length = ( clean.textContent || '' ).replace( /\s+/g, '' ).length;
+				if ( ! length ) {
 					throw new Error( 'empty' );
+				}
+				// A form page keeps only its intro here: show that, and the way to the page.
+				if ( length < 200 ) {
+					var more = document.createElement( 'p' );
+					var page = document.createElement( 'a' );
+					page.href = fallbackHref;
+					page.target = '_blank';
+					page.rel = 'noopener';
+					page.textContent = body.getAttribute( 'data-open-short' );
+					more.appendChild( page );
+					clean.appendChild( more );
 				}
 				cache[ url ] = clean;
 				body.innerHTML = '';

@@ -107,7 +107,7 @@ body.stmc-checkout .wc-block-components-checkout-step__title,
 body.stmc-checkout .wc-block-components-title,
 body.stmc-checkout .wc-block-cart__totals-title {
 	color: var(--stmc-title);
-	font-size: var(--stmc-fs-xl);
+	font-size: var(--stmc-h-size, var(--stmc-fs-xl));
 	font-weight: 600;
 	letter-spacing: 0;
 }
@@ -121,18 +121,19 @@ body.stmc-checkout .wc-block-components-checkout-step__title {
 	gap: 10px;
 	margin: 0 0 var(--stmc-sp-4);
 	padding: 0 0 14px;
-	border-bottom: 2px solid var(--stmc-accent);
-	font-family: inherit;
-	font-weight: 700;
+	border-bottom: var(--stmc-h-line, 2px) solid var(--stmc-accent);
+	font-family: var(--stmc-h-font, inherit);
+	font-weight: var(--stmc-h-weight, 700);
 	line-height: 1.3;
 	letter-spacing: -0.01em;
+	text-transform: var(--stmc-h-case, none);
 }
 
 body.stmc-checkout .wc-block-components-checkout-step__title::before {
 	counter-increment: stmc-step;
 	content: counter(stmc-step);
 	flex: 0 0 auto;
-	display: flex;
+	display: var(--stmc-h-num, flex);
 	align-items: center;
 	justify-content: center;
 	width: 26px;

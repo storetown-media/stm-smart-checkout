@@ -55,6 +55,22 @@ body.stmc-fullpage {
 	padding: 8px 20px 40px;
 }
 
+/* WooCommerce's stylesheet for block themes caps this wrapper at 1000px. On our
+   1180px stage that took 180px from the columns and pushed the whole form off
+   centre against the steps above it (measured: 130 to 1130 in a 1440 window). */
+body.stmc-checkout main .woocommerce {
+	max-width: 1180px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* A site can hang its own footer onto wp_footer, past this template. Our legal
+   line stands in for it here, so it stays out, whatever put it there. */
+body.stmc-fullpage > footer:not(.stmc-fullpage__footer),
+body.stmc-fullpage > [role="contentinfo"]:not(.stmc-fullpage__footer) {
+	display: none;
+}
+
 .stmc-fullpage__footer {
 	margin-top: 40px;
 	padding: 22px 20px 30px;
@@ -135,8 +151,19 @@ body.stmc-checkout .stmc-band__logo {
 	display: block;
 	flex: 0 0 auto;
 	width: auto;
-	height: 34px;
+	height: var(--stmc-logo-h, 34px);
 	margin: 0;
+}
+
+/* The chosen font, on what this plugin draws: a site's own header keeps its type. */
+body.stmc-checkout .woocommerce,
+body.stmc-checkout .wp-block-woocommerce-checkout,
+body.stmc-checkout .wp-block-woocommerce-cart,
+body.stmc-checkout .stmc-band,
+body.stmc-checkout .stmc-steps,
+body.stmc-checkout .stmc-fullpage__footer,
+body.stmc-checkout .select2-dropdown {
+	font-family: var(--stmc-font, inherit);
 }
 
 body.stmc-checkout .stmc-band__sitename {
@@ -172,6 +199,17 @@ body.stmc-checkout .stmc-band__trust svg {
 	height: 15px;
 	color: var(--stmc-accent);
 	opacity: 0.9;
+}
+
+/* The shop's own image: one height, whatever its format, in its own colours. */
+body.stmc-checkout .stmc-trust-img {
+	flex: 0 0 auto;
+	display: block;
+	width: auto;
+	max-width: 72px;
+	height: 18px;
+	margin: 0;
+	object-fit: contain;
 }
 
 /* Login pill: a member of the row now, not something floating over it. */
@@ -417,14 +455,17 @@ body.stmc-checkout .stmc-section-title {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	box-sizing: border-box;
+	min-height: 42px;
 	margin: 0 0 20px;
 	padding: 0 0 14px;
-	border-bottom: 2px solid var(--stmc-accent);
-	font-family: inherit;
-	font-size: var(--stmc-fs-xl);
-	font-weight: 700;
+	border-bottom: var(--stmc-h-line, 2px) solid var(--stmc-accent);
+	font-family: var(--stmc-h-font, inherit);
+	font-size: var(--stmc-h-size, var(--stmc-fs-xl));
+	font-weight: var(--stmc-h-weight, 700);
 	line-height: 1.3;
 	letter-spacing: -0.01em;
+	text-transform: var(--stmc-h-case, none);
 	color: var(--stmc-title);
 }
 
@@ -434,7 +475,7 @@ body.stmc-checkout form.checkout #order_review .stmc-section-title::before {
 	counter-increment: stmc-step;
 	content: counter(stmc-step);
 	flex: 0 0 auto;
-	display: flex;
+	display: var(--stmc-h-num, flex);
 	align-items: center;
 	justify-content: center;
 	width: 26px;
@@ -476,10 +517,10 @@ body.stmc-checkout.stmc-layout-three-column form.checkout:has(.stmc-notes-toggle
 	content: "2";
 }
 
-/* The payment column's head runs one size below the step heads — the live
-   shop renders it at 1rem against the 1.15rem billing head. */
+/* Side by side the three heads read as one line, so they share one size. */
+body.stmc-checkout.stmc-layout-three-column .stmc-section-title,
 body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .stmc-section-title {
-	font-size: var(--stmc-fs-m);
+	font-size: var(--stmc-h-size, var(--stmc-fs-l));
 }
 
 /* When the order-notes section moves into the payment column (shipping-free
@@ -789,7 +830,7 @@ body.stmc-checkout .woocommerce form .form-row select:focus {
 body.stmc-checkout .woocommerce form .form-row label {
 	margin-bottom: 7px;
 	font-size: var(--stmc-fs-base);
-	font-weight: 600;
+	font-weight: var(--stmc-label-weight, 600);
 	line-height: 1.35;
 	color: var(--stmc-label);
 	letter-spacing: 0;
@@ -999,38 +1040,43 @@ body.stmc-checkout form.checkout #order_review {
 	body.stmc-checkout.stmc-layout-three-column .stmc-payment-col {
 		grid-column: 1;
 		grid-row: 1 / span 2;
-		padding: 0 42px 0 0;
+		align-self: stretch;
+		padding: 0 30px 0 0;
 		border-right: 1px solid var(--stmc-line-soft);
 	}
 
 	body.stmc-checkout.stmc-layout-three-column .stmc-order-part--top {
 		grid-column: 2;
 		grid-row: 1;
-		padding: 0 0 0 42px;
+		padding: 0 0 0 30px;
 	}
 
 	body.stmc-checkout.stmc-layout-three-column .stmc-order-part--bottom {
 		grid-column: 2;
 		grid-row: 2;
-		padding: 0 0 0 42px;
+		padding: 0 0 0 30px;
 	}
 }
 
-/* Column title without a step number (the order part is the constant) —
-   16px/700 in body ink, exactly the predecessor's .stm-ck-spaltentitel. */
+/* Column title without a step number (the order part is the constant). The
+   same box as a numbered head: min-height stands in for the number's 26px, so
+   all three underlines run at one height. */
 body.stmc-checkout .stmc-col-title {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	margin: 0 0 16px;
-	padding: 0 0 12px;
-	border-bottom: 2px solid var(--stmc-accent);
-	font-family: inherit;
-	font-size: var(--stmc-fs-m);
-	font-weight: 700;
+	box-sizing: border-box;
+	min-height: 42px;
+	margin: 0 0 20px;
+	padding: 0 0 14px;
+	border-bottom: var(--stmc-h-line, 2px) solid var(--stmc-accent);
+	font-family: var(--stmc-h-font, inherit);
+	font-size: var(--stmc-h-size, var(--stmc-fs-l));
+	font-weight: var(--stmc-h-weight, 700);
 	line-height: 1.3;
 	letter-spacing: -0.01em;
-	color: var(--stmc-ink);
+	text-transform: var(--stmc-h-case, none);
+	color: var(--stmc-title);
 }
 
 /* Cart: two columns as well. */
@@ -1326,6 +1372,20 @@ body.stmc-checkout #payment div.payment_box {
 	overflow: hidden;
 }
 
+/* WooCommerce prints the privacy note in body size, the loudest text of the column. */
+body.stmc-checkout .woocommerce-privacy-policy-text,
+body.stmc-checkout .woocommerce-privacy-policy-text p {
+	margin: 0 0 12px;
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+	line-height: 1.5;
+}
+
+/* WooCommerce's speech-bubble tip: inside our box it is a stray dash. */
+body.stmc-checkout #payment div.payment_box::before {
+	display: none;
+}
+
 body.stmc-checkout #payment div.payment_box iframe,
 body.stmc-checkout #payment div.payment_box img {
 	max-width: 100%;
@@ -1407,6 +1467,11 @@ body.stmc-checkout .stmc-trust-row__item svg {
 	height: 13px;
 	color: var(--stmc-muted);
 	opacity: 0.9;
+}
+
+body.stmc-checkout .stmc-trust-row__item .stmc-trust-img {
+	max-width: 60px;
+	height: 15px;
 }
 
 /* ---------- 12. Continue shopping ---------- */
@@ -1560,6 +1625,7 @@ body.stmc-checkout .stmc-delivery-time {
 	order: 99;
 	margin: 2px 0 0;
 	font-size: var(--stmc-fs-xs);
+	font-weight: 400;
 	line-height: 1.45;
 	color: var(--stmc-muted);
 }
@@ -1594,6 +1660,27 @@ body.stmc-checkout .wc-gzd-checkbox-placeholder:not(:has(input, .wc-gzd-legal-ch
 	padding: 0;
 }
 
+/* A notice has nothing to do: no card, a quiet sentence above the button. Our
+   own and Germanized's box with its input hidden read the same. */
+body.stmc-checkout .stmc-consent--notice {
+	margin: 0 0 12px;
+}
+
+body.stmc-checkout .stmc-consent--notice .stmc-consent__text {
+	margin: 0;
+	color: var(--stmc-muted);
+	font-size: var(--stmc-fs-s);
+	line-height: 1.5;
+}
+
+html body.stmc-checkout .wc-gzd-checkbox-placeholder:not(:has(input[type="checkbox"])) {
+	margin: 0 0 12px;
+	padding: 0;
+	border: 0;
+	background: none;
+	box-shadow: none;
+}
+
 /* A rejected order marks the row invalid — the card shows it, quietly. */
 body.stmc-checkout .wc-gzd-checkbox-placeholder:has(.woocommerce-invalid),
 body.stmc-checkout .woocommerce-terms-and-conditions-wrapper .form-row:has(.woocommerce-invalid) {
@@ -1625,12 +1712,16 @@ html body.stmc-checkout .woocommerce-terms-and-conditions-wrapper label.checkbox
 	gap: 12px;
 	position: relative;
 	margin: 0;
-	padding: 0 12px 0 0;
+	padding: 0;
 	font-size: var(--stmc-fs-s);
 	font-weight: 400;
 	line-height: 1.55;
 	color: var(--stmc-muted);
 	cursor: pointer;
+}
+
+html body.stmc-checkout .wc-gzd-checkbox-placeholder p.form-row {
+	padding-right: 0;
 }
 
 body.stmc-checkout .wc-gzd-checkbox-placeholder .woocommerce-gzd-legal-checkbox-text,
@@ -1869,11 +1960,16 @@ body.stmc-checkout #order_review table.shop_table tr {
 	padding: 10px 14px;
 }
 
+/* The row carries the air. Cell padding on top of it doubled every line
+   (68px for a subtotal of one text line). */
 body.stmc-checkout #order_review table.shop_table th,
 body.stmc-checkout #order_review table.shop_table td {
 	display: block;
 	flex: 0 0 auto;
 	width: auto;
+	padding: 2px 0;
+	border-bottom: 0;
+	background: transparent;
 }
 
 body.stmc-checkout #order_review table.shop_table th {
@@ -1892,11 +1988,14 @@ body.stmc-checkout #order_review table.shop_table tr.cart_item {
 	align-items: flex-start;
 }
 
+/* break-word, not anywhere: "anywhere" counts towards the minimum width, so a
+   flex parent may squeeze the name down to one letter per line. */
 body.stmc-checkout #order_review table.shop_table td.product-name {
-	flex: 1 1 auto;
+	flex: 1 1 0;
+	min-width: 0;
 	white-space: normal;
 	overflow: visible;
-	overflow-wrap: anywhere;
+	overflow-wrap: break-word;
 	text-align: left;
 }
 
@@ -1909,14 +2008,55 @@ body.stmc-checkout #order_review table.shop_table td.product-name img {
 	margin: 2px 10px 4px 0;
 }
 
-/* Quantity stepper in the product line: compact, token-voiced, disabled
-   states quiet. While a change is in flight the whole group dims. */
+/* Germanized wraps thumbnail, name and quantity in a flex row, which left the
+   name what the other two did not need: 30px in the three-column layout, one
+   letter per line. Here the picture holds the left, name and stepper stack. */
+body.stmc-checkout #order_review table.shop_table .wc-gzd-cart-item-name-wrapper {
+	display: block;
+}
+
+body.stmc-checkout #order_review table.shop_table .wc-gzd-cart-item-has-thumbnail .wc-gzd-cart-item-name-wrapper {
+	display: grid;
+	grid-template-columns: 44px minmax(0, 1fr);
+	column-gap: 10px;
+	align-items: start;
+}
+
+body.stmc-checkout #order_review table.shop_table .wc-gzd-cart-item-thumbnail {
+	grid-column: 1;
+	grid-row: 1 / span 2;
+	width: auto;
+	margin: 0;
+}
+
+body.stmc-checkout #order_review table.shop_table .wc-gzd-cart-item-thumbnail img {
+	display: block;
+	float: none;
+	margin: 0;
+}
+
+/* Quantity stepper under the name, whatever the column width: compact,
+   token-voiced, disabled states quiet. While a change is in flight the whole
+   group dims. */
 body.stmc-checkout .stmc-qty {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	gap: 8px;
-	margin-left: 6px;
-	vertical-align: middle;
+	width: fit-content;
+	margin: 6px 0 0;
+}
+
+/* Named rows: the template leaves a non-breaking space between the two, and as
+   an item of its own it would claim a row of air. This way it lands under the
+   picture. */
+body.stmc-checkout #order_review .wc-gzd-cart-item-name-wrapper .stmc-qty {
+	grid-column: 2;
+	grid-row: 2;
+}
+
+body.stmc-checkout #order_review .wc-gzd-cart-item-name-wrapper .stmc-delivery-time {
+	grid-column: 2;
+	grid-row: 3;
 }
 
 body.stmc-checkout .stmc-qty__btn {
@@ -2726,6 +2866,34 @@ body.stmc-checkout .wc-gzd-checkbox-placeholder label > .required {
    wherever the row has a gap between them. */
 body.stmc-checkout .woocommerce-checkout-review-order-table .cart_item > td {
 	border-top: 0;
+}
+
+/* Astra writes checkout rules with IDs into the page itself: a line and air on
+   every h3 of the address column, and no top padding on the order card. */
+body.stmc-checkout form.checkout #customer_details .stmc-section-title {
+	margin-bottom: 20px;
+	padding: 0 0 14px;
+	border-bottom: var(--stmc-h-line, 2px) solid var(--stmc-accent);
+}
+
+body.stmc-checkout.theme-astra form.checkout #order_review#order_review {
+	padding: 22px 24px;
+}
+
+body.stmc-checkout.theme-astra.stmc-layout-ultra-compact form.checkout #order_review#order_review {
+	padding: 14px 16px;
+}
+
+@media (max-width: 767px) {
+	body.stmc-checkout.theme-astra form.checkout #order_review#order_review {
+		padding: 16px;
+	}
+}
+
+/* Blocksy pulls the payment box out of its card on small screens. */
+body.stmc-checkout form.checkout #order_review .woocommerce-checkout-payment {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 /* Storefront keeps the empty header element once its actions are gone: a white

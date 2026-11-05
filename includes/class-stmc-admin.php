@@ -234,7 +234,7 @@ class STMC_Admin {
 			),
 			array(
 				'title' => __( 'Checkout offers', 'stm-smart-checkout' ),
-				'text'  => __( 'A card above the buy button that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily.', 'stm-smart-checkout' ),
+				'text'  => __( 'A card at the checkout that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily.', 'stm-smart-checkout' ),
 			),
 			array(
 				'title' => __( 'VAT ID with live VIES check', 'stm-smart-checkout' ),

@@ -4,7 +4,7 @@ Tags: checkout, woocommerce checkout, conversion, germanized, checkout fields
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.54
+Stable tag: 0.1.55
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,7 +80,7 @@ The free plugin is complete in itself and stays that way. The paid add-on adds:
 * **Layout test:** two layouts take turns in blocks of hours, without a cookie and without a visitor identifier.
 * **Card testing protection:** limits per connection, a hidden trap, a minimum time and a warning mail.
 * **Bundle discounts** that reach PayPal as a real discount, with a progress hint.
-* **Checkout offers:** cards above the buy button that add a product with one click.
+* **Checkout offers:** cards at the checkout that add a product with one click.
 * **VAT ID with live VIES check and reverse charge.** An unreachable EU service never grants an exemption.
 * **Express zone:** one band above the form for wallet buttons, through the providers' own filters.
 * **Payment-dependent required fields**, re-checked on the server.
@@ -253,6 +253,10 @@ Older entries (0.1.0 to 0.1.28) are kept in `CHANGELOG-ARCHIVE.txt` in the plugi
 repository: https://github.com/storetown-media/stm-smart-checkout
 They are left out here because WordPress.org truncates this section at 5,000 words,
 which would drop them silently instead of on purpose.
+
+= 0.1.55 =
+* Changed: in the three-column layouts the "different address" switch and the order notes now sit under the payment methods. The address column gets shorter, the middle column no longer stays half empty, and a ticked shipping address unfolds where there is room.
+* Fixed: the sign in front of the opened order notes line showed a broken character.
 
 = 0.1.54 =
 * New: Backup and transfer. Download your settings as a file, import them in another shop, and bring back any of the last 15 states with one click. Links to pages, menus and images stay in the shop they belong to.

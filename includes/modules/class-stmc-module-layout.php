@@ -80,18 +80,20 @@ class STMC_Module_Layout extends STMC_Module {
 			add_action( 'woocommerce_checkout_order_review', array( $this, 'order_part_close' ), 999 );
 
 			/*
-			 * Compact stage: "Additional information" (order notes) moves under
-			 * the payment methods. The section lives in form-shipping.php, which
-			 * the form prints in the LEFT column — on a shipping-free cart that
-			 * is a lone card dangling under the address. Re-hooking WooCommerce's
-			 * own renderer into the payment column (priority 3 = after #payment,
-			 * before the column closes at 5) keeps field names, validation and
-			 * the order_comments POST untouched. Only when nothing ships: with a
-			 * shipping address the template belongs on the left. Not registered
-			 * during AJAX: update_order_review re-runs these hooks for its
-			 * fragment, which would duplicate the section and eat typed notes.
+			 * Compact stage: the "different address" switch and the order notes
+			 * move under the payment methods. Both live in form-shipping.php,
+			 * which the form prints in the LEFT column: the address column gets
+			 * longer, the payment column stays a short box over an empty card
+			 * (measured on the demo shop, 05.11.2026: 240 px of content in a
+			 * column 1125 px high). Re-hooking WooCommerce's own renderer into
+			 * the payment column (priority 3 = after #payment, before the column
+			 * closes at 5) keeps field names, validation and the POST untouched,
+			 * and a ticked shipping address unfolds where the room is. Not
+			 * registered during AJAX: update_order_review re-runs these hooks
+			 * for its fragment, which would duplicate the section and eat what
+			 * was typed.
 			 */
-			if ( ! STMC_Settings::get( 'checkout.notes_collapsed' ) && ! wp_doing_ajax() && function_exists( 'WC' ) && WC()->cart && ! WC()->cart->needs_shipping_address() ) {
+			if ( ! wp_doing_ajax() && function_exists( 'WC' ) && WC()->cart ) {
 				remove_action( 'woocommerce_checkout_shipping', array( WC()->checkout(), 'checkout_form_shipping' ) );
 				add_action( 'woocommerce_review_order_after_payment', array( WC()->checkout(), 'checkout_form_shipping' ), 3 );
 			}

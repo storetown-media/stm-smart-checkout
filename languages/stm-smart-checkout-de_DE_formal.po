@@ -635,8 +635,8 @@ msgstr "Ein Prozentsatz auf den Warenkorb, sobald genug verschiedene Produkte da
 msgid "Checkout offers"
 msgstr "Angebote an der Kasse"
 
-msgid "A card above the buy button that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily."
-msgstr "Eine Karte über dem Kaufknopf, die mit einem Klick ein weiteres Produkt in die Bestellung legt — mit eigener Steuerklasse, eigenem Bestand und eigener Lieferzeit, und ebenso leicht wieder heraus."
+msgid "A card at the checkout that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily."
+msgstr "Eine Karte an der Kasse, die mit einem Klick ein weiteres Produkt in die Bestellung legt — mit eigener Steuerklasse, eigenem Bestand und eigener Lieferzeit, und ebenso leicht wieder heraus."
 
 msgid "VAT ID with live VIES check"
 msgstr "USt-IdNr. mit VIES-Live-Prüfung"

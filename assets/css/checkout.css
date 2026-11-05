@@ -542,6 +542,24 @@ body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-addit
 	box-shadow: none;
 }
 
+/* The "different address" switch sits in the same column, as the same kind of
+   quiet sub-block. Only when it has something to show: on a cart that ships
+   nothing the shell arrives empty. */
+body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-shipping-fields:has(.form-row, h3, .shipping_address) {
+	margin: 18px 0 0;
+	padding: 6px 0 0;
+	background: transparent;
+	border: 0;
+	border-top: 1px solid var(--stmc-line-soft);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-shipping-fields:has(.form-row, h3, .shipping_address) + .woocommerce-additional-fields {
+	margin-top: 6px;
+	padding-top: 10px;
+}
+
 /* With order notes switched off the shell arrives empty — no separator then. */
 body.stmc-checkout.stmc-layout-three-column .stmc-payment-col .woocommerce-additional-fields:not(:has(.form-row, .stmc-section-title)) {
 	margin: 0;
@@ -1585,7 +1603,7 @@ body.stmc-checkout .stmc-notes-toggle::before {
 }
 
 body.stmc-checkout .stmc-notes-toggle[aria-expanded="true"]::before {
-	content: "2";
+	content: "\2212";
 }
 
 body.stmc-checkout .stmc-notes-toggle:hover,

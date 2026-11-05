@@ -62,7 +62,7 @@ msgid "Checkout offers"
 msgstr ""
 
 #: includes/class-stmc-admin.php:237
-msgid "A card above the buy button that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily."
+msgid "A card at the checkout that adds one more product to the order in a single click — with its own tax class, stock and delivery time, and removable just as easily."
 msgstr ""
 
 #: includes/class-stmc-admin.php:240

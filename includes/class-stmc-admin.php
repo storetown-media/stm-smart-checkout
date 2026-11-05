@@ -407,6 +407,15 @@ class STMC_Admin {
 			'form'   => false,
 		);
 
+		$sections['transfer'] = array(
+			'group'  => 'system',
+			'order'  => 12,
+			'label'  => __( 'Backup and transfer', 'stm-smart-checkout' ),
+			'intro'  => __( 'Take your settings to another shop, and go back to an earlier state.', 'stm-smart-checkout' ),
+			'render' => array( 'STMC_Transfer', 'panel' ),
+			'form'   => false,
+		);
+
 		/*
 		 * Its own panel and not a line in Advanced: the way back to the blocks
 		 * is a form, and a form inside the settings form would end that form

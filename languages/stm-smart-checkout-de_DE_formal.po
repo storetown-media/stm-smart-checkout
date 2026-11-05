@@ -1492,3 +1492,132 @@ msgstr "Hinweise: %d"
 
 msgid "In order: %d"
 msgstr "In Ordnung: %d"
+
+msgid "Backup and transfer"
+msgstr "Sichern und Übertragen"
+
+msgid "Take your settings to another shop, and go back to an earlier state."
+msgstr "Einstellungen in einen anderen Shop mitnehmen und zu einem früheren Stand zurückkehren."
+
+msgid "You are not allowed to do this."
+msgstr "Dafür fehlt die Berechtigung."
+
+msgid "Unknown step."
+msgstr "Unbekannter Schritt."
+
+msgid "File imported. Settings changed: %d. The earlier state is listed below."
+msgstr "Datei eingespielt. Geänderte Einstellungen: %d. Der bisherige Stand steht unten in der Liste."
+
+msgid "The file matches your settings, nothing had to change."
+msgstr "Die Datei entspricht den aktuellen Einstellungen, es musste sich nichts ändern."
+
+msgid "Links to pages, menus, images and addresses of the other shop were left out: %d. Please check them here."
+msgstr "Verknüpfungen zu Seiten, Menüs, Bildern und Adressen des anderen Shops wurden ausgelassen: %d. Diese Angaben bitte hier prüfen."
+
+msgid "Settings for functions that are not available here were skipped: %d."
+msgstr "Einstellungen für Funktionen, die es hier nicht gibt, wurden übersprungen: %d."
+
+msgid "A part of the file could not be used and was left out."
+msgstr "Ein Teil der Datei ließ sich nicht verwenden und wurde ausgelassen."
+
+msgid "The earlier state is back. The state before it is listed below, if you want it again."
+msgstr "Der frühere Stand ist wieder aktiv. Der Stand davor steht unten in der Liste."
+
+msgid "The settings are back to the defaults. The state before it is listed below."
+msgstr "Die Einstellungen stehen wieder auf Standard. Der Stand davor steht unten in der Liste."
+
+msgid "Please choose a file first."
+msgstr "Bitte zuerst eine Datei auswählen."
+
+msgid "This file is too large to be a settings file."
+msgstr "Diese Datei ist zu groß für eine Einstellungsdatei."
+
+msgid "This is not a settings file of this plugin. Nothing was changed."
+msgstr "Das ist keine Einstellungsdatei dieses Plugins. Es wurde nichts geändert."
+
+msgid "This file comes from a newer version of the plugin. Please update first. Nothing was changed."
+msgstr "Diese Datei stammt aus einer neueren Plugin-Version. Bitte zuerst aktualisieren. Es wurde nichts geändert."
+
+msgid "This state no longer exists. Nothing was changed."
+msgstr "Diesen Stand gibt es nicht mehr. Es wurde nichts geändert."
+
+msgid "Before a file was imported"
+msgstr "Vor dem Einspielen einer Datei"
+
+msgid "Before an earlier state came back"
+msgstr "Vor dem Wiederherstellen eines Stands"
+
+msgid "Before the reset"
+msgstr "Vor dem Zurücksetzen"
+
+msgid "Before the checkout fields were saved"
+msgstr "Vor dem Speichern der Kassenfelder"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Before a change in: %s"
+msgstr "Vor einer Änderung in: %s"
+
+msgid "Before a change"
+msgstr "Vor einer Änderung"
+
+msgid "Move settings"
+msgstr "Einstellungen mitnehmen"
+
+msgid "For a second shop, a staging site or as a backup. The file holds no licence key and no customer data."
+msgstr "Für einen zweiten Shop, ein Testsystem oder als Sicherung. Die Datei enthält keinen Lizenzschlüssel und keine Kundendaten."
+
+msgid "Export"
+msgstr "Export"
+
+msgid "All settings of this shop in one file."
+msgstr "Alle Einstellungen dieses Shops in einer Datei."
+
+msgid "Download settings"
+msgstr "Einstellungen herunterladen"
+
+msgid "Import this file? Your present settings are kept as an earlier state."
+msgstr "Diese Datei einspielen? Die aktuellen Einstellungen bleiben als früherer Stand erhalten."
+
+msgid "Import"
+msgstr "Import"
+
+msgid "A file from another shop leaves out its links to pages, menus and images, and its addresses, because they would point at the wrong thing here."
+msgstr "Aus der Datei eines anderen Shops bleiben Verknüpfungen zu Seiten, Menüs und Bildern sowie Adressen außen vor, weil sie hier ins Leere zeigen würden."
+
+msgid "Take those links as well. Only for a copy of this shop with the same page IDs, such as a staging site."
+msgstr "Diese Verknüpfungen trotzdem übernehmen. Nur für eine Kopie dieses Shops mit gleichen Seiten-IDs, etwa ein Testsystem."
+
+msgid "Import settings"
+msgstr "Einstellungen einspielen"
+
+msgid "Earlier states"
+msgstr "Frühere Stände"
+
+msgid "Before every change the plugin keeps the state so far, the last %d stay. Each line brings back the state before that change."
+msgstr "Vor jeder Änderung hält das Plugin den bisherigen Stand fest, die letzten %d bleiben erhalten. Jede Zeile holt den Stand vor dieser Änderung zurück."
+
+msgid "None yet. The first one appears with your next change."
+msgstr "Noch keine. Der erste Stand erscheint mit der nächsten Änderung."
+
+msgid "Bring back this state? Your present settings are kept as an earlier state."
+msgstr "Diesen Stand wiederherstellen? Die aktuellen Einstellungen bleiben als früherer Stand erhalten."
+
+msgid "Bring back"
+msgstr "Wiederherstellen"
+
+msgid "Back to the defaults"
+msgstr "Zurück zum Standard"
+
+msgid "Resets all settings. Links to pages, menus and images stay, and so does whatever an add-on stores by itself."
+msgstr "Setzt alle Einstellungen zurück. Verknüpfungen zu Seiten, Menüs und Bildern bleiben erhalten, ebenso was eine Erweiterung selbst speichert."
+
+msgid "Reset all settings to the defaults? Your present settings are kept as an earlier state."
+msgstr "Alle Einstellungen auf Standard zurücksetzen? Die aktuellen Einstellungen bleiben als früherer Stand erhalten."
+
+msgid "Reset settings"
+msgstr "Einstellungen zurücksetzen"
+
+msgid "File imported. The earlier state is listed below."
+msgstr "Datei eingespielt. Der bisherige Stand steht unten in der Liste."

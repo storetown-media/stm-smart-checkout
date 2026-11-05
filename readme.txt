@@ -181,6 +181,7 @@ They are left out here because WordPress.org truncates this section at 5,000 wor
 which would drop them silently instead of on purpose.
 
 = 0.1.54 =
+* New: Backup and transfer. Download your settings as a file, import them in another shop, and bring back any of the last 15 states with one click. Links to pages, menus and images stay in the shop they belong to.
 * New: Checkout check. One screen shows what is in order and what is not: legal pages, buy button, consent, footer, payment, shipping, HTTPS and page cache, each finding with a link to the fix.
 * New: logo from the media library with its height, fonts for text and headings without any outside server, heading size, weight, letter case, line and step numbers, label weight, all with a live preview.
 * New: own colours for the buy button, with a live preview and a contrast warning. They also win over a theme that paints the button itself.

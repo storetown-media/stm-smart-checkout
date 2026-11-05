@@ -1434,3 +1434,48 @@ details.stmc-card:not([open]) > summary {
 		grid-template-columns: minmax(0, 1fr) auto;
 	}
 }
+
+/* Backup and transfer: text on the left, its button on the right. */
+
+.stmc-tf {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+.stmc-tf form {
+	flex: none;
+}
+
+.stmc-tf .description {
+	margin: 2px 0 0;
+}
+
+.stmc-tf > .button {
+	flex: none;
+}
+
+.stmc-tf__file {
+	margin: 12px 0 0;
+}
+
+.stmc-tf__check {
+	margin: 10px 0 0;
+}
+
+.stmc-tf__go {
+	margin: 12px 0 0;
+}
+
+@media (max-width: 600px) {
+	.stmc-tf {
+		display: block;
+	}
+
+	.stmc-tf form,
+	.stmc-tf > .button {
+		display: inline-block;
+		margin-top: 10px;
+	}
+}

@@ -317,6 +317,16 @@
 	}
 	drawTrust();
 
+	/* Forms that delete something ask first. */
+
+	root.addEventListener( 'submit', function ( event ) {
+		var question = event.target.getAttribute( 'data-stmc-confirm' );
+		// eslint-disable-next-line no-alert -- a plain question at a plain moment.
+		if ( question && ! window.confirm( question ) ) {
+			event.preventDefault();
+		}
+	} );
+
 	/* Checkout check: runs when its panel opens. The server escapes what it sends. */
 
 	function runCheck( again ) {

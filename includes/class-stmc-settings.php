@@ -234,6 +234,78 @@ class STMC_Settings {
 		return isset( $fields['design.layout'] ) ? (string) $fields['design.layout']['default'] : 'two-column';
 	}
 
+	/**
+	 * The value as stored, past the option filters. An add-on may change values
+	 * while they are read, and such a value must not be written back.
+	 *
+	 * @return array
+	 */
+	public static function stored() {
+		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- the point is to skip the option cache and its filters.
+		$value = maybe_unserialize( $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", self::OPTION ) ) );
+		return is_array( $value ) ? $value : array();
+	}
+
+	/**
+	 * @param array $stored Settings, possibly from an older version.
+	 * @return array Every known key, clean, with the default where a key is missing.
+	 */
+	public static function complete( array $stored ) {
+		return self::merge_defaults( $stored );
+	}
+
+	/**
+	 * @param array    $base     Settings to start from.
+	 * @param array    $incoming Settings to lay over them.
+	 * @param string[] $skip     Dot keys that stay as in $base.
+	 * @return array
+	 */
+	public static function overlay( array $base, array $incoming, array $skip = array() ) {
+		foreach ( array_diff( array_keys( self::fields() ), $skip ) as $key ) {
+			$value = self::get_path( $incoming, $key );
+			if ( null !== $value ) {
+				self::set_path( $base, $key, $value );
+			}
+		}
+		return $base;
+	}
+
+	/**
+	 * @param array $before Settings.
+	 * @param array $after  Settings.
+	 * @return string[] Dot keys that differ.
+	 */
+	public static function changed( array $before, array $after ) {
+		$before = self::merge_defaults( $before );
+		$after  = self::merge_defaults( $after );
+		$keys   = array();
+		foreach ( array_keys( self::fields() ) as $key ) {
+			if ( self::get_path( $before, $key ) !== self::get_path( $after, $key ) ) {
+				$keys[] = $key;
+			}
+		}
+		return $keys;
+	}
+
+	/**
+	 * @param array  $incoming Settings from a file.
+	 * @param string $prefix   Path so far.
+	 * @return int How many of its values this shop has no setting for.
+	 */
+	public static function unknown( array $incoming, $prefix = '' ) {
+		$fields = self::fields();
+		$count  = 0;
+		foreach ( $incoming as $name => $value ) {
+			$key = $prefix . $name;
+			if ( isset( $fields[ $key ] ) ) {
+				continue;
+			}
+			$count += is_array( $value ) ? self::unknown( $value, $key . '.' ) : 1;
+		}
+		return $count;
+	}
+
 	/** Sanitize a whole submitted settings array (register_setting callback). */
 	public static function sanitize( $raw ) {
 		$raw   = is_array( $raw ) ? $raw : array();

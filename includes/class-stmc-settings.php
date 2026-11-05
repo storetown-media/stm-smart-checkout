@@ -214,6 +214,16 @@ class STMC_Settings {
 	 * @return string
 	 */
 	public static function layout() {
+		/**
+		 * The layout of this request, for a test that shows another one.
+		 *
+		 * @param string $layout The saved layout.
+		 */
+		return (string) apply_filters( 'stmc_active_layout', self::saved_layout() );
+	}
+
+	/** @return string The saved layout, or its nearest relative. */
+	private static function saved_layout() {
 		/*
 		 * The RAW option, not get(): reading a setting sanitizes it, and a
 		 * choice that is no longer offered sanitizes to the plain default —

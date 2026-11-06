@@ -16,6 +16,10 @@ Distraction-free WooCommerce checkout with the German and EU legal essentials bu
 
 Switch on preview mode and look at your checkout the way a customer does, while your customers keep the standard checkout. If you do not like it, deactivate the plugin and everything is as it was: no pages changed, no data locked in.
 
+https://www.youtube.com/watch?v=GcP0MvzAwzI
+
+The film shows every feature on a real checkout: the free plugin first, Pro from 4:29. To try it yourself, open the [demo checkout](https://woo-shop.de/kasse/?add-to-cart=451&stmc_lang=en). The demo shop runs on sample data and shows the free plugin and Pro together.
+
 = What sets it apart =
 
 * **It stands down instead of fighting.** Before it prints a consent box, a button label or a VAT line, it asks the *rendered* checkout whether another plugin already prints one. That is why it runs next to WooCommerce Germanized and German Market without duplicate texts.
